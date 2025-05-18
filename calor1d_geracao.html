@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MinervaMesh</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- PyScript CSS -->
+    <link rel="stylesheet" href="https://pyscript.net/releases/2024.2.1/core.css" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- This script tag bootstraps PyScript -->
+    <script type="module" src="https://pyscript.net/releases/2024.2.1/core.js"></script>
+    <style>
+      body {
+          font-family: Arial, sans-serif;
+          margin: 0;
+          padding: 20px;
+          background-color: #f5f5f5;
+      }
+      #controls {
+          margin-bottom: 20px;
+      }
+      label {
+          margin-right: 10px;
+      }
+      input {
+          margin-right: 20px;
+      }
+      #plot {
+          margin-top: 20px;
+      }
+      button.matplotlib-toolbar-button {
+          background-color: #3B82F6 !important;
+          color: white !important;
+          border: none;
+          border-radius: 4px;
+          margin: 2px;
+          padding: 5px;
+          font-size: 12px;
+          cursor: pointer;
+      }
+
+      button.matplotlib-toolbar-button:hover {
+          background-color: #2563EB !important;
+      }
+  </style>
+  </head>
+  <py-config>
+      packages = ["numpy", "matplotlib"]
+  </py-config>
+  <body class="bg-gray-100 min-h-screen p-8">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">MinervaMesh - Simulação de Condução de Calor</h2>
+      
+      <div id="controls" class="bg-white rounded-lg shadow-md p-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="flex flex-col">
+            <label for="nx" class="text-sm font-medium text-gray-700 mb-1">Número de Nós:</label>
+            <input type="number" id="nx" value="10" min="1" 
+                   class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+          </div>
+          
+          <div class="flex flex-col">
+            <label for="alpha" class="text-sm font-medium text-gray-700 mb-1">Alpha:</label>
+            <input type="number" id="alpha" value="0.1" step="0.01"
+                   class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+          </div>
+          
+          <div class="flex flex-col">
+            <label for="Q" class="text-sm font-medium text-gray-700 mb-1">Geração de Calor (Q):</label>
+            <input type="number" id="Q" value="2" step="0.1"
+                   class="rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+          </div>
+        </div>
+        
+        <div class="mt-6 flex justify-center">
+          <button id="runBtn" 
+                  class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-md transition duration-150 ease-in-out">
+            Rodar Simulação
+          </button>
+        </div>
+      </div>
+      <py-script>
+        import numpy as np
+        import matplotlib.pyplot as plt
+        from js import document
+        from pyodide.ffi import create_proxy
+
+        def analytical_solution(x, Q, alpha, L):
+            C1 = 1 + (Q / (2 * alpha)) * L
+            return - (Q / (2 * alpha)) * x**2 + C1 * x
+
+        def runSimulation(event):
+            L = 1.0
+            nx = int(document.getElementById("nx").value)
+            alpha = float(document.getElementById("alpha").value)
+            Q = float(document.getElementById("Q").value)
+            dx = L / (nx + 1)
+
+            K = np.zeros((nx, nx))
+            F = np.zeros(nx)
+
+            for i in range(nx):
+                K[i, i] = 2
+                if i > 0:
+                    K[i, i - 1] = -1
+                if i < nx - 1:
+                    K[i, i + 1] = -1
+
+            F.fill(Q / alpha * dx**2)
+            F[-1] -= -1
+
+            T_internal = np.linalg.solve(K, F)
+            T = np.concatenate(([0], T_internal, [1]))
+
+            x_analytical = np.linspace(0, L, 100)
+            T_analytical = analytical_solution(x_analytical, Q, alpha, L)
+
+            plt.figure(figsize=(10, 6))
+            x = np.linspace(0, L, nx + 2)
+            plt.plot(x, T, 'o-', label="Solução Numérica", color='#3B82F6', linewidth=2, markersize=8)
+            plt.plot(x_analytical, T_analytical, '--', label="Solução Analítica", color='#EF4444', linewidth=2)
+            # Adiciona os parâmetros na legenda
+            param_label = f"Parâmetros:\nNº Nós (nx): {nx} | Alpha: {alpha} | Q: {Q}"
+            plt.plot([], [], ' ', label=param_label)
+            plt.title("Comparação: Solução Numérica vs Analítica", fontsize=14, pad=15)
+            plt.xlabel("Posição (x)", fontsize=12)
+            plt.ylabel("Temperatura (T)", fontsize=12)
+            plt.grid(True, linestyle='--', alpha=0.7)
+            plt.legend(fontsize=10, framealpha=0.9)
+            plt.tight_layout()
+            plt.show()
+
+        # Proxy para o evento de clique
+        run_btn = document.getElementById("runBtn")
+        run_btn.addEventListener("click", create_proxy(runSimulation))
+
+      </py-script>
+    </div>
+</body>
+</html>
