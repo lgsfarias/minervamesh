@@ -3,7 +3,7 @@ import json
 import meshio
 from pyscript import when, display
 import plotly.graph_objects as go
-from js import console, document, Blob
+from js import console, document, Blob, Uint8Array
 import tempfile
 import os
 from scipy.spatial import Delaunay
@@ -214,6 +214,10 @@ def generate_mesh_data(lc, L, H, hole_type, hole_params):
         points = mesh.points[:, :2]  # Apenas coordenadas x, y
         cells = np.array(mesh.cells_dict["triangle"])
         
+        # Ler conteúdo do arquivo .msh para exportação
+        with open(mesh_file, "rb") as f:
+            msh_bytes = f.read()
+        
         # Limpar arquivo temporário
         try:
             os.unlink(mesh_file)
@@ -226,7 +230,8 @@ def generate_mesh_data(lc, L, H, hole_type, hole_params):
             'hole_type': hole_type,
             'hole_params': hole_params,
             'domain': {'L': L, 'H': H},
-            'lc': lc
+            'lc': lc,
+            'msh_bytes': msh_bytes
         }
     except Exception as e:
         return {"error": [f"Erro ao gerar malha: {str(e)}"]}
@@ -401,11 +406,12 @@ def hide_loading():
 
 # Variável global para armazenar a última malha gerada
 last_mesh_data = None
+last_msh_bytes = None
 
 @when("click", "#generate-btn")
 def generate_mesh():
     """Função principal executada quando o botão 'Gerar Malha' é clicado."""
-    global last_mesh_data
+    global last_mesh_data, last_msh_bytes
     try:
         # Mostrar loading
         show_loading()
@@ -424,6 +430,7 @@ def generate_mesh():
         if not hole_params:
             show_status("Erro: Parâmetros do furo não encontrados!", "error")
             document.getElementById("export-btn").disabled = True
+            document.getElementById("export-msh-btn").disabled = True
             return
         
         # Gerar malha
@@ -432,6 +439,7 @@ def generate_mesh():
         if "error" in result:
             show_status(f"Erro: {'; '.join(result['error'])}", "error")
             document.getElementById("export-btn").disabled = True
+            document.getElementById("export-msh-btn").disabled = True
             return
         
         # Limpar o container do gráfico antes de exibir o novo
@@ -446,8 +454,16 @@ def generate_mesh():
         
         # Armazenar a última malha gerada
         last_mesh_data = result
-        # Habilitar botão de exportação
+        # Habilitar botão de exportação JSON
         document.getElementById("export-btn").disabled = False
+        
+        # Habilitar botão de exportação .msh se disponível
+        if 'msh_bytes' in result:
+            last_msh_bytes = result['msh_bytes']
+            document.getElementById("export-msh-btn").disabled = False
+        else:
+            last_msh_bytes = None
+            document.getElementById("export-msh-btn").disabled = True
         
         # Mostrar sucesso
         show_status("Malha gerada com sucesso!", "success")
@@ -456,6 +472,7 @@ def generate_mesh():
         console.error(f"Erro ao gerar malha: {str(e)}")
         show_status(f"Erro inesperado: {str(e)}", "error")
         document.getElementById("export-btn").disabled = True
+        document.getElementById("export-msh-btn").disabled = True
     
     finally:
         hide_loading()
@@ -483,6 +500,25 @@ def export_mesh():
     link = document.createElement("a")
     link.href = url
     link.download = "malha.json"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    js.URL.revokeObjectURL(url)
+
+# Handler para exportar a malha em .msh
+@when("click", "#export-msh-btn")
+def export_msh():
+    global last_msh_bytes
+    if last_msh_bytes is None:
+        show_status("Nenhuma malha gerada para exportar!", "error")
+        return
+    # Converter bytes para Uint8Array
+    array = Uint8Array.new(list(last_msh_bytes))
+    blob = Blob.new([array], {"type": "application/octet-stream"})
+    url = js.URL.createObjectURL(blob)
+    link = document.createElement("a")
+    link.href = url
+    link.download = "malha.msh"
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
