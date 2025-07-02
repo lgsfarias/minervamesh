@@ -54,63 +54,128 @@ class MeshGenerator:
         X, Y = np.meshgrid(x, y)
         points = np.column_stack([X.flatten(), Y.flatten()])
         
-        # Remover pontos dentro do furo
+        # Se não for 'none', remover pontos dentro do furo
         hole_x, hole_y = self.L / 2, self.H / 2
         mask = np.ones(len(points), dtype=bool)
         
-        if self.hole_type == "circle":
-            radius = self.hole_params["radius"]
+        if self.hole_type == "circle" and self.hole_params:
+            radius = self.hole_params.get("radius", 0.1)
             dist = np.sqrt((points[:, 0] - hole_x)**2 + (points[:, 1] - hole_y)**2)
             mask = dist > radius
-            
-        elif self.hole_type == "square":
-            width = self.hole_params["width"]
-            height = self.hole_params["height"]
+        elif self.hole_type == "square" and self.hole_params:
+            width = self.hole_params.get("width", 0.1)
+            height = self.hole_params.get("height", 0.1)
             x_mask = (points[:, 0] < hole_x - width/2) | (points[:, 0] > hole_x + width/2)
             y_mask = (points[:, 1] < hole_y - height/2) | (points[:, 1] > hole_y + height/2)
             mask = x_mask | y_mask
-            
-        elif self.hole_type == "elipse":
-            rx = self.hole_params["rx"]
-            ry = self.hole_params["ry"]
+        elif self.hole_type == "elipse" and self.hole_params:
+            rx = self.hole_params.get("rx", 0.15)
+            ry = self.hole_params.get("ry", 0.1)
             dist = ((points[:, 0] - hole_x)**2 / rx**2) + ((points[:, 1] - hole_y)**2 / ry**2)
             mask = dist > 1
-        
-        # Filtrar pontos
+        # Se for 'none', não faz nada no mask
         points = points[mask]
         
         # Adicionar pontos no contorno do furo para melhor qualidade da malha
-        boundary_points = self._generate_boundary_points(hole_x, hole_y)
-        points = np.vstack([points, boundary_points])
+        boundary_points = None
+        if self.hole_type != "none":
+            boundary_points = self._generate_boundary_points(hole_x, hole_y)
+            points = np.vstack([points, boundary_points])
         
         # Gerar triangulação de Delaunay
         tri = Delaunay(points)
         
         # Função para verificar se um ponto está dentro do furo
         def is_in_hole(centroid, hole_type, hole_x, hole_y, hole_params):
-            if hole_type == "circle":
-                radius = hole_params["radius"]
+            if hole_type == "circle" and hole_params:
+                radius = hole_params.get("radius", 0.1)
                 dist = np.sqrt((centroid[0] - hole_x)**2 + (centroid[1] - hole_y)**2)
                 return dist < radius
-            elif hole_type == "square":
-                width = hole_params["width"]
-                height = hole_params["height"]
+            elif hole_type == "square" and hole_params:
+                width = hole_params.get("width", 0.1)
+                height = hole_params.get("height", 0.1)
                 return (hole_x - width/2 < centroid[0] < hole_x + width/2) and (hole_y - height/2 < centroid[1] < hole_y + height/2)
-            elif hole_type == "elipse":
-                rx = hole_params["rx"]
-                ry = hole_params["ry"]
+            elif hole_type == "elipse" and hole_params:
+                rx = hole_params.get("rx", 0.15)
+                ry = hole_params.get("ry", 0.1)
                 dist = ((centroid[0] - hole_x)**2 / rx**2) + ((centroid[1] - hole_y)**2 / ry**2)
                 return dist < 1
             return False
-
+        
         # Filtrar triângulos cujo centróide está dentro do furo
-        filtered_triangles = []
-        for triangle in tri.simplices:
-            pts = points[triangle]
-            centroid = np.mean(pts, axis=0)
-            if not is_in_hole(centroid, self.hole_type, hole_x, hole_y, self.hole_params):
-                filtered_triangles.append(triangle)
-        filtered_triangles = np.array(filtered_triangles)
+        if self.hole_type != "none":
+            filtered_triangles = []
+            for triangle in tri.simplices:
+                pts = points[triangle]
+                centroid = np.mean(pts, axis=0)
+                if not is_in_hole(centroid, self.hole_type, hole_x, hole_y, self.hole_params):
+                    filtered_triangles.append(triangle)
+            filtered_triangles = np.array(filtered_triangles)
+        else:
+            filtered_triangles = tri.simplices
+        
+        # --- NOVO: Gerar elementos de linha (bordas) ---
+        border_lines = []
+        border_lines_furo = []
+        # Bordas externas do retângulo
+        if self.hole_type == "none":
+            # Encontrar nós das 4 bordas (em ordem)
+            tol = 1e-8
+            idx_left   = np.where(np.abs(points[:,0] - 0.0) < tol)[0]
+            idx_right  = np.where(np.abs(points[:,0] - self.L) < tol)[0]
+            idx_bottom = np.where(np.abs(points[:,1] - 0.0) < tol)[0]
+            idx_top    = np.where(np.abs(points[:,1] - self.H) < tol)[0]
+            # Ordenar por Y ou X para garantir sequência
+            idx_left   = idx_left[np.argsort(points[idx_left,1])]
+            idx_right  = idx_right[np.argsort(points[idx_right,1])]
+            idx_bottom = idx_bottom[np.argsort(points[idx_bottom,0])]
+            idx_top    = idx_top[np.argsort(points[idx_top,0])]
+            # Montar linhas (em sentido anti-horário)
+            for i in range(len(idx_bottom)-1):
+                border_lines.append((idx_bottom[i], idx_bottom[i+1]))
+            for i in range(len(idx_right)-1):
+                border_lines.append((idx_right[i], idx_right[i+1]))
+            for i in range(len(idx_top)-1):
+                border_lines.append((idx_top[-(i+1)], idx_top[-(i+2)]))
+            for i in range(len(idx_left)-1):
+                border_lines.append((idx_left[-(i+1)], idx_left[-(i+2)]))
+            # Fechar os cantos
+            border_lines.append((idx_bottom[0], idx_left[0]))
+            border_lines.append((idx_bottom[-1], idx_right[0]))
+            border_lines.append((idx_top[0], idx_right[-1]))
+            border_lines.append((idx_top[-1], idx_left[-1]))
+        else:
+            # Bordas externas
+            tol = 1e-8
+            idx_left   = np.where(np.abs(points[:,0] - 0.0) < tol)[0]
+            idx_right  = np.where(np.abs(points[:,0] - self.L) < tol)[0]
+            idx_bottom = np.where(np.abs(points[:,1] - 0.0) < tol)[0]
+            idx_top    = np.where(np.abs(points[:,1] - self.H) < tol)[0]
+            idx_left   = idx_left[np.argsort(points[idx_left,1])]
+            idx_right  = idx_right[np.argsort(points[idx_right,1])]
+            idx_bottom = idx_bottom[np.argsort(points[idx_bottom,0])]
+            idx_top    = idx_top[np.argsort(points[idx_top,0])]
+            for i in range(len(idx_bottom)-1):
+                border_lines.append((idx_bottom[i], idx_bottom[i+1]))
+            for i in range(len(idx_right)-1):
+                border_lines.append((idx_right[i], idx_right[i+1]))
+            for i in range(len(idx_top)-1):
+                border_lines.append((idx_top[-(i+1)], idx_top[-(i+2)]))
+            for i in range(len(idx_left)-1):
+                border_lines.append((idx_left[-(i+1)], idx_left[-(i+2)]))
+            border_lines.append((idx_bottom[0], idx_left[0]))
+            border_lines.append((idx_bottom[-1], idx_right[0]))
+            border_lines.append((idx_top[0], idx_right[-1]))
+            border_lines.append((idx_top[-1], idx_left[-1]))
+            # Bordas do furo
+            if boundary_points is not None:
+                for i in range(len(boundary_points)):
+                    p1 = boundary_points[i]
+                    p2 = boundary_points[(i+1)%len(boundary_points)]
+                    idx1 = np.where(np.all(np.abs(points - p1) < tol, axis=1))[0][0]
+                    idx2 = np.where(np.all(np.abs(points - p2) < tol, axis=1))[0][0]
+                    border_lines_furo.append((idx1, idx2))
+        # --- FIM NOVO ---
         
         # Criar arquivo temporário
         temp_file = tempfile.NamedTemporaryFile(suffix='.msh', delete=False)
@@ -124,9 +189,23 @@ class MeshGenerator:
             for i, point in enumerate(points):
                 f.write(f"{i+1} {point[0]:.6f} {point[1]:.6f} 0.0\n")
             f.write("$EndNodes\n")
-            f.write(f"$Elements\n{len(filtered_triangles)}\n")
-            for i, triangle in enumerate(filtered_triangles):
-                f.write(f"{i+1} 2 2 1 1 {triangle[0]+1} {triangle[1]+1} {triangle[2]+1}\n")
+            # Escrever elementos: primeiro as linhas externas, depois as linhas do furo, depois os triângulos
+            n_lines = len(border_lines)
+            n_lines_furo = len(border_lines_furo)
+            n_tris = len(filtered_triangles)
+            f.write(f"$Elements\n{n_lines + n_lines_furo + n_tris}\n")
+            eid = 1
+            # Physical Group 1: contorno externo
+            for line in border_lines:
+                f.write(f"{eid} 1 2 1 1 {line[0]+1} {line[1]+1}\n")
+                eid += 1
+            # Physical Group 2: contorno do furo
+            for line in border_lines_furo:
+                f.write(f"{eid} 1 2 2 2 {line[0]+1} {line[1]+1}\n")
+                eid += 1
+            for triangle in filtered_triangles:
+                f.write(f"{eid} 2 2 1 1 {triangle[0]+1} {triangle[1]+1} {triangle[2]+1}\n")
+                eid += 1
             f.write("$EndElements\n")
         
         return temp_filename
@@ -424,14 +503,15 @@ def generate_mesh():
         hole_type = document.getElementById("hole-type").value
         
         # Obter parâmetros do furo
-        hole_params = get_hole_params(hole_type)
-        
-        # Validar se todos os parâmetros foram obtidos
-        if not hole_params:
-            show_status("Erro: Parâmetros do furo não encontrados!", "error")
-            document.getElementById("export-btn").disabled = True
-            document.getElementById("export-msh-btn").disabled = True
-            return
+        if hole_type == "none":
+            hole_params = {}
+        else:
+            hole_params = get_hole_params(hole_type)
+            if not hole_params:
+                show_status("Erro: Parâmetros do furo não encontrados!", "error")
+                document.getElementById("export-btn").disabled = True
+                document.getElementById("export-msh-btn").disabled = True
+                return
         
         # Gerar malha
         result = generate_mesh_data(lc, L, H, hole_type, hole_params)
