@@ -1,0 +1,140 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Simulação Transiente de Condução de Calor em Placa 2D
+@author: lgsfarias
+"""
+
+# ==============================
+# 0. Importações
+# ==============================
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.tri as tri
+from scipy.sparse import lil_matrix, csr_matrix
+from scipy.sparse.linalg import spsolve
+from pyscript import when, document
+import imageio.v2 as imageio
+import io
+import base64
+
+# ==============================
+# 1. Geração da Malha
+# ==============================
+nx, ny = 40, 40
+x = np.linspace(0, 1, nx)
+y = np.linspace(0, 1, ny)
+Xg, Yg = np.meshgrid(x, y)
+X = Xg.flatten()
+Y = Yg.flatten()
+points = np.column_stack((X, Y))
+triang = tri.Triangulation(X, Y)
+elements = triang.triangles
+n_nodes = len(points)
+
+# ==============================
+# 2. Matrizes Locais
+# ==============================
+def element_matrices(coords, k, rho, cv):
+    x0, x1, x2 = coords
+    area = 0.5 * abs((x1[0] - x0[0]) * (x2[1] - x0[1]) - (x2[0] - x0[0]) * (x1[1] - x0[1]))
+    b = np.array([x1[1] - x2[1], x2[1] - x0[1], x0[1] - x1[1]])
+    c = np.array([x2[0] - x1[0], x0[0] - x2[0], x1[0] - x0[0]])
+    ke = (k / (4 * area)) * (np.outer(b, b) + np.outer(c, c))
+    me = (rho * cv * area / 12.0) * (np.ones((3, 3)) + np.eye(3))
+    return ke, me
+
+# ==============================
+# 3. Gerar imagem do frame
+# ==============================
+def generate_frame_image(u, step, dt, Tbottom, Ttop):
+    fig, ax = plt.subplots(figsize=(6, 5))
+    tpc = ax.tricontourf(triang, u, levels=50, cmap='jet', vmin=Tbottom, vmax=Ttop)
+    ax.set_title(f"t = {step * dt:.3f} s")
+    ax.set_xlabel("x")
+    ax.set_ylabel("y")
+    fig.colorbar(tpc, ax=ax)
+    buf = io.BytesIO()
+    plt.tight_layout()
+    plt.savefig(buf, format='png')
+    plt.close(fig)
+    buf.seek(0)
+    return imageio.imread(buf)
+
+# ==============================
+# 4. Rodar Simulação
+# ==============================
+@when("click", "#run-btn")
+def run_simulation(event=None):
+    # Mostrar spinner de loading dentro do plot-output
+    document.getElementById("plot-output").innerHTML = """
+      <div class="flex flex-col items-center justify-center py-6">
+        <div class="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
+        <p class="mt-4 text-blue-700 font-medium">Calculando simulação...</p>
+      </div>
+    """
+
+    # Parâmetros
+    dt = float(document.getElementById("dt").value)
+    n_steps = int(document.getElementById("n_steps").value)
+    Tbottom = float(document.getElementById("Tbottom").value)
+    Ttop = float(document.getElementById("Ttop").value)
+    k = float(document.getElementById("k").value)
+    rho = float(document.getElementById("rho").value)
+    cv = float(document.getElementById("cv").value)
+
+    # Matrizes globais
+    M = lil_matrix((n_nodes, n_nodes))
+    K = lil_matrix((n_nodes, n_nodes))
+    for el in elements:
+        coords = points[el]
+        ke, me = element_matrices(coords, k, rho, cv)
+        for i in range(3):
+            for j in range(3):
+                K[el[i], el[j]] += ke[i, j]
+                M[el[i], el[j]] += me[i, j]
+    M = M.tocsr()
+    K = K.tocsr()
+
+    # Condições iniciais
+    u = np.zeros(n_nodes)
+    for i in range(n_nodes):
+        xi, yi = X[i], Y[i]
+        if np.isclose(xi, 0) or np.isclose(xi, 1):
+            u[i] = Tbottom + (Ttop - Tbottom) * yi
+        elif np.isclose(yi, 0):
+            u[i] = Tbottom
+        elif np.isclose(yi, 1):
+            u[i] = Ttop
+
+    u_init = u.copy()
+    boundary_nodes = [i for i in range(n_nodes) if
+                      np.isclose(X[i], 0) or np.isclose(X[i], 1) or
+                      np.isclose(Y[i], 0) or np.isclose(Y[i], 1)]
+
+    A = M + dt / 2 * K
+    B = M - dt / 2 * K
+    A = A.tolil()
+    for i in boundary_nodes:
+        A[i, :] = 0
+        A[i, i] = 1
+    A = A.tocsr()
+
+    # Loop de tempo
+    frames = []
+    for step in range(n_steps):
+        b = B @ u
+        b[boundary_nodes] = u_init[boundary_nodes]
+        u = spsolve(A, b)
+        frames.append(generate_frame_image(u, step, dt, Tbottom, Ttop))
+
+    # Salvar GIF
+    gif_buffer = io.BytesIO()
+    imageio.mimsave(gif_buffer, frames, format='GIF', duration=0.1, loop=0)
+    gif_buffer.seek(0)
+    gif_base64 = base64.b64encode(gif_buffer.read()).decode("utf-8")
+
+    # Mostrar resultado final
+    document.getElementById("plot-output").innerHTML = (
+        f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
+    )
