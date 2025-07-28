@@ -17,6 +17,7 @@ from pyscript import when, document
 import imageio.v2 as imageio
 import io
 import base64
+import asyncio
 
 # ==============================
 # 1. Geração da Malha
@@ -65,7 +66,7 @@ def generate_frame_image(u, step, dt, Tbottom, Ttop):
 # 4. Rodar Simulação
 # ==============================
 @when("click", "#run-btn")
-def run_simulation(event=None):
+async def run_simulation(event=None):
     # Mostrar spinner de loading dentro do plot-output
     document.getElementById("plot-output").innerHTML = """
       <div class="flex flex-col items-center justify-center py-6">
@@ -73,6 +74,8 @@ def run_simulation(event=None):
         <p class="mt-4 text-blue-700 font-medium">Calculando simulação...</p>
       </div>
     """
+
+    await asyncio.sleep(0.05) # permite que o DOM atualize antes de continuar
 
     # Parâmetros
     dt = float(document.getElementById("dt").value)
