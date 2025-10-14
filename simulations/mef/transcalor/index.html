@@ -72,10 +72,10 @@
       </div>
     </dialog>
     <div class="max-w-6xl mx-auto relative">
-      <img src="../assets/logo_poli_ufrj.png" alt="Logo Politécnica UFRJ" class="h-12 w-auto absolute top-0 right-0 mt-2 mr-2 opacity-80" />
+      <img src="../../../assets/logo_poli_ufrj.png" alt="Logo Politécnica UFRJ" class="h-12 w-auto absolute top-0 right-0 mt-2 mr-2 opacity-80" />
 
       <div class="flex items-center mb-8">
-        <a href="../index.html" class="flex items-center text-blue-600 hover:text-blue-800 transition">
+        <a href="../../../index.html" class="flex items-center text-blue-600 hover:text-blue-800 transition">
           <i class="fas fa-arrow-left mr-2"></i> <span class="font-medium">Voltar para Menu</span>
         </a>
       </div>
@@ -154,12 +154,12 @@
       </div>
     </div>
 
-    <script type="py" src="../py/transcalor.py" config="../transcalor.toml"></script>
+    <script type="py" src="simulation.py" config="config.toml"></script>
 
     <script>
       async function loadSourceCode() {
         try {
-          const response = await fetch("../py/transcalor.py");
+          const response = await fetch("simulation.py");
           const code = await response.text();
           document.getElementById("sourceCode").textContent = code;
           Prism.highlightElement(document.getElementById("sourceCode"));

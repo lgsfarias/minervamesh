@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MinervaMesh - Equação da Onda 1D</title>
+    <title>MinervaMesh - Condução Transiente 1D</title>
     <link rel="stylesheet" href="https://pyscript.net/releases/2024.2.1/core.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="https://pyscript.net/releases/2024.2.1/core.js"></script>
@@ -66,23 +66,23 @@
       </div>
     </dialog>
     <div class="max-w-5xl mx-auto relative">
-        <img src="../assets/logo_poli_ufrj.png" alt="Logo Politécnica UFRJ" class="h-12 w-auto absolute top-0 right-0 mt-2 mr-2 opacity-80" />
+        <img src="../../../assets/logo_poli_ufrj.png" alt="Logo Politécnica UFRJ" class="h-12 w-auto absolute top-0 right-0 mt-2 mr-2 opacity-80" />
 
         <div class="flex items-center mb-6">
-            <a href="../index.html" class="flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-150">
+            <a href="../../../index.html" class="flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-150">
                 <span class="font-medium">Voltar para Menu</span>
             </a>
         </div>
 
-        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Equação da Onda 1D - Leapfrog</h2>
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Condução Transiente 1D (MEF)</h2>
 
         <div class="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
             <h3 class="font-semibold text-lg text-blue-800 mb-2">Sobre o problema</h3>
-            <p class="text-gray-700 mb-2">Resolvemos a equação da onda 1D com extremidades fixas (u=0 nas fronteiras) e condições iniciais configuráveis.
-                Para a condição inicial senoidal, a solução analítica conhecida é usada para comparação durante a animação.</p>
+            <p class="text-gray-700 mb-2">Resolvemos a equação da condução transiente de calor 1D usando Método dos Elementos Finitos com condutividade térmica variável k(x).
+                Condições de contorno: T(0,t) = 0 e T(L,t) = 1. Condutividade: k(x) = k₁ para x < L/2 e k(x) = k₂ para x ≥ L/2 (configuráveis).</p>
             <h4 class="font-semibold text-blue-700 mt-4 mb-1">Método utilizado</h4>
-            <p class="text-gray-700">Utilizamos o esquema explícito leapfrog em malha uniforme; a estabilidade é controlada via número CFL (dt = CFL·dx/c).
-                Os frames são renderizados e combinados em um GIF para visualização no navegador.</p>
+            <p class="text-gray-700">Utilizamos o <strong>Método dos Elementos Finitos (MEF)</strong> com elementos lineares uniformemente espaçados e integração temporal via <strong>método de Crank-Nicolson</strong>.
+                O número de elementos é configurável, demonstrando a flexibilidade do MEF para tratar condutividade térmica variável. A solução analítica mostrada é para k(x) constante (linha reta) como referência.</p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -94,55 +94,60 @@
                         <input type="number" id="L" value="1.0" step="0.1" min="0.2" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="nx" class="block text-sm font-medium text-gray-700">Número de pontos (nx)</label>
-                        <input type="number" id="nx" value="201" min="21" step="20" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                        <label for="k1" class="block text-sm font-medium text-gray-700">Condutividade primeira metade (k₁)</label>
+                        <input type="number" id="k1" value="5.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="c" class="block text-sm font-medium text-gray-700">Velocidade (c)</label>
-                        <input type="number" id="c" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                        <label for="k2" class="block text-sm font-medium text-gray-700">Condutividade segunda metade (k₂)</label>
+                        <input type="number" id="k2" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="cfl" class="block text-sm font-medium text-gray-700">CFL (<=1)</label>
-                        <input type="number" id="cfl" value="0.9" step="0.05" min="0.1" max="1.0" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                        <label for="n_elements" class="block text-sm font-medium text-gray-700">Número de elementos</label>
+                        <input type="number" id="n_elements" value="40" min="2" step="1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                    </div>
+                    <div>
+                        <label for="rho_cp" class="block text-sm font-medium text-gray-700">Densidade × Calor específico (ρcₚ)</label>
+                        <input type="number" id="rho_cp" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                    </div>
+                    <div>
+                        <label for="dt" class="block text-sm font-medium text-gray-700">Passo de tempo (dt)</label>
+                        <input type="number" id="dt" value="0.001" step="0.0005" min="0.0005" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                    </div>
+                    <div>
+                        <label for="theta" class="block text-sm font-medium text-gray-700">Parâmetro θ (0=explícito, 0.5=Crank-Nicolson, 1=implícito)</label>
+                        <input type="number" id="theta" value="0.5" step="0.1" min="0" max="1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
                         <label for="tmax" class="block text-sm font-medium text-gray-700">Tempo total (s)</label>
-                        <input type="number" id="tmax" value="2.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
-                    </div>
-                    <div>
-                        <label for="mode" class="block text-sm font-medium text-gray-700">Condição inicial</label>
-                        <select id="mode" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                            <option value="senoide">Senoide fundamental</option>
-                            <option value="pulso">Pulso localizado</option>
-                        </select>
+                        <input type="number" id="tmax" value="0.200" step="0.01" min="0.01" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                 </div>
                 <div class="flex gap-3 mt-5">
-                    <button id="runWaveBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">Executar</button>
+                    <button id="runHeatBtn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">Executar</button>
                     <button id="showCodeBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded"><i class="fas fa-code mr-2"></i>Ver Código Fonte</button>
                 </div>
             </div>
 
             <div class="md:col-span-2 bg-white rounded-lg shadow p-5">
                 <h3 class="text-lg font-semibold text-blue-700 mb-4">Resultado</h3>
-                <div id="wave-output" class="w-full min-h-[360px] bg-gray-50 rounded flex items-center justify-center text-gray-500"></div>
+                <div id="heat-output" class="w-full min-h-[360px] bg-gray-50 rounded flex items-center justify-center text-gray-500"></div>
             </div>
         </div>
     </div>
 
-    <script type="py" src="../py/equacao_onda.py" config="../onda.toml"></script>
+    <script type="py" src="simulation.py" config="config.toml"></script>
 
     <script>
-      const waveOutput = document.getElementById('wave-output');
+      const heatOutput = document.getElementById('heat-output');
       document.addEventListener('py:ready', () => {
-        waveOutput.textContent = 'Clique em "Executar" para gerar a animação';
+        heatOutput.textContent = 'Clique em "Executar" para gerar a animação';
       });
     </script>
 
     <div id="codeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
         <div class="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
             <div class="flex justify-between items-center mb-4">
-                <h3 class="text-xl font-bold text-gray-800">Código Fonte - Equação da Onda</h3>
+                <h3 class="text-xl font-bold text-gray-800">Código Fonte - Condução Transiente 1D (MEF)</h3>
                 <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700"><i class="fas fa-times text-xl"></i></button>
             </div>
             <pre><code class="language-python" id="sourceCode"></code></pre>
@@ -152,7 +157,7 @@
     <script>
         async function loadSourceCode() {
             try {
-                const response = await fetch('../py/equacao_onda.py');
+                const response = await fetch('simulation.py');
                 const code = await response.text();
                 document.getElementById('sourceCode').textContent = code;
                 Prism.highlightElement(document.getElementById('sourceCode'));
@@ -174,5 +179,3 @@
     </script>
 </body>
 </html>
-
-

@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MinervaMesh - Convecção-Difusão 1D Permanente (MEF)</title>
+    <title>MinervaMesh - Condução Permanente 1D (MEF)</title>
     <link rel="stylesheet" href="https://pyscript.net/releases/2024.2.1/core.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module" src="https://pyscript.net/releases/2024.2.1/core.js"></script>
@@ -27,66 +27,53 @@
     <dialog id="loading"><div class="box"><div class="spinner"></div><p class="text-gray-700 font-medium text-center">Carregando PyScript...</p></div></dialog>
     <dialog id="sim-loading"><div class="box"><div class="spinner"></div><p class="text-gray-700 font-medium text-center">Executando simulação...</p></div></dialog>
 
-    <div class="max-w-6xl mx-auto relative">
-      <img src="../assets/logo_poli_ufrj.png" alt="Logo Politécnica UFRJ" class="h-12 w-auto absolute top-0 right-0 mt-2 mr-2 opacity-80" />
+    <div class="max-w-5xl mx-auto relative">
+      <img src="../../../assets/logo_poli_ufrj.png" alt="Logo Politécnica UFRJ" class="h-12 w-auto absolute top-0 right-0 mt-2 mr-2 opacity-80" />
 
       <div class="flex items-center mb-6">
-        <a href="../index.html" class="flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-150"><span class="font-medium">Voltar para Menu</span></a>
+        <a href="../../../index.html" class="flex items-center text-blue-600 hover:text-blue-800 transition-colors duration-150"><span class="font-medium">Voltar para Menu</span></a>
       </div>
 
-      <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Convecção-Difusão 1D Permanente (MEF)</h2>
+      <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Condução Permanente 1D (MEF)</h2>
 
       <div class="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
         <h3 class="font-semibold text-lg text-blue-800 mb-2">Sobre o problema</h3>
-        <p class="text-gray-700 mb-2">Resolvemos o problema 5.2.4 (apostila) de convecção-difusão térmica unidimensional em regime permanente. A equação governante é:</p>
-        <p class="text-gray-700 mb-2 font-mono text-sm bg-gray-100 p-2 rounded">-k d²T/dx² + ρcp u dT/dx = Q</p>
+        <p class="text-gray-700 mb-2">Resolvemos o problema 5.2.2 (apostila) de condução térmica unidimensional em regime permanente com geração interna e temperaturas prescritas nas extremidades.</p>
         <h4 class="font-semibold text-blue-700 mt-4 mb-1">Método utilizado</h4>
-        <p class="text-gray-700">Método dos Elementos Finitos (MEF) 1D com elementos lineares. Inclui estabilização SUPG (Streamline Upwind Petrov-Galerkin) para problemas com alta convecção (número de Péclet elevado).</p>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1">Parâmetros físicos</h4>
-        <ul class="text-gray-700 text-sm list-disc list-inside">
-          <li><strong>k:</strong> condutividade térmica [W/m·K]</li>
-          <li><strong>ρcp:</strong> densidade × calor específico [J/m³·K]</li>
-          <li><strong>u:</strong> velocidade de convecção [m/s]</li>
-          <li><strong>Q:</strong> geração interna de calor [W/m³]</li>
-        </ul>
+        <p class="text-gray-700">Método dos Elementos Finitos (MEF) 1D com elementos lineares. Montagem da matriz de rigidez global, vetor de fontes com geração interna e imposição de contorno essencial (Dirichlet). Comparamos com a solução analítica.</p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <div class="bg-white rounded-lg shadow p-5">
           <h3 class="text-lg font-semibold text-blue-700 mb-4">Parâmetros</h3>
           <div class="space-y-3">
             <div><label for="L" class="block text-sm font-medium text-gray-700">Comprimento (L) [m]</label><input type="number" id="L" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
-            <div><label for="nel" class="block text-sm font-medium text-gray-700">Número de elementos</label><input type="number" id="nel" value="50" min="2" step="1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
+            <div><label for="nel" class="block text-sm font-medium text-gray-700">Número de elementos</label><input type="number" id="nel" value="10" min="2" step="1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
             <div class="grid grid-cols-2 gap-3">
               <div><label for="T0" class="block text-sm font-medium text-gray-700">T(0) [°C]</label><input type="number" id="T0" value="0.0" step="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
               <div><label for="TL" class="block text-sm font-medium text-gray-700">T(L) [°C]</label><input type="number" id="TL" value="1.0" step="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
             </div>
-            <div><label for="k" class="block text-sm font-medium text-gray-700">k [W/m·K]</label><input type="number" id="k" value="1.0" step="0.1" min="0.01" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
-            <div><label for="rho_cp" class="block text-sm font-medium text-gray-700">ρcp [J/m³·K]</label><input type="number" id="rho_cp" value="1000.0" step="100" min="1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
-            <div><label for="u" class="block text-sm font-medium text-gray-700">u [m/s]</label><input type="number" id="u" value="0.05" step="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
-            <div><label for="Q" class="block text-sm font-medium text-gray-700">Q [W/m³]</label><input type="number" id="Q" value="1.0" step="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
-            <div class="flex items-center">
-              <input type="checkbox" id="use_supg" checked class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" />
-              <label for="use_supg" class="ml-2 text-sm font-medium text-gray-700">Usar estabilização SUPG</label>
+            <div class="grid grid-cols-2 gap-3">
+              <div><label for="k" class="block text-sm font-medium text-gray-700">k [W/m·K]</label><input type="number" id="k" value="1.0" step="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
+              <div><label for="Q" class="block text-sm font-medium text-gray-700">Q (geração) [W/m³]</label><input type="number" id="Q" value="2.0" step="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
             </div>
           </div>
           <div class="flex gap-3 mt-5">
-            <button id="runConveccaoDifusao1D" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">Rodar</button>
+            <button id="runMEF1D" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded">Rodar</button>
             <button id="showCodeBtn" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded"><i class="fas fa-code mr-2"></i>Ver Código</button>
           </div>
         </div>
 
-        <div class="lg:col-span-3 bg-white rounded-lg shadow p-5">
+        <div class="md:col-span-2 bg-white rounded-lg shadow p-5">
           <h3 class="text-lg font-semibold text-blue-700 mb-4">Resultado</h3>
-          <div id="conveccao-difusao-output" class="w-full min-h-[500px] bg-gray-50 rounded flex items-center justify-center text-gray-500">Clique em "Rodar" para iniciar</div>
-          <div id="pe-info" class="mt-4"></div>
+          <div id="mef1d-output" class="w-full min-h-[360px] bg-gray-50 rounded flex items-center justify-center text-gray-500">Clique em "Rodar" para iniciar</div>
         </div>
       </div>
 
       <div id="codeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center">
         <div class="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[80vh] overflow-y-auto">
           <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-bold text-gray-800">Código Fonte - Convecção-Difusão 1D</h3>
+            <h3 class="text-xl font-bold text-gray-800">Código Fonte - MEF 1D</h3>
             <button id="closeModalBtn" class="text-gray-500 hover:text-gray-700"><i class="fas fa-times text-xl"></i></button>
           </div>
           <pre><code class="language-python" id="sourceCode"></code></pre>
@@ -94,11 +81,11 @@
       </div>
     </div>
 
-    <script type="py" src="../py/conveccao_difusao_1d.py" config="../conveccao_difusao_1d.toml"></script>
+    <script type="py" src="simulation.py" config="config.toml"></script>
     <script>
       async function loadSourceCode() {
         try {
-          const response = await fetch('../py/conveccao_difusao_1d.py');
+          const response = await fetch('simulation.py');
           const code = await response.text();
           document.getElementById('sourceCode').textContent = code;
           Prism.highlightElement(document.getElementById('sourceCode'));
@@ -116,3 +103,5 @@
     </script>
   </body>
 </html>
+
+

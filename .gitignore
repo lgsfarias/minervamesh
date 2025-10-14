@@ -1,2 +1,8 @@
 # Diretório do VSCode
 .vscode/
+
+# Exemplos: ignore o diretório "examples/" da raiz
+/examples/
+
+# Arquivo de cache do macOS
+.DS_Store
