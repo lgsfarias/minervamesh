@@ -1,1 +1,0 @@
-packages = ["numpy", "matplotlib", "plotly", "meshio", "scipy"]
