@@ -1,0 +1,17 @@
+packages = ["numpy", "matplotlib", "scipy"]
+
+[simulation]
+name = "Escoamento de Fluido 2D (Função Corrente-Vorticidade)"
+description = "Simulação de escoamento em regime permanente em um canal com obstrução circular."
+
+[parameters]
+L = { value = 2.0, label = "Comprimento do Canal (L)", min = 1.0, max = 10.0, step = 0.1 }
+H = { value = 1.0, label = "Altura do Canal (H)", min = 0.5, max = 5.0, step = 0.1 }
+cx = { value = 0.5, label = "Posição X do Centro (cx)", min = 0.0, max = 10.0, step = 0.1 }
+cy = { value = 0.5, label = "Posição Y do Centro (cy)", min = 0.0, max = 5.0, step = 0.1 }
+r = { value = 0.15, label = "Raio da Obstrução (r)", min = 0.05, max = 0.5, step = 0.01 }
+Re = { value = 100.0, label = "Número de Reynolds (Re)", min = 1.0, max = 1000.0, step = 1.0 }
+nx = { value = 60, label = "Nós em X", min = 20, max = 200, step = 1 }
+ny = { value = 30, label = "Nós em Y", min = 10, max = 100, step = 1 }
+max_iter = { value = 500, label = "Máximo de Iterações", min = 100, max = 5000, step = 100 }
+tolerance = { value = 1e-4, label = "Tolerância", min = 1e-6, max = 1e-2, step = 1e-6 }

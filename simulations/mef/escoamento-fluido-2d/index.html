@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="../../../favicon.ico" />
+    <title>MinervaMesh - Escoamento 2D</title>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <style>
+        #loading,
+        #sim-loading {
+            border: none;
+            background: transparent;
+            padding: 0;
+        }
+
+        #loading::backdrop,
+        #sim-loading::backdrop {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+        }
+
+        .box {
+            background-color: white;
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            width: 300px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .spinner {
+            animation: spin 1s linear infinite;
+            height: 2.5rem;
+            width: 2.5rem;
+            border: 4px solid #3B82F6;
+            border-top-color: transparent;
+            border-radius: 9999px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <script type="module">
+        const loading = document.getElementById('loading');
+        addEventListener('py:ready', () => loading.close());
+        loading.showModal();
+    </script>
+</head>
+
+<body class="bg-gray-100 min-h-screen p-6 md:p-10">
+    <dialog id="loading">
+        <div class="box">
+            <div class="spinner"></div>
+            <p class="text-gray-700 font-medium text-center">Carregando PyScript...</p>
+        </div>
+    </dialog>
+    <div class="max-w-7xl mx-auto relative">
+        <img src="../../../assets/logo_poli_ufrj.png" alt="Logo Politécnica UFRJ"
+            class="h-12 w-auto absolute top-0 right-0 mt-2 mr-2 opacity-80" />
+
+        <div class="flex items-center mb-8">
+            <a href="../../../index.html" class="flex items-center text-blue-600 hover:text-blue-800 transition">
+                <i class="fas fa-arrow-left mr-2"></i> <span class="font-medium">Voltar para Menu</span>
+            </a>
+        </div>
+
+        <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">MinervaMesh - Escoamento de Fluido 2D</h2>
+
+        <!-- DESCRIÇÃO DO PROBLEMA -->
+        <div class="mb-8 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+            <h3 class="font-semibold text-lg text-blue-800 mb-2">Sobre o problema</h3>
+            <p class="text-gray-700 mb-2">
+                Esta simulação modela o escoamento de um fluido incompressível em regime permanente através de um canal
+                com uma obstrução circular.
+                A formulação utilizada é baseada na <strong>Função Corrente ($\psi$) e Vorticidade ($\omega$)</strong>.
+            </p>
+            <h4 class="font-semibold text-blue-700 mt-4 mb-1">Método Numérico</h4>
+            <p class="text-gray-700">
+                A discretização espacial é feita via <strong>Método dos Elementos Finitos (MEF)</strong> utilizando
+                triângulos lineares.
+                A malha é gerada estruturadamente e adaptada para contornar o obstáculo usando
+                <code>matplotlib.tri</code>.
+                O sistema é resolvido para encontrar o campo de velocidades (visualizado pelas linhas de corrente) e a
+                vorticidade.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Painel de Parâmetros -->
+            <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-1">
+                <h3 class="text-xl font-semibold text-blue-700 mb-4 border-b pb-2">Parâmetros</h3>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Comprimento (L):</label>
+                        <input type="number" id="L" value="2.0" step="0.1"
+                            class="w-full mb-3 rounded border-gray-300 p-2 border" />
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Altura (H):</label>
+                        <input type="number" id="H" value="1.0" step="0.1"
+                            class="w-full mb-3 rounded border-gray-300 p-2 border" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Centro X (cx):</label>
+                        <input type="number" id="cx" value="0.5" step="0.1"
+                            class="w-full mb-3 rounded border-gray-300 p-2 border" />
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Centro Y (cy):</label>
+                        <input type="number" id="cy" value="0.5" step="0.1"
+                            class="w-full mb-3 rounded border-gray-300 p-2 border" />
+                    </div>
+                </div>
+
+                <label class="block text-sm mb-1 font-medium">Raio do Obstáculo (r):</label>
+                <input type="number" id="r" value="0.15" step="0.01"
+                    class="w-full mb-3 rounded border-gray-300 p-2 border" />
+
+                <label class="block text-sm mb-1 font-medium">Reynolds (Re) (Apenas ilustrativo no Potencial):</label>
+                <input type="number" id="Re" value="100.0" step="10.0"
+                    class="w-full mb-3 rounded border-gray-300 p-2 border" />
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Nós em X (nx):</label>
+                        <input type="number" id="nx" value="60" step="1"
+                            class="w-full mb-3 rounded border-gray-300 p-2 border" />
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Nós em Y (ny):</label>
+                        <input type="number" id="ny" value="30" step="1"
+                            class="w-full mb-3 rounded border-gray-300 p-2 border" />
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Max Iter:</label>
+                        <input type="number" id="max_iter" value="500" step="100"
+                            class="w-full mb-3 rounded border-gray-300 p-2 border" />
+                    </div>
+                    <div>
+                        <label class="block text-sm mb-1 font-medium">Tolerância:</label>
+                        <input type="number" id="tolerance" value="0.0001" step="0.0001"
+                            class="w-full mb-3 rounded border-gray-300 p-2 border" />
+                    </div>
+                </div>
+
+                <div class="flex gap-2 mt-4">
+                    <button id="run-btn"
+                        class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded w-full transition shadow">
+                        <i class="fas fa-play mr-2"></i>Rodar Simulação
+                    </button>
+                </div>
+                <div class="mt-2">
+                    <button id="showCodeBtn"
+                        class="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded w-full transition shadow">
+                        <i class="fas fa-code mr-2"></i>Ver Código Fonte
+                    </button>
+                </div>
+            </div>
+
+            <!-- Visualização -->
+            <div class="lg:col-span-2">
+                <div class="bg-white rounded-lg shadow-md p-6 min-h-[600px]">
+                    <h3 class="text-xl font-semibold text-blue-700 mb-4 text-center">Resultados da Simulação</h3>
+                    <div id="plot-output"
+                        class="w-full flex justify-center items-center bg-gray-50 rounded border border-gray-200 min-h-[500px]">
+                        <p class="text-gray-400">Clique em "Rodar Simulação" para ver os resultados.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MODAL CÓDIGO -->
+        <div id="codeModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+            <div class="bg-white rounded-lg p-6 max-w-5xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+                <div class="flex justify-between items-center mb-4 border-b pb-2">
+                    <h3 class="text-xl font-bold text-gray-800">Código Fonte (simulation.py)</h3>
+                    <button id="closeModalBtn" class="text-gray-500 hover:text-red-600 transition"><i
+                            class="fas fa-times text-2xl"></i></button>
+                </div>
+                <pre><code class="language-python" id="sourceCode">Carregando...</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <script type="py" src="simulation.py" config="config.toml"></script>
+
+    <script>
+        async function loadSourceCode() {
+            try {
+                const response = await fetch("simulation.py");
+                const code = await response.text();
+                document.getElementById("sourceCode").textContent = code;
+                if (window.Prism) {
+                    Prism.highlightElement(document.getElementById("sourceCode"));
+                }
+            } catch (error) {
+                console.error("Erro ao carregar código:", error);
+                document.getElementById("sourceCode").textContent = "Erro ao carregar o código fonte.";
+            }
+        }
+
+        document.getElementById("showCodeBtn").addEventListener("click", () => {
+            document.getElementById("codeModal").classList.remove("hidden");
+            document.getElementById("codeModal").classList.add("flex");
+            loadSourceCode();
+        });
+
+        document.getElementById("closeModalBtn").addEventListener("click", () => {
+            document.getElementById("codeModal").classList.add("hidden");
+            document.getElementById("codeModal").classList.remove("flex");
+        });
+
+        document.getElementById("codeModal").addEventListener("click", (e) => {
+            if (e.target.id === "codeModal") {
+                document.getElementById("codeModal").classList.add("hidden");
+                document.getElementById("codeModal").classList.remove("flex");
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+</body>
+
+</html>
