@@ -19,30 +19,51 @@ import asyncio
 # 1. Geração da Malha
 # ==============================
 def generate_mesh(L, H, cx, cy, r, nx, ny):
+    # 1. Grid de fundo
     x = np.linspace(0, L, nx)
     y = np.linspace(0, H, ny)
+    dx = x[1] - x[0]
+    dy = y[1] - y[0]
+    h_mesh = min(dx, dy) # Tamanho característico do elemento
+    
     Xg, Yg = np.meshgrid(x, y)
     X_flat = Xg.flatten()
     Y_flat = Yg.flatten()
     
-    # Identificar nós dentro do obstáculo
+    # 2. Nós da fronteira do obstáculo
+    # Número de pontos baseado no perímetro e tamanho do elemento
+    n_circ = int(2 * np.pi * r / h_mesh)
+    if n_circ < 10: n_circ = 10 # Mínimo de pontos
+    
+    theta = np.linspace(0, 2*np.pi, n_circ, endpoint=False)
+    x_circ = cx + r * np.cos(theta)
+    y_circ = cy + r * np.sin(theta)
+    
+    # 3. Filtrar nós do grid
+    # Remover nós que estão DENTRO do círculo ou MUITO PRÓXIMOS da borda
+    # Buffer para evitar triângulos muito finos (slivers)
+    buffer = 0.3 * h_mesh
     dist = np.sqrt((X_flat - cx)**2 + (Y_flat - cy)**2)
-    mask_nodes = dist > r
+    mask_keep = dist > (r + buffer)
     
-    # Nós válidos
-    X = X_flat[mask_nodes]
-    Y = Y_flat[mask_nodes]
+    X_grid_valid = X_flat[mask_keep]
+    Y_grid_valid = Y_flat[mask_keep]
     
-    # Triangulação
+    # 4. Combinar nós
+    X = np.concatenate([X_grid_valid, x_circ])
+    Y = np.concatenate([Y_grid_valid, y_circ])
+    
+    # 5. Triangulação
     triang = tri.Triangulation(X, Y)
     
-    # Mascarar triângulos que cruzam o obstáculo ou estão dentro
+    # 6. Mascarar triângulos espúrios (dentro do obstáculo)
+    # Como temos nós na borda, o centróide dos triângulos internos estará < r
     x_tri = X[triang.triangles].mean(axis=1)
     y_tri = Y[triang.triangles].mean(axis=1)
     dist_tri = np.sqrt((x_tri - cx)**2 + (y_tri - cy)**2)
     
-    # Removemos triângulos cujo centróide está dentro do raio
-    triang.set_mask(dist_tri < r)
+    # Tolerância pequena para garantir que não mascaramos triângulos válidos da borda
+    triang.set_mask(dist_tri < r - 1e-5)
     
     return X, Y, triang
 
@@ -126,8 +147,10 @@ async def run_simulation(event=None):
         wall_top = np.where(Y > H - eps)[0]
         
         dist_obs = np.sqrt((X - cx)**2 + (Y - cy)**2)
-        dx = L / (nx - 1)
-        obstacle_nodes = np.where(dist_obs < r + dx * 1.5)[0] 
+        # Selecionar apenas nós EXATAMENTE na borda (com pequena tolerância)
+        # Como usamos malha conforme, os nós da borda têm dist ~ r
+        # Os nós do grid têm dist > r + buffer
+        obstacle_nodes = np.where(np.abs(dist_obs - r) < 1e-4)[0] 
         
         # Mapeamento reverso
         x_grid = np.linspace(0, L, nx)
