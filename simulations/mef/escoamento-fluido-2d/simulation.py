@@ -127,6 +127,7 @@ async def run_simulation(event=None):
         cy = float(document.getElementById("cy").value)
         r = float(document.getElementById("r").value)
         Re = float(document.getElementById("Re").value)
+        Gamma = float(document.getElementById("Gamma").value)
         nx = int(document.getElementById("nx").value)
         ny = int(document.getElementById("ny").value)
         max_iter = int(document.getElementById("max_iter").value)
@@ -174,8 +175,9 @@ async def run_simulation(event=None):
         psi[wall_bottom] = 0.0
         psi[wall_top] = 1.0
         
-        # Obstacle: psi constante.
-        psi_obs_val = get_psi_inlet_normalized(cy)
+        # Obstacle: psi constante + Circulação (Gamma)
+        # Gamma desloca o valor de Psi no obstáculo, alterando a estagnação
+        psi_obs_val = get_psi_inlet_normalized(cy) + Gamma
         psi[obstacle_nodes] = psi_obs_val
         
         # Nós com Dirichlet para Psi
