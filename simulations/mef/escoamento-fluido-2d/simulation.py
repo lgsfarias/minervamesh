@@ -136,9 +136,10 @@ async def run_simulation(event=None):
         # 4. Condições de Contorno e Inicialização
         psi = np.zeros(n_nodes)
         
-        # Perfil de entrada normalizado para Psi(H) = 1
+        # Perfil de entrada Uniforme (u = cte => Psi = u*y)
+        # Normalizado para Psi(H) = 1
         def get_psi_inlet_raw(y_val):
-            return (H * y_val**2 / 2.0 - y_val**3 / 3.0)
+            return y_val
             
         psi_total_flux = get_psi_inlet_raw(H)
         
