@@ -1,5 +1,8 @@
 packages = ["numpy", "matplotlib", "scipy"]
 
+[[fetch]]
+files = ["common.py"]
+
 [simulation]
 name = "Escoamento de Fluido 2D (Função Corrente-Vorticidade)"
 description = "Simulação de escoamento em regime permanente em um canal com obstrução circular."
