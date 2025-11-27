@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" type="image/x-icon" href="../../../favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../../../../favicon.ico" />
     <title>MinervaMesh - Navier-Stokes</title>
     <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css" />
     <script src="https://cdn.tailwindcss.com"></script>
@@ -76,15 +76,16 @@
         </div>
     </dialog>
     <div class="max-w-7xl mx-auto relative">
-        <img src="../../../assets/logo_poli_ufrj.png" alt="Logo Politécnica UFRJ"
+        <img src="../../../../assets/logo_poli_ufrj.png" alt="Logo Politécnica UFRJ"
             class="h-12 w-auto absolute top-0 right-0 mt-2 mr-2 opacity-80" />
 
         <div class="flex items-center mb-8">
-            <a href="../../../index.html" class="flex items-center text-blue-600 hover:text-blue-800 transition">
+            <a href="../../../../index.html" class="flex items-center text-blue-600 hover:text-blue-800 transition">
                 <i class="fas fa-arrow-left mr-2"></i> <span class="font-medium">Voltar para Menu</span>
             </a>
             <span class="mx-4 text-gray-400">|</span>
-            <a href="potential.html" class="flex items-center text-gray-600 hover:text-blue-800 transition">
+            <a href="../escoamento-potencial/index.html"
+                class="flex items-center text-gray-600 hover:text-blue-800 transition">
                 <span class="font-medium">Ir para Escoamento Potencial</span> <i class="fas fa-arrow-right ml-2"></i>
             </a>
         </div>
@@ -281,7 +282,7 @@
         </div>
     </div>
 
-    <script type="py" src="sim_ns.py?v=2" config="config.toml"></script>
+    <script type="py" src="simulation.py" config="config.toml"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
 
@@ -289,7 +290,7 @@
         // Modal logic
         async function loadSourceCode() {
             try {
-                const response = await fetch("sim_ns.py");
+                const response = await fetch("simulation.py");
                 const code = await response.text();
                 document.getElementById("sourceCode").textContent = code;
                 if (window.Prism) Prism.highlightElement(document.getElementById("sourceCode"));
