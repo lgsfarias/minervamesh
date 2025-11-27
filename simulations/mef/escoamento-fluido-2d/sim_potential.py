@@ -141,17 +141,18 @@ async def solve_potential(params, plot_div):
     # 4. Condições de Contorno
     psi = np.zeros(n_nodes)
     
-    # Normalizado para Psi(H) = 1
-    def get_psi_inlet_normalized(y_val):
-        return y_val / params["H"]
+    # Normalizado para Psi(H) = v_inf * H
+    def get_psi_inlet(y_val):
+        return params["v_inf"] * y_val
     
-    psi[inlet_nodes] = get_psi_inlet_normalized(Y[inlet_nodes])
+    psi[inlet_nodes] = get_psi_inlet(Y[inlet_nodes])
     psi[wall_bottom] = 0.0
-    psi[wall_top] = 1.0
+    psi[wall_bottom] = 0.0
+    psi[wall_top] = params["v_inf"] * params["H"]
     
     # Obstacle: Psi constante + Gamma
     # Qual valor base? Psi no centro do obstáculo (aproximado)
-    psi_base = get_psi_inlet_normalized(params["cy"])
+    psi_base = get_psi_inlet(params["cy"])
     # Hardcode Gamma = 0.0 (Pure Potential Flow)
     params["Gamma"] = 0.0
     psi[obstacle_nodes] = psi_base + params["Gamma"]
@@ -175,7 +176,8 @@ async def solve_potential(params, plot_div):
     v_nodes = -dpsi_dx
     
     # Velocidade de referência (Inlet)
-    U_inf = 1.0 / params["H"]
+    # Velocidade de referência (Inlet)
+    U_inf = params["v_inf"]
     V_sq = u_nodes**2 + v_nodes**2
     Cp = 1.0 - V_sq / (U_inf**2)
     
@@ -238,7 +240,27 @@ async def solve_potential(params, plot_div):
         ref_len = 1.0
         
     CL_num /= ref_len
+    CL_num /= ref_len
     CD_num /= ref_len
+
+    # --- CÁLCULO DIMENSIONAL ---
+    # Lift (L) = 0.5 * rho * V^2 * CL * chord
+    # Circulation (Gamma) = L / (rho * V)
+    
+    rho = params["rho"]
+    v_inf = params["v_inf"]
+    q_inf = 0.5 * rho * v_inf**2
+    
+    # Dimensional Force (N) per unit span
+    Lift_dim = q_inf * CL_num * ref_len
+    Drag_dim = q_inf * CD_num * ref_len
+    
+    # Dimensional Circulation (m^2/s)
+    # L = rho * V * Gamma => Gamma = L / (rho * V)
+    if abs(v_inf) > 1e-6:
+        Gamma_dim = Lift_dim / (rho * v_inf)
+    else:
+        Gamma_dim = 0.0
 
     # --- VISUALIZAÇÃO ---
     fig = plt.figure(figsize=(10, 12))
@@ -315,10 +337,13 @@ async def solve_potential(params, plot_div):
     # Exibir Resultados Numéricos (Apenas Numérico)
     res_html = f"""
     <div class="grid grid-cols-1 gap-4 text-sm">
-        <div class="bg-green-50 p-2 rounded text-center">
-            <p class="font-bold">Numérico (Integração Cp)</p>
-            <p>CL: {CL_num:.3f} (adimensional)</p>
-            <p>CD: {CD_num:.3f} (adimensional)</p>
+        <div class="bg-blue-50 p-3 rounded text-center shadow-sm">
+            <p class="font-bold text-indigo-700 mb-2">Resultados Aerodinâmicos</p>
+            <div class="grid grid-cols-1 gap-1">
+                <p><span class="font-semibold">Sustentação (L):</span> {Lift_dim:.4f} N/m</p>
+                <p><span class="font-semibold">Arrasto (D):</span> {Drag_dim:.4f} N/m</p>
+                <p><span class="font-semibold">Circulação (&Gamma;):</span> {Gamma_dim:.4f} m²/s</p>
+            </div>
         </div>
     </div>
     """
@@ -342,7 +367,10 @@ async def run_handler(event=None):
             "nx": int(document.getElementById("nx").value),
             "ny": int(document.getElementById("ny").value),
             # "Gamma": float(document.getElementById("Gamma").value), # Removed
-            "geo_type": document.getElementById("geo_type").value
+            # "Gamma": float(document.getElementById("Gamma").value), # Removed
+            "geo_type": document.getElementById("geo_type").value,
+            "rho": float(document.getElementById("rho").value),
+            "v_inf": float(document.getElementById("v_inf").value)
         }
         
         if params["geo_type"] == "cylinder":
