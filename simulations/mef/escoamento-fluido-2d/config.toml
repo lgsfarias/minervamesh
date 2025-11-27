@@ -1,7 +1,7 @@
 packages = ["numpy", "matplotlib", "scipy"]
 
 [[fetch]]
-files = ["common.py"]
+files = ["common.py", "geometry.py"]
 
 [simulation]
 name = "Escoamento de Fluido 2D (Função Corrente-Vorticidade)"

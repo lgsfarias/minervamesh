@@ -6,6 +6,7 @@ from scipy.sparse.linalg import spsolve
 from pyscript import when, document
 import asyncio
 from common import generate_mesh_generic, assemble_matrices, plot_to_base64
+import geometry
 
 # Global control flag
 STOP_SIMULATION = False
@@ -82,16 +83,9 @@ def get_boundary_normals(X, Y, boundary_nodes, triang):
 # Solver NS
 # ==============================
 async def solve_navier_stokes(params, plot_div):
-    # 1. Malha (Cilindro apenas por enquanto)
-    cx, cy, r = params["cx"], params["cy"], params["r"]
-    n_pts = 100
-    theta = np.linspace(0, 2*np.pi, n_pts, endpoint=False)
-    x_bound = cx + r * np.cos(theta)
-    y_bound = cy + r * np.sin(theta)
-    boundary_pts = np.column_stack([x_bound, y_bound])
-    
-    def mask_func(x, y):
-        return (x - cx)**2 + (y - cy)**2 > (r * 1.01)**2
+    # 1. Malha
+    cx, cy = params["cx"], params["cy"]
+    boundary_pts, mask_func = geometry.get_geometry(params["geo_type"], params)
 
     X, Y, triang = generate_mesh_generic(
         params["L"], params["H"], boundary_pts, mask_func, 
@@ -329,7 +323,10 @@ async def run_handler(event=None):
             "H": float(document.getElementById("H").value),
             "cx": float(document.getElementById("cx").value),
             "cy": float(document.getElementById("cy").value),
+            "geo_type": document.getElementById("geo_type").value,
             "r": float(document.getElementById("r").value),
+            "w": float(document.getElementById("w").value),
+            "h": float(document.getElementById("h").value),
             "nx": int(document.getElementById("nx").value),
             "ny": int(document.getElementById("ny").value),
             "Re": float(document.getElementById("Re").value),
