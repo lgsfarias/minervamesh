@@ -9,40 +9,14 @@ def get_cylinder(params):
     boundary_pts = np.column_stack([x_bound, y_bound])
     
     def mask_func(x, y):
-        # Return True if OUTSIDE (Fluid)
-        # Using 1.01 buffer to ensure boundary nodes are not masked out if they slightly float
-        return (x - cx)**2 + (y - cy)**2 > (r * 0.99)**2 
-        # Wait, if I use 1.01, I might mask the boundary nodes themselves if they are exactly at r?
-        # The boundary nodes are AT r.
-        # The mask is used to filter the BACKGROUND grid.
-        # The boundary nodes are added separately.
-        # So we want to remove background grid nodes that are INSIDE or CLOSE TO boundary.
-        # So (x-cx)^2 + ... > r^2.
-        # If we use r*1.01, we remove nodes slightly outside too?
-        # Usually we want to remove everything inside.
-        # Let's stick to the original logic: (r * 1.01)**2
-    
-    # Original logic was: (x - cx)**2 + (y - cy)**2 > (r * 1.01)**2
-    # This keeps points strictly outside r*1.01.
-    # Points between r and r*1.01 are removed. This creates a small gap?
-    # No, the boundary nodes are at r.
-    # If grid nodes are at r+epsilon, they might be kept.
-    # If grid nodes are at r-epsilon, they are removed.
-    # The triangulation connects boundary (at r) with grid (at > r*1.01).
-    # This is fine.
-    
-    def mask_func_impl(x, y):
         return (x - cx)**2 + (y - cy)**2 > (r * 1.01)**2
 
-    return boundary_pts, mask_func_impl
+    return boundary_pts, mask_func
 
 def get_rectangle(params):
     cx, cy = params["cx"], params["cy"]
     w, h = params["w"], params["h"]
     
-    # Generate points along 4 sides
-    # Perimeter approx 2(w+h).
-    # We want approx 100 points total.
     perim = 2 * (w + h)
     n_w = int(100 * (w / perim))
     n_h = int(100 * (h / perim))
@@ -52,19 +26,15 @@ def get_rectangle(params):
     hw = w / 2
     hh = h / 2
     
-    # Bottom (left to right)
     x_b = np.linspace(cx - hw, cx + hw, n_w, endpoint=False)
     y_b = np.full_like(x_b, cy - hh)
     
-    # Right (bottom to top)
     y_r = np.linspace(cy - hh, cy + hh, n_h, endpoint=False)
     x_r = np.full_like(y_r, cx + hw)
     
-    # Top (right to left)
     x_t = np.linspace(cx + hw, cx - hw, n_w, endpoint=False)
     y_t = np.full_like(x_t, cy + hh)
     
-    # Left (top to bottom)
     y_l = np.linspace(cy + hh, cy - hh, n_h, endpoint=False)
     x_l = np.full_like(y_l, cx - hw)
     
@@ -72,20 +42,58 @@ def get_rectangle(params):
     y_bound = np.concatenate([y_b, y_r, y_t, y_l])
     boundary_pts = np.column_stack([x_bound, y_bound])
     
-    def mask_func_impl(x, y):
-        # Return True if OUTSIDE
-        # Inside if |x-cx| < hw and |y-cy| < hh
-        # We add a small buffer to remove points too close to boundary
+    def mask_func(x, y):
         buffer = 1.01
         return (np.abs(x - cx) > hw * buffer) | (np.abs(y - cy) > hh * buffer)
         
-    return boundary_pts, mask_func_impl
+    return boundary_pts, mask_func
+
+def get_step(params):
+    # Backward facing step
+    # Step is at bottom left corner.
+    # Dimensions: step_h, step_l
+    step_h = params["step_h"]
+    step_l = params["step_l"]
+    
+    # Boundary points for the step (L-shape)
+    # 1. Top of step (0, step_h) -> (step_l, step_h)
+    # 2. Back of step (step_l, step_h) -> (step_l, 0)
+    
+    n_pts = 50
+    x_top = np.linspace(0, step_l, n_pts)
+    y_top = np.full_like(x_top, step_h)
+    
+    y_back = np.linspace(step_h, 0, n_pts)
+    x_back = np.full_like(y_back, step_l)
+    
+    # Concatenate
+    x_bound = np.concatenate([x_top, x_back])
+    y_bound = np.concatenate([y_top, y_back])
+    boundary_pts = np.column_stack([x_bound, y_bound])
+    
+    def mask_func(x, y):
+        # Remove if x < step_l AND y < step_h
+        # Keep if x >= step_l OR y >= step_h
+        # Add small buffer to avoid removing boundary nodes
+        # We want to remove the block (0,0) to (step_l, step_h)
+        # So keep if NOT (x < step_l-eps AND y < step_h-eps)
+        eps = 1e-3
+        return ~((x < step_l - eps) & (y < step_h - eps))
+        
+    return boundary_pts, mask_func
+
+
+
+def get_none(params):
+    # Empty (for Cavity or pure channel)
+    return np.empty((0, 2)), lambda x, y: np.ones_like(x, dtype=bool)
 
 def get_geometry(geo_type, params):
     if geo_type == "cylinder":
         return get_cylinder(params)
     elif geo_type == "rectangle":
         return get_rectangle(params)
+    elif geo_type == "step":
+        return get_step(params)
     else:
-        # Fallback to cylinder
-        return get_cylinder(params)
+        return get_none(params)

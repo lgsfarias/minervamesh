@@ -271,9 +271,10 @@ async def solve_potential(params, plot_div):
     ax3 = fig.add_subplot(gs[2])
     
     # 1. Função Corrente + Malha
-    contour = ax1.tricontourf(triang, psi, levels=20, cmap='jet')
-    ax1.tricontour(triang, psi, levels=20, colors='k', linewidths=0.5, alpha=0.3)
-    ax1.triplot(triang, color='k', alpha=0.1, linewidth=0.5)
+    # Smooth gradient with Gouraud shading and Jet colormap
+    contour = ax1.tripcolor(triang, psi, shading='gouraud', cmap='jet')
+    # Stronger mesh visibility
+    ax1.triplot(triang, color='k', alpha=0.2, linewidth=0.5)
     ax1.set_title(f"Função Corrente ($\\psi$) - {params['geo_type'].capitalize()}")
     ax1.set_aspect('equal')
     ax1.set_xlabel("x [m]")
