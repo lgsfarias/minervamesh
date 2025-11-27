@@ -12,6 +12,15 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
         #loading {
             border: none;
@@ -80,9 +89,31 @@
             </a>
         </div>
 
-        <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Navier-Stokes 2D (Função Corrente-Vorticidade)
-        </h2>
+        <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Navier-Stokes 2D (Vorticidade)</h2>
 
+        <!-- Explicação do Problema -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded shadow-sm">
+            <h3 class="text-lg font-bold text-blue-800 mb-2">Sobre o problema</h3>
+            <p class="text-gray-700 mb-2">
+                Resolvemos as equações de Navier-Stokes incompressíveis em 2D usando a formulação Função
+                Corrente-Vorticidade ($\psi$-$\omega$). O sistema acoplado é:
+            </p>
+            <div class="overflow-x-auto my-2">
+                $$ \nabla^2 \psi = -\omega $$
+                $$ \frac{\partial \omega}{\partial t} + \mathbf{u} \cdot \nabla \omega = \frac{1}{Re} \nabla^2 \omega $$
+            </div>
+            <p class="text-gray-700 mb-2">
+                <strong>Método utilizado:</strong> MEF com passo de tempo explícito para o transporte de vorticidade e
+                solucionador linear para a função corrente a cada passo.
+            </p>
+            <p class="text-gray-700">
+                <strong>Parâmetros físicos:</strong>
+            <ul class="list-disc list-inside ml-4">
+                <li>$Re$: Número de Reynolds (adimensional)</li>
+                <li>$dt$: Passo de tempo [s]</li>
+            </ul>
+            </p>
+        </div>
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <!-- Painel de Parâmetros -->
             <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-1">
