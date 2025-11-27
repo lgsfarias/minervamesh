@@ -260,12 +260,16 @@ async def solve_navier_stokes(params, plot_div):
         ax1.triplot(triang, color='k', alpha=0.1, linewidth=0.5)
         ax1.set_title(f"Navier-Stokes (Step {current_step}) - $\\psi$")
         ax1.set_aspect('equal')
+        ax1.set_xlabel("x [m]")
+        ax1.set_ylabel("y [m]")
         fig.colorbar(contour_psi, ax=ax1)
         
         contour_omega = ax2.tricontourf(triang, omega, levels=20, cmap='jet')
         ax2.triplot(triang, color='k', alpha=0.1, linewidth=0.5)
         ax2.set_title(f"Navier-Stokes (Step {current_step}) - $\\omega$")
         ax2.set_aspect('equal')
+        ax2.set_xlabel("x [m]")
+        ax2.set_ylabel("y [m]")
         fig.colorbar(contour_omega, ax=ax2)
         
         xi = np.linspace(0, params["L"], 100)
@@ -281,6 +285,8 @@ async def solve_navier_stokes(params, plot_div):
         ax3.set_aspect('equal')
         ax3.set_xlim(0, params["L"])
         ax3.set_ylim(0, params["H"])
+        ax3.set_xlabel("x [m]")
+        ax3.set_ylabel("y [m]")
         fig.colorbar(strm.lines, ax=ax3)
         
         # History Plot

@@ -254,6 +254,8 @@ async def solve_potential(params, plot_div):
     ax1.triplot(triang, color='k', alpha=0.1, linewidth=0.5)
     ax1.set_title(f"Função Corrente ($\\psi$) - {params['geo_type'].capitalize()}")
     ax1.set_aspect('equal')
+    ax1.set_xlabel("x [m]")
+    ax1.set_ylabel("y [m]")
     fig.colorbar(contour, ax=ax1)
     
     # 2. Linhas de Corrente
@@ -269,6 +271,8 @@ async def solve_potential(params, plot_div):
     ax2.set_aspect('equal')
     ax2.set_xlim(0, params["L"])
     ax2.set_ylim(0, params["H"])
+    ax2.set_xlabel("x [m]")
+    ax2.set_ylabel("y [m]")
     fig.colorbar(strm.lines, ax=ax2, label='Velocidade')
     
     # 3. Distribuição de Cp
@@ -291,13 +295,13 @@ async def solve_potential(params, plot_div):
         # Rotacionar de volta para achar x ao longo da corda?
         # Simplificação: usar x_sorted
         ax3.plot(x_sorted, cp_sorted, 'b.-', label='Cp Numérico')
-        ax3.set_xlabel('x')
+        ax3.set_xlabel('x [m]')
         
     else:
         ax3.plot(angles_sorted, cp_sorted, 'b.-')
         ax3.set_xlabel('Ângulo (rad)')
 
-    ax3.set_ylabel(r'$C_p$')
+    ax3.set_ylabel(r'$C_p$ (adimensional)')
     ax3.set_title(r'Distribuição de Coeficiente de Pressão ($C_p$)')
     ax3.grid(True, alpha=0.3)
     ax3.invert_yaxis() # Convenção aerodinâmica: Cp negativo para cima
@@ -313,8 +317,8 @@ async def solve_potential(params, plot_div):
     <div class="grid grid-cols-1 gap-4 text-sm">
         <div class="bg-green-50 p-2 rounded text-center">
             <p class="font-bold">Numérico (Integração Cp)</p>
-            <p>CL: {CL_num:.3f}</p>
-            <p>CD: {CD_num:.3f}</p>
+            <p>CL: {CL_num:.3f} (adimensional)</p>
+            <p>CD: {CD_num:.3f} (adimensional)</p>
         </div>
     </div>
     """
