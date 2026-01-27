@@ -1,0 +1,43 @@
+# Fdb version 4
+["bibtex RefBiblio"] 1769512251.07386 "RefBiblio.aux" "RefBiblio.bbl" "RefBiblio" 1769512251.177 0
+  "./biblio.bib" 1769512250.98062 4058 101b79d912d89de2a2b173ae12e25faa ""
+  "./coppe.bst" 1765886957.87841 24458 858d1cea7157546113f910063fcfbbab ""
+  "RefBiblio.aux" 1769511987.43789 288 bd6ce1b5fdc8204ea947971cc6ead304 "pdflatex"
+  (generated)
+  "RefBiblio.bbl"
+  "RefBiblio.blg"
+  (rewritten before read)
+["pdflatex"] 1769511987.10455 "/Users/lgsfarias/Developer/minervamesh/minervamesh/tcc/RefBiblio.tex" "RefBiblio.pdf" "RefBiblio" 1769512251.17704 0
+  "/Users/lgsfarias/Developer/minervamesh/minervamesh/tcc/RefBiblio.tex" 1765886957.93442 584 455b07b26c7b238653e7a2c845552ff9 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmbx12.tfm" 1136768653 1324 c910af8c371558dc20f2d7822f66fe64 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr12.tfm" 1136768653 1288 655e228510b4c2a1abe905c368440826 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/tfm/public/cm/cmr17.tfm" 1136768653 1292 296a67155bdbfc32aa9c636f21e91433 ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb" 1248133631 32080 340ef9bf63678554ee606688e7b5339d ""
+  "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb" 1248133631 32722 d7379af29a190c3f453aba36302ff5a9 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/babel-english/english.ldf" 1496785618 7008 9ff5fdcc865b01beca2b0fe4a46231d4 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/babel-portuges/brazil.ldf" 1625860693 6591 308dec8ccec5a8d302be8a046d473dd3 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/babel/babel.sty" 1739572459 143388 b008e1666520ff43d0878397f2926242 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/babel/locale/en/babel-en.ini" 1661803479 3966 caeee5a9e5771d4446aa1ca9015ba1b2 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/babel/locale/en/babel-english.tex" 1498512262 336 ed676b5e7dfd862bc78d634f6a973f37 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/generic/babel/txtbabel.def" 1735765002 6945 a248d839b1f26b388440c973966647b5 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/latex/base/bk12.clo" 1738182759 8285 fc77e7da98ddd80716440c25e77162dc ""
+  "/usr/local/texlive/2025/texmf-dist/tex/latex/base/book.cls" 1738182759 23268 24ec0168da5de0ccc9a2593a79692068 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/latex/base/inputenc.sty" 1738182759 5048 0270515b828149155424600fd2d58ac5 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/latex/base/latin1.def" 1738182759 5675 26337d992214c8a8957adc54ca222cf5 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def" 1716410060 29785 9f93ab201fe5dd053afcc6c1bcf7d266 ""
+  "/usr/local/texlive/2025/texmf-dist/tex/latex/tools/layout.sty" 1717359999 14907 cb85005ee4e1d4096d661628b8aa0a23 ""
+  "/usr/local/texlive/2025/texmf-dist/web2c/texmf.cnf" 1739380943 42148 61becc7c670cd061bb319c643c27fdd4 ""
+  "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1765909455 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
+  "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1765909438 3345739 bab33a34ecdf6403f1b6ef43505cb532 ""
+  "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
+  "RefBiblio.aux" 1769511987.43789 288 bd6ce1b5fdc8204ea947971cc6ead304 "pdflatex"
+  "RefBiblio.bbl" 1769512251.17527 82 279e1be0f89e97053c2d51ae1a839f84 "bibtex RefBiblio"
+  "RefBiblio.tex" 1765886957.93442 584 455b07b26c7b238653e7a2c845552ff9 ""
+  "indentfirst.sty" 1765886957.86234 791 669543ca2dcbd5c0e900e06ead6a7a98 ""
+  "pagina.sty" 1765886957.85707 462 9452fea7eafcf87b590f8eb029f5f0ae ""
+  (generated)
+  "RefBiblio.aux"
+  "RefBiblio.log"
+  "RefBiblio.pdf"
+  (rewritten before read)

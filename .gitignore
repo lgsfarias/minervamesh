@@ -6,3 +6,7 @@
 
 # Arquivo de cache do macOS
 .DS_Store
+
+# Knowledge Base
+/tcc
+/refs

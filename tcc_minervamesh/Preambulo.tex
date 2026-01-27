@@ -1,0 +1,85 @@
+% Copyright
+      \vspace{0.5cm}
+
+UNIVERSIDADE FEDERAL DO RIO DE JANEIRO \\
+Escola Politécnica - Departamento de Engenharia Mecânica \\
+Centro de Tecnologia, bloco G, sala G-204, Cidade Universitária \\ 
+Rio de Janeiro - RJ      CEP 21941-909\\
+\vspace{0.5cm}
+\paragraph{}Este exemplar é de propriedade da Universidade Federal do Rio de Janeiro, que poderá incluí-lo em base de dados, armazenar em computador, microfilmar ou adotar qualquer forma de arquivamento.
+\paragraph{}É permitida a menção, reprodução parcial ou integral e a transmissão entre bibliotecas deste trabalho, sem modificação de seu texto, em qualquer meio que esteja ou venha a ser fixado, para pesquisa acadêmica, comentários e citações, desde que sem finalidade comercial e que seja feita a referência bibliográfica completa.
+\paragraph{}Os conceitos expressos neste trabalho são de responsabilidade do(s) autor(es).
+
+
+\pagebreak
+
+% Dedicatória
+\begin{center}
+\textbf{DEDICATÓRIA}
+\end{center}
+      \vspace{0.5cm}
+
+\paragraph{}Dedico este trabalho aos meus pais, amigos e mestres que me apoiaram nesta jornada.
+
+\pagebreak
+
+
+% Agradecimento
+\begin{center}
+\textbf{AGRADECIMENTO}
+\end{center}
+      \vspace{0.5cm}
+
+\paragraph{}Agradeço primeiramente à minha família, pelo suporte incondicional. Ao meu orientador, Prof. Gustavo Rabello dos Anjos, pela guiaça e confiança. Aos colegas da UFRJ, pelo companheirismo. E a todos que contribuíram direta ou indiretamente para a realização deste projeto.
+
+\pagebreak
+
+
+% Resumo
+\begin{center}
+\textbf{RESUMO}
+\end{center}
+      \vspace{0.5cm}
+
+\paragraph{}A simulação numérica é uma ferramenta indispensável na engenharia moderna, contudo, o acesso a softwares comerciais de alto desempenho permanece restrito devido ao alto custo e complexidade de infraestrutura. Este trabalho apresenta o MinervaMesh, uma plataforma web de código aberto para simulação numérica em Engenharia Mecânica, capaz de executar análises pelo Método dos Elementos Finitos (MEF) e Diferenças Finitas (MDF) diretamente no navegador do usuário. A arquitetura proposta utiliza PyScript e WebAssembly para portar bibliotecas científicas (NumPy, SciPy) para o ambiente client-side, eliminando servidores dedicados. A validação é realizada através da comparação com soluções analíticas para problemas clássicos de transferência de calor e mecânica dos sólidos, demonstrando que a precisão e convergência são preservadas no ambiente web. Os resultados indicam que o MinervaMesh é uma alternativa viável para o ensino de engenharia e simulações preliminares.
+\paragraph{}
+\noindent Palavras-Chave: Método dos Elementos Finitos, Simulação Web, PyScript, Mecânica Computacional, Ensino de Engenharia.
+
+\pagebreak
+
+
+% Abstract
+\begin{center}
+\textbf{ABSTRACT}
+\end{center}
+      \vspace{0.5cm}
+
+\paragraph{}Numerical simulation is an indispensable tool in modern engineering; however, access to high-performance commercial software remains restricted due to high costs and infrastructure complexity. This work presents MinervaMesh, an open-source web platform for numerical simulation in Mechanical Engineering, performing Finite Element Method (FEM) and Finite Difference Method (FDM) analyses directly in the user browser. The proposed architecture uses PyScript and WebAssembly to port scientific libraries to the client-side environment, eliminating dedicated servers. Validation is performed by comparing results with analytical solutions for classic heat transfer and solid mechanics problems, demonstrating that accuracy and convergence are preserved in the web environment. Results indicate that MinervaMesh is a viable alternative for engineering education and preliminary simulations.
+\paragraph{}
+\noindent Key-words: Finite Element Method, Web Simulation, PyScript, Computational Mechanics, Engineering Education.
+
+\pagebreak
+
+
+% Siglas
+\begin{center}
+\textbf{SIGLAS}
+\end{center}
+      \vspace{0.5cm}
+
+\paragraph{}UFRJ - Universidade Federal do Rio de Janeiro
+\paragraph{}MEF - Método dos Elementos Finitos
+\paragraph{}MDF - Método das Diferenças Finitas
+\paragraph{}CFD - \textit{Computational Fluid Dynamics} (Dinâmica dos Fluidos Computacional)
+\paragraph{}WASM - WebAssembly
+\paragraph{}SUPG - \textit{Streamline Upwind/Petrov-Galerkin}
+
+
+\pagebreak
+
+
+
+
+
+
+

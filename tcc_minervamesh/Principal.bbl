@@ -1,0 +1,31 @@
+\begin{thebibliography}{1}
+\newcommand{\enquote}[1]{``#1''}
+
+\bibitem{Maliska2004}
+MALISKA, C.~R., \emph{Transferência de Calor e Mecânica dos Fluidos Computacional}. 2 ed. Rio de Janeiro, LTC, 2004.
+
+\bibitem{Anjos2013}
+ANJOS, G.~R., \emph{Computação Científica para Engenheiros}. Rio de Janeiro, PEM/COPPE/UFRJ, 2013. Notas de Aula.
+
+\bibitem{Harris2020}
+HARRIS, C.~R., MILLMAN, K.~J., WALT, S. J. V.~D., \emph{et~al.}, \enquote{Array programming with {NumPy}}, \emph{Nature}, v.~585, n. 7825, pp.~357--362, 2020.
+
+\bibitem{Brooks1982}
+BROOKS, A.~N., HUGHES, T. J.~R., \enquote{Streamline Upwind/Petrov-Galerkin Formulations for Convection Dominated Flows with Particular Emphasis on the Incompressible Navier-Stokes Equations}, \emph{Computer Methods in Applied Mechanics and Engineering}, v.~32, n. 1-3, pp.~199--259, 1982.
+
+\bibitem{Fish2007}
+FISH, J., BELYTSCHKO, T., \emph{A First Course in Finite Elements}. West Sussex, John Wiley \& Sons, 2007.
+
+\bibitem{Reddy2005}
+REDDY, J.~N., \emph{An Introduction to the Finite Element Method}. 3 ed. New York, McGraw-Hill, 2005.
+
+\bibitem{Fox2010}
+FOX, R.~W., MCDONALD, A.~T., PRITCHARD, P.~J., \emph{Introdução à Mecânica dos Fluidos}. 7th ed. Rio de Janeiro, LTC, 2010.
+
+\bibitem{White2006}
+WHITE, F.~M., \emph{Viscous Fluid Flow}. 3 ed. New York, McGraw-Hill, 2006.
+
+\bibitem{Zienkiewicz2013}
+ZIENKIEWICZ, O.~C., TAYLOR, R.~L., ZHU, J.~Z., \emph{The Finite Element Method: Its Basis and Fundamentals}. 7th ed. Oxford, Butterworth-Heinemann, 2013.
+
+\end{thebibliography}
