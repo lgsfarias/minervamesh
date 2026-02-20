@@ -133,6 +133,7 @@
 \@writefile{toc}{\contentsline {section}{\numberline {2.6}Síntese da Revisão e Lacuna Atacada}{7}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{}{7}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{}{7}{}\protected@file@percent }
+\citation{Incropera2008}
 \@writefile{toc}{\contentsline {chapter}{\numberline {3}Fundamentação Teórica}{8}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -140,29 +141,89 @@
 \@writefile{toc}{\contentsline {section}{\numberline {3.1}Introdução ao Capítulo}{8}{}\protected@file@percent }
 \newlabel{sec:fundamentacao_intro}{{3.1}{8}{}{section.3.1}{}}
 \@writefile{toc}{\contentsline {paragraph}{}{8}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Desenvolvimento e Arquitetura}{9}{}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cap4}{{4}{9}{}{chapter.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.1}Introdução ao Capítulo}{9}{}\protected@file@percent }
-\newlabel{sec:arquitetura_intro}{{4.1}{9}{}{section.4.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{9}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Resultados e Validação}{10}{}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cap5}{{5}{10}{}{chapter.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Introdução ao Capítulo}{10}{}\protected@file@percent }
-\newlabel{sec:resultados_intro}{{5.1}{10}{}{section.5.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{10}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusões}{11}{}\protected@file@percent }
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cap6}{{6}{11}{}{chapter.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Conclusões}{11}{}\protected@file@percent }
-\newlabel{sec:conclusao}{{6.1}{11}{}{section.6.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{8}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Equações Governantes}{8}{}\protected@file@percent }
+\newlabel{sec:equacoes_governantes}{{3.2}{8}{}{section.3.2}{}}
+\citation{White2006}
+\citation{Maliska2004}
+\citation{Patankar1980}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Condução e Convecção Térmica}{9}{}\protected@file@percent }
+\newlabel{eq:conducao_geral}{{3.1}{9}{}{equation.3.1}{}}
+\newlabel{eq:conveccao_difusao}{{3.2}{9}{}{equation.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2.2}Escoamento de Fluidos (Navier-Stokes)}{9}{}\protected@file@percent }
+\newlabel{eq:continuidade}{{3.3}{9}{}{equation.3.3}{}}
+\newlabel{eq:navier_stokes_vel_pressao}{{3.4}{9}{}{equation.3.4}{}}
+\citation{Zienkiewicz2013}
+\citation{Reddy2005}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Transição Discreta: O Método das Diferenças Finitas (MDF)}{10}{}\protected@file@percent }
+\newlabel{sec:introducao_mdf}{{3.3}{10}{}{section.3.3}{}}
+\newlabel{eq:mdf_primeira_derivada}{{3.5}{10}{}{equation.3.5}{}}
+\newlabel{eq:mdf_segunda_derivada}{{3.6}{10}{}{equation.3.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}O Método dos Elementos Finitos (MEF)}{10}{}\protected@file@percent }
+\newlabel{sec:mef}{{3.4}{10}{}{section.3.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.1}Da Forma Forte à Forma Fraca}{11}{}\protected@file@percent }
+\newlabel{sec:forma_fraca}{{3.4.1}{11}{}{subsection.3.4.1}{}}
+\newlabel{eq:forma_forte_generica}{{3.7}{11}{}{equation.3.7}{}}
+\newlabel{eq:cc_dirichlet}{{3.8}{11}{}{equation.3.8}{}}
+\newlabel{eq:cc_neumann}{{3.9}{11}{}{equation.3.9}{}}
+\newlabel{eq:residuo_ponderado}{{3.10}{11}{}{equation.3.10}{}}
 \@writefile{toc}{\contentsline {paragraph}{}{11}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{11}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{}{11}{}\protected@file@percent }
+\newlabel{eq:poisson_pre_green}{{3.11}{11}{}{equation.3.11}{}}
+\newlabel{eq:poisson_pos_green}{{3.12}{11}{}{equation.3.12}{}}
+\citation{Fish2007}
+\newlabel{eq:forma_fraca_poisson}{{3.13}{12}{}{equation.3.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.2}O Método de Galerkin}{12}{}\protected@file@percent }
+\newlabel{sec:galerkin}{{3.4.2}{12}{}{subsection.3.4.2}{}}
+\newlabel{eq:aproximacao_galerkin}{{3.14}{12}{}{equation.3.14}{}}
+\newlabel{eq:sistema_galerkin}{{3.15}{12}{}{equation.3.15}{}}
+\newlabel{eq:matriz_rigidez}{{3.16}{12}{}{equation.3.16}{}}
+\newlabel{eq:vetor_carga}{{3.17}{12}{}{equation.3.17}{}}
+\citation{Reddy2005}
+\@writefile{toc}{\contentsline {paragraph}{}{13}{}\protected@file@percent }
+\newlabel{eq:sistema_global}{{3.18}{13}{}{equation.3.18}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.3}Elementos Triangulares Lineares (P1)}{13}{}\protected@file@percent }
+\newlabel{sec:elementos_p1}{{3.4.3}{13}{}{subsection.3.4.3}{}}
+\newlabel{eq:funcoes_forma_p1}{{3.19}{13}{}{equation.3.19}{}}
+\newlabel{eq:coeficientes_p1}{{3.20}{13}{}{equation.3.20}{}}
+\newlabel{eq:area_elemento}{{3.21}{13}{}{equation.3.21}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{13}{}\protected@file@percent }
+\newlabel{eq:gradiente_p1}{{3.22}{13}{}{equation.3.22}{}}
+\citation{Zienkiewicz2013}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.4}Matrizes Elementares}{14}{}\protected@file@percent }
+\newlabel{sec:matrizes_elementares}{{3.4.4}{14}{}{subsection.3.4.4}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.1}Matriz de Rigidez Elementar}{14}{}\protected@file@percent }
+\newlabel{eq:rigidez_elementar}{{3.23}{14}{}{equation.3.23}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.2}Matriz de Massa Elementar}{14}{}\protected@file@percent }
+\newlabel{eq:massa_elementar}{{3.24}{14}{}{equation.3.24}{}}
+\newlabel{eq:massa_lumped}{{3.25}{14}{}{equation.3.25}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.4.4.3}Vetor de Carga Elementar}{14}{}\protected@file@percent }
+\newlabel{eq:carga_elementar}{{3.26}{15}{}{equation.3.26}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4.5}Montagem Global}{15}{}\protected@file@percent }
+\newlabel{sec:montagem_global}{{3.4.5}{15}{}{subsection.3.4.5}{}}
+\newlabel{eq:assembly}{{3.27}{15}{}{equation.3.27}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Desenvolvimento e Arquitetura}{16}{}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{cap4}{{4}{16}{}{chapter.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Introdução ao Capítulo}{16}{}\protected@file@percent }
+\newlabel{sec:arquitetura_intro}{{4.1}{16}{}{section.4.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{16}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Resultados e Validação}{17}{}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{cap5}{{5}{17}{}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Introdução ao Capítulo}{17}{}\protected@file@percent }
+\newlabel{sec:resultados_intro}{{5.1}{17}{}{section.5.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{17}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusões}{18}{}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{cap6}{{6}{18}{}{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Conclusões}{18}{}\protected@file@percent }
+\newlabel{sec:conclusao}{{6.1}{18}{}{section.6.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{18}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{18}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{}{18}{}\protected@file@percent }
 \bibstyle{coppe}
 \bibdata{biblio}
 \bibcite{Maliska2004}{1}
@@ -176,7 +237,7 @@
 \bibcite{Incropera2008}{9}
 \bibcite{Ozisik1993}{10}
 \bibcite{Cengel2015}{11}
-\@writefile{toc}{\contentsline {chapter}{Bibliografia}{12}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Bibliografia}{19}{}\protected@file@percent }
 \bibcite{Bejan1992}{12}
 \bibcite{Fox2010}{13}
 \bibcite{White2006}{14}
@@ -216,20 +277,20 @@
 \bibcite{Amaral2020}{48}
 \bibcite{GomesMatheus2021}{49}
 \bibcite{GomesYuri2025}{50}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}O que é um apêndice}{17}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}O que é um apêndice}{24}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ApendiceA}{{A}{17}{}{chapter.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{17}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {B}Encadernação do Projeto de Graduação}{18}{}\protected@file@percent }
+\newlabel{ApendiceA}{{A}{24}{}{chapter.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{24}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}Encadernação do Projeto de Graduação}{25}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ApendiceB}{{B}{18}{}{chapter.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {B.1}{\ignorespaces \small  {Encadernação do projeto de graduação.}}}{19}{}\protected@file@percent }
-\newlabel{FigPFC}{{B.1}{19}{}{figure.2.1}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {C}O que é um anexo}{20}{}\protected@file@percent }
+\newlabel{ApendiceB}{{B}{25}{}{chapter.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.1}{\ignorespaces \small  {Encadernação do projeto de graduação.}}}{26}{}\protected@file@percent }
+\newlabel{FigPFC}{{B.1}{26}{}{figure.2.1}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {C}O que é um anexo}{27}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ApendiceC}{{C}{20}{}{chapter.3}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{20}{}\protected@file@percent }
-\gdef \@abspage@last{32}
+\newlabel{ApendiceC}{{C}{27}{}{chapter.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{27}{}\protected@file@percent }
+\gdef \@abspage@last{39}

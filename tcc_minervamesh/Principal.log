@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  20 FEB 2026 17:51
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  20 FEB 2026 18:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -665,46 +665,66 @@ or-mula^^Xc~oes Petrov-Galerkin/SUPG
 
 [7]
 Cap\'{\i }tulo 3.
-(./fundamentacao_teorica.tex)
+(./fundamentacao_teorica.tex
 
 [8
 
 ]
+
+[9]
+
+[10]
+
+[11]
+
+[12]
+
+[13]
+
+[14])
+Overfull \hbox (25.72583pt too wide) in paragraph at lines 247--53
+[]\OT1/cmr/m/n/12 Ap^^Sos a mon-ta-gem, as condi^^Xc~oes de con-torno de Di-ri-
+ch-let s~ao im-pos-tas modificando-
+ []
+
+
+
+[15]
 Cap\'{\i }tulo 4.
 (./arquitetura.tex)
 
-[9
+[16
 
 ]
 Cap\'{\i }tulo 5.
 (./resultados.tex)
 
-[10
+[17
 
 ]
 Cap\'{\i }tulo 6.
 (./conclusao.tex)
 
-[11
+[18
 
 ] (./Principal.bbl
 
-[12
+[19
 
 
 ]
 
-[13]
+[20]
 
-[14]
+[21]
 
-[15])
+[22])
 
-[16]
+[23]
 Ap\^endice A.
 (./ApendiceA.tex)
 
-[17
+[24
 
 ]
 Ap\^endice B.
@@ -720,7 +740,7 @@ ted-to.pdf>
 Final-eps-converted-to.pdf ./figuras/Capa_do_Projeto_Final.eps>
 (epstopdf)             \includegraphics on input line 9.
 Package epstopdf Info: Output file is already uptodate.
-<./figuras/Capa_do_Projeto_Final-eps-converted-to.pdf, id=104, 420.57124pt x 52
+<./figuras/Capa_do_Projeto_Final-eps-converted-to.pdf, id=135, 420.57124pt x 52
 0.94624pt>
 File: ./figuras/Capa_do_Projeto_Final-eps-converted-to.pdf Graphic file (type p
 df)
@@ -735,15 +755,15 @@ Overfull \hbox (50.6844pt too wide) in paragraph at lines 9--9
 
 )
 
-[18
+[25
 
 ]
 
-[19 <./figuras/Capa_do_Projeto_Final-eps-converted-to.pdf>]
+[26 <./figuras/Capa_do_Projeto_Final-eps-converted-to.pdf>]
 Ap\^endice C.
 (./ApendiceC.tex)
 
-[20
+[27
 
 ] (./Principal.aux)
  ***********
@@ -752,22 +772,31 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 12793 strings out of 473190
- 226103 string characters out of 5715799
- 636924 words of memory out of 5000000
- 35804 multiletter control sequences out of 15000+600000
- 566590 words of font info for 64 fonts, out of 8000000 for 9000
+ 12840 strings out of 473190
+ 227072 string characters out of 5715799
+ 638999 words of memory out of 5000000
+ 35849 multiletter control sequences out of 15000+600000
+ 567211 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 80i,9n,75p,1256b,407s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 80i,10n,75p,1256b,407s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
-/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
-sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></us
-r/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on Principal.pdf (32 pages, 181352 bytes).
+></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
+/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
+usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></u
+sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr
+/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/l
+ocal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loc
+al/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local
+/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/te
+xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/tex
+live/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
+ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texliv
+e/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/te
+xlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on Principal.pdf (39 pages, 285728 bytes).
 PDF statistics:
- 189 PDF objects out of 1000 (max. 8388607)
- 94 compressed objects within 1 object stream
+ 259 PDF objects out of 1000 (max. 8388607)
+ 138 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -1,4 +1,247 @@
 \section{Introdução ao Capítulo}
 \label{sec:fundamentacao_intro}
 
-\paragraph{}Este capítulo apresenta a formulação matemática e os métodos numéricos que fundamentam o \textit{MinervaMesh}. O foco recai sobre o Método dos Elementos Finitos (MEF), abordando desde a formulação variacional até a montagem dos sistemas algébricos para problemas de interesse na Engenharia Mecânica.
+\paragraph{}Este capítulo apresenta a formulação matemática e os métodos numéricos que fundamentam as análises realizadas no \textit{MinervaMesh}. O objetivo central é fornecer uma base sólida, típica da Engenharia Mecânica, para a conversão dos modelos físicos contínuos em sistemas algébricos discretos resolvidos computacionalmente.
+
+\paragraph{}Inicialmente, revisam-se as equações diferenciais parciais (EDPs) governantes da condução de calor térmica e do escoamento de fluidos de forma conceitual. Em seguida, após uma breve fundamentação do Método das Diferenças Finitas (MDF), o capítulo se aprofunda extensamente no Método dos Elementos Finitos (MEF). O desenvolvimento abrange desde a formulação de Galerkin, passando pela discretização com elementos triangulares de primeira ordem (P1), até a consolidação da formulação em Vorticidade-Corrente adotada para a dinâmica de fluidos.
+
+\section{Equações Governantes}
+\label{sec:equacoes_governantes}
+
+A modelagem térmica e fluidodinâmica sustenta-se em princípios de conservação: massa, quantidade de movimento e energia. Estas leis físicas, contínuas no espaço e no tempo, são expressas por EDPs que determinam o comportamento termofluidodinâmico do meio contínuo abordado.
+
+\subsection{Condução e Convecção Térmica}
+
+A transferência de calor em meios sólidos contínuos é regida pela equação da difusão de calor (Lei de Fourier acoplada à conservação da energia térmica). Para um meio estacionário, a distribuição de temperatura $T(\mathbf{x}, t)$ é ditada por \cite{Incropera2008}:
+
+\begin{equation}
+\rho c_p \frac{\partial T}{\partial t} = \nabla \cdot (k \nabla T) + q'''
+\label{eq:conducao_geral}
+\end{equation}
+onde $\rho$ é a massa específica, $c_p$ é o calor específico a pressão constante, $k$ é a condutividade térmica do material, e $q'''$ representa a taxa volumétrica de geração de energia térmica. Para regimes permanentes e propriedades constantes, a Equação \ref{eq:conducao_geral} se simplifica na clássica equação de Poisson (ou Laplace, se $q''' = 0$).
+
+Quando existe escoamento (\textit{convecção}), adiciona-se à equação o transporte advectivo promovido pelo campo de velocidades $\mathbf{v}$:
+\begin{equation}
+\rho c_p \left( \frac{\partial T}{\partial t} + \mathbf{v} \cdot \nabla T \right) = \nabla \cdot (k \nabla T) + q'''
+\label{eq:conveccao_difusao}
+\end{equation}
+Esta é a equação de convecção-difusão, paradigma central para o estudo da transferência de calor conjugada ou escoamentos não-isotérmicos.
+
+\subsection{Escoamento de Fluidos (Navier-Stokes)}
+
+O escoamento de fluidos incompressíveis newtonianos é regido pela restrição de continuidade (conservação de massa) e pelas Equações de Navier-Stokes (conservação do momento linear) \cite{White2006}:
+
+\begin{equation}
+\nabla \cdot \mathbf{v} = 0
+\label{eq:continuidade}
+\end{equation}
+
+\begin{equation}
+\rho \left( \frac{\partial \mathbf{v}}{\partial t} + (\mathbf{v} \cdot \nabla) \mathbf{v} \right) = -\nabla p + \mu \nabla^2 \mathbf{v} + \mathbf{f_b}
+\label{eq:navier_stokes_vel_pressao}
+\end{equation}
+onde $p$ representa o campo de pressão estática, $\mu$ a viscosidade dinâmica do fluido e $\mathbf{f_b}$ eventuais forças de campo (como as forças de empuxo gravitacional). Esta formulação em variáveis primitivas (velocidade-pressão) apresenta consideráveis desafios numéricos devido ao acoplamento embutido pela restrição de continuidade \cite{Maliska2004}. Consequentemente, abordagens numéricas como a Vorticidade-Corrente são frequentemente adotadas em 2D para contornar a incógnita da pressão diretamente.
+
+\section{Transição Discreta: O Método das Diferenças Finitas (MDF)}
+\label{sec:introducao_mdf}
+
+Antes do extensivo emprego de formulações variacionais associadas a malhas arbitrárias, a conversão de EDPs a um sistema matricial utilizou maciçamente as propriedades da expansão da série de Taylor. O Método das Diferenças Finitas (MDF) consiste na substituição direta dos operadores diferenciais exatos pelas respectivas aproximações algébricas discretizadas em nós de uma malha tipicamente ortogonal e estruturada \cite{Patankar1980}.
+
+Considere a representação da derivada parcial aproximada pelo método da diferença adiantada e atrasada para aproximações de derivadas espaciais e temporais:
+
+\begin{equation}
+\left. \frac{\partial u}{\partial x} \right|_{i} \approx \frac{u_{i+1} - u_{i-1}}{2\Delta x} \quad \text{(Diferença Central)}
+\label{eq:mdf_primeira_derivada}
+\end{equation}
+
+\begin{equation}
+\left. \frac{\partial^2 u}{\partial x^2} \right|_{i} \approx \frac{u_{i+1} - 2u_i + u_{i-1}}{(\Delta x)^2}
+\label{eq:mdf_segunda_derivada}
+\end{equation}
+
+Embora de inegável valor histórico e de extrema eficácia para discretizações explícitas no tempo e problemas de topologia regular simples, o MDF apresenta entraves práticos quando restrições de domínios geométricos altamente complexos exigem representações intrincadas de fronteiras, resultando em interpolações estéreo ou \textit{stair-step} dos contornos físicos do domínio fluido ou de sólidos.
+
+Para dirimir essa dependência geométrica e preservar maior rigor ao tratamento das condições de contorno de von Neumann ou mistas na fronteira, o presente trabalho avança, a seguir, na formulação integral provida pelo Método dos Elementos Finitos (MEF).
+
+\section{O Método dos Elementos Finitos (MEF)}
+\label{sec:mef}
+
+O Método dos Elementos Finitos constitui a abordagem numérica central adotada neste trabalho. Diferentemente do MDF, o MEF parte de uma formulação integral (variacional ou de resíduos ponderados) da EDP, permitindo o uso de malhas não estruturadas que se adaptam naturalmente a geometrias complexas \cite{Zienkiewicz2013,Reddy2005}. Esta seção desenvolve a formulação desde a forma forte até a obtenção do sistema algébrico global.
+
+\subsection{Da Forma Forte à Forma Fraca}
+\label{sec:forma_fraca}
+
+Considere, para fins de generalidade, uma EDP elíptica em um domínio $\Omega \subset \mathbb{R}^d$ com fronteira $\Gamma = \partial\Omega$. De maneira genérica, a \textit{forma forte} do problema visa encontrar $u(\mathbf{x})$ tal que:
+
+\begin{equation}
+\mathcal{L}(u) = f \quad \text{em } \Omega
+\label{eq:forma_forte_generica}
+\end{equation}
+sujeita às condições de contorno:
+\begin{align}
+u &= \bar{u} \quad \text{em } \Gamma_D \quad \text{(Dirichlet)} \label{eq:cc_dirichlet} \\
+k \frac{\partial u}{\partial n} &= \bar{q} \quad \text{em } \Gamma_N \quad \text{(Neumann)} \label{eq:cc_neumann}
+\end{align}
+onde $\mathcal{L}$ é um operador diferencial (por exemplo, $-\nabla \cdot (k \nabla (\cdot))$ para condução), $f$ é o termo fonte, $\bar{u}$ é o valor prescrito na fronteira de Dirichlet $\Gamma_D$, $\bar{q}$ é o fluxo prescrito na fronteira de Neumann $\Gamma_N$, e $\Gamma_D \cup \Gamma_N = \Gamma$.
+
+A \textit{forma fraca} (ou variacional) é obtida multiplicando-se a Equação \ref{eq:forma_forte_generica} por uma \textit{função-teste} (ou função de ponderação) $w \in \mathcal{V}_0$, pertencente a um espaço funcional adequado, e integrando-se sobre o domínio $\Omega$:
+
+\begin{equation}
+\int_\Omega w \, \mathcal{L}(u) \, d\Omega = \int_\Omega w \, f \, d\Omega
+\label{eq:residuo_ponderado}
+\end{equation}
+
+\paragraph{}A vantagem fundamental desta operação reside na possibilidade de aplicar o Teorema de Green (integração por partes generalizada), transferindo uma ordem de derivação do operador diferencial $\mathcal{L}$ para a função-teste $w$. Considere o caso concreto da equação de Poisson estacionária ($-\nabla \cdot (k \nabla u) = f$). Multiplicando por $w$ e integrando:
+
+\begin{equation}
+-\int_\Omega w \, \nabla \cdot (k \nabla u) \, d\Omega = \int_\Omega w \, f \, d\Omega
+\label{eq:poisson_pre_green}
+\end{equation}
+
+Aplicando o Teorema de Green ao lado esquerdo:
+
+\begin{equation}
+\int_\Omega k \, \nabla w \cdot \nabla u \, d\Omega - \int_{\Gamma_N} w \, k \frac{\partial u}{\partial n} \, d\Gamma = \int_\Omega w \, f \, d\Omega
+\label{eq:poisson_pos_green}
+\end{equation}
+
+Substituindo a condição de Neumann (Eq.~\ref{eq:cc_neumann}) no termo de contorno, obtém-se a \textit{forma fraca}: encontrar $u \in \mathcal{V}$ tal que, para todo $w \in \mathcal{V}_0$:
+
+\begin{equation}
+\boxed{\int_\Omega k \, \nabla w \cdot \nabla u \, d\Omega = \int_\Omega w \, f \, d\Omega + \int_{\Gamma_N} w \, \bar{q} \, d\Gamma}
+\label{eq:forma_fraca_poisson}
+\end{equation}
+
+Esta expressão é de importância central: ela reduz os requisitos de regularidade sobre $u$ (de $C^2$ para $H^1$), incorpora naturalmente as condições de Neumann no funcional, e constitui a base sobre a qual o MEF opera.
+
+\subsection{O Método de Galerkin}
+\label{sec:galerkin}
+
+O método de Galerkin consiste em restringir o problema variacional contínuo (Eq.~\ref{eq:forma_fraca_poisson}) a um subespaço de dimensão finita $\mathcal{V}^h \subset \mathcal{V}$, parametrizado por uma malha de elementos finitos. A solução aproximada $u^h$ é expressa como uma combinação linear de $N$ funções de base $\{N_j\}_{j=1}^{N}$:
+
+\begin{equation}
+u^h(\mathbf{x}) = \sum_{j=1}^{N} U_j \, N_j(\mathbf{x})
+\label{eq:aproximacao_galerkin}
+\end{equation}
+onde $U_j$ são os coeficientes nodais (incógnitas do sistema discreto) e $N_j(\mathbf{x})$ são as funções de forma associadas a cada nó $j$ da malha.
+
+A escolha fundamental do método de Galerkin é adotar as \textit{mesmas} funções de base como funções-teste: $w^h = N_i$, $i = 1, \ldots, N$. Substituindo na forma fraca (Eq.~\ref{eq:forma_fraca_poisson}):
+
+\begin{equation}
+\sum_{j=1}^{N} U_j \int_\Omega k \, \nabla N_i \cdot \nabla N_j \, d\Omega = \int_\Omega N_i \, f \, d\Omega + \int_{\Gamma_N} N_i \, \bar{q} \, d\Gamma \quad \forall \, i = 1, \ldots, N
+\label{eq:sistema_galerkin}
+\end{equation}
+
+Esta expressão define um sistema linear $\mathbf{K} \mathbf{U} = \mathbf{F}$, onde:
+
+\begin{equation}
+K_{ij} = \int_\Omega k \, \nabla N_i \cdot \nabla N_j \, d\Omega \qquad \text{(Matriz de Rigidez)}
+\label{eq:matriz_rigidez}
+\end{equation}
+
+\begin{equation}
+F_i = \int_\Omega N_i \, f \, d\Omega + \int_{\Gamma_N} N_i \, \bar{q} \, d\Gamma \qquad \text{(Vetor de Carga)}
+\label{eq:vetor_carga}
+\end{equation}
+
+A resolução deste sistema algébrico fornece os coeficientes nodais $\mathbf{U}$, a partir dos quais o campo aproximado $u^h$ é reconstituído via Equação \ref{eq:aproximacao_galerkin}. A qualidade da aproximação depende diretamente da riqueza do espaço $\mathcal{V}^h$, controlada pelo refinamento da malha e pela ordem polinomial das funções de base \cite{Fish2007}.
+
+\paragraph{}De maneira compacta, o procedimento de Galerkin converte o problema contínuo em:
+
+\begin{equation}
+\boxed{\mathbf{K} \mathbf{U} = \mathbf{F}}
+\label{eq:sistema_global}
+\end{equation}
+
+A construção efetiva das matrizes $\mathbf{K}$ e do vetor $\mathbf{F}$ depende da escolha dos elementos e das funções de forma, desenvolvida na seção seguinte.
+
+\subsection{Elementos Triangulares Lineares (P1)}
+\label{sec:elementos_p1}
+
+A discretização do domínio $\Omega$ é realizada por uma malha de $N_e$ elementos triangulares, cujos vértices coincidem com os $N$ nós globais da malha. Cada elemento $e$ possui três nós locais ($1, 2, 3$), com coordenadas $(x_i, y_i)$, $i = 1, 2, 3$.
+
+As funções de forma lineares $N_i^e$ para o elemento triangular P1 são definidas de modo que $N_i^e(\mathbf{x}_j) = \delta_{ij}$ (propriedade de partição da unidade nodal). Em coordenadas cartesianas, estas funções são expressas por \cite{Reddy2005}:
+
+\begin{equation}
+N_i^e(x, y) = \frac{1}{2A^e} (a_i + b_i \, x + c_i \, y), \quad i = 1, 2, 3
+\label{eq:funcoes_forma_p1}
+\end{equation}
+onde $A^e$ é a área do elemento triangular e os coeficientes são dados por permutação cíclica dos índices dos vértices:
+
+\begin{equation}
+a_i = x_j y_k - x_k y_j, \qquad b_i = y_j - y_k, \qquad c_i = x_k - x_j
+\label{eq:coeficientes_p1}
+\end{equation}
+com $(i, j, k)$ em ordem cíclica $(1,2,3)$, $(2,3,1)$, $(3,1,2)$. A área do elemento é calculada por:
+
+\begin{equation}
+A^e = \frac{1}{2} \left| x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2) \right|
+\label{eq:area_elemento}
+\end{equation}
+
+\paragraph{}Os gradientes das funções de forma são constantes dentro de cada elemento P1:
+
+\begin{equation}
+\nabla N_i^e = \frac{1}{2A^e} \begin{pmatrix} b_i \\ c_i \end{pmatrix}
+\label{eq:gradiente_p1}
+\end{equation}
+
+Esta propriedade simplifica consideravelmente as integrais elementares, uma vez que os integrandos envolvendo $\nabla N_i \cdot \nabla N_j$ tornam-se constantes no interior do elemento.
+
+\subsection{Matrizes Elementares}
+\label{sec:matrizes_elementares}
+
+A partir das funções de forma P1, as integrais da formulação de Galerkin (Eqs.~\ref{eq:matriz_rigidez} e \ref{eq:vetor_carga}) são calculadas elemento a elemento e, em seguida, assembradas no sistema global.
+
+\subsubsection{Matriz de Rigidez Elementar}
+
+Para o problema de difusão com condutividade $k$ constante por elemento, a matriz de rigidez elementar $\mathbf{K}^e$ de dimensão $3 \times 3$ é:
+
+\begin{equation}
+K_{ij}^e = \int_{\Omega^e} k \, \nabla N_i^e \cdot \nabla N_j^e \, d\Omega = \frac{k}{4A^e} (b_i b_j + c_i c_j)
+\label{eq:rigidez_elementar}
+\end{equation}
+
+\subsubsection{Matriz de Massa Elementar}
+
+Em problemas transientes, a discretização temporal introduz um termo de acumulação que requer a \textit{matriz de massa}. Para elementos P1, a matriz de massa consistente é \cite{Zienkiewicz2013}:
+
+\begin{equation}
+M_{ij}^e = \int_{\Omega^e} \rho c_p \, N_i^e \, N_j^e \, d\Omega = \frac{\rho c_p \, A^e}{12}
+\begin{cases}
+2 & \text{se } i = j \\
+1 & \text{se } i \neq j
+\end{cases}
+\label{eq:massa_elementar}
+\end{equation}
+
+Alternativamente, a \textit{matriz de massa concentrada} (\textit{lumped}) distribui a massa uniformemente nos nós, resultando em uma matriz diagonal:
+
+\begin{equation}
+M_{ij}^{e,\text{lump}} = \frac{\rho c_p \, A^e}{3} \, \delta_{ij}
+\label{eq:massa_lumped}
+\end{equation}
+
+\subsubsection{Vetor de Carga Elementar}
+
+Para um termo fonte $f$ uniforme no elemento, o vetor de carga elementar resulta em:
+
+\begin{equation}
+F_i^e = \int_{\Omega^e} N_i^e \, f \, d\Omega = \frac{f \, A^e}{3}
+\label{eq:carga_elementar}
+\end{equation}
+
+\subsection{Montagem Global}
+\label{sec:montagem_global}
+
+A construção do sistema global $\mathbf{K} \mathbf{U} = \mathbf{F}$ é realizada pelo procedimento de \textit{assembly}, que consiste em acumular as contribuições de cada elemento nas posições globais correspondentes. Para cada elemento $e$, a conectividade local-global é definida por um mapa de índices $\text{IEN}(a, e) \to I$, que associa o nó local $a$ do elemento $e$ ao nó global $I$.
+
+A montagem é expressa como:
+
+\begin{equation}
+K_{IJ} = \sum_{e=1}^{N_e} K_{\text{IEN}(a,e), \, \text{IEN}(b,e)}^e, \qquad
+F_I = \sum_{e=1}^{N_e} F_{\text{IEN}(a,e)}^e
+\label{eq:assembly}
+\end{equation}
+
+Após a montagem, as condições de contorno de Dirichlet são impostas modificando-se as linhas correspondentes do sistema. A resolução do sistema linear resultante fornece os valores nodais $\mathbf{U}$.

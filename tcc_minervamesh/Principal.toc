@@ -57,20 +57,37 @@
 \contentsline {chapter}{\numberline {3}Fundamentação Teórica}{8}{}%
 \contentsline {section}{\numberline {3.1}Introdução ao Capítulo}{8}{}%
 \contentsline {paragraph}{}{8}{}%
-\contentsline {chapter}{\numberline {4}Desenvolvimento e Arquitetura}{9}{}%
-\contentsline {section}{\numberline {4.1}Introdução ao Capítulo}{9}{}%
-\contentsline {paragraph}{}{9}{}%
-\contentsline {chapter}{\numberline {5}Resultados e Validação}{10}{}%
-\contentsline {section}{\numberline {5.1}Introdução ao Capítulo}{10}{}%
-\contentsline {paragraph}{}{10}{}%
-\contentsline {chapter}{\numberline {6}Conclusões}{11}{}%
-\contentsline {section}{\numberline {6.1}Conclusões}{11}{}%
+\contentsline {paragraph}{}{8}{}%
+\contentsline {section}{\numberline {3.2}Equações Governantes}{8}{}%
+\contentsline {subsection}{\numberline {3.2.1}Condução e Convecção Térmica}{9}{}%
+\contentsline {subsection}{\numberline {3.2.2}Escoamento de Fluidos (Navier-Stokes)}{9}{}%
+\contentsline {section}{\numberline {3.3}Transição Discreta: O Método das Diferenças Finitas (MDF)}{10}{}%
+\contentsline {section}{\numberline {3.4}O Método dos Elementos Finitos (MEF)}{10}{}%
+\contentsline {subsection}{\numberline {3.4.1}Da Forma Forte à Forma Fraca}{11}{}%
 \contentsline {paragraph}{}{11}{}%
-\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{11}{}%
-\contentsline {paragraph}{}{11}{}%
-\contentsline {chapter}{Bibliografia}{12}{}%
-\contentsline {chapter}{\numberline {A}O que é um apêndice}{17}{}%
+\contentsline {subsection}{\numberline {3.4.2}O Método de Galerkin}{12}{}%
+\contentsline {paragraph}{}{13}{}%
+\contentsline {subsection}{\numberline {3.4.3}Elementos Triangulares Lineares (P1)}{13}{}%
+\contentsline {paragraph}{}{13}{}%
+\contentsline {subsection}{\numberline {3.4.4}Matrizes Elementares}{14}{}%
+\contentsline {subsubsection}{\numberline {3.4.4.1}Matriz de Rigidez Elementar}{14}{}%
+\contentsline {subsubsection}{\numberline {3.4.4.2}Matriz de Massa Elementar}{14}{}%
+\contentsline {subsubsection}{\numberline {3.4.4.3}Vetor de Carga Elementar}{14}{}%
+\contentsline {subsection}{\numberline {3.4.5}Montagem Global}{15}{}%
+\contentsline {chapter}{\numberline {4}Desenvolvimento e Arquitetura}{16}{}%
+\contentsline {section}{\numberline {4.1}Introdução ao Capítulo}{16}{}%
+\contentsline {paragraph}{}{16}{}%
+\contentsline {chapter}{\numberline {5}Resultados e Validação}{17}{}%
+\contentsline {section}{\numberline {5.1}Introdução ao Capítulo}{17}{}%
 \contentsline {paragraph}{}{17}{}%
-\contentsline {chapter}{\numberline {B}Encadernação do Projeto de Graduação}{18}{}%
-\contentsline {chapter}{\numberline {C}O que é um anexo}{20}{}%
-\contentsline {paragraph}{}{20}{}%
+\contentsline {chapter}{\numberline {6}Conclusões}{18}{}%
+\contentsline {section}{\numberline {6.1}Conclusões}{18}{}%
+\contentsline {paragraph}{}{18}{}%
+\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{18}{}%
+\contentsline {paragraph}{}{18}{}%
+\contentsline {chapter}{Bibliografia}{19}{}%
+\contentsline {chapter}{\numberline {A}O que é um apêndice}{24}{}%
+\contentsline {paragraph}{}{24}{}%
+\contentsline {chapter}{\numberline {B}Encadernação do Projeto de Graduação}{25}{}%
+\contentsline {chapter}{\numberline {C}O que é um anexo}{27}{}%
+\contentsline {paragraph}{}{27}{}%
