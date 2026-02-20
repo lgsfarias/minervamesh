@@ -3,47 +3,44 @@ Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
 The top-level auxiliary file: Principal.aux
 The style file: coppe.bst
 Database file #1: biblio.bib
-Warning--I didn't find a database entry for "Versteeg2007"
-Warning--I didn't find a database entry for "PyScript2023"
-You've used 9 entries,
+You've used 50 entries,
             2465 wiz_defined-function locations,
-            627 strings with 5469 characters,
-and the built_in function-call counts, 2592 in all, are:
-= -- 290
-> -- 84
-< -- 14
-+ -- 27
-- -- 18
-* -- 158
-:= -- 378
-add.period$ -- 22
-call.type$ -- 9
-change.case$ -- 19
-chr.to.int$ -- 36
-cite$ -- 9
-duplicate$ -- 135
-empty$ -- 275
-format.name$ -- 18
-if$ -- 678
+            865 strings with 11941 characters,
+and the built_in function-call counts, 12438 in all, are:
+= -- 1481
+> -- 383
+< -- 35
++ -- 139
+- -- 89
+* -- 797
+:= -- 1992
+add.period$ -- 97
+call.type$ -- 50
+change.case$ -- 91
+chr.to.int$ -- 81
+cite$ -- 50
+duplicate$ -- 629
+empty$ -- 1270
+format.name$ -- 89
+if$ -- 3106
 int.to.chr$ -- 0
-int.to.str$ -- 9
-missing$ -- 16
-newline$ -- 31
-num.names$ -- 9
-pop$ -- 69
+int.to.str$ -- 50
+missing$ -- 52
+newline$ -- 154
+num.names$ -- 50
+pop$ -- 235
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 53
+skip$ -- 197
 stack$ -- 0
-substring$ -- 66
-swap$ -- 44
-text.length$ -- 2
+substring$ -- 438
+swap$ -- 187
+text.length$ -- 8
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 16
-width$ -- 10
-write$ -- 96
-(There were 2 warnings)
+while$ -- 92
+width$ -- 52
+write$ -- 543

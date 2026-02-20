@@ -41,9 +41,9 @@ Rio de Janeiro - RJ      CEP 21941-909\\
 \end{center}
       \vspace{0.5cm}
 
-\paragraph{}A simulação numérica é uma ferramenta indispensável na engenharia moderna, contudo, o acesso a softwares comerciais de alto desempenho permanece restrito devido ao alto custo e complexidade de infraestrutura. Este trabalho apresenta o MinervaMesh, uma plataforma web de código aberto para simulação numérica em Engenharia Mecânica, capaz de executar análises pelo Método dos Elementos Finitos (MEF) e Diferenças Finitas (MDF) diretamente no navegador do usuário. A arquitetura proposta utiliza PyScript e WebAssembly para portar bibliotecas científicas (NumPy, SciPy) para o ambiente client-side, eliminando servidores dedicados. A validação é realizada através da comparação com soluções analíticas para problemas clássicos de transferência de calor e mecânica dos sólidos, demonstrando que a precisão e convergência são preservadas no ambiente web. Os resultados indicam que o MinervaMesh é uma alternativa viável para o ensino de engenharia e simulações preliminares.
+\paragraph{}A simulação numérica constitui ferramenta estratégica para análise e projeto em Engenharia Mecânica, porém seu uso em ambiente educacional ainda é limitado por custos de licenciamento, requisitos de infraestrutura e complexidade de configuração. Este trabalho apresenta o \textit{MinervaMesh}, uma plataforma de simulação numérica executada integralmente em navegador, concebida para reduzir barreiras de acesso sem comprometer o rigor técnico. A solução adota arquitetura \textit{client-side} baseada em \textit{WebAssembly} e \textit{PyScript}, permitindo a execução de rotinas em Python científico para solução de Equações Diferenciais Parciais por Método dos Elementos Finitos (MEF) e Método das Diferenças Finitas (MDF). A metodologia de validação prioriza casos com solução analítica conhecida para verificação de precisão, estabilidade e convergência, complementados por casos adicionais representativos de fluidodinâmica e transferência de calor. Os resultados indicam que a plataforma preserva consistência numérica e apresenta potencial de aplicação em ensino, prototipagem e demonstrações acadêmicas de mecânica computacional.
 \paragraph{}
-\noindent Palavras-Chave: Método dos Elementos Finitos, Simulação Web, PyScript, Mecânica Computacional, Ensino de Engenharia.
+\noindent Palavras-Chave: Método dos Elementos Finitos, Método das Diferenças Finitas, Simulação Web, Mecânica Computacional, Ensino de Engenharia.
 
 \pagebreak
 
@@ -54,9 +54,9 @@ Rio de Janeiro - RJ      CEP 21941-909\\
 \end{center}
       \vspace{0.5cm}
 
-\paragraph{}Numerical simulation is an indispensable tool in modern engineering; however, access to high-performance commercial software remains restricted due to high costs and infrastructure complexity. This work presents MinervaMesh, an open-source web platform for numerical simulation in Mechanical Engineering, performing Finite Element Method (FEM) and Finite Difference Method (FDM) analyses directly in the user browser. The proposed architecture uses PyScript and WebAssembly to port scientific libraries to the client-side environment, eliminating dedicated servers. Validation is performed by comparing results with analytical solutions for classic heat transfer and solid mechanics problems, demonstrating that accuracy and convergence are preserved in the web environment. Results indicate that MinervaMesh is a viable alternative for engineering education and preliminary simulations.
+\paragraph{}Numerical simulation is a core tool for analysis and design in Mechanical Engineering; however, its broader adoption in education is still constrained by software licensing costs, infrastructure requirements, and setup complexity. This work presents \textit{MinervaMesh}, a browser-based numerical simulation platform designed to reduce access barriers while maintaining technical rigor. The proposed system follows a fully \textit{client-side} architecture built on \textit{WebAssembly} and \textit{PyScript}, enabling scientific Python workflows for solving Partial Differential Equations with the Finite Element Method (FEM) and the Finite Difference Method (FDM). The validation strategy prioritizes benchmark cases with known analytical solutions to assess accuracy, stability, and convergence, followed by additional representative fluid-flow and heat-transfer cases. Results indicate that the platform preserves numerical consistency and is suitable for educational use, rapid prototyping, and academic demonstrations in computational mechanics.
 \paragraph{}
-\noindent Key-words: Finite Element Method, Web Simulation, PyScript, Computational Mechanics, Engineering Education.
+\noindent Key-words: Finite Element Method, Finite Difference Method, Web Simulation, Computational Mechanics, Engineering Education.
 
 \pagebreak
 
@@ -76,7 +76,6 @@ Rio de Janeiro - RJ      CEP 21941-909\\
 
 
 \pagebreak
-
 
 
 

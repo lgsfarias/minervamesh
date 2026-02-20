@@ -1,31 +1,253 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 \newcommand{\enquote}[1]{``#1''}
 
 \bibitem{Maliska2004}
-MALISKA, C.~R., \emph{Transferência de Calor e Mecânica dos Fluidos Computacional}. 2 ed. Rio de Janeiro, LTC, 2004.
+MALISKA, C.~R., \emph{Transfer\^encia de Calor e Mec\^anica dos Fluidos
+  Computacional}. 2 ed. Rio de Janeiro, LTC, 2004.
+
+\bibitem{Versteeg2007}
+VERSTEEG, H.~K., MALALASEKERA, W., \emph{An Introduction to Computational Fluid
+  Dynamics: The Finite Volume Method}. 2 ed. Harlow, Pearson Education, 2007.
 
 \bibitem{Anjos2013}
-ANJOS, G.~R., \emph{Computação Científica para Engenheiros}. Rio de Janeiro, PEM/COPPE/UFRJ, 2013. Notas de Aula.
+ANJOS, G.~R., \emph{Computa\c{c}\~ao Cient\'{i}fica para Engenheiros}. Rio de
+  Janeiro, PEM/COPPE/UFRJ, 2013. Notas de Aula.
+
+\bibitem{PyScript2023}
+{PyScript Development Team}, \enquote{PyScript Documentation}, Dispon\'{i}vel
+  em: https://pyscript.net, 2023, Acesso em: 20 fev. 2026.
 
 \bibitem{Harris2020}
-HARRIS, C.~R., MILLMAN, K.~J., WALT, S. J. V.~D., \emph{et~al.}, \enquote{Array programming with {NumPy}}, \emph{Nature}, v.~585, n. 7825, pp.~357--362, 2020.
+HARRIS, C.~R., MILLMAN, K.~J., WALT, S. J. V.~D., \emph{et~al.}, \enquote{Array
+  programming with NumPy}, \emph{Nature}, v.~585, n. 7825, pp.~357--362, 2020.
 
 \bibitem{Brooks1982}
-BROOKS, A.~N., HUGHES, T. J.~R., \enquote{Streamline Upwind/Petrov-Galerkin Formulations for Convection Dominated Flows with Particular Emphasis on the Incompressible Navier-Stokes Equations}, \emph{Computer Methods in Applied Mechanics and Engineering}, v.~32, n. 1-3, pp.~199--259, 1982.
+BROOKS, A.~N., HUGHES, T. J.~R., \enquote{Streamline upwind/Petrov-Galerkin
+  formulations for convection dominated flows with particular emphasis on the
+  incompressible Navier-Stokes equations}, \emph{Computer Methods in Applied
+  Mechanics and Engineering}, v.~32, n. 1-3, pp.~199--259, 1982.
 
 \bibitem{Fish2007}
-FISH, J., BELYTSCHKO, T., \emph{A First Course in Finite Elements}. West Sussex, John Wiley \& Sons, 2007.
+FISH, J., BELYTSCHKO, T., \emph{A First Course in Finite Elements}. West
+  Sussex, John Wiley \& Sons, 2007.
 
 \bibitem{Reddy2005}
-REDDY, J.~N., \emph{An Introduction to the Finite Element Method}. 3 ed. New York, McGraw-Hill, 2005.
+REDDY, J.~N., \emph{An Introduction to the Finite Element Method}. 3 ed. New
+  York, McGraw-Hill, 2005.
+
+\bibitem{Incropera2008}
+INCROPERA, F.~P., DEWITT, D.~P., BERGMAN, T.~L., \emph{et~al.},
+  \emph{Fundamentals of Heat and Mass Transfer}. 6th ed. Hoboken, John Wiley \&
+  Sons, 2008.
+
+\bibitem{Ozisik1993}
+OZISIK, M.~N., \emph{Heat Conduction}. 2 ed. New York, John Wiley \& Sons,
+  1993.
+
+\bibitem{Cengel2015}
+CENGEL, Y.~A., GHAJAR, A.~J., \emph{Heat and Mass Transfer: Fundamentals and
+  Applications}. 5 ed. New York, McGraw-Hill Education, 2015.
+
+\bibitem{Bejan1992}
+BEJAN, A., \emph{Heat Transfer}. New York, Wiley, 1992.
 
 \bibitem{Fox2010}
-FOX, R.~W., MCDONALD, A.~T., PRITCHARD, P.~J., \emph{Introdução à Mecânica dos Fluidos}. 7th ed. Rio de Janeiro, LTC, 2010.
+FOX, R.~W., MCDONALD, A.~T., PRITCHARD, P.~J., \emph{Introdu\c{c}\~ao \`a
+  Mec\^anica dos Fluidos}. 7th ed. Rio de Janeiro, LTC, 2010.
 
 \bibitem{White2006}
 WHITE, F.~M., \emph{Viscous Fluid Flow}. 3 ed. New York, McGraw-Hill, 2006.
 
+\bibitem{Bird2002}
+BIRD, R.~B., STEWART, W.~E., LIGHTFOOT, E.~N., \emph{Transport Phenomena}. 2
+  ed. New York, John Wiley \& Sons, 2002.
+
+\bibitem{Patankar1980}
+PATANKAR, S.~V., \emph{Numerical Heat Transfer and Fluid Flow}. New York,
+  Hemisphere Publishing Corporation, 1980.
+
+\bibitem{Lewis2004}
+LEWIS, R.~W., NITHIARASU, P., SEETHARAMU, K.~N., \emph{Fundamentals of the
+  Finite Element Method for Heat and Fluid Flow}. Chichester, John Wiley \&
+  Sons, 2004.
+
 \bibitem{Zienkiewicz2013}
-ZIENKIEWICZ, O.~C., TAYLOR, R.~L., ZHU, J.~Z., \emph{The Finite Element Method: Its Basis and Fundamentals}. 7th ed. Oxford, Butterworth-Heinemann, 2013.
+ZIENKIEWICZ, O.~C., TAYLOR, R.~L., ZHU, J.~Z., \emph{The Finite Element Method:
+  Its Basis and Fundamentals}. 7th ed. Oxford, Butterworth-Heinemann, 2013.
+
+\bibitem{Bathe1996}
+BATHE, K.-J., \emph{Finite Element Procedures}. Upper Saddle River, Prentice
+  Hall, 1996.
+
+\bibitem{Logan2007}
+LOGAN, D.~L., \emph{A First Course in the Finite Element Method}. 4 ed.
+  Belmont, Thomson, 2007.
+
+\bibitem{Huebner2001}
+HUEBNER, K.~H., DEWHIRST, D.~L., SMITH, D.~E., \emph{et~al.}, \emph{The Finite
+  Element Method for Engineers}. 4 ed. New York, John Wiley \& Sons, 2001.
+
+\bibitem{Galerkin1915}
+GALERKIN, B.~G., \enquote{Series in some questions of elastic equilibrium of
+  beams and plates}, \emph{Vestnik Inzhenerov i Tekhnikov}, v.~19,
+  pp.~897--908, 1915.
+
+\bibitem{Hrennikoff1941}
+HRENNIKOFF, A., \enquote{Solution of problems of elasticity by the framework
+  method}, \emph{Journal of Applied Mechanics}, v.~8, pp.~169--175, 1941.
+
+\bibitem{Courant1943}
+COURANT, R., \enquote{Variational methods for the solution of problems of
+  equilibrium and vibrations}, \emph{Bulletin of the American Mathematical
+  Society}, v.~49, n.~1, pp.~1--23, 1943.
+
+\bibitem{Turner1956}
+TURNER, M.~J., CLOUGH, R.~W., MARTIN, H.~C., \emph{et~al.}, \enquote{Stiffness
+  and deflection analysis of complex structures}, \emph{Journal of the
+  Aeronautical Sciences}, v.~23, n.~9, pp.~805--823, 1956.
+
+\bibitem{Clough1960}
+CLOUGH, R.~W., \enquote{The finite element method in plane stress analysis}.
+  In: \emph{Proceedings of the 2nd ASCE Conference on Electronic Computation},
+  Pittsburgh, 1960.
+
+\bibitem{Donea1984}
+DONEA, J., \enquote{A Taylor-Galerkin method for convective transport
+  problems}, \emph{International Journal for Numerical Methods in Engineering},
+  v.~20, n.~1, pp.~101--119, 1984.
+
+\bibitem{Christie1976}
+CHRISTIE, I., GRIFFITHS, D.~F., MITCHELL, A.~R., \emph{et~al.}, \enquote{Finite
+  element methods for second order differential equations with significant
+  first derivatives}, \emph{International Journal for Numerical Methods in
+  Engineering}, v.~10, pp.~1389--1396, 1976.
+
+\bibitem{Lohner1984}
+L{\"O}HNER, R., MORGAN, K., ZIENKIEWICZ, O.~C., \enquote{The solution of
+  non-linear hyperbolic equation systems by the finite element method},
+  \emph{International Journal for Numerical Methods in Fluids}, v.~4,
+  pp.~1043--1063, 1984.
+
+\bibitem{Ghia1982}
+GHIA, U., GHIA, K.~N., SHIN, C.~T., \enquote{High-Re solutions for
+  incompressible flow using the Navier-Stokes equations and a multigrid
+  method}, \emph{Journal of Computational Physics}, v.~48, pp.~387--411, 1982.
+
+\bibitem{Marchi2009}
+MARCHI, C.~H., SUERO, R., ARAKI, L.~K., \enquote{The lid-driven square cavity
+  flow: numerical solution with a 1024 x 1024 grid}, \emph{Journal of the
+  Brazilian Society of Mechanical Sciences and Engineering}, v.~31, n.~3,
+  pp.~186--198, 2009.
+
+\bibitem{Thomas1981}
+THOMAS, C., MORGAN, K., TAYLOR, C., \enquote{A finite element analysis of flow
+  over a backward facing step}, \emph{Computers \& Fluids}, v.~9, n.~3,
+  pp.~265--278, 1981.
+
+\bibitem{Armaly1983}
+ARMALY, B.~F., DURST, F., PEREIRA, J. C.~F., \emph{et~al.},
+  \enquote{Experimental and theoretical investigation of backward-facing step
+  flow}, \emph{Journal of Fluid Mechanics}, v.~127, pp.~473--496, 1983.
+
+\bibitem{Pironneau1982}
+PIRONNEAU, O., \enquote{On the transport-diffusion algorithm and its
+  applications to the Navier-Stokes equations}, \emph{Numerische Mathematik},
+  v.~38, pp.~309--332, 1982.
+
+\bibitem{Geuzaine2009}
+GEUZAINE, C., REMACLE, J.-F., \enquote{Gmsh: A 3-D finite element mesh
+  generator with built-in pre- and post-processing facilities},
+  \emph{International Journal for Numerical Methods in Engineering}, v.~79,
+  n.~11, pp.~1309--1331, 2009.
+
+\bibitem{Aguiar2020}
+AGUIAR, G. D. S. O. N.~D., \emph{Simula\c{c}\~ao Num\'{e}rica da
+  Transfer\^encia de Calor em um Disco de Freio Durante Frenagem usando o
+  M\'{e}todo de Elementos Finitos}. Projeto de gradua\c{c}\~ao, Universidade
+  Federal do Rio de Janeiro, Rio de Janeiro, 2020.
+
+\bibitem{Alves2021}
+ALVES, F. R. D.~M., \emph{Solu\c{c}\~ao da equa\c{c}\~ao tridimensional
+  transiente do calor atrav\'{e}s do m\'{e}todo de elementos finitos aplicado a
+  discos de freio}. Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de
+  Janeiro, Rio de Janeiro, 2021.
+
+\bibitem{Ferreira2022}
+FERREIRA, G.~P., \emph{Cria\c{c}\~ao de um c\'{o}digo em Python para simular a
+  transfer\^encia de calor em um processador computacional}. Projeto de
+  gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de Janeiro,
+  2022.
+
+\bibitem{Pinheiro2022}
+PINHEIRO, V.~G., \emph{An\'{a}lise de condu\c{c}\~ao de calor em componentes
+  eletr\^onicos de material heterog\^eneo utilizando m\'{e}todo de elementos
+  finitos}. Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro,
+  Rio de Janeiro, 2022.
+
+\bibitem{Capitanio2023}
+CAPITANIO, T.~A., \emph{Implementa\c{c}\~ao do m\'{e}todo de elementos finitos
+  em Python para o estudo param\'{e}trico de dissipadores de calor de
+  processadores computacionais}. Projeto de gradua\c{c}\~ao, Universidade
+  Federal do Rio de Janeiro, Rio de Janeiro, 2023.
+
+\bibitem{Miranda2023}
+MIRANDA, L.~M., \emph{Estudo de geometrias de canais em placa fria para
+  arrefecimento de eletr\^onicos atrav\'{e}s do m\'{e}todo de elementos
+  finitos}. Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro,
+  Rio de Janeiro, 2023.
+
+\bibitem{Teixeira2023}
+TEIXEIRA, M.~M., \emph{Solu\c{c}\~ao da equa\c{c}\~ao de Laplace tridimensional
+  para a temperatura aplicada a um bloco de motor atrav\'{e}s do M\'{e}todo dos
+  Elementos Finitos}. Projeto de gradua\c{c}\~ao, Universidade Federal do Rio
+  de Janeiro, Rio de Janeiro, 2023.
+
+\bibitem{Oliveira2025}
+OLIVEIRA, M. D.~D., \emph{Estudo da transfer\^encia de calor em dissipador de
+  calor de aletas retas por meio do M\'{e}todo dos Elementos Finitos}. Projeto
+  de gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de Janeiro,
+  2025.
+
+\bibitem{Araujo2022}
+ARAUJO, R. S. D.~A., \emph{Compara\c{c}\~ao e valida\c{c}\~ao de m\'{e}todos
+  num\'{e}ricos aplicados \`a Transfer\^encia de Calor}. Projeto de
+  gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de Janeiro,
+  2022.
+
+\bibitem{Florentino2022}
+FLORENTINO, Y. D.~S., \emph{Estudo de escoamentos para arrefecimento de
+  eletr\^onicos atrav\'{e}s de M\'{e}todo de Elementos Finitos}. Projeto de
+  gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de Janeiro,
+  2022.
+
+\bibitem{Santos2022}
+SANTOS, J. D. O.~D., \emph{Investiga\c{c}\~ao dos campos de velocidade,
+  vorticidade e fun\c{c}\~ao corrente em escoamento livre utilizando o
+  M\'{e}todo de Elementos Finitos}. Projeto de gradua\c{c}\~ao, Universidade
+  Federal do Rio de Janeiro, Rio de Janeiro, 2022.
+
+\bibitem{SilvaJessica2020}
+SILVA, J.~A., \emph{M\'{e}todo de Elementos Finitos em Python com a abordagem
+  lagrangiana-euleriana para as oscila\c{c}\~oes de um cilindro}. Projeto de
+  gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de Janeiro,
+  2020.
+
+\bibitem{Amaral2020}
+AMARAL, T. A. C.~D., \emph{An\'{a}lise CFD de difus\~ao de esp\'{e}cie
+  qu\'{i}mica para diferentes geometrias de stent farmacol\'{o}gico}. Projeto
+  de gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de Janeiro,
+  2020.
+
+\bibitem{GomesMatheus2021}
+GOMES, M.~F., \emph{An\'{a}lise CFD de escoamento em art\'{e}rias
+  coron\'{a}rias para diferentes configura\c{c}\~oes de restri\c{c}\~ao de
+  fluxo}. Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro,
+  Rio de Janeiro, 2021.
+
+\bibitem{GomesYuri2025}
+GOMES, Y.~P., \emph{An\'{a}lise Variacional e Num\'{e}rica da Equa\c{c}\~ao de
+  Poisson em Problemas de Transfer\^encia de Calor}. Projeto de
+  gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de Janeiro,
+  2025.
 
 \end{thebibliography}

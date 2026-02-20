@@ -1,88 +1,49 @@
-\section{Introdução}
+\section{Introdução ao Capítulo}
+\label{sec:revbiblio_intro}
 
-\paragraph{}A modelagem matemática de fenômenos físicos em engenharia frequentemente recai sobre a solução de Equações Diferenciais Parciais (EDPs). Neste trabalho, dois métodos numéricos clássicos são explorados: o Método das Diferenças Finitas (MDF) e o Método dos Elementos Finitos (MEF). Embora o MDF seja utilizado para problemas introdutórios 1D devido à sua simplicidade conceitual, o foco central desta plataforma — e sua robustez para geometrias complexas — reside no Método dos Elementos Finitos. Este capítulo detalha a formulação matemática e a discretização empregadas no \textit{MinervaMesh}.
+\paragraph{}Este capítulo apresenta a revisão bibliográfica que fundamenta o desenvolvimento do \textit{MinervaMesh}, com foco em problemas térmicos e de mecânica dos fluidos resolvidos por Métodos Numéricos, em especial o Método das Diferenças Finitas (MDF) e o Método dos Elementos Finitos (MEF). A revisão está organizada em quatro blocos: fundamentos de transferência de calor, bases dos métodos numéricos, marcos do MEF/CFD e trabalhos correlatos.
 
-\section{Equações Governantes}
+\section{Problemas Térmicos e Equações Governantes}
 
-\subsection{Transferência de Calor}
-\paragraph{}A condução de calor em um domínio $\Omega$ é regida pela equação da difusão:
-\begin{equation}
-    \rho c_p \frac{\partial T}{\partial t} = \nabla \cdot (k \nabla T) + \dot{q}
-    \label{eq:calor}
-\end{equation}
-\noindent onde $T$ é a temperatura, e $\dot{q}$ a fonte de calor.
+\subsection{Condução de Calor}
+\paragraph{}A condução é descrita pela Lei de Fourier e pela equação da difusão térmica. Em regime estacionário, a formulação conduz às equações de Laplace e Poisson; em regime transiente, inclui-se o termo temporal associado ao armazenamento de energia \cite{Incropera2008,Ozisik1993,Cengel2015,Bejan1992}. Esses modelos são a base de problemas clássicos de engenharia, como dissipação em componentes eletrônicos e análise térmica de discos de freio.
 
-\subsection{Mecânica dos Fluidos (Formulação $\psi-\omega$)}
-\paragraph{}Para escoamentos 2D incompressíveis, utilizamos a formulação Vorticiade-Corrente, que desacopla a pressão e garante a conservação de massa automaticamente. As equações governantes são a Poisson para a função corrente ($\psi$) e o transporte para a vorticidade ($\omega$):
+\subsection{Convecção e Acoplamento com Escoamento}
+\paragraph{}Quando há interação sólido-fluido, a convecção influencia a taxa de remoção de calor e exige o acoplamento entre equações de energia e de escoamento. A formulação por volumes/elementos finitos para problemas convectivo-difusivos é amplamente discutida na literatura de CFD \cite{Maliska2004,Versteeg2007,Fox2010,White2006,Bird2002}.
 
-\begin{equation}
-    \nabla^2 \psi = -\omega
-    \label{eq:poisson_psi}
-\end{equation}
+\subsection{Radiação Térmica}
+\paragraph{}Em aplicações de alta temperatura, os termos radiativos podem se tornar relevantes no balanço térmico global \cite{Incropera2008,Cengel2015}. Embora o escopo principal deste trabalho esteja em condução e convecção, a revisão considera radiação como extensão natural para trabalhos futuros.
 
-\begin{equation}
-    \frac{\partial \omega}{\partial t} + \mathbf{u} \cdot \nabla \omega = \frac{1}{Re} \nabla^2 \omega
-    \label{eq:transp_omega}
-\end{equation}
+\section{Métodos Numéricos para EDPs}
 
-\section{Método dos Elementos Finitos (MEF)}
+\subsection{Método das Diferenças Finitas (MDF)}
+\paragraph{}O MDF aproxima derivadas por expansões de Taylor, convertendo EDPs em sistemas algébricos. Sua implementação é direta em malhas estruturadas e, por isso, ele é frequentemente adotado em validações iniciais e em discretização temporal de problemas transientes \cite{Versteeg2007,Patankar1980}.
 
-\paragraph{}O MEF é escolhido pela sua versatilidade em tratar contornos irregulares através de malhas não-estruturadas. A implementação segue a formulação de Galerkin padrão para problemas difusivos e estabilização para termos convectivos.
+\paragraph{}Esquemas explícitos e implícitos (Euler e Crank-Nicolson) apresentam diferentes compromissos entre custo computacional, estabilidade e precisão. Em problemas dominados por difusão, esquemas implícitos são preferidos por robustez numérica \cite{Versteeg2007,Maliska2004}.
 
-\subsection{Discretização Espacial: Elementos Triangulares Lineares (P1)}
-\paragraph{}O domínio $\Omega$ é subdividido em uma malha de $N_{el}$ elementos triangulares. Em cada elemento $e$, a variável de campo $\phi$ (seja $T$, $\psi$ ou $\omega$) é aproximada linearmente:
-\begin{equation}
-    \phi^e(x, y) = \sum_{i=1}^{3} N_i^e(x, y) \phi_i^e
-\end{equation}
-\noindent onde $\phi_i^e$ são os valores nodais e $N_i^e$ são as funções de forma. Para um triângulo linear, as funções de forma são coordenadas de área, variando linearmente de 1 no nó $i$ até 0 na aresta oposta \cite{Zienkiewicz2013}.
+\subsection{Método dos Elementos Finitos (MEF)}
+\paragraph{}O MEF oferece maior flexibilidade geométrica por meio de malhas não estruturadas e formulação variacional. Essa característica é decisiva em domínios complexos, comuns em aplicações reais de engenharia térmica e de fluidos \cite{Fish2007,Lewis2004,Reddy2005,Zienkiewicz2013,Bathe1996,Logan2007,Huebner2001}.
 
-\begin{figure}[h]
-    \centering
-    \includegraphics[width=0.6\textwidth]{../assets/placeholder.png}
-    \caption{Elemento triangular linear P1 e coordenadas locais.}
-    \label{fig:triangulo_p1}
-\end{figure}
+\paragraph{}A formulação de Galerkin transforma a EDP na forma fraca e permite a montagem de matrizes globais de rigidez, massa e convecção. Para elementos lineares triangulares, a implementação é eficiente e adequada a plataformas computacionais didáticas \cite{Reddy2005,Zienkiewicz2013,Fish2007}.
 
-\subsection{Formulação Fraca e Matrizes Elementares}
-\paragraph{}Aplicando o Método dos Resíduos Ponderados de Galerkin à equação de Poisson geral ($-\nabla^2 \phi = f$), multiplicamos a equação residual por uma função teste $W = N_i$ e integramos sobre o domínio. Utilizamos o Teorema de Green (integração por partes) para reduzir a ordem da derivada no termo difusivo:
+\section{Bases Históricas e Consolidação do MEF/CFD}
 
-\begin{equation}
-    \int_{\Omega} \nabla N_i \cdot \nabla \phi \, d\Omega = \int_{\Omega} N_i f \, d\Omega + \oint_{\Gamma} N_i \frac{\partial \phi}{\partial n} \, d\Gamma
-\end{equation}
+\paragraph{}A literatura mostra uma evolução contínua desde os fundamentos variacionais até formulações estabilizadas para escoamentos com convecção dominante. Trabalhos de Galerkin, Hrennikoff e Courant consolidaram a base matemática para aproximações por partes \cite{Galerkin1915,Hrennikoff1941,Courant1943}. Em seguida, contribuições de Turner e Clough estruturaram o MEF moderno aplicado à engenharia \cite{Turner1956,Clough1960}.
 
-\paragraph{}Substituindo a aproximação discreta $\phi = \sum N_j \phi_j$, obtemos o sistema linear $\mathbf{K}\mathbf{\Phi} = \mathbf{F}$, onde a matriz de rigidez elementar $\mathbf{K}^e$ é:
+\paragraph{}No contexto de transporte convectivo e Navier-Stokes, formulações Petrov-Galerkin/SUPG reduziram oscilações numéricas e ampliaram a faixa de estabilidade dos métodos \cite{Brooks1982,Donea1984,Christie1976,Lohner1984}. Benchmarks clássicos de cavidade e degrau regressivo permanecem referências para validação de códigos \cite{Ghia1982,Marchi2009,Thomas1981,Armaly1983,Pironneau1982}.
 
-\begin{equation}
-    K_{ij}^e = \int_{\Omega_e} \left( \frac{\partial N_i}{\partial x}\frac{\partial N_j}{\partial x} + \frac{\partial N_i}{\partial y}\frac{\partial N_j}{\partial y} \right) d\Omega
-\end{equation}
+\paragraph{}Também se destaca a relevância de ferramentas de geração de malha na qualidade da solução, com destaque para o Gmsh em fluxos de trabalho acadêmicos e de pesquisa \cite{Geuzaine2009}.
 
-\paragraph{}Como os gradientes das funções de forma ($\nabla N$) são constantes em elementos P1, a integral torna-se um produto direto pela área do elemento ($A_e$), resultando em uma montagem computacional extremamente eficiente \cite{Fish2007}.
+\section{Trabalhos Correlatos (Ênfase em TCCs Semelhantes)}
 
-\subsection{Matriz de Massa e Termo Transiente}
-\paragraph{}Para equações dependentes do tempo (como o transporte de vorticidade), surge a matriz de massa $\mathbf{M}$, proveniente do termo $\frac{\partial \phi}{\partial t}$:
+\paragraph{}Em trabalhos de graduação recentes, observa-se forte convergência para aplicações de condução de calor e CFD com implementação numérica em Python. Na área térmica, destacam-se estudos sobre discos de freio, dissipadores e componentes eletrônicos heterogêneos \cite{Aguiar2020,Alves2021,Ferreira2022,Pinheiro2022,Capitanio2023,Miranda2023,Teixeira2023,Oliveira2025}. Esses trabalhos reforçam a importância de malhas adequadas, tratamento consistente de contornos e validação por casos de referência.
 
-\begin{equation}
-    M_{ij}^e = \int_{\Omega_e} N_i N_j \, d\Omega
-\end{equation}
+\paragraph{}Na linha de validação metodológica, a comparação entre solução analítica, MDF e MEF foi explorada por Araujo \cite{Araujo2022}, fornecendo evidências de convergência e comportamento de erro em diferentes discretizações. Em aplicações de fluidos e transferência de calor conjugada, também há contribuições relevantes com foco em escoamento para arrefecimento de eletrônicos e análise de campos de velocidade/vorticidade \cite{Florentino2022,Santos2022,SilvaJessica2020,Amaral2020,GomesMatheus2021}.
 
-\paragraph{}Para triângulos lineares, esta integral resulta na matriz de massa consistente:
-\begin{equation}
-    \mathbf{M}^e = \frac{A_e}{12} \begin{bmatrix} 2 & 1 & 1 \\ 1 & 2 & 1 \\ 1 & 1 & 2 \end{bmatrix}
-\end{equation}
+\paragraph{}No contexto local mais recente, trabalhos como os de Gomes \cite{GomesYuri2025} e Oliveira \cite{Oliveira2025} reforçam a continuidade da linha de pesquisa em transferência de calor com viés variacional/numérico e MEF tridimensional.
 
-\subsection{Tratamento do Termo Convectivo}
-\paragraph{}O termo de advecção $\mathbf{u} \cdot \nabla \omega$ na Eq. (\ref{eq:transp_omega}) gera a matriz de convecção assimétrica $\mathbf{C}$:
+\section{Síntese da Revisão e Lacuna Atacada}
 
-\begin{equation}
-    C_{ij}^e = \int_{\Omega_e} N_i (\mathbf{u} \cdot \nabla N_j) \, d\Omega
-\end{equation}
+\paragraph{}A revisão indica que: (i) há base teórica consolidada para problemas térmicos e de escoamento; (ii) MDF e MEF são métodos complementares, com o MEF mais adequado para geometrias complexas; e (iii) existe demanda por ferramentas didáticas acessíveis para implementação e validação desses métodos.
 
-\paragraph{}Observa-se que, para altos números de Reynolds, a dominância deste termo pode introduzir oscilações numéricas. Embora a implementação base utilize Galerkin padrão, a arquitetura permite a introdução de funções teste modificadas (Petrov-Galerkin) conforme proposto por Brooks e Hughes \cite{Brooks1982} para estabilização (SUPG).
-
-\section{Discretização Temporal}
-
-\paragraph{}Para integração no tempo, adota-se o esquema $\theta$-method (Diferenças Finitas no tempo):
-\begin{equation}
-    (\mathbf{M} + \theta \Delta t \mathbf{K}) \mathbf{\Phi}^{n+1} = (\mathbf{M} - (1-\theta) \Delta t \mathbf{K}) \mathbf{\Phi}^{n} + \Delta t \mathbf{F}
-\end{equation}
-\noindent O \textit{MinervaMesh} utiliza tipicamente $\theta=1$ (Euler Implícito) para garantir estabilidade incondicional em problemas difusivos, ou $\theta=0.5$ (Crank-Nicolson) para maior precisão de segunda ordem \cite{Versteeg2007}.
+\paragraph{}Nesse cenário, o \textit{MinervaMesh} se posiciona ao integrar formulações clássicas de engenharia numérica em uma plataforma web, com foco em acessibilidade, reprodutibilidade e uso educacional, apoiando-se em bibliotecas científicas amplamente adotadas \cite{Harris2020,PyScript2023}.
