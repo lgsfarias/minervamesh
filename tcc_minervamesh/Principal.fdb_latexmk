@@ -1,13 +1,14 @@
 # Fdb version 4
-["bibtex Principal"] 1771617461.92122 "Principal.aux" "Principal.bbl" "Principal" 1771617462.94404 0
+["bibtex Principal"] 1771620483.75809 "Principal.aux" "Principal.bbl" "Principal" 1771620484.6872 0
   "./biblio.bib" 1771616869.93931 16717 59a80acae5e141db8d88856bf5361c47 ""
   "./coppe.bst" 1769512320.86384 24458 858d1cea7157546113f910063fcfbbab ""
-  "Principal.aux" 1771617462.63151 9777 a6140aca57409762bda6cf298f89b70c "pdflatex"
+  "Principal.aux" 1771620484.42916 11487 5172814f3230ab953cc77881961915c6 "pdflatex"
   (generated)
   "Principal.bbl"
   "Principal.blg"
   (rewritten before read)
-["pdflatex"] 1771617462.04813 "Principal.tex" "Principal.pdf" "Principal" 1771617462.94426 0
+["pdflatex"] 1771620483.87201 "/Users/lgsfarias/Developer/minervamesh/minervamesh/tcc_minervamesh/Principal.tex" "Principal.pdf" "Principal" 1771620484.68737 0
+  "/Users/lgsfarias/Developer/minervamesh/minervamesh/tcc_minervamesh/Principal.tex" 1771620482.76896 3372 69f8a3d5a8bd1c7c5bbb0f629a860e48 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcrm1200.tfm" 1136768653 1536 74b7293ec3713bb7fdca8dd1bd1f469c ""
@@ -122,20 +123,23 @@
   "ApendiceC.tex" 1769512320.87132 118 d5adb4ee757771bef7ce42602998d51f ""
   "Capa.tex" 1769512486.9677 2266 df1457e1ccad55396745adadc923791a ""
   "Preambulo.tex" 1771617457.6496 4708 0fada4483df3548a2da02928577bcc79 ""
-  "Principal.aux" 1771617462.63151 9777 a6140aca57409762bda6cf298f89b70c "pdflatex"
-  "Principal.bbl" 1771617462.04554 10580 5ac6d29ba8411de022db8c089c9e5511 "bibtex Principal"
-  "Principal.lof" 1771617462.63394 264 a1a19e83b5eacf3fe9aa089d5bf93178 "pdflatex"
-  "Principal.lot" 1771617462.63396 149 a93a0b95d46d49684f5a3ff8080a9ca6 "pdflatex"
-  "Principal.tex" 1771616843.86729 2606 16f83e48d7facc5d17593a3ba60cfea5 ""
-  "Principal.toc" 1771617462.63389 3142 c21fc44b5ae524bdbc0b6b3deb22d844 "pdflatex"
+  "Principal.aux" 1771620484.42916 11487 5172814f3230ab953cc77881961915c6 "pdflatex"
+  "Principal.bbl" 1771620483.86949 10382 7ade7024d267ae357f31456f2683ff97 "bibtex Principal"
+  "Principal.lof" 1771620484.43134 324 b44d7a22e9dc43f6829cd82cb3f8a3b4 "pdflatex"
+  "Principal.lot" 1771620484.43136 209 2180ceb22e8d93bf2b906e4411d19ca9 "pdflatex"
+  "Principal.tex" 1771620482.76896 3372 69f8a3d5a8bd1c7c5bbb0f629a860e48 ""
+  "Principal.toc" 1771620484.4313 3819 758b83059e1b1b6844ac268f02ef942b "pdflatex"
   "TesePack.tex" 1769512320.87156 710 1d23275ff09edeadc8f44dce73983222 ""
-  "cap1.tex" 1771617440.44178 5031 8496998732b7646a4d79f92e4cff36a2 ""
-  "cap2.tex" 1771616843.78592 6418 feb0b54ca4aface231004433bdd21005 ""
-  "cap3.tex" 1769512320.86961 430 10c4774f09a3fcf86dae79aa104020e6 ""
+  "arquitetura.tex" 1771620476.71941 360 3774a3eae39703e940d638f8f9425ebc ""
+  "conclusao.tex" 1771620480.72833 623 511676d09a203d917683ec3ad2e5d55b ""
   "figuras/Capa_do_Projeto_Final.eps" 1769512320.87943 638238 4edf3c13f804e1ae6a96f0787ba39e59 ""
   "figuras/Poli.eps" 1769512320.88228 546883 81bfb03fc1b9cab5b79f6a989d85e334 ""
+  "fundamentacao_teorica.tex" 1771620474.71217 393 9f265c1c49f2a265e27a9840f8473a18 ""
   "indentfirst.sty" 1769512320.8618 791 669543ca2dcbd5c0e900e06ead6a7a98 ""
+  "introducao.tex" 1771620470.73746 5020 a7ca5f3081e5fbbe5c90896d4cec3ce8 ""
   "pagina.sty" 1769512320.87106 462 9452fea7eafcf87b590f8eb029f5f0ae ""
+  "resultados.tex" 1771620478.76956 349 34c72c818184b58375243223011989e4 ""
+  "revisao_bibliografica.tex" 1771620472.70587 6418 feb0b54ca4aface231004433bdd21005 ""
   "rotating.sty" 1769512320.87463 4432 bb6ecf60c864b096ab48e6f7c3aebf6f ""
   (generated)
   "Principal.aux"
