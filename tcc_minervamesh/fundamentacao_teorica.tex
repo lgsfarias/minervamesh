@@ -245,3 +245,130 @@ F_I = \sum_{e=1}^{N_e} F_{\text{IEN}(a,e)}^e
 \end{equation}
 
 Após a montagem, as condições de contorno de Dirichlet são impostas modificando-se as linhas correspondentes do sistema. A resolução do sistema linear resultante fornece os valores nodais $\mathbf{U}$.
+
+\section{Formulação Vorticidade-Corrente}
+\label{sec:vorticidade_corrente}
+
+A resolução direta das equações de Navier-Stokes em variáveis primitivas (velocidade-pressão) apresenta dificuldades numéricas associadas ao acoplamento pressão-velocidade e à satisfação da restrição de continuidade (Eq.~\ref{eq:continuidade}). Em problemas bidimensionais, a formulação em \textit{Vorticidade-Corrente} ($\omega$-$\psi$) oferece uma alternativa eficaz, eliminando o campo de pressão das incógnitas e reduzindo o sistema a duas equações escalares \cite{Maliska2004,Versteeg2007}.
+
+\subsection{Definições}
+
+Para um escoamento bidimensional, define-se a \textit{função corrente} $\psi(x,y,t)$ tal que o campo de velocidades satisfaça identicamente a equação da continuidade:
+
+\begin{equation}
+u = \frac{\partial \psi}{\partial y}, \qquad v = -\frac{\partial \psi}{\partial x}
+\label{eq:funcao_corrente}
+\end{equation}
+
+A \textit{vorticidade}, componente escalar no plano 2D, é definida como o rotacional do campo de velocidades:
+
+\begin{equation}
+\omega = \frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}
+\label{eq:vorticidade_def}
+\end{equation}
+
+Substituindo as definições da função corrente na expressão da vorticidade, obtém-se a \textit{equação de Poisson para a função corrente}:
+
+\begin{equation}
+\nabla^2 \psi = -\omega
+\label{eq:poisson_psi}
+\end{equation}
+
+\subsection{Equação de Transporte da Vorticidade}
+
+Aplicando o rotacional às equações de Navier-Stokes (Eq.~\ref{eq:navier_stokes_vel_pressao}), o gradiente de pressão é eliminado e obtém-se a equação de transporte da vorticidade:
+
+\begin{equation}
+\frac{\partial \omega}{\partial t} + u \frac{\partial \omega}{\partial x} + v \frac{\partial \omega}{\partial y} = \nu \nabla^2 \omega
+\label{eq:transporte_vorticidade}
+\end{equation}
+onde $\nu = \mu/\rho$ é a viscosidade cinemática. Esta equação possui a estrutura clássica de convecção-difusão, onde o campo de velocidades ($u, v$) transporta a vorticidade $\omega$ enquanto a difusão viscosa a dissipa.
+
+\subsection{Sistema Acoplado e Solução Iterativa}
+
+O sistema $\omega$-$\psi$ é resolvido iterativamente. A cada passo de tempo (ou iteração estacionária), o procedimento consiste em:
+
+\begin{enumerate}
+    \item Resolver a equação de Poisson (Eq.~\ref{eq:poisson_psi}) para $\psi$, dado $\omega$.
+    \item Calcular o campo de velocidades ($u$, $v$) a partir de $\psi$ (Eq.~\ref{eq:funcao_corrente}).
+    \item Resolver a equação de transporte (Eq.~\ref{eq:transporte_vorticidade}) para $\omega$, dado ($u$, $v$).
+    \item Verificar a convergência e repetir, se necessário.
+\end{enumerate}
+
+\subsection{Matriz de Convecção e Estabilização SUPG}
+\label{sec:supg}
+
+A discretização via MEF do operador convectivo $\mathbf{v} \cdot \nabla \phi$ conduz à \textit{matriz de convecção} elementar, de dimensão $3 \times 3$ para elementos P1:
+
+\begin{equation}
+C_{ij}^e = \int_{\Omega^e} N_i \, (\mathbf{v} \cdot \nabla N_j) \, d\Omega = \frac{A^e}{3} \left( \frac{u_e \, b_j + v_e \, c_j}{2 A^e} \right)
+\label{eq:conveccao_galerkin}
+\end{equation}
+onde $u_e$ e $v_e$ são as componentes de velocidade avaliadas no centroide do elemento.
+
+Quando o campo de velocidades é intenso em relação à difusão (número de Péclet elevado), a formulação de Galerkin padrão produz oscilações espúrias. Para contornar essa limitação, emprega-se a técnica \textit{Streamline Upwind Petrov-Galerkin} (SUPG), que adiciona uma difusão artificial orientada na direção do escoamento \cite{Brooks1982}.
+
+Na formulação SUPG, a função-teste é modificada para $w_i = N_i + \tau_{\text{SUPG}} \, \mathbf{v} \cdot \nabla N_i$, com o parâmetro de estabilização:
+
+\begin{equation}
+\tau_{\text{SUPG}} = \frac{h_e}{2 \|\mathbf{v}\|} \left( \coth \text{Pe}_e - \frac{1}{\text{Pe}_e} \right)
+\label{eq:tau_supg}
+\end{equation}
+onde $\text{Pe}_e = \|\mathbf{v}\| h_e / (2\alpha)$ é o número de Péclet elementar.
+
+No \textit{MinervaMesh}, a estabilização SUPG é empregada no caso unidimensional de convecção-difusão, onde o efeito do número de Péclet é mais crítico. No solver bidimensional de Navier-Stokes, a convecção da vorticidade utiliza a formulação de Galerkin padrão (Eq.~\ref{eq:conveccao_galerkin}), sendo a estabilidade controlada pela escolha adequada do passo de tempo e do número de Reynolds.
+
+\section{Integração Temporal}
+\label{sec:integracao_temporal}
+
+Para problemas transientes, a discretização temporal converte a EDP semidiscreta (após a discretização espacial por MEF) em um sistema algébrico a cada intervalo de tempo $\Delta t$. No caso geral, o sistema semidiscreto assume a forma:
+
+\begin{equation}
+\mathbf{M} \frac{d\mathbf{U}}{dt} + \mathbf{K} \mathbf{U} = \mathbf{F}(t)
+\label{eq:semidiscreto}
+\end{equation}
+
+\subsection{Método $\theta$ Generalizado}
+
+A família de métodos $\theta$ parametriza a ponderação temporal entre os instantes $t^n$ e $t^{n+1}$:
+
+\begin{equation}
+\mathbf{M} \frac{\mathbf{U}^{n+1} - \mathbf{U}^n}{\Delta t} + \mathbf{K} \left[ \theta \, \mathbf{U}^{n+1} + (1 - \theta) \, \mathbf{U}^n \right] = \theta \, \mathbf{F}^{n+1} + (1 - \theta) \, \mathbf{F}^n
+\label{eq:theta_method}
+\end{equation}
+
+Os casos particulares mais relevantes são:
+\begin{itemize}
+    \item $\theta = 0$: Euler explícito (condicionalmente estável);
+    \item $\theta = 1/2$: Crank-Nicolson (incondicionalmente estável, segunda ordem);
+    \item $\theta = 1$: Euler implícito (incondicionalmente estável, primeira ordem).
+\end{itemize}
+
+\subsection{Esquema Semi-Implícito Adotado}
+\label{sec:semi_implicito}
+
+No solver de Navier-Stokes do \textit{MinervaMesh}, a equação de transporte da vorticidade (Eq.~\ref{eq:transporte_vorticidade}) é discretizada com um esquema \textit{semi-implícito}: o termo difusivo é tratado implicitamente ($\theta = 1$), enquanto o termo convectivo é avaliado explicitamente no instante $t^n$. Isso resulta no sistema:
+
+\begin{equation}
+\boxed{\left( \mathbf{M} + \frac{\Delta t}{\text{Re}} \, \mathbf{K} \right) \boldsymbol{\omega}^{n+1} = \mathbf{M} \, \boldsymbol{\omega}^n - \Delta t \, \mathbf{C}^n \, \boldsymbol{\omega}^n}
+\label{eq:sistema_temporal_ns}
+\end{equation}
+onde $\mathbf{C}^n$ é a matriz de convecção assembrada a partir do campo de velocidades no instante atual e $\text{Re} = \rho U L / \mu$ é o número de Reynolds. O tratamento implícito da difusão garante estabilidade incondicional para esse operador, enquanto a convecção explícita impor restrições sobre $\Delta t$ associadas ao número de Courant.
+
+Para problemas puramente difusivos (conducão transiente), utiliza-se o método $\theta$ generalizado (Eq.~\ref{eq:theta_method}), permitindo ao usuário selecionar entre Euler e Crank-Nicolson conforme o compromisso desejado entre precisão e estabilidade.
+
+\subsection{Condição de Contorno de Vorticidade: Fórmula de Thom}
+\label{sec:thom}
+
+Na formulação $\omega$-$\psi$, a vorticidade nas paredes sólidas não é conhecida \textit{a priori} e deve ser calculada indiretamente a partir do campo de função corrente. A fórmula de Thom \cite{Maliska2004} fornece essa condição de contorno, baseando-se em uma expansão de Taylor de $\psi$ na direção normal à parede:
+
+\begin{equation}
+\omega_w = -\frac{2(\psi_{\text{nb}} - \psi_w - h \, u_{\text{tan}})}{h^2}
+\label{eq:thom}
+\end{equation}
+onde $\psi_w$ e $\psi_{\text{nb}}$ são os valores da função corrente na parede e no nó vizinho mais próximo na direção normal, respectivamente; $h$ é a distância entre esses nós; e $u_{\text{tan}}$ é a velocidade tangencial da parede ($u_{\text{tan}} = 0$ para paredes estacionárias e $u_{\text{tan}} = U_{\text{lid}}$ para paredes móveis, como no problema da cavidade).
+
+\section{Síntese do Capítulo}
+\label{sec:sintese_fundamentacao}
+
+Este capítulo estabeleceu o arcabouço matemático completo empregado pelo \textit{MinervaMesh}. A formulação parte das EDPs governantes para fenômenos térmicos e fluidodinâmicos, transita pela introdução conceitual do MDF e se aprofunda no MEF via Galerkin. A discretização com elementos triangulares P1 permite a construção explícita das matrizes elementares de rigidez, massa e convecção, enquanto a formulação Vorticidade-Corrente viabiliza a solução de escoamentos 2D sem a necessidade de resolver diretamente o campo de pressão. A integração temporal semi-implícita e a fórmula de Thom para condições de contorno de vorticidade completam o ferramental necessário para a simulação dos casos apresentados no Capítulo 5.

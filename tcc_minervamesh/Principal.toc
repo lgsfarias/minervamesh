@@ -74,20 +74,30 @@
 \contentsline {subsubsection}{\numberline {3.4.4.2}Matriz de Massa Elementar}{14}{}%
 \contentsline {subsubsection}{\numberline {3.4.4.3}Vetor de Carga Elementar}{14}{}%
 \contentsline {subsection}{\numberline {3.4.5}Montagem Global}{15}{}%
-\contentsline {chapter}{\numberline {4}Desenvolvimento e Arquitetura}{16}{}%
-\contentsline {section}{\numberline {4.1}Introdução ao Capítulo}{16}{}%
-\contentsline {paragraph}{}{16}{}%
-\contentsline {chapter}{\numberline {5}Resultados e Validação}{17}{}%
-\contentsline {section}{\numberline {5.1}Introdução ao Capítulo}{17}{}%
-\contentsline {paragraph}{}{17}{}%
-\contentsline {chapter}{\numberline {6}Conclusões}{18}{}%
-\contentsline {section}{\numberline {6.1}Conclusões}{18}{}%
-\contentsline {paragraph}{}{18}{}%
-\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{18}{}%
-\contentsline {paragraph}{}{18}{}%
-\contentsline {chapter}{Bibliografia}{19}{}%
-\contentsline {chapter}{\numberline {A}O que é um apêndice}{24}{}%
-\contentsline {paragraph}{}{24}{}%
-\contentsline {chapter}{\numberline {B}Encadernação do Projeto de Graduação}{25}{}%
-\contentsline {chapter}{\numberline {C}O que é um anexo}{27}{}%
-\contentsline {paragraph}{}{27}{}%
+\contentsline {section}{\numberline {3.5}Formulação Vorticidade-Corrente}{15}{}%
+\contentsline {subsection}{\numberline {3.5.1}Definições}{15}{}%
+\contentsline {subsection}{\numberline {3.5.2}Equação de Transporte da Vorticidade}{16}{}%
+\contentsline {subsection}{\numberline {3.5.3}Sistema Acoplado e Solução Iterativa}{16}{}%
+\contentsline {subsection}{\numberline {3.5.4}Matriz de Convecção e Estabilização SUPG}{16}{}%
+\contentsline {section}{\numberline {3.6}Integração Temporal}{17}{}%
+\contentsline {subsection}{\numberline {3.6.1}Método $\theta $ Generalizado}{17}{}%
+\contentsline {subsection}{\numberline {3.6.2}Esquema Semi-Implícito Adotado}{18}{}%
+\contentsline {subsection}{\numberline {3.6.3}Condição de Contorno de Vorticidade: Fórmula de Thom}{18}{}%
+\contentsline {section}{\numberline {3.7}Síntese do Capítulo}{19}{}%
+\contentsline {chapter}{\numberline {4}Desenvolvimento e Arquitetura}{20}{}%
+\contentsline {section}{\numberline {4.1}Introdução ao Capítulo}{20}{}%
+\contentsline {paragraph}{}{20}{}%
+\contentsline {chapter}{\numberline {5}Resultados e Validação}{21}{}%
+\contentsline {section}{\numberline {5.1}Introdução ao Capítulo}{21}{}%
+\contentsline {paragraph}{}{21}{}%
+\contentsline {chapter}{\numberline {6}Conclusões}{22}{}%
+\contentsline {section}{\numberline {6.1}Conclusões}{22}{}%
+\contentsline {paragraph}{}{22}{}%
+\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{22}{}%
+\contentsline {paragraph}{}{22}{}%
+\contentsline {chapter}{Bibliografia}{23}{}%
+\contentsline {chapter}{\numberline {A}O que é um apêndice}{28}{}%
+\contentsline {paragraph}{}{28}{}%
+\contentsline {chapter}{\numberline {B}Encadernação do Projeto de Graduação}{29}{}%
+\contentsline {chapter}{\numberline {C}O que é um anexo}{31}{}%
+\contentsline {paragraph}{}{31}{}%
