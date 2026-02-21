@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex Principal"] 1771715372.79605 "Principal.aux" "Principal.bbl" "Principal" 1771715385.90585 0
+["bibtex Principal"] 1771716651.7612 "Principal.aux" "Principal.bbl" "Principal" 1771716657.77193 0
   "./biblio.bib" 1771616869.93931 16717 59a80acae5e141db8d88856bf5361c47 ""
   "./coppe.bst" 1769512320.86384 24458 858d1cea7157546113f910063fcfbbab ""
-  "Principal.aux" 1771715385.61515 25004 1c53d6aa3d76b3602a9cb4e4baf2e155 "pdflatex"
+  "Principal.aux" 1771716657.49444 25683 4e63d33f379bfd740ff63758c7fc01b7 "pdflatex"
   (generated)
   "Principal.bbl"
   "Principal.blg"
   (rewritten before read)
-["pdflatex"] 1771715379.67095 "/Users/lgsfarias/Developer/minervamesh/minervamesh/tcc_minervamesh/Principal.tex" "Principal.pdf" "Principal" 1771715385.90603 0
+["pdflatex"] 1771716651.8778 "/Users/lgsfarias/Developer/minervamesh/minervamesh/tcc_minervamesh/Principal.tex" "Principal.pdf" "Principal" 1771716657.77213 0
   "/Users/lgsfarias/Developer/minervamesh/minervamesh/tcc_minervamesh/Principal.tex" 1771620482.76896 3372 69f8a3d5a8bd1c7c5bbb0f629a860e48 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -148,13 +148,13 @@
   "ApendiceB.tex" 1769512320.87048 301 ca1c34912af830debd135232ad73c494 ""
   "ApendiceC.tex" 1769512320.87132 118 d5adb4ee757771bef7ce42602998d51f ""
   "Capa.tex" 1769512486.9677 2266 df1457e1ccad55396745adadc923791a ""
-  "Preambulo.tex" 1771617457.6496 4708 0fada4483df3548a2da02928577bcc79 ""
-  "Principal.aux" 1771715385.61515 25004 1c53d6aa3d76b3602a9cb4e4baf2e155 "pdflatex"
-  "Principal.bbl" 1771715372.91018 10382 7ade7024d267ae357f31456f2683ff97 "bibtex Principal"
-  "Principal.lof" 1771715385.61841 2053 5c3f4f0bba47cc4ece1ea0d754e54c3b "pdflatex"
-  "Principal.lot" 1771715385.61847 341 3825f702d038ed632b991098a729e822 "pdflatex"
+  "Preambulo.tex" 1771716645.54269 6462 008aa36b15f2c578282a86b6e034ea68 ""
+  "Principal.aux" 1771716657.49444 25683 4e63d33f379bfd740ff63758c7fc01b7 "pdflatex"
+  "Principal.bbl" 1771716651.87482 10382 7ade7024d267ae357f31456f2683ff97 "bibtex Principal"
+  "Principal.lof" 1771716657.49773 2053 5c3f4f0bba47cc4ece1ea0d754e54c3b "pdflatex"
+  "Principal.lot" 1771716657.49776 341 3825f702d038ed632b991098a729e822 "pdflatex"
   "Principal.tex" 1771620482.76896 3372 69f8a3d5a8bd1c7c5bbb0f629a860e48 ""
-  "Principal.toc" 1771715385.61825 7480 ccd28c37c1040a273a27b8be7791458b "pdflatex"
+  "Principal.toc" 1771716657.49767 7790 f1cac8f9d309549ea7822c5229525f14 "pdflatex"
   "TesePack.tex" 1771715329.4846 729 fb325766018c2b0aa01e85867c31def0 ""
   "arquitetura.tex" 1771715379.52759 22536 4df8c7354738f28fd69e18a7ee1ea793 ""
   "conclusao.tex" 1771620480.72833 623 511676d09a203d917683ec3ad2e5d55b ""
