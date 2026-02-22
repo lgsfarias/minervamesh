@@ -83,29 +83,23 @@ A principal limitação da abordagem \textit{client-side} reside na capacidade c
 
 O repositório do \textit{MinervaMesh} segue uma estrutura modular, onde cada simulação é autocontida em seu próprio diretório. A organização geral é apresentada a seguir:
 
-\begin{verbatim}
+\begin{lstlisting}[style=dirstyle,numbers=none]
 minervamesh/
 |-- index.html                    # Menu principal
 |-- assets/                       # Logos e imagens globais
 |-- simulations/
-|   |-- mdf/                     # Diferencas Finitas
-|   |   |-- conducao-permanente-barra1d-geracao/
-|   |   +-- equacao-onda/
 |   |-- mef/                     # Elementos Finitos
-|   |   |-- conducao-permanente-barra1d-mef/
-|   |   |-- calor-transiente-1d/
-|   |   |-- conveccao-difusao-1d/
-|   |   |-- viga-1d-mef/
-|   |   |-- vibracao-1d-mef/
-|   |   |-- transcalor/
+|   |   |-- <nome-do-modulo>/
+|   |   |   |-- index.html       # Interface do usuario
+|   |   |   |-- simulation.py    # Logica numerica
+|   |   |   +-- config.toml      # Dependencias Python
+|   |   |-- ...                  # (8 modulos MEF)
 |   |   +-- escoamento-fluido-2d/
-|   |       |-- common.py        # Matrizes MEF
-|   |       |-- geometry.py      # Geometrias
-|   |       |-- escoamento-potencial/
-|   |       +-- navier-stokes/
-|   +-- extra/
-|       +-- gerador-malha/
-\end{verbatim}
+|   |       |-- common.py        # Matrizes MEF 2D
+|   |       +-- geometry.py      # Geometrias de obstaculo
+|   |-- mdf/                     # Diferencas Finitas
+|   +-- extra/                   # Ferramentas auxiliares
+\end{lstlisting}
 
 Cada módulo de simulação segue um padrão uniforme de três arquivos:
 \begin{itemize}
@@ -151,11 +145,11 @@ O primeiro módulo resolve o problema de condução térmica unidimensional em r
 
 A discretização por elementos finitos lineares resulta na matriz de rigidez e no vetor de carga elementares (Seção \ref{sec:matrizes_elementares}), implementados como:
 
-\begin{verbatim}
+\begin{lstlisting}
 # Elemento linear 1D: ke e be
 ke = (k / h) * np.array([[1.0, -1.0], [-1.0, 1.0]])
 be = (Q * h / 2.0) * np.array([1.0, 1.0])
-\end{verbatim}
+\end{lstlisting}
 
 A montagem percorre os $N_{el}$ elementos, acumulando as contribuições nas posições globais. Após a imposição das condições de Dirichlet (zerando linhas e colunas correspondentes), o sistema $\mathbf{K}\mathbf{T} = \mathbf{b}$ é resolvido por \texttt{numpy.linalg.solve}. A Figura \ref{fig:conducao1d_resultado} mostra a comparação entre a solução MEF e a solução analítica.
 
@@ -179,11 +173,11 @@ com condutividade térmica variável $k(x)$, definida como $k_1 = 5{,}0$ para $x
 
 As matrizes elementares são calculadas por:
 
-\begin{verbatim}
+\begin{lstlisting}
 # Matrizes de elemento 1D transiente
 ke = (k_avg / h) * np.array([[1, -1], [-1, 1]])
 me = (rho_cp * h / 6) * np.array([[2, 1], [1, 2]])
-\end{verbatim}
+\end{lstlisting}
 
 A integração temporal utiliza o método $\theta$ generalizado (Eq.~\ref{eq:theta_method}), permitindo ao usuário selecionar entre Euler explícito, Crank-Nicolson e Euler implícito. A Figura \ref{fig:calor_transiente1d} ilustra a evolução temporal do campo de temperatura.
 
@@ -206,12 +200,12 @@ O módulo de convecção-difusão 1D resolve a equação de advecção-difusão 
 
 A discretização MEF gera três matrizes elementares: difusão, convecção e estabilização SUPG (Seção \ref{sec:supg}). O cálculo do parâmetro de estabilização na implementação é:
 
-\begin{verbatim}
-# Número de Péclet local e tau SUPG
+\begin{lstlisting}
+# Numero de Peclet local e tau SUPG
 Pe_local = (rho_cp * u * h) / (2 * k)
 tau = h / (2*abs(u)) * (1/np.tanh(abs(Pe_local))
                         - 1/abs(Pe_local))
-\end{verbatim}
+\end{lstlisting}
 
 A Figura \ref{fig:convdif_supg} demonstra o efeito da estabilização SUPG em um problema com número de Péclet elevado. Sem estabilização, a formulação de Galerkin padrão produz oscilações espúrias; com SUPG, a solução numérica converge suavemente para a solução analítica.
 
@@ -234,7 +228,7 @@ O módulo de viga 1D implementa elementos finitos de Euler-Bernoulli com dois gr
 
 A matriz de rigidez elementar $4 \times 4$ é construída com as funções de interpolação cúbicas de Hermite:
 
-\begin{verbatim}
+\begin{lstlisting}
 # Matriz de rigidez do elemento de viga
 ke = (EI / h**3) * np.array([
     [12,   6*h,  -12,   6*h  ],
@@ -242,7 +236,7 @@ ke = (EI / h**3) * np.array([
     [-12, -6*h,   12,  -6*h  ],
     [6*h,  2*h**2, -6*h, 4*h**2]
 ])
-\end{verbatim}
+\end{lstlisting}
 
 O módulo suporta quatro condições de contorno (simplesmente apoiada, balanço, engastada-engastada e engastada-apoiada) e cinco tipos de carregamento (uniforme, linear, triangular, senoidal e pontual), além de propriedades materiais variáveis ao longo do comprimento. A Figura \ref{fig:viga1d_resultado} apresenta a análise completa de uma viga, incluindo deflexão, diagramas de momento fletor e esforço cortante.
 
@@ -258,11 +252,11 @@ O módulo suporta quatro condições de contorno (simplesmente apoiada, balanço
 
 O módulo de vibração resolve o problema de autovalor generalizado $\mathbf{K} \boldsymbol{\phi} = \lambda \, \mathbf{M} \boldsymbol{\phi}$ para uma barra elástica 1D, onde as frequências naturais são $f_n = \sqrt{\lambda_n} / (2\pi)$ e os autovetores $\boldsymbol{\phi}_n$ representam os modos de vibração. As matrizes elementares utilizam uma massa concentrada (\textit{lumped}):
 
-\begin{verbatim}
+\begin{lstlisting}
 # Matrizes de rigidez e massa (barra 1D)
 ke = (E*A / h) * np.array([[1, -1], [-1, 1]])
 me = (rho*A*h / 2) * np.array([[1, 0], [0, 1]])
-\end{verbatim}
+\end{lstlisting}
 
 O problema de autovalor é resolvido pela rotina \texttt{scipy.linalg.eigh}, que explora a simetria das matrizes para eficiência e estabilidade numérica. A solução fornece $n$ frequências naturais e os correspondentes modos de vibração, comparáveis com as expressões analíticas $f_n = n c / (2L)$ para barras engastadas, onde $c = \sqrt{E/\rho}$ é a velocidade de propagação de ondas. A Figura \ref{fig:vibracao1d_modos} ilustra os cinco primeiros modos.
 
@@ -278,7 +272,7 @@ O problema de autovalor é resolvido pela rotina \texttt{scipy.linalg.eigh}, que
 
 O módulo de transferência de calor bidimensional resolve a equação de condução transiente em uma placa quadrada discretizada com elementos triangulares P1. As matrizes elementares de rigidez e massa são construídas pela função compartilhada \texttt{element\_matrices}, que implementa as expressões derivadas na Seção \ref{sec:matrizes_elementares}:
 
-\begin{verbatim}
+\begin{lstlisting}
 def element_matrices(coords, k, rho, cv):
     x0, x1, x2 = coords
     area = 0.5 * abs((x1[0]-x0[0])*(x2[1]-x0[1])
@@ -288,7 +282,7 @@ def element_matrices(coords, k, rho, cv):
     ke = (k/(4*area)) * (np.outer(b,b) + np.outer(c,c))
     me = (rho*cv*area/12) * (np.ones((3,3)) + np.eye(3))
     return ke, me
-\end{verbatim}
+\end{lstlisting}
 
 A integração temporal emprega o método de Crank-Nicolson ($\theta = 1/2$), formulado com matrizes esparsas (\texttt{scipy.sparse}) para viabilizar a execução no navegador com malhas de até $40 \times 40$ nós. A cada passo de tempo, um frame do campo de temperatura é gerado e acumulado para compor uma animação GIF. A Figura \ref{fig:transcalor2d_campo} ilustra um instante da evolução temporal.
 

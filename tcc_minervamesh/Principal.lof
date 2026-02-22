@@ -5,18 +5,16 @@
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {4.1}{\ignorespaces Tela inicial do \textit {MinervaMesh} com o menu de simulações disponíveis.}}{21}{}%
 \contentsline {figure}{\numberline {4.2}{\ignorespaces Interface de parametrização de uma simulação (Condução Permanente 1D) antes da execução.}}{25}{}%
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Condução permanente 1D: solução MEF ($N_{el}=10$) comparada à solução analítica.}}{27}{}%
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Evolução temporal do campo de temperatura com condutividade variável $k(x)$.}}{28}{}%
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Convecção-difusão 1D com estabilização SUPG ($\text {Pe} \gg 1$): solução MEF comparada à analítica.}}{29}{}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Condução permanente 1D: solução MEF ($N_{el}=10$) comparada à solução analítica.}}{26}{}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Evolução temporal do campo de temperatura com condutividade variável $k(x)$.}}{27}{}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Convecção-difusão 1D com estabilização SUPG ($\text {Pe} \gg 1$): solução MEF comparada à analítica.}}{28}{}%
 \contentsline {figure}{\numberline {4.6}{\ignorespaces Análise de flexão de viga 1D (Euler-Bernoulli): deflexão, carregamento, propriedades, momento fletor e esforço cortante.}}{30}{}%
 \contentsline {figure}{\numberline {4.7}{\ignorespaces Frequências naturais e cinco primeiros modos de vibração de uma barra 1D.}}{31}{}%
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Campo de temperatura em placa 2D durante a evolução transiente (método de Crank-Nicolson).}}{32}{}%
 \contentsline {figure}{\numberline {4.9}{\ignorespaces Escoamento potencial 2D: linhas de corrente ao redor de um obstáculo.}}{33}{}%
-\contentsline {figure}{\numberline {4.10}{\ignorespaces Navier-Stokes 2D --- cavidade com tampa móvel ($\text {Re} = 100$): campos de $\psi $, $\omega $ e linhas de corrente.}}{35}{}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Navier-Stokes 2D --- linhas de corrente para escoamento ao redor de um cilindro.}}{36}{}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Navier-Stokes 2D --- cavidade com tampa móvel ($\text {Re} = 100$): campos de $\psi $, $\omega $ e linhas de corrente.}}{34}{}%
+\contentsline {figure}{\numberline {4.11}{\ignorespaces Navier-Stokes 2D --- linhas de corrente para escoamento ao redor de um cilindro.}}{35}{}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {B.1}{\ignorespaces \small {Encadernação do projeto de graduação.}}}{47}{}%
 \addvspace {10\p@ }
