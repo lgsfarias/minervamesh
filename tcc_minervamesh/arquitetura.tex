@@ -1,3 +1,5 @@
+\paragraph{}Os módulos computacionais apresentados neste capítulo constituem implementações diretas das formulações matemáticas desenvolvidas no Capítulo~\ref{cap3}. Cada simulador corresponde a uma discretização específica obtida via formulação variacional de Galerkin ou, nos casos pertinentes, por diferenças finitas, e a arquitetura do software reflete o fluxo numérico subjacente: discretização espacial (MEF/MDF), montagem do sistema matricial, integração temporal e imposição das condições de contorno. Dessa forma, a estrutura da plataforma reproduz, em nível computacional, a sequência de operações matemáticas que conduz das equações governantes contínuas aos sistemas algébricos discretos efetivamente resolvidos.
+
 \section{Visão Geral da Plataforma}
 \label{sec:visao_geral}
 
@@ -133,6 +135,8 @@ O ciclo de vida de uma simulação no \textit{MinervaMesh} pode ser descrito em 
 
 Esta seção descreve cada módulo de simulação implementado no \textit{MinervaMesh}, detalhando o problema físico resolvido, as decisões de implementação e os resultados obtidos. Os trechos de código apresentados referem-se às funções centrais de cada simulação; as listagens completas encontram-se nos Apêndices.
 
+\paragraph{}Todos os módulos implementam diretamente as formulações variacionais e discretizações desenvolvidas no Capítulo~\ref{cap:fundamentacao}. As matrizes elementares de rigidez, massa e carga são construídas a partir das expressões derivadas nas Seções~\ref{sec:matrizes_elementares} e~\ref{sec:supg}, e cada trecho de código apresentado nesta seção referencia explicitamente a equação teórica correspondente, mantendo correspondência direta entre operadores matemáticos e operadores numéricos.
+
 \subsection{Condução Permanente 1D}
 \label{sec:caso_conducao_1d}
 
@@ -163,7 +167,7 @@ A montagem percorre os $N_{el}$ elementos, acumulando as contribuições nas pos
 \subsection{Condução Transiente 1D com $k(x)$ Variável}
 \label{sec:caso_calor_transiente}
 
-Este módulo estende o problema anterior para o regime transiente, incorporando a matriz de massa e a integração temporal. A equação governante é:
+Este módulo estende o problema anterior para o regime transiente, incorporando a matriz de massa e a integração temporal conforme o sistema semidiscreto estabelecido na Seção~\ref{sec:integracao_temporal}. A equação governante é:
 
 \begin{equation}
 \rho c_p \frac{\partial T}{\partial t} = \frac{\partial}{\partial x}\left( k(x) \frac{\partial T}{\partial x} \right)
@@ -179,7 +183,7 @@ ke = (k_avg / h) * np.array([[1, -1], [-1, 1]])
 me = (rho_cp * h / 6) * np.array([[2, 1], [1, 2]])
 \end{lstlisting}
 
-A integração temporal utiliza o método $\theta$ generalizado (Eq.~\ref{eq:theta_method}), permitindo ao usuário selecionar entre Euler explícito, Crank-Nicolson e Euler implícito. A Figura \ref{fig:calor_transiente1d} ilustra a evolução temporal do campo de temperatura.
+A integração temporal utiliza o método $\theta$ generalizado (Eq.~\ref{eq:theta_method}), seguindo rigorosamente o esquema de avanço temporal derivado na Seção~\ref{sec:integracao_temporal}, e permitindo ao usuário selecionar entre Euler explícito, Crank-Nicolson e Euler implícito. A Figura \ref{fig:calor_transiente1d} ilustra a evolução temporal do campo de temperatura.
 
 \begin{figure}[H]
     \centering
@@ -191,14 +195,14 @@ A integração temporal utiliza o método $\theta$ generalizado (Eq.~\ref{eq:the
 \subsection{Convecção-Difusão 1D com Estabilização SUPG}
 \label{sec:caso_convdif}
 
-O módulo de convecção-difusão 1D resolve a equação de advecção-difusão estacionária:
+O módulo de convecção-difusão 1D resolve a equação de advecção-difusão estacionária, aplicando a técnica de estabilização SUPG conforme a formulação desenvolvida na Seção~\ref{sec:supg}:
 
 \begin{equation}
 -k \frac{d^2 T}{dx^2} + \rho c_p \, u \frac{dT}{dx} = Q
 \label{eq:convdif_1d_caso}
 \end{equation}
 
-A discretização MEF gera três matrizes elementares: difusão, convecção e estabilização SUPG (Seção \ref{sec:supg}). O cálculo do parâmetro de estabilização na implementação é:
+A discretização MEF gera três matrizes elementares: difusão, convecção e estabilização SUPG (Seção~\ref{sec:supg}). O parâmetro $\tau_{\text{SUPG}}$ é calculado segundo a expressão analítica da Eq.~\ref{eq:tau_supg}, implementado como:
 
 \begin{lstlisting}
 # Numero de Peclet local e tau SUPG
@@ -219,7 +223,7 @@ A Figura \ref{fig:convdif_supg} demonstra o efeito da estabilização SUPG em um
 \subsection{Viga 1D --- Análise de Flexão (Euler-Bernoulli)}
 \label{sec:caso_viga}
 
-O módulo de viga 1D implementa elementos finitos de Euler-Bernoulli com dois graus de liberdade por nó: deslocamento vertical $w$ e rotação $\theta$. A equação governante para a flexão estática é:
+O módulo de viga 1D implementa elementos finitos de Euler-Bernoulli com dois graus de liberdade por nó: deslocamento vertical $w$ e rotação $\theta$, seguindo o procedimento de Galerkin apresentado na Seção~\ref{sec:galerkin} com funções de interpolação cúbicas de Hermite. A equação governante para a flexão estática é:
 
 \begin{equation}
 \frac{d^2}{dx^2}\left( EI \frac{d^2 w}{dx^2} \right) = q(x)
@@ -250,7 +254,7 @@ O módulo suporta quatro condições de contorno (simplesmente apoiada, balanço
 \subsection{Vibração 1D --- Problema de Autovalor}
 \label{sec:caso_vibracao}
 
-O módulo de vibração resolve o problema de autovalor generalizado $\mathbf{K} \boldsymbol{\phi} = \lambda \, \mathbf{M} \boldsymbol{\phi}$ para uma barra elástica 1D, onde as frequências naturais são $f_n = \sqrt{\lambda_n} / (2\pi)$ e os autovetores $\boldsymbol{\phi}_n$ representam os modos de vibração. As matrizes elementares utilizam uma massa concentrada (\textit{lumped}):
+O módulo de vibração resolve o problema de autovalor generalizado $\mathbf{K} \boldsymbol{\phi} = \lambda \, \mathbf{M} \boldsymbol{\phi}$ para uma barra elástica 1D, onde as frequências naturais são $f_n = \sqrt{\lambda_n} / (2\pi)$ e os autovetores $\boldsymbol{\phi}_n$ representam os modos de vibração. As matrizes de rigidez e massa são construídas conforme o procedimento de montagem global descrito na Seção~\ref{sec:montagem_global}, empregando massa concentrada (\textit{lumped}, Eq.~\ref{eq:massa_lumped}):
 
 \begin{lstlisting}
 # Matrizes de rigidez e massa (barra 1D)
@@ -270,7 +274,7 @@ O problema de autovalor é resolvido pela rotina \texttt{scipy.linalg.eigh}, que
 \subsection{Transferência de Calor 2D}
 \label{sec:caso_transcalor}
 
-O módulo de transferência de calor bidimensional resolve a equação de condução transiente em uma placa quadrada discretizada com elementos triangulares P1. As matrizes elementares de rigidez e massa são construídas pela função compartilhada \texttt{element\_matrices}, que implementa as expressões derivadas na Seção \ref{sec:matrizes_elementares}:
+O módulo de transferência de calor bidimensional resolve a equação de condução transiente em uma placa quadrada discretizada com elementos triangulares P1 (Seção~\ref{sec:elementos_p1}). As matrizes elementares de rigidez e massa são construídas pela função compartilhada \texttt{element\_matrices}, que implementa diretamente as expressões derivadas na Seção~\ref{sec:matrizes_elementares} (Eqs.~\ref{eq:rigidez_elementar} e~\ref{eq:massa_elementar}):
 
 \begin{lstlisting}
 def element_matrices(coords, k, rho, cv):
@@ -284,7 +288,7 @@ def element_matrices(coords, k, rho, cv):
     return ke, me
 \end{lstlisting}
 
-A integração temporal emprega o método de Crank-Nicolson ($\theta = 1/2$), formulado com matrizes esparsas (\texttt{scipy.sparse}) para viabilizar a execução no navegador com malhas de até $40 \times 40$ nós. A cada passo de tempo, um frame do campo de temperatura é gerado e acumulado para compor uma animação GIF. A Figura \ref{fig:transcalor2d_campo} ilustra um instante da evolução temporal.
+A integração temporal emprega o método de Crank-Nicolson ($\theta = 1/2$), conforme a formulação do método $\theta$ generalizado apresentada na Seção~\ref{sec:integracao_temporal} (Eq.~\ref{eq:theta_method}), formulado com matrizes esparsas (\texttt{scipy.sparse}) para viabilizar a execução no navegador com malhas de até $40 \times 40$ nós. A cada passo de tempo, um frame do campo de temperatura é gerado e acumulado para compor uma animação GIF. A Figura \ref{fig:transcalor2d_campo} ilustra um instante da evolução temporal.
 
 \begin{figure}[H]
     \centering
@@ -296,7 +300,7 @@ A integração temporal emprega o método de Crank-Nicolson ($\theta = 1/2$), fo
 \subsection{Escoamento Potencial 2D}
 \label{sec:caso_potencial}
 
-O módulo de escoamento potencial resolve a equação de Laplace $\nabla^2 \psi = 0$ em domínios 2D com obstáculos, determinando o campo de função corrente e, por derivação, o campo de velocidades. A malha triangular é gerada pelo módulo \texttt{common.py}, que também assembla as matrizes globais de rigidez e massa.
+O módulo de escoamento potencial resolve a equação de Laplace $\nabla^2 \psi = 0$ em domínios 2D com obstáculos, caso particular da equação de Poisson para a função corrente (Eq.~\ref{eq:poisson_psi}) com vorticidade nula. A malha triangular é gerada pelo módulo \texttt{common.py}, que também assembla as matrizes globais de rigidez e massa conforme o procedimento descrito na Seção~\ref{sec:montagem_global}.
 
 O módulo \texttt{geometry.py} fornece diferentes geometrias de obstáculo (cilindro, retângulo, degrau), sendo os nós do contorno do obstáculo inseridos na malha com a condição $\psi = \text{constante}$. As velocidades são recuperadas por:
 
@@ -317,7 +321,7 @@ A Figura \ref{fig:potencial2d_linhas} apresenta as linhas de corrente para escoa
 \subsection{Navier-Stokes 2D (Vorticidade-Corrente)}
 \label{sec:caso_ns}
 
-O módulo mais complexo da plataforma implementa o solver de Navier-Stokes 2D na formulação Vorticidade-Corrente ($\omega$-$\psi$), conforme descrito na Seção \ref{sec:vorticidade_corrente}. O algoritmo segue o procedimento iterativo:
+O módulo mais complexo da plataforma implementa o solver de Navier-Stokes 2D na formulação Vorticidade-Corrente ($\omega$-$\psi$), conforme descrito na Seção~\ref{sec:vorticidade_corrente}. A discretização temporal segue o esquema semi-implícito derivado na Seção~\ref{sec:semi_implicito} (Eq.~\ref{eq:sistema_temporal_ns}), enquanto as condições de contorno de vorticidade nas paredes são impostas pela fórmula de Thom (Eq.~\ref{eq:thom}). O algoritmo segue o procedimento iterativo:
 
 \begin{enumerate}
     \item Resolver a equação de Poisson $\mathbf{K} \boldsymbol{\psi} = \mathbf{M} \boldsymbol{\omega}$ para $\psi$;
@@ -346,4 +350,6 @@ O solver suporta dois cenários: escoamento em canal com obstáculos (cilindro, 
 \section{Síntese do Capítulo}
 \label{sec:sintese_arquitetura}
 
-Este capítulo apresentou a arquitetura e a implementação do \textit{MinervaMesh}. A escolha do PyScript e da computação \textit{client-side} viabiliza uma plataforma de simulação numérica com custo de infraestrutura zero, portabilidade total e código aberto para inspeção acadêmica. A organização modular do repositório --- com cada simulação autocontida em três arquivos (HTML, Python, TOML) --- permite a extensão da plataforma com novos casos sem impacto nos módulos existentes. Os oito módulos MEF descritos cobrem três domínios da Engenharia Mecânica (térmico, estrutural e fluidodinâmico), demonstrando a versatilidade da formulação de elementos finitos apresentada no Capítulo 3. O Capítulo 5 apresentará a validação quantitativa desses módulos através da comparação com soluções analíticas e benchmarks da literatura.
+\paragraph{}Do ponto de vista da integração teórico-computacional, todos os módulos descritos neste capítulo compartilham o mesmo núcleo numérico: construção de matrizes elementares, montagem global por conectividade nodal, solução de sistemas lineares e, nos casos transientes, avanço temporal via método $\theta$ ou esquema semi-implícito. Dessa forma, a plataforma \textit{MinervaMesh} operacionaliza integralmente o arcabouço teórico estabelecido no Capítulo~\ref{cap3}, mantendo correspondência direta entre as equações governantes contínuas, os sistemas discretizados obtidos pela formulação de Galerkin e os \textit{solvers} efetivamente implementados. As listagens completas dos códigos, apresentadas nos Apêndices~\ref{ApendiceA} e~\ref{ApendiceB}, documentam essa correspondência em nível de implementação linha a linha.
+
+\paragraph{}Este capítulo apresentou a arquitetura e a implementação do \textit{MinervaMesh}. A escolha do PyScript e da computação \textit{client-side} viabiliza uma plataforma de simulação numérica com custo de infraestrutura zero, portabilidade total e código aberto para inspeção acadêmica. A organização modular do repositório --- com cada simulação autocontida em três arquivos (HTML, Python, TOML) --- permite a extensão da plataforma com novos casos sem impacto nos módulos existentes. Os oito módulos MEF descritos cobrem três domínios da Engenharia Mecânica (térmico, estrutural e fluidodinâmico), demonstrando a versatilidade da formulação de elementos finitos apresentada no Capítulo 3. O Capítulo 5 apresentará a validação quantitativa desses módulos através da comparação com soluções analíticas e benchmarks da literatura.

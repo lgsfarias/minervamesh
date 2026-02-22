@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex Principal"] 1771779884.66366 "Principal.aux" "Principal.bbl" "Principal" 1771779892.13556 0
+["bibtex Principal"] 1771781631.49131 "Principal.aux" "Principal.bbl" "Principal" 1771781936.88427 0
   "./biblio.bib" 1771616869.93931 16717 59a80acae5e141db8d88856bf5361c47 ""
   "./coppe.bst" 1769512320.86384 24458 858d1cea7157546113f910063fcfbbab ""
-  "Principal.aux" 1771779891.80688 29085 861c28329b08f2ad2472af85d8c9eb5f "pdflatex"
+  "Principal.aux" 1771781936.5808 29389 652d6da88866707b64a76ac4e1e16f6d "pdflatex"
   (generated)
   "Principal.bbl"
   "Principal.blg"
   (rewritten before read)
-["pdflatex"] 1771779884.77822 "/Users/lgsfarias/Developer/minervamesh/minervamesh/tcc_minervamesh/Principal.tex" "Principal.pdf" "Principal" 1771779892.13576 0
+["pdflatex"] 1771781929.5251 "/Users/lgsfarias/Developer/minervamesh/minervamesh/tcc_minervamesh/Principal.tex" "Principal.pdf" "Principal" 1771781936.88448 0
   "../simulations/mef/calor-transiente-1d/simulation.py" 1763913299.90928 8900 9336e5d59d65c0295f93a65da6f4aa24 ""
   "../simulations/mef/conducao-permanente-barra1d-mef/simulation.py" 1763913299.90974 3258 835290e13e5ac0f3d1b97cefd845e45c ""
   "../simulations/mef/conveccao-difusao-1d/simulation.py" 1763913299.91031 7360 3a619f146b11679805f39583a2d567bc ""
@@ -177,16 +177,16 @@
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
   "Capa.tex" 1769512486.9677 2266 df1457e1ccad55396745adadc923791a ""
   "Preambulo.tex" 1771716645.54269 6462 008aa36b15f2c578282a86b6e034ea68 ""
-  "Principal.aux" 1771779891.80688 29085 861c28329b08f2ad2472af85d8c9eb5f "pdflatex"
-  "Principal.bbl" 1771779884.77511 10382 7ade7024d267ae357f31456f2683ff97 "bibtex Principal"
-  "Principal.lof" 1771779891.81079 1918 177bb67ebaf5cd51af156d81e79cfdde "pdflatex"
-  "Principal.lot" 1771779891.81082 321 ba555f02b1f20f54dfbce6862a4a5d6a "pdflatex"
+  "Principal.aux" 1771781936.5808 29389 652d6da88866707b64a76ac4e1e16f6d "pdflatex"
+  "Principal.bbl" 1771781631.60938 10580 5ac6d29ba8411de022db8c089c9e5511 "bibtex Principal"
+  "Principal.lof" 1771781936.58489 1918 e1b6b4596f6a0f5f2b92842b9df66417 "pdflatex"
+  "Principal.lot" 1771781936.58492 321 ba555f02b1f20f54dfbce6862a4a5d6a "pdflatex"
   "Principal.tex" 1771777582.63775 3240 e0f41e011d9092b934c242e589d76528 ""
-  "Principal.toc" 1771779891.8107 8590 bf3d70d05a14108e962fb7bad98e94fa "pdflatex"
+  "Principal.toc" 1771781936.58481 8730 8115e6af3cb53659b1ccbf74ef02e6af "pdflatex"
   "TesePack.tex" 1771779335.5459 3044 3fc0459ef354bfd39221d6c1f2a31692 ""
-  "apendice_modulos_1d.tex" 1771777561.46402 1461 55c133d7086f6b68de195a4121b20033 ""
-  "apendice_modulos_2d.tex" 1771777563.45248 1490 ac4e3e3cf1c41d90590da513068418f7 ""
-  "arquitetura.tex" 1771779877.20337 22532 a1bf7560ccf197d13a541bb4758ce9c8 ""
+  "apendice_modulos_1d.tex" 1771781437.10508 1941 2fc8594d562367094925896cf2ac4c19 ""
+  "apendice_modulos_2d.tex" 1771781437.91565 1970 71ddcb604a46e2257a24f2d2fc366848 ""
+  "arquitetura.tex" 1771781412.99581 25918 b9c57f4e013758c11a81e40eb451861f ""
   "conclusao.tex" 1771620480.72833 623 511676d09a203d917683ec3ad2e5d55b ""
   "figuras/Poli.eps" 1769512320.88228 546883 81bfb03fc1b9cab5b79f6a989d85e334 ""
   "figuras/prints/fig_calor_transiente1d_evolucao.png" 1771714013.16838 1458875 d9972abf198067af67f95d625a1f6616 ""
