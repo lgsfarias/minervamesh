@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  18 APR 2026 08:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  18 APR 2026 09:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1194,7 +1194,7 @@ dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2025/texmf-d
 ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/tex
 mf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf
 -dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Principal.pdf (137 pages, 10258738 bytes).
+Output written on Principal.pdf (137 pages, 10258646 bytes).
 PDF statistics:
  607 PDF objects out of 1000 (max. 8388607)
  385 compressed objects within 4 object streams

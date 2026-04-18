@@ -91,7 +91,7 @@
 \contentsline {section}{\numberline {3.6}Integração Temporal}{17}{}%
 \contentsline {subsection}{\numberline {3.6.1}Método $\theta $ Generalizado}{17}{}%
 \contentsline {subsection}{\numberline {3.6.2}Esquema Semi-Implícito Adotado}{18}{}%
-\contentsline {subsection}{\numberline {3.6.3}Condição de Contorno de Vorticidade: Fórmula de Thom}{18}{}%
+\contentsline {subsection}{\numberline {3.6.3}Condição de Contorno de Vorticidade na Parede}{18}{}%
 \contentsline {section}{\numberline {3.7}Síntese do Capítulo}{19}{}%
 \contentsline {chapter}{\numberline {4}Desenvolvimento e Arquitetura}{20}{}%
 \contentsline {paragraph}{}{20}{}%

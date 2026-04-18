@@ -321,17 +321,17 @@ A Figura \ref{fig:potencial2d_linhas} apresenta as linhas de corrente para escoa
 \subsection{Navier-Stokes 2D (Vorticidade-Corrente)}
 \label{sec:caso_ns}
 
-O módulo mais complexo da plataforma implementa o solver de Navier-Stokes 2D na formulação Vorticidade-Corrente ($\omega$-$\psi$), conforme descrito na Seção~\ref{sec:vorticidade_corrente}. A discretização temporal segue o esquema semi-implícito derivado na Seção~\ref{sec:semi_implicito} (Eq.~\ref{eq:sistema_temporal_ns}), enquanto as condições de contorno de vorticidade nas paredes são impostas pela fórmula de Thom (Eq.~\ref{eq:thom}). O algoritmo segue o procedimento iterativo:
+O módulo mais complexo da plataforma implementa o solver de Navier-Stokes 2D na formulação Vorticidade-Corrente ($\omega$-$\psi$), conforme descrito na Seção~\ref{sec:vorticidade_corrente}. A discretização temporal segue o esquema semi-implícito derivado na Seção~\ref{sec:semi_implicito} (Eq.~\ref{eq:sistema_temporal_ns}), enquanto as condições de contorno de vorticidade nas paredes são impostas conforme a Eq.~\ref{eq:thom}. O algoritmo segue o procedimento iterativo:
 
 \begin{enumerate}
     \item Resolver a equação de Poisson $\mathbf{K} \boldsymbol{\psi} = \mathbf{M} \boldsymbol{\omega}$ para $\psi$;
-    \item Atualizar a vorticidade nas paredes sólidas pela fórmula de Thom (Eq.~\ref{eq:thom});
+    \item Atualizar a vorticidade nas paredes sólidas conforme a Eq.~\ref{eq:thom};
     \item Calcular $(u, v)$ a partir de $\psi$ (Eq.~\ref{eq:vel_recuperacao});
     \item Assemblar a matriz de convecção $\mathbf{C}^n$ com o campo de velocidades atual;
     \item Resolver o transporte da vorticidade pelo esquema semi-implícito (Eq.~\ref{eq:sistema_temporal_ns}).
 \end{enumerate}
 
-O solver suporta dois cenários: escoamento em canal com obstáculos (cilindro, retângulo, degrau) e cavidade com tampa móvel (\textit{lid-driven cavity}). No caso da cavidade, todas as paredes possuem $\psi = 0$ e a parede superior impõe velocidade tangencial $u_{\text{lid}} = 1$, conforme a generalização da fórmula de Thom com parede móvel. A Figura \ref{fig:ns2d_cavity} mostra os campos de $\psi$, $\omega$ e as linhas de corrente para a cavidade a $\text{Re} = 100$.
+O solver suporta dois cenários: escoamento em canal com obstáculos (cilindro, retângulo, degrau) e cavidade com tampa móvel (\textit{lid-driven cavity}). No caso da cavidade, todas as paredes possuem $\psi = 0$ e a parede superior impõe velocidade tangencial $u_{\text{lid}} = 1$, acrescentando o termo $-2u_{\text{tan}}/h$ à condição de contorno da vorticidade. A Figura \ref{fig:ns2d_cavity} mostra os campos de $\psi$, $\omega$ e as linhas de corrente para a cavidade a $\text{Re} = 100$.
 
 \begin{figure}[H]
     \centering

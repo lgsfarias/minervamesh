@@ -357,10 +357,10 @@ onde $\mathbf{C}^n$ é a matriz de convecção assembrada a partir do campo de v
 
 Para problemas puramente difusivos (conducão transiente), utiliza-se o método $\theta$ generalizado (Eq.~\ref{eq:theta_method}), permitindo ao usuário selecionar entre Euler e Crank-Nicolson conforme o compromisso desejado entre precisão e estabilidade.
 
-\subsection{Condição de Contorno de Vorticidade: Fórmula de Thom}
+\subsection{Condição de Contorno de Vorticidade na Parede}
 \label{sec:thom}
 
-Na formulação $\omega$-$\psi$, a vorticidade nas paredes sólidas não é conhecida \textit{a priori} e deve ser calculada indiretamente a partir do campo de função corrente. A fórmula de Thom \cite{Thom1933,Maliska2004} fornece essa condição de contorno, baseando-se em uma expansão de Taylor de $\psi$ na direção normal à parede:
+Na formulação $\omega$-$\psi$, a vorticidade nas paredes sólidas não é conhecida \textit{a priori} e deve ser calculada indiretamente a partir do campo de função corrente. Aplicando uma expansão de Taylor de $\psi$ na direção normal à parede, obtém-se uma aproximação de primeira ordem para $\omega_w$ \cite{Thom1933,Maliska2004}:
 
 \begin{equation}
 \omega_w = -\frac{2(\psi_{\text{nb}} - \psi_w)}{h^2} - \frac{2 \, u_{\text{tan}}}{h}
@@ -371,4 +371,4 @@ onde $\psi_w$ e $\psi_{\text{nb}}$ são os valores da função corrente na pared
 \section{Síntese do Capítulo}
 \label{sec:sintese_fundamentacao}
 
-Este capítulo estabeleceu o arcabouço matemático completo empregado pelo \textit{MinervaMesh}. A formulação parte das EDPs governantes para fenômenos térmicos e fluidodinâmicos, transita pela introdução conceitual do MDF e se aprofunda no MEF via Galerkin. A discretização com elementos triangulares P1 permite a construção explícita das matrizes elementares de rigidez, massa e convecção, enquanto a formulação Vorticidade-Corrente viabiliza a solução de escoamentos 2D sem a necessidade de resolver diretamente o campo de pressão. A integração temporal semi-implícita e a fórmula de Thom para condições de contorno de vorticidade completam o ferramental necessário para a simulação dos casos apresentados no Capítulo 5.
+Este capítulo estabeleceu o arcabouço matemático completo empregado pelo \textit{MinervaMesh}. A formulação parte das EDPs governantes para fenômenos térmicos e fluidodinâmicos, transita pela introdução conceitual do MDF e se aprofunda no MEF via Galerkin. A discretização com elementos triangulares P1 permite a construção explícita das matrizes elementares de rigidez, massa e convecção, enquanto a formulação Vorticidade-Corrente viabiliza a solução de escoamentos 2D sem a necessidade de resolver diretamente o campo de pressão. A integração temporal semi-implícita e a aproximação de primeira ordem para a vorticidade na parede completam o ferramental necessário para a simulação dos casos apresentados no Capítulo 5.
