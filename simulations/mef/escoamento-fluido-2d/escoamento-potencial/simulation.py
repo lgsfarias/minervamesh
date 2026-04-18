@@ -322,6 +322,33 @@ async def solve_potential(params, plot_div):
     img_base64 = plot_to_base64(fig)
     plot_div.innerHTML = f'<img src="data:image/png;base64,{img_base64}" class="max-w-full h-auto rounded shadow-lg" />'
     
+    # Validacao: Cp em angulos canonicos vs Cp teorico 1 - 4 sin^2(theta)
+    # Apenas faz sentido para o cilindro (geometria com Cp teorico conhecido).
+    cp_validation_rows = ""
+    if params["geo_type"] == "cylinder":
+        canonical_degs = [0, 90, 180, -90]
+        rows_html = []
+        for td in canonical_degs:
+            tr = td * np.pi / 180.0
+            diff = (angles_sorted - tr + np.pi) % (2 * np.pi) - np.pi
+            j = int(np.argmin(np.abs(diff)))
+            cp_n = float(cp_sorted[j])
+            cp_t = 1.0 - 4.0 * np.sin(tr) ** 2
+            theta_j = float(np.degrees(angles_sorted[j]))
+            rows_html.append(
+                f"<p><span class=\"font-semibold\">θ = {td}°:</span> "
+                f"C_p MEF = {cp_n:.3f} | teórico = {cp_t:.3f} "
+                f"(Δ = {cp_n - cp_t:+.3f})</p>"
+            )
+        cp_validation_rows = (
+            "<div class=\"bg-blue-50 p-3 rounded shadow-sm\">"
+            "<p class=\"font-bold text-indigo-700 mb-2\">Validação: C_p na superfície do cilindro "
+            "(teoria: C_p = 1 − 4 sen²θ)</p>"
+            "<div class=\"grid grid-cols-1 gap-1 text-sm\">"
+            + "".join(rows_html)
+            + "</div></div>"
+        )
+
     # Exibir Resultados Numéricos (Apenas Numérico)
     res_html = f"""
     <div class="grid grid-cols-1 gap-4 text-sm">
@@ -333,6 +360,7 @@ async def solve_potential(params, plot_div):
                 <p><span class="font-semibold">Circulação (&Gamma;):</span> {Gamma_dim:.4f} m²/s</p>
             </div>
         </div>
+        {cp_validation_rows}
     </div>
     """
     document.getElementById("lift-results").innerHTML = res_html

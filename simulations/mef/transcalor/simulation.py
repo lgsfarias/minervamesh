@@ -137,7 +137,36 @@ async def run_simulation(event=None):
     gif_buffer.seek(0)
     gif_base64 = base64.b64encode(gif_buffer.read()).decode("utf-8")
 
+    # Metricas de validacao
+    # T no centro vs regime permanente analitico T_ss = Tbottom + (Ttop-Tbottom) y
+    # Escala difusiva tau_dif = L^2 * rho * cv / k (dominio unitario: L=1)
+    idx_centro = int(np.argmin((X - 0.5) ** 2 + (Y - 0.5) ** 2))
+    T_centro_mef = float(u[idx_centro])
+    T_centro_ss = float(Tbottom + (Ttop - Tbottom) * Y[idx_centro])
+    erro_centro = abs(T_centro_mef - T_centro_ss)
+    tau_dif = 1.0 * rho * cv / k if k > 0 else float('inf')
+    t_final = n_steps * dt
+    frac_tau = t_final / tau_dif if tau_dif > 0 else 0.0
+
+    metrics_html = (
+        "<div class=\"bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full\">"
+        "<h4 class=\"font-semibold text-blue-800 mb-1\">Validação</h4>"
+        f"<p class=\"text-sm text-gray-700\"><strong>Tempo final:</strong> "
+        f"{t_final:.3f} s ({frac_tau*100:.1f}% da escala difusiva "
+        f"τ_dif = {tau_dif:.2f} s)</p>"
+        f"<p class=\"text-sm text-gray-700\"><strong>T(0,5; 0,5) MEF:</strong> "
+        f"{T_centro_mef:.4f} °C</p>"
+        f"<p class=\"text-sm text-gray-700\"><strong>T(0,5; 0,5) regime permanente "
+        f"(T_bot + (T_top − T_bot)·y):</strong> {T_centro_ss:.4f} °C</p>"
+        f"<p class=\"text-sm text-gray-700\"><strong>Desvio do regime permanente:</strong> "
+        f"{erro_centro:.4f} °C (aumentar n_steps para convergir)</p>"
+        "</div>"
+    )
+
     # Mostrar resultado final
     document.getElementById("plot-output").innerHTML = (
+        f"<div class='flex flex-col gap-3 w-full'>"
         f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
+        f"{metrics_html}"
+        f"</div>"
     )

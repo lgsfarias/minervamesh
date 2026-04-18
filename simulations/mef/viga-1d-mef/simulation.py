@@ -375,8 +375,63 @@ async def run_viga_1d(event=None):
     gif_buffer.seek(0)
     gif_base64 = base64.b64encode(gif_buffer.read()).decode('utf-8')
 
+    # Metricas de validacao
+    w_abs = np.abs(w)
+    i_wmax = int(np.argmax(w_abs))
+    w_max_mef = float(w[i_wmax])  # m (com sinal)
+    x_wmax = float(x[i_wmax])
+    M_abs_max = float(np.max(np.abs(M)))  # N*m
+    V_abs_max = float(np.max(np.abs(V)))  # N
+    EI_const = E_base * I_base
+
+    # Analiticos fechados (apenas quando prop=constante, carga=uniforme, 3 BCs)
+    w_max_ana = None
+    M_max_ana = None
+    V_max_ana = None
+    if prop_type == "constant" and load_type == "uniform":
+        q_ana = q_magnitude
+        if bc_type == "simply_supported":
+            w_max_ana = 5.0 * q_ana * L**4 / (384.0 * EI_const)
+            M_max_ana = q_ana * L * L / 8.0
+            V_max_ana = q_ana * L / 2.0
+        elif bc_type == "cantilever":
+            w_max_ana = q_ana * L**4 / (8.0 * EI_const)
+            M_max_ana = q_ana * L * L / 2.0
+            V_max_ana = q_ana * L
+        elif bc_type == "fixed_fixed":
+            w_max_ana = q_ana * L**4 / (384.0 * EI_const)
+            M_max_ana = q_ana * L * L / 12.0
+            V_max_ana = q_ana * L / 2.0
+
+    def fmt_cmp(mef, ana, unit, scale=1.0):
+        if ana is None:
+            return f"{mef*scale:.4f} {unit}"
+        err_rel = abs(mef - ana) / abs(ana) if abs(ana) > 1e-12 else abs(mef - ana)
+        return (
+            f"{mef*scale:.4f} {unit} "
+            f"(analítica {ana*scale:.4f} {unit}, erro relativo {err_rel:.2e})"
+        )
+
+    rows = [
+        f"<p class=\"text-sm text-gray-700\"><strong>Deflexão máxima:</strong> {fmt_cmp(w_max_mef, w_max_ana, 'mm', 1000)} em x = {x_wmax:.3f} m</p>",
+        f"<p class=\"text-sm text-gray-700\"><strong>|M| máximo:</strong> {fmt_cmp(M_abs_max, M_max_ana, 'kN·m', 1/1000)}</p>",
+        f"<p class=\"text-sm text-gray-700\"><strong>|V| máximo:</strong> {fmt_cmp(V_abs_max, V_max_ana, 'kN', 1/1000)}</p>",
+    ]
+    metrics_html = (
+        "<div class=\"bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full\">"
+        "<h4 class=\"font-semibold text-blue-800 mb-1\">Validação</h4>"
+        f"<p class=\"text-sm text-gray-700\"><strong>Caso:</strong> {bc_title} com carga {load_title.lower()}, propriedades {prop_type}</p>"
+        + "".join(rows)
+        + "</div>"
+    )
+
     container = document.getElementById("viga1d-output")
-    container.innerHTML = f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
+    container.innerHTML = (
+        f"<div class='flex flex-col gap-3 w-full'>"
+        f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
+        f"{metrics_html}"
+        f"</div>"
+    )
 
     try:
         sim_loading.close()

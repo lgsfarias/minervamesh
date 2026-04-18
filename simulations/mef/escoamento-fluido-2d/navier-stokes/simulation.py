@@ -332,9 +332,50 @@ async def solve_navier_stokes(params, plot_div):
         plt.tight_layout()
         
         img_base64 = plot_to_base64(fig)
-        plot_div.innerHTML = f'<img src="data:image/png;base64,{img_base64}" class="max-w-full h-auto rounded shadow-lg" />'
+
+        # Metricas de validacao (cavidade quadrada): psi_min, centro do vortice,
+        # e comparacao com Ghia 1982 para Re=100 quando aplicavel.
+        psi_min = float(np.min(psi))
+        i_vort = int(np.argmin(psi))
+        x_vort = float(X[i_vort])
+        y_vort = float(Y[i_vort])
+
+        scenario = params.get("scenario", "")
+        is_square = abs(params["L"] - params["H"]) < 1e-9
+        show_ghia = (scenario == "cavity" and is_square
+                     and abs(params["Re"] - 100.0) < 1e-6)
+
+        if show_ghia:
+            ghia_psi_min = -0.1034
+            ghia_center = (0.6172, 0.7344)
+            ghia_row = (
+                "<p class=\"text-sm text-gray-700\"><strong>Referência Ghia et al. (1982) "
+                "Re=100:</strong> "
+                f"ψ_min ≈ {ghia_psi_min}, centro em ({ghia_center[0]}, {ghia_center[1]})</p>"
+            )
+        else:
+            ghia_row = ""
+
+        metrics_html = (
+            "<div class=\"bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full\">"
+            "<h4 class=\"font-semibold text-blue-800 mb-1\">Validação</h4>"
+            f"<p class=\"text-sm text-gray-700\"><strong>Passo:</strong> "
+            f"{current_step} / {total_steps}, Re = {params['Re']:.1f}, "
+            f"malha {params['nx']}×{params['ny']}</p>"
+            f"<p class=\"text-sm text-gray-700\"><strong>ψ_min:</strong> "
+            f"{psi_min:+.5f} em ({x_vort:.3f}, {y_vort:.3f})</p>"
+            f"{ghia_row}"
+            "</div>"
+        )
+
+        plot_div.innerHTML = (
+            "<div class='flex flex-col gap-3 w-full'>"
+            f"<img src='data:image/png;base64,{img_base64}' class='max-w-full h-auto rounded shadow-lg' />"
+            f"{metrics_html}"
+            "</div>"
+        )
         await asyncio.sleep(0.01)
-        
+
     if not STOP_SIMULATION:
         plot_div.innerHTML += '<p class="text-center text-green-600 font-bold mt-2">Simulação Concluída!</p>'
     else:

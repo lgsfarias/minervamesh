@@ -83,6 +83,15 @@ async def run_mef_1d(event=None):
     x_dense = np.linspace(0.0, L, max(600, min(2400, 8 * nn)))
     T_ana_dense = analytical_solution(x_dense, Q, k, L, T0, TL)
 
+    # Analítico nos nós da malha para métricas de erro
+    T_ana_mesh = analytical_solution(x, Q, k, L, T0, TL)
+    erro_nodal = np.abs(T - T_ana_mesh)
+    e_max = float(np.max(erro_nodal))
+    T_max_mef = float(np.max(T))
+    x_max_mef = float(x[int(np.argmax(T))])
+    T_max_ana = float(np.max(T_ana_dense))
+    x_max_ana = float(x_dense[int(np.argmax(T_ana_dense))])
+
     # Plot
     fig, ax = plt.subplots(figsize=(8, 4))
     ax.plot(x, T, 'o-', label='MEF 1D', color='#3B82F6')
@@ -105,7 +114,21 @@ async def run_mef_1d(event=None):
     gif_base64 = base64.b64encode(gif_buffer.read()).decode('utf-8')
 
     container = document.getElementById("mef1d-output")
-    container.innerHTML = f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
+    metrics_html = f"""
+    <div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full">
+        <h4 class="font-semibold text-blue-800 mb-1">Validação</h4>
+        <p class="text-sm text-gray-700"><strong>Malha:</strong> {nel} elementos P1, h = {h:.4f} m</p>
+        <p class="text-sm text-gray-700"><strong>T_max (MEF):</strong> {T_max_mef:.6f} °C em x = {x_max_mef:.3f} m</p>
+        <p class="text-sm text-gray-700"><strong>T_max (analítica):</strong> {T_max_ana:.6f} °C em x = {x_max_ana:.3f} m</p>
+        <p class="text-sm text-gray-700"><strong>Erro máximo nodal:</strong> {e_max:.2e} °C</p>
+    </div>
+    """
+    container.innerHTML = (
+        f"<div class='flex flex-col gap-3 w-full'>"
+        f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
+        f"{metrics_html}"
+        f"</div>"
+    )
 
     try:
         sim_loading.close()

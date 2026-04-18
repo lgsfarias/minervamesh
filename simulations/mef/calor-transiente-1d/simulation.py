@@ -263,7 +263,33 @@ async def run_simulation(event=None):
     imageio.mimsave(gif_buffer, frames, format='GIF', duration=0.1, loop=0)
     gif_buffer.seek(0)
     gif_base64 = base64.b64encode(gif_buffer.read()).decode("utf-8")
-    container.innerHTML = f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
+
+    # Metricas de validacao: T(L/2) vs analitica de regime permanente
+    # Analitica (fluxo continuo em x=L/2): T(L/2) = k2 / (k1 + k2) quando
+    # T(0)=0 e T(L)=1. Para k1=5, k2=1 -> T(L/2) = 1/6 aprox 0,1667.
+    idx_meio = int(np.argmin(np.abs(x_nodes - L / 2.0)))
+    T_meio_mef = float(T[idx_meio])
+    T_meio_ana = float(k2 / (k1 + k2))
+    erro_meio = abs(T_meio_mef - T_meio_ana)
+    tau_dif = L * L * rho_cp / max(k1, k2)
+    t_final = nt * dt
+    frac_tau = t_final / tau_dif if tau_dif > 0 else 0.0
+
+    metrics_html = f"""
+    <div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full">
+        <h4 class="font-semibold text-blue-800 mb-1">Validação</h4>
+        <p class="text-sm text-gray-700"><strong>Tempo final:</strong> {t_final:.3f} s ({frac_tau*100:.1f}% de τ_dif = {tau_dif:.2f} s)</p>
+        <p class="text-sm text-gray-700"><strong>T(L/2) MEF:</strong> {T_meio_mef:.6f} °C</p>
+        <p class="text-sm text-gray-700"><strong>T(L/2) analítica (regime permanente, k2/(k1+k2)):</strong> {T_meio_ana:.6f} °C</p>
+        <p class="text-sm text-gray-700"><strong>Desvio em x = L/2:</strong> {erro_meio:.2e} °C</p>
+    </div>
+    """
+    container.innerHTML = (
+        f"<div class='flex flex-col gap-3 w-full'>"
+        f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
+        f"{metrics_html}"
+        f"</div>"
+    )
 
     if sim_loading is not None:
         try:
