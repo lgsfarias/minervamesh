@@ -133,60 +133,60 @@
 \contentsline {subsection}{\numberline {5.3.2}Solução Analítica de Regime Permanente}{43}{}%
 \contentsline {subsection}{\numberline {5.3.3}Solução MEF e Comparação}{44}{}%
 \contentsline {subsection}{\numberline {5.3.4}Análise de Erro}{45}{}%
-\contentsline {paragraph}{Nota sobre o regime transiente visível.}{45}{}%
+\contentsline {paragraph}{Nota sobre a propagação térmica.}{45}{}%
 \contentsline {section}{\numberline {5.4}Convecção-Difusão 1D com Estabilização SUPG}{45}{}%
 \contentsline {subsection}{\numberline {5.4.1}Formulação do Problema}{45}{}%
 \contentsline {subsection}{\numberline {5.4.2}Solução Analítica}{46}{}%
-\contentsline {subsection}{\numberline {5.4.3}Solução MEF com e sem SUPG}{47}{}%
+\contentsline {subsection}{\numberline {5.4.3}Solução MEF com SUPG}{47}{}%
 \contentsline {subsection}{\numberline {5.4.4}Análise de Erro}{47}{}%
-\contentsline {paragraph}{Nota sobre o comportamento de Galerkin em alto Péclet.}{48}{}%
-\contentsline {section}{\numberline {5.5}Viga 1D --- Flexão de Euler-Bernoulli}{48}{}%
-\contentsline {subsection}{\numberline {5.5.1}Formulação do Problema}{49}{}%
-\contentsline {subsection}{\numberline {5.5.2}Solução Analítica}{49}{}%
-\contentsline {subsection}{\numberline {5.5.3}Solução MEF e Comparação}{50}{}%
-\contentsline {subsection}{\numberline {5.5.4}Análise de Erro}{50}{}%
-\contentsline {paragraph}{Nota sobre momento e cortante.}{50}{}%
-\contentsline {section}{\numberline {5.6}Vibração 1D --- Problema de Autovalor}{52}{}%
-\contentsline {subsection}{\numberline {5.6.1}Formulação do Problema}{52}{}%
-\contentsline {subsection}{\numberline {5.6.2}Solução Analítica}{52}{}%
-\contentsline {subsection}{\numberline {5.6.3}Solução MEF e Comparação}{53}{}%
-\contentsline {subsection}{\numberline {5.6.4}Análise de Erro}{53}{}%
-\contentsline {paragraph}{Nota sobre a matriz de massa consistente.}{55}{}%
-\contentsline {section}{\numberline {5.7}Transferência de Calor Transiente 2D}{55}{}%
-\contentsline {subsection}{\numberline {5.7.1}Formulação do Problema}{55}{}%
-\contentsline {subsection}{\numberline {5.7.2}Solução Analítica de Regime Permanente}{56}{}%
-\contentsline {subsection}{\numberline {5.7.3}Solução MEF e Comparação}{56}{}%
-\contentsline {subsection}{\numberline {5.7.4}Análise de Erro}{57}{}%
-\contentsline {paragraph}{Nota sobre o transiente visível ao usuário.}{58}{}%
-\contentsline {section}{\numberline {5.8}Escoamento Potencial 2D em Torno de Cilindro}{58}{}%
-\contentsline {subsection}{\numberline {5.8.1}Formulação do Problema}{58}{}%
-\contentsline {subsection}{\numberline {5.8.2}Solução Analítica em Domínio Infinito}{59}{}%
-\contentsline {subsection}{\numberline {5.8.3}Solução MEF e Comparação}{60}{}%
-\contentsline {subsection}{\numberline {5.8.4}Análise de Erro}{60}{}%
-\contentsline {paragraph}{Nota sobre o paradoxo de d'Alembert.}{61}{}%
-\contentsline {section}{\numberline {5.9}Navier-Stokes 2D --- Cavidade com Tampa Móvel}{62}{}%
-\contentsline {subsection}{\numberline {5.9.1}Formulação do Problema}{62}{}%
-\contentsline {subsection}{\numberline {5.9.2}Benchmark de Referência}{63}{}%
-\contentsline {subsection}{\numberline {5.9.3}Solução MEF e Comparação}{63}{}%
-\contentsline {subsection}{\numberline {5.9.4}Análise de Erro}{64}{}%
-\contentsline {paragraph}{Nota sobre a condição de contorno de vorticidade.}{64}{}%
-\contentsline {chapter}{\numberline {6}Conclusões}{68}{}%
-\contentsline {section}{\numberline {6.1}Conclusões}{68}{}%
-\contentsline {paragraph}{}{68}{}%
-\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{68}{}%
-\contentsline {paragraph}{}{68}{}%
-\contentsline {chapter}{Bibliografia}{69}{}%
-\contentsline {chapter}{\numberline {A}Listagens dos Módulos de Simulação 1D}{75}{}%
-\contentsline {paragraph}{}{75}{}%
-\contentsline {section}{\numberline {A.1}Condução Permanente 1D}{75}{}%
-\contentsline {section}{\numberline {A.2}Condução Transiente 1D com $k(x)$ Variável}{78}{}%
-\contentsline {section}{\numberline {A.3}Convecção-Difusão 1D com SUPG}{87}{}%
-\contentsline {section}{\numberline {A.4}Viga 1D --- Euler-Bernoulli}{93}{}%
-\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{106}{}%
-\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{117}{}%
-\contentsline {paragraph}{}{117}{}%
-\contentsline {section}{\numberline {B.1}Módulo Compartilhado: Malha e Matrizes MEF}{117}{}%
-\contentsline {section}{\numberline {B.2}Módulo Compartilhado: Geometrias de Obstáculo}{121}{}%
-\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{123}{}%
-\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{127}{}%
-\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{138}{}%
+\contentsline {paragraph}{Nota sobre o comportamento de Galerkin.}{47}{}%
+\contentsline {section}{\numberline {5.5}Viga 1D --- Flexão de Euler-Bernoulli}{50}{}%
+\contentsline {subsection}{\numberline {5.5.1}Formulação do Problema}{50}{}%
+\contentsline {subsection}{\numberline {5.5.2}Solução Analítica}{50}{}%
+\contentsline {subsection}{\numberline {5.5.3}Solução MEF e Comparação}{51}{}%
+\contentsline {subsection}{\numberline {5.5.4}Análise de Erro}{51}{}%
+\contentsline {paragraph}{Nota sobre momento e cortante.}{53}{}%
+\contentsline {section}{\numberline {5.6}Vibração 1D --- Problema de Autovalor}{53}{}%
+\contentsline {subsection}{\numberline {5.6.1}Formulação do Problema}{54}{}%
+\contentsline {subsection}{\numberline {5.6.2}Solução Analítica}{54}{}%
+\contentsline {subsection}{\numberline {5.6.3}Solução MEF e Comparação}{55}{}%
+\contentsline {subsection}{\numberline {5.6.4}Análise de Erro}{55}{}%
+\contentsline {paragraph}{Nota sobre a matriz de massa consistente.}{57}{}%
+\contentsline {section}{\numberline {5.7}Transferência de Calor Transiente 2D}{57}{}%
+\contentsline {subsection}{\numberline {5.7.1}Formulação do Problema}{57}{}%
+\contentsline {subsection}{\numberline {5.7.2}Solução Analítica de Regime Permanente}{58}{}%
+\contentsline {subsection}{\numberline {5.7.3}Solução MEF e Comparação}{59}{}%
+\contentsline {subsection}{\numberline {5.7.4}Análise de Erro}{59}{}%
+\contentsline {paragraph}{Nota sobre o tempo de convergência.}{61}{}%
+\contentsline {section}{\numberline {5.8}Escoamento Potencial 2D em Torno de Cilindro}{61}{}%
+\contentsline {subsection}{\numberline {5.8.1}Formulação do Problema}{61}{}%
+\contentsline {subsection}{\numberline {5.8.2}Solução Analítica em Domínio Infinito}{62}{}%
+\contentsline {subsection}{\numberline {5.8.3}Solução MEF e Comparação}{63}{}%
+\contentsline {subsection}{\numberline {5.8.4}Análise de Erro}{63}{}%
+\contentsline {paragraph}{Nota sobre o paradoxo de d'Alembert.}{65}{}%
+\contentsline {section}{\numberline {5.9}Navier-Stokes 2D --- Cavidade com Tampa Móvel}{65}{}%
+\contentsline {subsection}{\numberline {5.9.1}Formulação do Problema}{66}{}%
+\contentsline {subsection}{\numberline {5.9.2}Benchmark de Referência}{66}{}%
+\contentsline {subsection}{\numberline {5.9.3}Solução MEF e Comparação}{67}{}%
+\contentsline {subsection}{\numberline {5.9.4}Análise de Erro}{67}{}%
+\contentsline {paragraph}{Nota sobre a condição de contorno de vorticidade.}{70}{}%
+\contentsline {chapter}{\numberline {6}Conclusões}{71}{}%
+\contentsline {section}{\numberline {6.1}Conclusões}{71}{}%
+\contentsline {paragraph}{}{71}{}%
+\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{71}{}%
+\contentsline {paragraph}{}{71}{}%
+\contentsline {chapter}{Bibliografia}{72}{}%
+\contentsline {chapter}{\numberline {A}Listagens dos Módulos de Simulação 1D}{78}{}%
+\contentsline {paragraph}{}{78}{}%
+\contentsline {section}{\numberline {A.1}Condução Permanente 1D}{78}{}%
+\contentsline {section}{\numberline {A.2}Condução Transiente 1D com $k(x)$ Variável}{81}{}%
+\contentsline {section}{\numberline {A.3}Convecção-Difusão 1D com SUPG}{90}{}%
+\contentsline {section}{\numberline {A.4}Viga 1D --- Euler-Bernoulli}{96}{}%
+\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{109}{}%
+\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{120}{}%
+\contentsline {paragraph}{}{120}{}%
+\contentsline {section}{\numberline {B.1}Módulo Compartilhado: Malha e Matrizes MEF}{120}{}%
+\contentsline {section}{\numberline {B.2}Módulo Compartilhado: Geometrias de Obstáculo}{124}{}%
+\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{126}{}%
+\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{130}{}%
+\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{141}{}%
