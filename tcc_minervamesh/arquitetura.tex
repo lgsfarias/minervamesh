@@ -262,7 +262,7 @@ ke = (E*A / h) * np.array([[1, -1], [-1, 1]])
 me = (rho*A*h / 2) * np.array([[1, 0], [0, 1]])
 \end{lstlisting}
 
-O problema de autovalor é resolvido pela rotina \texttt{scipy.linalg.eigh}, que explora a simetria das matrizes para eficiência e estabilidade numérica. A solução fornece $n$ frequências naturais e os correspondentes modos de vibração, comparáveis com as expressões analíticas $f_n = n c / (2L)$ para barras engastadas, onde $c = \sqrt{E/\rho}$ é a velocidade de propagação de ondas. A Figura \ref{fig:vibracao1d_modos} ilustra os cinco primeiros modos.
+O problema de autovalor é resolvido pela rotina \texttt{scipy.linalg.eigh}, que explora a simetria das matrizes para eficiência e estabilidade numérica. A solução fornece $n$ frequências naturais e os correspondentes modos de vibração, comparáveis com as expressões analíticas clássicas --- por exemplo, $f_n = n c / (2L)$ para barras engastadas em ambas as extremidades, onde $c = \sqrt{E/\rho}$ é a velocidade de propagação de ondas. A Figura \ref{fig:vibracao1d_modos} ilustra os cinco primeiros modos.
 
 \begin{figure}[H]
     \centering

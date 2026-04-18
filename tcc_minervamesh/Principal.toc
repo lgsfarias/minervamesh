@@ -128,23 +128,30 @@
 \contentsline {subsection}{\numberline {5.2.3}Solução MEF e Comparação}{40}{}%
 \contentsline {subsection}{\numberline {5.2.4}Análise de Erro}{41}{}%
 \contentsline {paragraph}{Nota sobre a precisão nodal exata.}{42}{}%
-\contentsline {chapter}{\numberline {6}Conclusões}{43}{}%
-\contentsline {section}{\numberline {6.1}Conclusões}{43}{}%
-\contentsline {paragraph}{}{43}{}%
-\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{43}{}%
-\contentsline {paragraph}{}{43}{}%
-\contentsline {chapter}{Bibliografia}{44}{}%
-\contentsline {chapter}{\numberline {A}Listagens dos Módulos de Simulação 1D}{50}{}%
-\contentsline {paragraph}{}{50}{}%
-\contentsline {section}{\numberline {A.1}Condução Permanente 1D}{50}{}%
-\contentsline {section}{\numberline {A.2}Condução Transiente 1D com $k(x)$ Variável}{53}{}%
-\contentsline {section}{\numberline {A.3}Convecção-Difusão 1D com SUPG}{61}{}%
-\contentsline {section}{\numberline {A.4}Viga 1D --- Euler-Bernoulli}{67}{}%
-\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{79}{}%
-\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{91}{}%
-\contentsline {paragraph}{}{91}{}%
-\contentsline {section}{\numberline {B.1}Módulo Compartilhado: Malha e Matrizes MEF}{91}{}%
-\contentsline {section}{\numberline {B.2}Módulo Compartilhado: Geometrias de Obstáculo}{95}{}%
-\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{97}{}%
-\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{101}{}%
-\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{113}{}%
+\contentsline {section}{\numberline {5.3}Condução Transiente 1D com $k(x)$ Variável}{42}{}%
+\contentsline {section}{\numberline {5.4}Convecção-Difusão 1D com Estabilização SUPG}{42}{}%
+\contentsline {section}{\numberline {5.5}Viga 1D — Flexão de Euler-Bernoulli}{42}{}%
+\contentsline {section}{\numberline {5.6}Vibração 1D — Problema de Autovalor}{43}{}%
+\contentsline {section}{\numberline {5.7}Transferência de Calor 2D}{43}{}%
+\contentsline {section}{\numberline {5.8}Escoamento Potencial 2D}{43}{}%
+\contentsline {section}{\numberline {5.9}Navier-Stokes 2D — Cavidade com Tampa Móvel}{43}{}%
+\contentsline {chapter}{\numberline {6}Conclusões}{45}{}%
+\contentsline {section}{\numberline {6.1}Conclusões}{45}{}%
+\contentsline {paragraph}{}{45}{}%
+\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{45}{}%
+\contentsline {paragraph}{}{45}{}%
+\contentsline {chapter}{Bibliografia}{46}{}%
+\contentsline {chapter}{\numberline {A}Listagens dos Módulos de Simulação 1D}{52}{}%
+\contentsline {paragraph}{}{52}{}%
+\contentsline {section}{\numberline {A.1}Condução Permanente 1D}{52}{}%
+\contentsline {section}{\numberline {A.2}Condução Transiente 1D com $k(x)$ Variável}{55}{}%
+\contentsline {section}{\numberline {A.3}Convecção-Difusão 1D com SUPG}{64}{}%
+\contentsline {section}{\numberline {A.4}Viga 1D --- Euler-Bernoulli}{70}{}%
+\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{82}{}%
+\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{93}{}%
+\contentsline {paragraph}{}{93}{}%
+\contentsline {section}{\numberline {B.1}Módulo Compartilhado: Malha e Matrizes MEF}{93}{}%
+\contentsline {section}{\numberline {B.2}Módulo Compartilhado: Geometrias de Obstáculo}{97}{}%
+\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{99}{}%
+\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{103}{}%
+\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{114}{}%

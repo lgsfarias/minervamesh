@@ -57,9 +57,9 @@ A Tabela~\ref{tab:val_conducao1d_params} apresenta os parâmetros utilizados na 
         Comprimento da barra   & $L$    & $1{,}0$ m     \\
         Número de elementos    & $n_e$  & $10$          \\
         Temperatura em $x=0$   & $T_0$  & $0{,}0$ °C    \\
-        Temperatura em $x=L$   & $T_L$  & $100{,}0$ °C  \\
+        Temperatura em $x=L$   & $T_L$  & $1{,}0$ °C    \\
         Condutividade térmica  & $k$    & $1{,}0$ W/(m·°C) \\
-        Geração interna        & $Q$    & $500{,}0$ W/m³   \\
+        Geração interna        & $Q$    & $4{,}0$ W/m³   \\
         \hline
     \end{tabular}
 \end{table}
@@ -80,7 +80,7 @@ A integração direta da Equação~\eqref{eq:val_conducao1d_edp} fornece a solu�
     \label{eq:val_conducao1d_constantes}
 \end{equation}
 
-Substituindo os valores da Tabela~\ref{tab:val_conducao1d_params}, obtém-se $C_1 = 350{,}0$~°C/m e $C_2 = 0{,}0$~°C. O perfil de temperatura resultante é uma parábola com valor máximo no interior do domínio, decorrente da competição entre a geração interna de calor e a difusão para as fronteiras.
+Substituindo os valores da Tabela~\ref{tab:val_conducao1d_params}, obtém-se $C_1 = 3{,}0$~°C/m e $C_2 = 0{,}0$~°C. O perfil de temperatura resultante é uma parábola com valor máximo $T_{\max} \approx 1{,}125$~°C em $x^{*} = 0{,}75$~m, no interior do domínio --- superior ao valor prescrito em qualquer das extremidades ($T_0 = 0$~°C, $T_L = 1{,}0$~°C) e decorrente da competição entre a geração interna de calor e a difusão para as fronteiras.
 
 \subsection{Solução MEF e Comparação}
 
@@ -105,6 +105,182 @@ Para este caso particular — equação de Poisson 1D com fonte constante e elem
     \label{eq:val_metricas_erro}
 \end{equation}
 
-\noindent obtém-se $e_{\max} \approx 10^{-13}$ °C e $e_{L_2} \approx 10^{-15}$, confirmando erro essencialmente nulo nos nós da malha. Este resultado era esperado teoricamente e valida a montagem das matrizes elementares de rigidez e do vetor de carga, a montagem global e a imposição das condições de contorno de Dirichlet implementadas no módulo \texttt{conducao-permanente-barra1d-mef}.
+\noindent obtém-se $e_{\max} \approx 10^{-15}$ °C e $e_{L_2} \approx 10^{-15}$, confirmando erro essencialmente nulo nos nós da malha. Este resultado era esperado teoricamente e valida a montagem das matrizes elementares de rigidez e do vetor de carga, a montagem global e a imposição das condições de contorno de Dirichlet implementadas no módulo \texttt{conducao-permanente-barra1d-mef}.
 
 \paragraph{Nota sobre a precisão nodal exata.} A concordância perfeita nos nós não implica erro nulo entre os nós. O campo MEF é linear por partes, enquanto a solução exata é parabólica. O erro de interpolação entre nós é da ordem $O(h^2)$. Essa observação será relevante nos casos subsequentes, que envolvem equações com soluções de maior grau ou não-polinomiais.
+
+% ==============================================================
+% 5.2 — Condução Transiente 1D com k(x) Variável
+% ==============================================================
+
+\section{Condução Transiente 1D com $k(x)$ Variável}
+\label{sec:val_calor_transiente}
+
+% TODO: redigir.
+% Problema: $\rho c_p \partial T/\partial t = \partial/\partial x (k(x) \partial T/\partial x)$,
+% $T(0,t)=0$, $T(L,t)=1$, condutividade descontínua em $x=L/2$ ($k_1$ na primeira metade,
+% $k_2$ na segunda). Método $\theta$ (Crank-Nicolson, $\theta = 1/2$).
+% Validação: em regime permanente, a solução numérica deve convergir para
+% $T(x) = (C/k_1) x$ para $x < L/2$, $T(L/2) + (C/k_2)(x-L/2)$ para $x \geq L/2$, com
+% $C = 2 k_1 k_2 / (L(k_1 + k_2))$. Runner em
+% \texttt{.agents/review/module\_audit/06\_calor\_transiente/run.py}.
+
+\begin{figure}[htbp]
+    \centering
+    % TODO: substituir por figura gerada com HTML defaults (k_1=5, k_2=1).
+    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_calor_transiente1d_evolucao.png}
+    \caption{(Esqueleto) Evolução temporal do campo $T(x,t)$ e convergência ao regime permanente.}
+    \label{fig:val_calor_transiente}
+\end{figure}
+
+% ==============================================================
+% 5.3 — Convecção-Difusão 1D com Estabilização SUPG
+% ==============================================================
+
+\section{Convecção-Difusão 1D com Estabilização SUPG}
+\label{sec:val_convdif}
+
+% TODO: redigir.
+% Equação: $-k T'' + \rho c_p u T' = Q$, $T(0)=T_0$, $T(L)=T_L$.
+% Solução analítica para Péclet arbitrário:
+% $T(x) = T_0 + Q x/(\rho c_p u) + (T_L - T_0 - QL/(\rho c_p u)) \cdot g(x)$ com
+% $g(x) = (e^{\alpha x} - 1)/(e^{\alpha L} - 1)$ e $\alpha = \rho c_p u/k$.
+% Validação forte: com $\tau = (h/2u)(\coth \mathrm{Pe}_e - 1/\mathrm{Pe}_e)$,
+% a solução MEF com SUPG é \emph{exata nos nós} (erro de arredondamento de máquina).
+% Galerkin puro produz oscilações visíveis para $\mathrm{Pe}_e > 1$.
+% Runner em \texttt{.agents/review/module\_audit/07\_conveccao/run.py}.
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_convdif1d_com_supg.png}
+    \caption{(Esqueleto) Comparação Galerkin vs.\ SUPG em alto número de Péclet.}
+    \label{fig:val_convdif}
+\end{figure}
+
+% ==============================================================
+% 5.4 — Viga 1D (Euler-Bernoulli)
+% ==============================================================
+
+\section{Viga 1D — Flexão de Euler-Bernoulli}
+\label{sec:val_viga}
+
+% TODO: redigir.
+% Equação: $d^2/dx^2 (EI \, d^2w/dx^2) = q(x)$.
+% Elementos MEF com funções de Hermite cúbicas (4 DOFs por elemento).
+% Validação: para $E$ e $I$ constantes e carga uniforme $q$, a deflexão máxima analítica é:
+% - simplesmente apoiada: $w_{\max} = 5 q L^4 / (384 EI)$, em $x = L/2$;
+% - em balanço: $w_{\max} = q L^4 / (8 EI)$, na extremidade livre;
+% - engastada-engastada: $w_{\max} = q L^4 / (384 EI)$, em $x = L/2$.
+% MEF Hermite reproduz essas três deflexões com erro da ordem de $10^{-13}$ (superconvergência
+% nodal). Runner em \texttt{.agents/review/module\_audit/04\_viga/run.py}.
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_viga1d_resultado.png}
+    \caption{(Esqueleto) Deflexão, momento fletor e esforço cortante para viga simplesmente apoiada com carga uniforme.}
+    \label{fig:val_viga}
+\end{figure}
+
+% ==============================================================
+% 5.5 — Vibração 1D (Autovalor)
+% ==============================================================
+
+\section{Vibração 1D — Problema de Autovalor}
+\label{sec:val_vibracao}
+
+% TODO: redigir.
+% Problema generalizado: $\mathbf{K}\phi = \lambda \mathbf{M} \phi$, $f_n = \sqrt{\lambda_n}/(2\pi)$.
+% Matriz de massa concentrada (\emph{lumped}). Validação: frequências analíticas, com
+% $c = \sqrt{E/\rho}$:
+% - livre-livre: $f_n = (n-1) c / (2L)$ (modo rígido em $n=1$);
+% - engastada-engastada: $f_n = n c / (2L)$;
+% - engastada-livre: $f_n = (2n-1) c / (4L)$.
+% Com $n_{\mathrm{el}} = 20$, erro < 3\% até o quinto modo em todos os três casos (subestimação
+% sistemática típica de massa lumped). Runner em
+% \texttt{.agents/review/module\_audit/05\_vibracao/run.py}.
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_vibracao1d_modos.png}
+    \caption{(Esqueleto) Cinco primeiros modos de vibração e respectivas frequências naturais.}
+    \label{fig:val_vibracao}
+\end{figure}
+
+% ==============================================================
+% 5.6 — Transferência de Calor 2D
+% ==============================================================
+
+\section{Transferência de Calor 2D}
+\label{sec:val_transcalor}
+
+% TODO: redigir.
+% Placa quadrada $[0,1] \times [0,1]$, malha triangular $40 \times 40$, Crank-Nicolson ($\theta = 1/2$).
+% BCs: $T = T_{\mathrm{bot}}$ em $y=0$, $T = T_{\mathrm{top}}$ em $y=1$, perfil linear nas laterais.
+% Em regime permanente, $T(x,y) = T_{\mathrm{bot}} + (T_{\mathrm{top}} - T_{\mathrm{bot}}) \cdot y$
+% (independente de $x$). Convergência ao permanente em $t \gtrsim \tau_{\mathrm{dif}} = L^2 \rho c_v / k$;
+% com defaults do HTML ($t_{\max} = 0{,}05$) observa-se apenas o início do transiente.
+% Runner em \texttt{.agents/review/module\_audit/08\_transcalor/run.py}.
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.75\textwidth]{figuras/prints/fig_transcalor2d_campo.png}
+    \caption{(Esqueleto) Campo de temperatura em placa 2D durante a evolução transiente.}
+    \label{fig:val_transcalor}
+\end{figure}
+
+% ==============================================================
+% 5.7 — Escoamento Potencial 2D
+% ==============================================================
+
+\section{Escoamento Potencial 2D}
+\label{sec:val_potencial}
+
+% TODO: redigir.
+% Problema: $\nabla^2 \psi = 0$ em 2D com obstáculo. Malha triangular com furo;
+% BCs de parede deslizante ($\psi$ constante). Caso canônico: cilindro circular em fluxo uniforme.
+% Validação: distribuição de $C_p$ na superfície do cilindro comparada com o resultado teórico
+% $C_p(\theta) = 1 - 4 \sin^2 \theta$.
+% Paradoxo d'Alembert: $C_L, C_D \to 0$ no limite de domínio infinito.
+% Com defaults do HTML (domínio confinado, $H = 1$, $r = 0{,}15$), observa-se efeito de bloqueio
+% ($\sim 30\%$), gerando resíduo não-nulo em $C_L$ e $C_D$.
+% Runner em \texttt{.agents/review/module\_audit/09\_potencial/run.py}.
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_potencial2d_linhas.png}
+    \caption{(Esqueleto) Linhas de corrente ao redor do cilindro e distribuição de $C_p$ na superfície.}
+    \label{fig:val_potencial}
+\end{figure}
+
+% ==============================================================
+% 5.8 — Navier-Stokes 2D (Vorticidade-Corrente)
+% ==============================================================
+
+\section{Navier-Stokes 2D — Cavidade com Tampa Móvel}
+\label{sec:val_ns}
+
+% TODO: redigir.
+% Caso de referência: \emph{lid-driven cavity} de Ghia, Ghia \& Shin (1982), Re=100.
+% Formulação $\omega$-$\psi$ com esquema semi-implícito no tempo.
+% Condição de contorno de vorticidade na parede obtida por expansão de Taylor
+% (Eq.~\ref{eq:thom}).
+% Validação quantitativa: perfil de velocidade horizontal $u(y)$ em $x = 0{,}5$,
+% comparado com a tabela de Ghia et al.\ em pontos selecionados.
+% Com malha $41 \times 41$ e 2000 passos de tempo ($\Delta t = 0{,}01$),
+% obtém-se $\psi_{\min} \approx -0{,}103$ (referência da literatura: $-0{,}1034$)
+% e RMS do perfil de velocidade $\approx 0{,}036$.
+% Runner em \texttt{.agents/review/thom\_validation/run\_cavity.py}.
+
+\begin{figure}[htbp]
+    \centering
+    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_ns2d_cavity_re100.png}
+    \caption{(Esqueleto) Campos de $\psi$, $\omega$ e linhas de corrente na cavidade a $\mathrm{Re} = 100$.}
+    \label{fig:val_ns_cavity}
+\end{figure}
+
+\begin{figure}[htbp]
+    \centering
+    % TODO: gerar figura comparando u(y) numérico com Ghia et al. 1982
+    \caption{(Esqueleto) Perfil $u(y)$ em $x=0{,}5$ comparado aos valores tabulados por Ghia et al.\ (1982) para $\mathrm{Re}=100$.}
+    \label{fig:val_ns_ghia_uy}
+\end{figure}
