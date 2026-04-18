@@ -145,9 +145,22 @@ Para este caso particular — equação de Poisson 1D com fonte constante e elem
 % Solução analítica para Péclet arbitrário:
 % $T(x) = T_0 + Q x/(\rho c_p u) + (T_L - T_0 - QL/(\rho c_p u)) \cdot g(x)$ com
 % $g(x) = (e^{\alpha x} - 1)/(e^{\alpha L} - 1)$ e $\alpha = \rho c_p u/k$.
-% Validação forte: com $\tau = (h/2u)(\coth \mathrm{Pe}_e - 1/\mathrm{Pe}_e)$,
-% a solução MEF com SUPG é \emph{exata nos nós} (erro de arredondamento de máquina).
-% Galerkin puro produz oscilações visíveis para $\mathrm{Pe}_e > 1$.
+%
+% ** Destaque pedagógico — propriedade notável do SUPG 1D **
+% Com $\tau_{\mathrm{SUPG}} = (h_e / 2 \lVert \mathbf{v} \rVert)(\coth \mathrm{Pe}_e - 1/\mathrm{Pe}_e)$,
+% que é o parâmetro canônico derivado por Christie et al.\ (1976), a solução MEF
+% estabilizada é \textbf{exata nos nós} para convecção-difusão 1D com fonte
+% constante --- o erro nodal é da ordem da precisão de máquina ($\sim 10^{-16}$).
+% Essa é uma propriedade teórica de "upwinding ótimo" que pode ser enfatizada
+% como evidência forte de que a implementação está correta. Verificado numericamente
+% em \texttt{.agents/review/module\_audit/07\_conveccao/} para $\mathrm{Pe}_e = 0{,}5$
+% (HTML default): $e_{\max} \approx 2{,}5 \cdot 10^{-16}$.
+%
+% Por contraste, Galerkin puro (\texttt{use\_supg = false}) produz erro da ordem
+% de $3 \cdot 10^{-2}$ no mesmo cenário e oscilações espúrias a partir de
+% $\mathrm{Pe}_e > 1$. Figura sugerida: duas curvas no mesmo eixo (Galerkin vs SUPG)
+% e uma curva de erro nodal em escala log para evidenciar a diferença.
+%
 % Runner em \texttt{.agents/review/module\_audit/07\_conveccao/run.py}.
 
 \begin{figure}[htbp]
@@ -280,7 +293,7 @@ Para este caso particular — equação de Poisson 1D com fonte constante e elem
 
 \begin{figure}[htbp]
     \centering
-    % TODO: gerar figura comparando u(y) numérico com Ghia et al. 1982
-    \caption{(Esqueleto) Perfil $u(y)$ em $x=0{,}5$ comparado aos valores tabulados por Ghia et al.\ (1982) para $\mathrm{Re}=100$.}
+    \includegraphics[width=0.75\textwidth]{figuras/prints/fig_val_ns_ghia_uy.png}
+    \caption{Perfil $u(y)$ em $x=0{,}5$ comparado aos valores tabulados por Ghia, Ghia \& Shin (1982) para a cavidade com tampa móvel a $\mathrm{Re}=100$. RMS $=0{,}036$ em malha $41\times 41$ com 2000 passos de tempo. Figura gerada pelo runner \texttt{.agents/review/thom\_validation/run\_cavity.py} com a fórmula de Thom na forma canônica.}
     \label{fig:val_ns_ghia_uy}
 \end{figure}

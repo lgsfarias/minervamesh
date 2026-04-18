@@ -209,18 +209,38 @@ async def run_viga_1d(event=None):
     w = u[::2]  # deslocamentos verticais
     theta = u[1::2]  # rotações
 
-    # Calcular esforços internos
-    M = np.zeros(nn)  # Momentos fletores
-    V = np.zeros(nn)  # Esforços cortantes
-    
-    for i in range(1, nn-1):
-        # Momento fletor: M = -EI * d²w/dx²
-        EI_avg = (E[i] * I[i] + E[i-1] * I[i-1] + E[i+1] * I[i+1]) / 3
-        M[i] = -EI_avg * (w[i+1] - 2*w[i] + w[i-1]) / h**2
-        
-        # Esforço cortante: V = -EI * d³w/dx³ ≈ -EI * dM/dx
-        if i > 1 and i < nn-2:
-            V[i] = -(M[i+1] - M[i-1]) / (2*h)
+    # Pos-processamento de M (momento) e V (cortante) via derivadas canonicas
+    # das funcoes de Hermite cubica. Para cada elemento de comprimento h com
+    # DOFs [w1, theta1, w2, theta2]:
+    #   M(x) = -EI * w''(x) e linear em xi (coordenada local em [0, 1])
+    #   V(x) = -EI * w'''(x) e constante no elemento (3a derivada de cubico)
+    # Avaliamos M nos dois nos locais e V uma vez por elemento, somando nos
+    # nos globais e depois dividindo pelo numero de elementos adjacentes.
+    # Isso elimina o salto espurio que um pos-processamento por diferencas
+    # finitas introduzia nos 2 nos de cada extremidade.
+    M = np.zeros(nn)
+    V = np.zeros(nn)
+    count = np.zeros(nn)
+    for e in range(nel):
+        E_elem = (E[e] + E[e+1]) / 2
+        I_elem = (I[e] + I[e+1]) / 2
+        EI = E_elem * I_elem
+        w1, th1 = w[e], theta[e]
+        w2, th2 = w[e+1], theta[e+1]
+        # d2N/dxi2 em xi=0: [-6, -4h, 6, -2h]    -> M no no esquerdo
+        M_left  = -EI / h**2 * (-6*w1 - 4*h*th1 + 6*w2 - 2*h*th2)
+        # d2N/dxi2 em xi=1: [ 6,  2h, -6,  4h]   -> M no no direito
+        M_right = -EI / h**2 * ( 6*w1 + 2*h*th1 - 6*w2 + 4*h*th2)
+        # d3N/dxi3 constante: [12, 6h, -12, 6h]  -> V no elemento
+        V_elem  = -EI / h**3 * (12*w1 + 6*h*th1 - 12*w2 + 6*h*th2)
+        M[e]   += M_left
+        M[e+1] += M_right
+        V[e]   += V_elem
+        V[e+1] += V_elem
+        count[e]   += 1
+        count[e+1] += 1
+    M /= count
+    V /= count
 
     # Solução analítica para comparação (se disponível)
     x_dense = np.linspace(0.0, L, max(600, min(2400, 8 * nn)))

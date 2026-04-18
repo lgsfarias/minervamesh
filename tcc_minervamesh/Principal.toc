@@ -147,11 +147,11 @@
 \contentsline {section}{\numberline {A.2}Condução Transiente 1D com $k(x)$ Variável}{55}{}%
 \contentsline {section}{\numberline {A.3}Convecção-Difusão 1D com SUPG}{64}{}%
 \contentsline {section}{\numberline {A.4}Viga 1D --- Euler-Bernoulli}{70}{}%
-\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{82}{}%
-\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{93}{}%
-\contentsline {paragraph}{}{93}{}%
-\contentsline {section}{\numberline {B.1}Módulo Compartilhado: Malha e Matrizes MEF}{93}{}%
-\contentsline {section}{\numberline {B.2}Módulo Compartilhado: Geometrias de Obstáculo}{97}{}%
-\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{99}{}%
-\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{103}{}%
-\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{114}{}%
+\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{83}{}%
+\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{94}{}%
+\contentsline {paragraph}{}{94}{}%
+\contentsline {section}{\numberline {B.1}Módulo Compartilhado: Malha e Matrizes MEF}{94}{}%
+\contentsline {section}{\numberline {B.2}Módulo Compartilhado: Geometrias de Obstáculo}{98}{}%
+\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{100}{}%
+\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{104}{}%
+\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{115}{}%

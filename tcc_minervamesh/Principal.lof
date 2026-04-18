@@ -23,7 +23,7 @@
 \contentsline {figure}{\numberline {5.6}{\ignorespaces (Esqueleto) Campo de temperatura em placa 2D durante a evolução transiente.}}{43}{}%
 \contentsline {figure}{\numberline {5.7}{\ignorespaces (Esqueleto) Linhas de corrente ao redor do cilindro e distribuição de $C_p$ na superfície.}}{43}{}%
 \contentsline {figure}{\numberline {5.8}{\ignorespaces (Esqueleto) Campos de $\psi $, $\omega $ e linhas de corrente na cavidade a $\mathrm {Re} = 100$.}}{44}{}%
-\contentsline {figure}{\numberline {5.9}{\ignorespaces (Esqueleto) Perfil $u(y)$ em $x=0{,}5$ comparado aos valores tabulados por Ghia et al.\ (1982) para $\mathrm {Re}=100$.}}{44}{}%
+\contentsline {figure}{\numberline {5.9}{\ignorespaces Perfil $u(y)$ em $x=0{,}5$ comparado aos valores tabulados por Ghia, Ghia \& Shin (1982) para a cavidade com tampa móvel a $\mathrm {Re}=100$. RMS $=0{,}036$ em malha $41\times 41$ com 2000 passos de tempo. Figura gerada pelo runner \texttt {.agents/review/thom\_validation/run\_cavity.py} com a fórmula de Thom na forma canônica.}}{44}{}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
