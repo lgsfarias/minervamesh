@@ -236,8 +236,7 @@ async def solve_navier_stokes(params, plot_div):
             # Since u = dpsi/dy, (dpsi/dy)_w = u_tan. With psi constant along the wall,
             # d2psi/dx2 = 0 there, so d2psi/dy2 = -omega_w. Solving:
             #   omega_w = -2 (psi_nb - psi_w + h u_tan) / h^2
-            # Validated against Ghia et al. (1982) at Re=100 (RMS 0.065 vs. 0.93 with the
-            # wrong sign). See .agents/review/thom_validation/ for the reproducible check.
+            # Validated against Ghia et al. (1982) at Re=100.
             psi_nb = psi[wall_neighbors]
             psi_w = psi[solid_walls]
             h_vals = np.sqrt(wall_h_sq)
