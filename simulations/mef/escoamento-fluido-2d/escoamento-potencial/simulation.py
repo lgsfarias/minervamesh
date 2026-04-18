@@ -24,16 +24,6 @@ def get_geometry(geo_type, params):
             
         return np.column_stack([x_bound, y_bound]), mask_func
         
-    elif geo_type == "square":
-        side = params["side"]
-        angle = np.radians(params["angle"]) # Rotação
-        
-        # Pontos do quadrado (4 cantos + subdivisões)
-        n_side = 25
-        pts = []
-        # Local coords: [-s/2, s/2]
-        s2 = side / 2
-        # Bottom
     elif geo_type == "airfoil" or geo_type == "naca4412":
         # General NACA 4-Digit Series Generator
         # M: Max camber (1st digit)
@@ -147,7 +137,6 @@ async def solve_potential(params, plot_div):
     
     psi[inlet_nodes] = get_psi_inlet(Y[inlet_nodes])
     psi[wall_bottom] = 0.0
-    psi[wall_bottom] = 0.0
     psi[wall_top] = params["v_inf"] * params["H"]
     
     # Obstacle: Psi constante + Gamma
@@ -175,7 +164,6 @@ async def solve_potential(params, plot_div):
     u_nodes = dpsi_dy
     v_nodes = -dpsi_dx
     
-    # Velocidade de referência (Inlet)
     # Velocidade de referência (Inlet)
     U_inf = params["v_inf"]
     V_sq = u_nodes**2 + v_nodes**2
@@ -239,7 +227,6 @@ async def solve_potential(params, plot_div):
     else:
         ref_len = 1.0
         
-    CL_num /= ref_len
     CL_num /= ref_len
     CD_num /= ref_len
 
@@ -367,7 +354,6 @@ async def run_handler(event=None):
             "cy": float(document.getElementById("cy").value),
             "nx": int(document.getElementById("nx").value),
             "ny": int(document.getElementById("ny").value),
-            # "Gamma": float(document.getElementById("Gamma").value), # Removed
             # "Gamma": float(document.getElementById("Gamma").value), # Removed
             "geo_type": document.getElementById("geo_type").value,
             "rho": float(document.getElementById("rho").value),

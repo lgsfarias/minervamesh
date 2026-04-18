@@ -38,7 +38,7 @@ def analytical_solution(x, Q, alpha, L):
     array
         Temperatura em cada ponto x
     """
-    C1 = 1 + (Q / (2 * alpha)) * L
+    C1 = 1 / L + (Q / (2 * alpha)) * L
     return - (Q / (2 * alpha)) * x**2 + C1 * x
 
 # ==============================

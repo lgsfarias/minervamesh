@@ -25,35 +25,30 @@ def analytical_solution(x, Q, k, rho_cp, u, L, T0, TL):
     Solução analítica da equação de convecção-difusão 1D permanente.
     Equação: -k d²T/dx² + ρcp u dT/dx = Q
     Condições: T(0)=T0, T(L)=TL
+
+    Forma estável numericamente mesmo para grandes números de Péclet: a razão
+    (exp(α x) - 1) / (exp(α L) - 1) é reescrita fatorando exp(α L) quando α > 0,
+    evitando overflow de exp para α·L grande.
     """
-    # Número de Péclet: Pe = ρcp u L / k
-    Pe = (rho_cp * u * L) / k
-    
-    if abs(Pe) < 1e-10:  # Caso puramente difusivo
-        # Solução da EDO: -k T'' = Q, T(0)=T0, T(L)=TL
+    # Caso puramente difusivo: -k T'' = Q
+    if abs(rho_cp * u) < 1e-14:
         C1 = (TL - T0 + (Q * L * L) / (2 * k)) / L
-        C2 = T0
-        return - (Q / (2 * k)) * x * x + C1 * x + C2
+        return -(Q / (2 * k)) * x * x + C1 * x + T0
+
+    alpha = rho_cp * u / k
+    Tp   = Q * x / (rho_cp * u)
+    Tp_L = Q * L / (rho_cp * u)
+
+    # g(x) := (exp(α x) - 1) / (exp(α L) - 1)
+    if alpha > 0:
+        # fatora exp(α L) para evitar overflow
+        g = np.exp(alpha * (x - L)) * (1.0 - np.exp(-alpha * x)) \
+                                    / (1.0 - np.exp(-alpha * L))
     else:
-        # Solução geral com convecção
-        # Equação homogênea: -k T'' + ρcp u T' = 0
-        # Equação particular: -k T'' + ρcp u T' = Q
-        
-        alpha = rho_cp * u / k
-        
-        # Solução particular: Tp = Q*x/(ρcp*u) (verificação por substituição)
-        Tp = Q * x / (rho_cp * u)
-        
-        # Solução homogênea: Th = A + B*exp(αx)
-        # Condições de contorno:
-        # T(0) = T0 = A + B + 0
-        # T(L) = TL = A + B*exp(αL) + Q*L/(ρcp*u)
-        
-        exp_alpha_L = np.exp(alpha * L)
-        B = (TL - T0 - Q * L / (rho_cp * u)) / (exp_alpha_L - 1)
-        A = T0 - B
-        
-        return A + B * np.exp(alpha * x) + Tp
+        # para α ≤ 0, expm1 já é estável
+        g = np.expm1(alpha * x) / np.expm1(alpha * L)
+
+    return T0 + Tp + (TL - T0 - Tp_L) * g
 
 
 # ==============================

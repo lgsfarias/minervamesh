@@ -275,12 +275,7 @@ async def solve_navier_stokes(params, plot_div):
             omega[free_omega] = spsolve(A_free, b_omega)
             
             current_step += 1
-            
-            # F. Calculate Forces (Pressure + Viscous)
-            # Removed asymmetry/lift proxy calculation as requested.
-            
-            current_step += 1
-            
+
         # Plot
         tci = tri.LinearTriInterpolator(triang, psi)
         (dpsi_dx, dpsi_dy) = tci.gradient(X, Y)

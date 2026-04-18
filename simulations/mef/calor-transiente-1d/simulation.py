@@ -5,7 +5,8 @@ Problema Térmico Transiente 1D (MEF)
 ------------------------------------------------------------------
 Modelo: ρc ∂T/∂t = ∂/∂x(k(x) ∂T/∂x), 0 < x < L, t > 0
 Condições de contorno: T(0,t) = 0, T(L,t) = 1 (fixas)
-Condutividade térmica variável: k(x) = 1 para x < L/2, k(x) = 5 para x ≥ L/2
+Condutividade térmica descontínua em x=L/2, com valores k1 (primeira metade)
+e k2 (segunda metade) configuráveis via interface.
 
 Este script simula a condução transiente de calor 1D usando Método dos Elementos Finitos
 com condutividade térmica variável e número de elementos configurável.
@@ -34,17 +35,26 @@ def thermal_conductivity(x, L, k1=5.0, k2=1.0):
 
 
 # ==============================
-# 2. Solução analítica de regime permanente para k(x) variável
+# 2. Solução analítica de regime permanente para k(x) descontínuo
 # ==============================
-def analytical_steady_state(x, L):
+def analytical_steady_state(x, L, k1, k2):
     """
-    Solução analítica de regime permanente para condutividade térmica CONSTANTE.
-    Para k(x) = constante, com T(0) = 0 e T(L) = 1.
+    Solução analítica de regime permanente para k(x) descontínuo em x=L/2
+    com T(0)=0 e T(L)=1.
 
-    Solução: T(x) = x (linha reta)
+    Em permanente, o fluxo q = -k·dT/dx é constante. Integrando em cada região
+    e impondo continuidade de T em L/2 e T(L)=1:
+        C      = 2·k1·k2 / (L·(k1+k2))
+        T(x)   = (C/k1)·x                             para x < L/2
+        T(x)   = (C·L/(2·k1)) + (C/k2)·(x - L/2)      para x >= L/2
     """
-    # Solução analítica para k(x) constante: T(x) = x
-    return x
+    C = 2.0 * k1 * k2 / (L * (k1 + k2))
+    T = np.zeros_like(x, dtype=float)
+    mask_left = x < L / 2
+    T[mask_left] = (C / k1) * x[mask_left]
+    T_half = (C / k1) * (L / 2)
+    T[~mask_left] = T_half + (C / k2) * (x[~mask_left] - L / 2)
+    return T
 
 
 # ==============================
@@ -66,7 +76,7 @@ def element_matrices_1d(x1, x2, k_avg, rho_cp):
 # ==============================
 # 3. Montar sistema global
 # ==============================
-def assemble_system(n_elements, L, rho_cp=1.0, k1=1.0, k2=5.0):
+def assemble_system(n_elements, L, rho_cp=1.0, k1=5.0, k2=1.0):
     """Monta as matrizes globais K e M do sistema MEF."""
     n_nodes = n_elements + 1
 
@@ -119,10 +129,10 @@ def render_frame(T, x_nodes, t, n_elements, k1=1.0, k2=5.0):
     # Plotar temperatura numérica
     ax.plot(x_nodes, T, 'o-', label="MEF", color="#3B82F6", linewidth=2, markersize=4)
 
-    # Plotar solução analítica de regime permanente
+    # Plotar solução analítica de regime permanente (referência)
     x_dense = np.linspace(0, x_nodes[-1], 200)
-    T_analytical = analytical_steady_state(x_dense, x_nodes[-1])
-    ax.plot(x_dense, T_analytical, '--', label="Analítico (k=const)", color="#EF4444", linewidth=2)
+    T_analytical = analytical_steady_state(x_dense, x_nodes[-1], k1, k2)
+    ax.plot(x_dense, T_analytical, '--', label="Regime permanente (analítico)", color="#EF4444", linewidth=2)
 
     # Plotar condutividade térmica como fundo
     k_values = thermal_conductivity(x_dense, x_nodes[-1], k1, k2)
