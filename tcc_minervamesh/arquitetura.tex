@@ -5,7 +5,7 @@
 
 O \textit{MinervaMesh} é uma plataforma de simulação numérica projetada para operar integralmente no navegador web, sem dependência de servidores de processamento remoto nem instalação de software por parte do usuário. A plataforma reúne implementações dos métodos numéricos apresentados no Capítulo 3 em uma interface interativa que permite a parametrização do problema, a execução da simulação e a visualização dos resultados em uma única página.
 
-\paragraph{}A motivação central do projeto reside na eliminação das barreiras de acesso associadas às ferramentas de simulação tradicionais. Ambientes como ANSYS, COMSOL Multiphysics ou mesmo distribuições locais de Python científico exigem licenciamento, infraestrutura computacional dedicada e configuração de ambiente --- requisitos que frequentemente inviabilizam o uso autônomo em disciplinas de graduação, monitorias e estudos independentes \cite{Anjos2013}. O \textit{MinervaMesh} contorna essas limitações ao executar todo o processamento no dispositivo do próprio usuário, utilizando o navegador como ambiente de execução.
+\paragraph{}A motivação central do projeto reside na eliminação das barreiras de acesso associadas às ferramentas de simulação tradicionais. Ambientes como ANSYS, COMSOL Multiphysics ou mesmo distribuições locais de Python científico exigem licenciamento, infraestrutura computacional dedicada e configuração de ambiente --- requisitos que frequentemente inviabilizam o uso autônomo em disciplinas de graduação, monitorias e estudos independentes \cite{Anjos2024}. O \textit{MinervaMesh} contorna essas limitações ao executar todo o processamento no dispositivo do próprio usuário, utilizando o navegador como ambiente de execução.
 
 \paragraph{}A plataforma abrange três domínios da Engenharia Mecânica:
 \begin{itemize}
@@ -39,7 +39,7 @@ A escolha do PyScript como runtime da plataforma fundamenta-se em três critéri
     \item O código Python da simulação é interpretado pelo Pyodide, com acesso direto ao DOM do navegador para leitura de parâmetros e renderização de resultados.
 \end{enumerate}
 
-\paragraph{}A escolha de Python como linguagem de implementação é estratégica para o contexto educacional: trata-se da linguagem mais utilizada em disciplinas de métodos numéricos na Engenharia, com sintaxe próxima à notação matemática e ecossistema científico consolidado (NumPy para álgebra linear, SciPy para solvers esparsos, Matplotlib para visualização) \cite{Harris2020}. Ao manter a implementação em Python puro, o \textit{MinervaMesh} permite que alunos inspecionem, compreendam e modifiquem o código das simulações --- funcionalidade explicitamente disponível através do botão ``Ver Código'' presente em cada simulação.
+\paragraph{}A escolha de Python como linguagem de implementação é estratégica para o contexto educacional: a linguagem apresenta sintaxe próxima à notação matemática e dispõe de um ecossistema científico consolidado --- NumPy para álgebra linear, SciPy para solvers esparsos, Matplotlib para visualização \cite{Harris2020}. Ao manter a implementação em Python puro, o \textit{MinervaMesh} permite que alunos inspecionem, compreendam e modifiquem o código das simulações --- funcionalidade explicitamente disponível através do botão ``Ver Código'' presente em cada simulação.
 
 \subsection{Computação \textit{Client-Side}}
 \label{sec:client_side}

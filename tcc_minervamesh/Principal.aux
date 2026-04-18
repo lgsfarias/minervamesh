@@ -29,7 +29,7 @@
 \@writefile{toc}{\contentsline {paragraph}{}{viii}{}\protected@file@percent }
 \citation{Maliska2004}
 \citation{Versteeg2007}
-\citation{Anjos2013}
+\citation{Anjos2024}
 \citation{PyScript2023}
 \citation{Harris2020}
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}Introdução}{1}{}\protected@file@percent }
@@ -155,7 +155,7 @@
 \newlabel{sec:equacoes_governantes}{{3.2}{8}{}{section.3.2}{}}
 \citation{White2006}
 \citation{Maliska2004}
-\citation{Patankar1980}
+\citation{Anjos2024}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.2.1}Condução e Convecção Térmica}{9}{}\protected@file@percent }
 \newlabel{eq:conducao_geral}{{3.1}{9}{}{equation.3.1}{}}
 \newlabel{eq:conveccao_difusao}{{3.2}{9}{}{equation.3.2}{}}
@@ -223,6 +223,7 @@
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.5.3}Sistema Acoplado e Solução Iterativa}{16}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.5.4}Matriz de Convecção e Estabilização SUPG}{16}{}\protected@file@percent }
 \newlabel{sec:supg}{{3.5.4}{16}{}{subsection.3.5.4}{}}
+\citation{Christie1976}
 \citation{Brooks1982}
 \newlabel{eq:conveccao_galerkin}{{3.32}{17}{}{equation.3.32}{}}
 \newlabel{eq:tau_supg}{{3.33}{17}{}{equation.3.33}{}}
@@ -230,17 +231,18 @@
 \newlabel{sec:integracao_temporal}{{3.6}{17}{}{section.3.6}{}}
 \newlabel{eq:semidiscreto}{{3.34}{17}{}{equation.3.34}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.6.1}Método $\theta $ Generalizado}{17}{}\protected@file@percent }
-\newlabel{eq:theta_method}{{3.35}{17}{}{equation.3.35}{}}
+\citation{Thom1933}
 \citation{Maliska2004}
+\newlabel{eq:theta_method}{{3.35}{18}{}{equation.3.35}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.6.2}Esquema Semi-Implícito Adotado}{18}{}\protected@file@percent }
 \newlabel{sec:semi_implicito}{{3.6.2}{18}{}{subsection.3.6.2}{}}
 \newlabel{eq:sistema_temporal_ns}{{3.36}{18}{}{equation.3.36}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {3.6.3}Condição de Contorno de Vorticidade: Fórmula de Thom}{18}{}\protected@file@percent }
 \newlabel{sec:thom}{{3.6.3}{18}{}{subsection.3.6.3}{}}
-\newlabel{eq:thom}{{3.37}{18}{}{equation.3.37}{}}
+\newlabel{eq:thom}{{3.37}{19}{}{equation.3.37}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {3.7}Síntese do Capítulo}{19}{}\protected@file@percent }
 \newlabel{sec:sintese_fundamentacao}{{3.7}{19}{}{section.3.7}{}}
-\citation{Anjos2013}
+\citation{Anjos2024}
 \@writefile{toc}{\contentsline {chapter}{\numberline {4}Desenvolvimento e Arquitetura}{20}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
@@ -260,8 +262,8 @@
 \newlabel{sec:pyscript}{{4.2.1}{22}{}{subsection.4.2.1}{}}
 \@writefile{toc}{\contentsline {paragraph}{}{22}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{}{22}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Computação \textit  {Client-Side}}{23}{}\protected@file@percent }
-\newlabel{sec:client_side}{{4.2.2}{23}{}{subsection.4.2.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.2.2}Computação \textit  {Client-Side}}{22}{}\protected@file@percent }
+\newlabel{sec:client_side}{{4.2.2}{22}{}{subsection.4.2.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.2.3}Comparação com Alternativas}{23}{}\protected@file@percent }
 \newlabel{sec:comparacao_alternativas}{{4.2.3}{23}{}{subsection.4.2.3}{}}
 \@writefile{lot}{\contentsline {table}{\numberline {4.1}{\ignorespaces Comparação entre plataformas de simulação numérica para ensino.}}{23}{}\protected@file@percent }
@@ -270,92 +272,92 @@
 \newlabel{sec:arquitetura_software}{{4.3}{24}{}{section.4.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.3.1}Organização de Diretórios}{24}{}\protected@file@percent }
 \newlabel{sec:organizacao_diretorios}{{4.3.1}{24}{}{subsection.4.3.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Fluxo de Execução de uma Simulação}{25}{}\protected@file@percent }
-\newlabel{sec:fluxo_execucao}{{4.3.2}{25}{}{subsection.4.3.2}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Interface de parametrização de uma simulação (Condução Permanente 1D) antes da execução.}}{26}{}\protected@file@percent }
-\newlabel{fig:interface_parametros}{{4.2}{26}{}{figure.4.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.3.2}Fluxo de Execução de uma Simulação}{24}{}\protected@file@percent }
+\newlabel{sec:fluxo_execucao}{{4.3.2}{24}{}{subsection.4.3.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.2}{\ignorespaces Interface de parametrização de uma simulação (Condução Permanente 1D) antes da execução.}}{25}{}\protected@file@percent }
+\newlabel{fig:interface_parametros}{{4.2}{25}{}{figure.4.2}{}}
 \@writefile{toc}{\contentsline {section}{\numberline {4.4}Módulos de Simulação MEF}{26}{}\protected@file@percent }
 \newlabel{sec:modulos_mef}{{4.4}{26}{}{section.4.4}{}}
 \@writefile{toc}{\contentsline {paragraph}{}{26}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4.1}Condução Permanente 1D}{26}{}\protected@file@percent }
 \newlabel{sec:caso_conducao_1d}{{4.4.1}{26}{}{subsection.4.4.1}{}}
-\newlabel{eq:conducao_1d_caso}{{4.1}{27}{}{equation.4.1}{}}
+\newlabel{eq:conducao_1d_caso}{{4.1}{26}{}{equation.4.1}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.3}{\ignorespaces Condução permanente 1D: solução MEF ($N_{el}=10$) comparada à solução analítica.}}{27}{}\protected@file@percent }
 \newlabel{fig:conducao1d_resultado}{{4.3}{27}{}{figure.4.3}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4.2}Condução Transiente 1D com $k(x)$ Variável}{27}{}\protected@file@percent }
 \newlabel{sec:caso_calor_transiente}{{4.4.2}{27}{}{subsection.4.4.2}{}}
-\newlabel{eq:transiente_1d_caso}{{4.2}{28}{}{equation.4.2}{}}
+\newlabel{eq:transiente_1d_caso}{{4.2}{27}{}{equation.4.2}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.4}{\ignorespaces Evolução temporal do campo de temperatura com condutividade variável $k(x)$.}}{28}{}\protected@file@percent }
 \newlabel{fig:calor_transiente1d}{{4.4}{28}{}{figure.4.4}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4.3}Convecção-Difusão 1D com Estabilização SUPG}{28}{}\protected@file@percent }
 \newlabel{sec:caso_convdif}{{4.4.3}{28}{}{subsection.4.4.3}{}}
-\newlabel{eq:convdif_1d_caso}{{4.3}{29}{}{equation.4.3}{}}
+\newlabel{eq:convdif_1d_caso}{{4.3}{28}{}{equation.4.3}{}}
 \@writefile{lof}{\contentsline {figure}{\numberline {4.5}{\ignorespaces Convecção-difusão 1D com estabilização SUPG ($\text  {Pe} \gg 1$): solução MEF comparada à analítica.}}{29}{}\protected@file@percent }
 \newlabel{fig:convdif_supg}{{4.5}{29}{}{figure.4.5}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4.4}Viga 1D --- Análise de Flexão (Euler-Bernoulli)}{29}{}\protected@file@percent }
 \newlabel{sec:caso_viga}{{4.4.4}{29}{}{subsection.4.4.4}{}}
-\newlabel{eq:euler_bernoulli}{{4.4}{30}{}{equation.4.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Análise de flexão de viga 1D (Euler-Bernoulli): deflexão, carregamento, propriedades, momento fletor e esforço cortante.}}{31}{}\protected@file@percent }
-\newlabel{fig:viga1d_resultado}{{4.6}{31}{}{figure.4.6}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.5}Vibração 1D --- Problema de Autovalor}{31}{}\protected@file@percent }
-\newlabel{sec:caso_vibracao}{{4.4.5}{31}{}{subsection.4.4.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Frequências naturais e cinco primeiros modos de vibração de uma barra 1D.}}{32}{}\protected@file@percent }
-\newlabel{fig:vibracao1d_modos}{{4.7}{32}{}{figure.4.7}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.6}Transferência de Calor 2D}{32}{}\protected@file@percent }
-\newlabel{sec:caso_transcalor}{{4.4.6}{32}{}{subsection.4.4.6}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Campo de temperatura em placa 2D durante a evolução transiente (método de Crank-Nicolson).}}{33}{}\protected@file@percent }
-\newlabel{fig:transcalor2d_campo}{{4.8}{33}{}{figure.4.8}{}}
+\newlabel{eq:euler_bernoulli}{{4.4}{29}{}{equation.4.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.6}{\ignorespaces Análise de flexão de viga 1D (Euler-Bernoulli): deflexão, carregamento, propriedades, momento fletor e esforço cortante.}}{30}{}\protected@file@percent }
+\newlabel{fig:viga1d_resultado}{{4.6}{30}{}{figure.4.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.5}Vibração 1D --- Problema de Autovalor}{30}{}\protected@file@percent }
+\newlabel{sec:caso_vibracao}{{4.4.5}{30}{}{subsection.4.4.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.7}{\ignorespaces Frequências naturais e cinco primeiros modos de vibração de uma barra 1D.}}{31}{}\protected@file@percent }
+\newlabel{fig:vibracao1d_modos}{{4.7}{31}{}{figure.4.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.6}Transferência de Calor 2D}{31}{}\protected@file@percent }
+\newlabel{sec:caso_transcalor}{{4.4.6}{31}{}{subsection.4.4.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.8}{\ignorespaces Campo de temperatura em placa 2D durante a evolução transiente (método de Crank-Nicolson).}}{32}{}\protected@file@percent }
+\newlabel{fig:transcalor2d_campo}{{4.8}{32}{}{figure.4.8}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {4.4.7}Escoamento Potencial 2D}{33}{}\protected@file@percent }
 \newlabel{sec:caso_potencial}{{4.4.7}{33}{}{subsection.4.4.7}{}}
-\newlabel{eq:vel_recuperacao}{{4.5}{34}{}{equation.4.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Escoamento potencial 2D: linhas de corrente ao redor de um obstáculo.}}{34}{}\protected@file@percent }
-\newlabel{fig:potencial2d_linhas}{{4.9}{34}{}{figure.4.9}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.8}Navier-Stokes 2D (Vorticidade-Corrente)}{34}{}\protected@file@percent }
-\newlabel{sec:caso_ns}{{4.4.8}{34}{}{subsection.4.4.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Navier-Stokes 2D --- cavidade com tampa móvel ($\text  {Re} = 100$): campos de $\psi $, $\omega $ e linhas de corrente.}}{36}{}\protected@file@percent }
-\newlabel{fig:ns2d_cavity}{{4.10}{36}{}{figure.4.10}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces Navier-Stokes 2D --- linhas de corrente para escoamento ao redor de um cilindro.}}{37}{}\protected@file@percent }
-\newlabel{fig:ns2d_cylinder}{{4.11}{37}{}{figure.4.11}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {4.5}Síntese do Capítulo}{37}{}\protected@file@percent }
-\newlabel{sec:sintese_arquitetura}{{4.5}{37}{}{section.4.5}{}}
+\newlabel{eq:vel_recuperacao}{{4.5}{33}{}{equation.4.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.9}{\ignorespaces Escoamento potencial 2D: linhas de corrente ao redor de um obstáculo.}}{33}{}\protected@file@percent }
+\newlabel{fig:potencial2d_linhas}{{4.9}{33}{}{figure.4.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {4.4.8}Navier-Stokes 2D (Vorticidade-Corrente)}{33}{}\protected@file@percent }
+\newlabel{sec:caso_ns}{{4.4.8}{33}{}{subsection.4.4.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.10}{\ignorespaces Navier-Stokes 2D --- cavidade com tampa móvel ($\text  {Re} = 100$): campos de $\psi $, $\omega $ e linhas de corrente.}}{35}{}\protected@file@percent }
+\newlabel{fig:ns2d_cavity}{{4.10}{35}{}{figure.4.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {4.11}{\ignorespaces Navier-Stokes 2D --- linhas de corrente para escoamento ao redor de um cilindro.}}{36}{}\protected@file@percent }
+\newlabel{fig:ns2d_cylinder}{{4.11}{36}{}{figure.4.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}Síntese do Capítulo}{36}{}\protected@file@percent }
+\newlabel{sec:sintese_arquitetura}{{4.5}{36}{}{section.4.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{36}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {paragraph}{}{37}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{}{38}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {5}Resultados e Validação}{39}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Resultados e Validação}{38}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cap5}{{5}{39}{}{chapter.5}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.1}Introdução}{39}{}\protected@file@percent }
-\newlabel{sec:resultados_intro}{{5.1}{39}{}{section.5.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.2}Condução Permanente 1D}{40}{}\protected@file@percent }
-\newlabel{sec:val_conducao1d}{{5.2}{40}{}{section.5.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Formulação do Problema}{40}{}\protected@file@percent }
-\newlabel{eq:val_conducao1d_edp}{{5.1}{40}{}{equation.5.1}{}}
-\newlabel{eq:val_conducao1d_cc}{{5.2}{40}{}{equation.5.2}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Parâmetros da simulação de condução permanente 1D.}}{41}{}\protected@file@percent }
-\newlabel{tab:val_conducao1d_params}{{5.1}{41}{}{table.5.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Solução Analítica}{41}{}\protected@file@percent }
-\newlabel{eq:val_conducao1d_analitica}{{5.3}{41}{}{equation.5.3}{}}
-\newlabel{eq:val_conducao1d_constantes}{{5.4}{41}{}{equation.5.4}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Solução MEF e Comparação}{41}{}\protected@file@percent }
-\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Condução permanente 1D: comparação entre a solução MEF (pontos azuis, $n_e = 10$ elementos P1) e a solução analítica (linha tracejada vermelha). A sobreposição exata confirma a propriedade de reprodução polinomial dos elementos lineares para fontes uniformes.}}{42}{}\protected@file@percent }
-\newlabel{fig:val_conducao1d_resultado}{{5.1}{42}{}{figure.5.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Análise de Erro}{42}{}\protected@file@percent }
-\newlabel{eq:val_metricas_erro}{{5.5}{42}{}{equation.5.5}{}}
-\@writefile{toc}{\contentsline {paragraph}{Nota sobre a precisão nodal exata.}{43}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusões}{44}{}\protected@file@percent }
+\newlabel{cap5}{{5}{38}{}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Introdução}{38}{}\protected@file@percent }
+\newlabel{sec:resultados_intro}{{5.1}{38}{}{section.5.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Condução Permanente 1D}{39}{}\protected@file@percent }
+\newlabel{sec:val_conducao1d}{{5.2}{39}{}{section.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.1}Formulação do Problema}{39}{}\protected@file@percent }
+\newlabel{eq:val_conducao1d_edp}{{5.1}{39}{}{equation.5.1}{}}
+\newlabel{eq:val_conducao1d_cc}{{5.2}{39}{}{equation.5.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces Parâmetros da simulação de condução permanente 1D.}}{40}{}\protected@file@percent }
+\newlabel{tab:val_conducao1d_params}{{5.1}{40}{}{table.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.2}Solução Analítica}{40}{}\protected@file@percent }
+\newlabel{eq:val_conducao1d_analitica}{{5.3}{40}{}{equation.5.3}{}}
+\newlabel{eq:val_conducao1d_constantes}{{5.4}{40}{}{equation.5.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.3}Solução MEF e Comparação}{40}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.1}{\ignorespaces Condução permanente 1D: comparação entre a solução MEF (pontos azuis, $n_e = 10$ elementos P1) e a solução analítica (linha tracejada vermelha). A sobreposição exata confirma a propriedade de reprodução polinomial dos elementos lineares para fontes uniformes.}}{41}{}\protected@file@percent }
+\newlabel{fig:val_conducao1d_resultado}{{5.1}{41}{}{figure.5.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.2.4}Análise de Erro}{41}{}\protected@file@percent }
+\newlabel{eq:val_metricas_erro}{{5.5}{41}{}{equation.5.5}{}}
+\@writefile{toc}{\contentsline {paragraph}{Nota sobre a precisão nodal exata.}{42}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusões}{43}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cap6}{{6}{44}{}{chapter.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Conclusões}{44}{}\protected@file@percent }
-\newlabel{sec:conclusao}{{6.1}{44}{}{section.6.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{44}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{44}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{}{44}{}\protected@file@percent }
+\newlabel{cap6}{{6}{43}{}{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Conclusões}{43}{}\protected@file@percent }
+\newlabel{sec:conclusao}{{6.1}{43}{}{section.6.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{43}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{43}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{}{43}{}\protected@file@percent }
 \bibstyle{coppe}
 \bibdata{biblio}
 \bibcite{Maliska2004}{1}
 \bibcite{Versteeg2007}{2}
-\bibcite{Anjos2013}{3}
+\bibcite{Anjos2024}{3}
 \bibcite{PyScript2023}{4}
 \bibcite{Harris2020}{5}
 \bibcite{Brooks1982}{6}
@@ -364,7 +366,7 @@
 \bibcite{Incropera2008}{9}
 \bibcite{Ozisik1993}{10}
 \bibcite{Cengel2015}{11}
-\@writefile{toc}{\contentsline {chapter}{Bibliografia}{45}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Bibliografia}{44}{}\protected@file@percent }
 \bibcite{Bejan1992}{12}
 \bibcite{Fox2010}{13}
 \bibcite{White2006}{14}
@@ -404,6 +406,7 @@
 \bibcite{Amaral2020}{48}
 \bibcite{GomesMatheus2021}{49}
 \bibcite{GomesYuri2025}{50}
+\bibcite{Thom1933}{51}
 \@writefile{toc}{\contentsline {chapter}{\numberline {A}Listagens dos Módulos de Simulação 1D}{50}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}

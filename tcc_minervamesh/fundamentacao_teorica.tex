@@ -45,7 +45,7 @@ onde $p$ representa o campo de pressão estática, $\mu$ a viscosidade dinâmica
 \section{Transição Discreta: O Método das Diferenças Finitas (MDF)}
 \label{sec:introducao_mdf}
 
-Antes do extensivo emprego de formulações variacionais associadas a malhas arbitrárias, a conversão de EDPs a um sistema matricial utilizou maciçamente as propriedades da expansão da série de Taylor. O Método das Diferenças Finitas (MDF) consiste na substituição direta dos operadores diferenciais exatos pelas respectivas aproximações algébricas discretizadas em nós de uma malha tipicamente ortogonal e estruturada \cite{Patankar1980}.
+Antes do extensivo emprego de formulações variacionais associadas a malhas arbitrárias, a conversão de EDPs a um sistema matricial utilizou maciçamente as propriedades da expansão da série de Taylor. O Método das Diferenças Finitas (MDF) consiste na substituição direta dos operadores diferenciais exatos pelas respectivas aproximações algébricas discretizadas em nós de uma malha tipicamente ortogonal e estruturada \cite{Anjos2024}.
 
 Considere a representação da derivada parcial aproximada pelo método da diferença adiantada e atrasada para aproximações de derivadas espaciais e temporais:
 
@@ -306,7 +306,7 @@ C_{ij}^e = \int_{\Omega^e} N_i \, (\mathbf{v} \cdot \nabla N_j) \, d\Omega = \fr
 \end{equation}
 onde $u_e$ e $v_e$ são as componentes de velocidade avaliadas no centroide do elemento.
 
-Quando o campo de velocidades é intenso em relação à difusão (número de Péclet elevado), a formulação de Galerkin padrão produz oscilações espúrias. Para contornar essa limitação, emprega-se a técnica \textit{Streamline Upwind Petrov-Galerkin} (SUPG), que adiciona uma difusão artificial orientada na direção do escoamento \cite{Brooks1982}.
+Quando o campo de velocidades é intenso em relação à difusão (número de Péclet elevado), a formulação de Galerkin padrão produz oscilações espúrias. Para contornar essa limitação, emprega-se a técnica \textit{Streamline Upwind Petrov-Galerkin} (SUPG), que adiciona uma difusão artificial orientada na direção do escoamento \cite{Christie1976,Brooks1982}.
 
 Na formulação SUPG, a função-teste é modificada para $w_i = N_i + \tau_{\text{SUPG}} \, \mathbf{v} \cdot \nabla N_i$, com o parâmetro de estabilização:
 
@@ -360,13 +360,13 @@ Para problemas puramente difusivos (conducão transiente), utiliza-se o método 
 \subsection{Condição de Contorno de Vorticidade: Fórmula de Thom}
 \label{sec:thom}
 
-Na formulação $\omega$-$\psi$, a vorticidade nas paredes sólidas não é conhecida \textit{a priori} e deve ser calculada indiretamente a partir do campo de função corrente. A fórmula de Thom \cite{Maliska2004} fornece essa condição de contorno, baseando-se em uma expansão de Taylor de $\psi$ na direção normal à parede:
+Na formulação $\omega$-$\psi$, a vorticidade nas paredes sólidas não é conhecida \textit{a priori} e deve ser calculada indiretamente a partir do campo de função corrente. A fórmula de Thom \cite{Thom1933,Maliska2004} fornece essa condição de contorno, baseando-se em uma expansão de Taylor de $\psi$ na direção normal à parede:
 
 \begin{equation}
-\omega_w = -\frac{2(\psi_{\text{nb}} - \psi_w - h \, u_{\text{tan}})}{h^2}
+\omega_w = -\frac{2(\psi_{\text{nb}} - \psi_w)}{h^2} - \frac{2 \, u_{\text{tan}}}{h}
 \label{eq:thom}
 \end{equation}
-onde $\psi_w$ e $\psi_{\text{nb}}$ são os valores da função corrente na parede e no nó vizinho mais próximo na direção normal, respectivamente; $h$ é a distância entre esses nós; e $u_{\text{tan}}$ é a velocidade tangencial da parede ($u_{\text{tan}} = 0$ para paredes estacionárias e $u_{\text{tan}} = U_{\text{lid}}$ para paredes móveis, como no problema da cavidade).
+onde $\psi_w$ e $\psi_{\text{nb}}$ são os valores da função corrente na parede e no nó vizinho mais próximo na direção normal (apontando para o interior do domínio), respectivamente; $h$ é a distância entre esses nós; e $u_{\text{tan}}$ é a componente tangencial da velocidade da parede, consistente com a convenção $u = \partial\psi/\partial y$ adotada nesta formulação ($u_{\text{tan}} = 0$ para paredes estacionárias e $u_{\text{tan}} = U_{\text{lid}}$ para a tampa móvel da cavidade com velocidade $U_{\text{lid}}$ na direção $+x$).
 
 \section{Síntese do Capítulo}
 \label{sec:sintese_fundamentacao}

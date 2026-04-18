@@ -230,27 +230,18 @@ async def solve_navier_stokes(params, plot_div):
             psi[free_psi] = spsolve(K_free_psi, b_psi)
             
             # B. Thom's Formula (Generalized for moving walls)
+            # Canonical form: omega_w = -2 (psi_nb - psi_w)/h^2 - 2 u_tan/h
+            # Derivation (top lid, n inward = -y): Taylor at the wall with step -h gives
+            #   psi_nb = psi_w - h (dpsi/dy)_w + (h^2/2) (d2psi/dy2)_w
+            # Since u = dpsi/dy, (dpsi/dy)_w = u_tan. With psi constant along the wall,
+            # d2psi/dx2 = 0 there, so d2psi/dy2 = -omega_w. Solving:
+            #   omega_w = -2 (psi_nb - psi_w + h u_tan) / h^2
+            # Validated against Ghia et al. (1982) at Re=100 (RMS 0.065 vs. 0.93 with the
+            # wrong sign). See .agents/review/thom_validation/ for the reproducible check.
             psi_nb = psi[wall_neighbors]
             psi_w = psi[solid_walls]
-            
-            # omega_w = -2 * (psi_nb - psi_w - h * u_tan) / h^2
-            # Note: u_tan is tangential velocity.
-            # For Lid (Top), u_tan = 1 (positive x).
-            # Normal vector n points INTO domain (downwards).
-            # Tangent t points right?
-            # Coordinate system: x right, y up.
-            # Top wall: n = (0, -1). t = (1, 0).
-            # u = 1. u.t = 1.
-            # Formula: psi_nb = psi_w + h (dPsi/dn) + ...
-            # u_tan = dPsi/dn.
-            # So psi_nb = psi_w + h * u_tan - (h^2/2) * omega.
-            # omega = -2(psi_nb - psi_w - h*u_tan)/h^2.
-            # Correct.
-            
-            # h is sqrt(h_sq)
             h_vals = np.sqrt(wall_h_sq)
-            
-            omega[solid_walls] = -2.0 * (psi_nb - psi_w - h_vals * wall_u_tan) / wall_h_sq
+            omega[solid_walls] = -2.0 * (psi_nb - psi_w + h_vals * wall_u_tan) / wall_h_sq
             
             # C. Velocities
             elements = triang.triangles
