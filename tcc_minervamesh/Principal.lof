@@ -15,6 +15,7 @@
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Navier-Stokes 2D --- cavidade com tampa móvel ($\text {Re} = 100$): campos de $\psi $, $\omega $ e linhas de corrente.}}{36}{}%
 \contentsline {figure}{\numberline {4.11}{\ignorespaces Navier-Stokes 2D --- linhas de corrente para escoamento ao redor de um cilindro.}}{37}{}%
 \addvspace {10\p@ }
+\contentsline {figure}{\numberline {5.1}{\ignorespaces Condução permanente 1D: comparação entre a solução MEF (pontos azuis, $n_e = 10$ elementos P1) e a solução analítica (linha tracejada vermelha). A sobreposição exata confirma a propriedade de reprodução polinomial dos elementos lineares para fontes uniformes.}}{42}{}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

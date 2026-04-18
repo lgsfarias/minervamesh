@@ -1,4 +1,110 @@
-\section{Introdução ao Capítulo}
+% ==============================================================
+% Capítulo 5 — Resultados e Validação
+% ==============================================================
+
+\section{Introdução}
 \label{sec:resultados_intro}
 
-\paragraph{}Este capítulo é dedicado à apresentação e discussão dos resultados obtidos com o \textit{MinervaMesh}. A validação é realizada comparando os resultados numéricos com soluções analíticas e benchmarks da literatura, conforme estabelecido no plano de trabalho.
+Este capítulo apresenta a validação numérica dos oito módulos de simulação por Elementos Finitos do \textit{MinervaMesh}, descritos no Capítulo~\ref{cap4}. Cada caso simulado é comparado com soluções analíticas conhecidas ou benchmarks consagrados da literatura, de modo a verificar a corretude da implementação e quantificar os erros numéricos associados.
+
+A estratégia de validação segue um critério de complexidade crescente. Os primeiros casos — condução de calor em regime permanente e transiente — envolvem problemas unidimensionais com solução analítica fechada, permitindo o cálculo direto de métricas de erro como o erro máximo absoluto e o erro relativo na norma~$L_2$. Na sequência, os problemas de convecção-difusão testam a estabilização SUPG, comparando a solução estabilizada com a solução Galerkin padrão em regime de alto número de Péclet. Os módulos estruturais — flexão e vibração de barras — são validados contra soluções clássicas da Resistência dos Materiais e da Dinâmica Estrutural. Finalmente, os casos bidimensionais de transferência de calor, escoamento potencial e escoamento viscoso (Navier-Stokes) completam a validação com problemas de geometria e condições de contorno mais complexas.
+
+Para cada caso, a metodologia de apresentação é a seguinte:
+\begin{enumerate}
+    \item \textbf{Definição do problema}: equação governante, domínio, condições de contorno e parâmetros adotados.
+    \item \textbf{Referência de validação}: solução analítica ou benchmark utilizado para comparação.
+    \item \textbf{Resultados numéricos}: campos obtidos pelo simulador, apresentados graficamente.
+    \item \textbf{Análise de erro}: métricas quantitativas de comparação entre resultado numérico e referência.
+\end{enumerate}
+
+Todos os resultados foram gerados diretamente no navegador, utilizando a plataforma \textit{MinervaMesh} em execução local via PyScript/WebAssembly, conforme descrito no Capítulo~\ref{cap4}. Os parâmetros de entrada de cada simulação são reproduzidos integralmente nas tabelas a seguir, garantindo a reprodutibilidade dos experimentos.
+
+% ==============================================================
+% 5.1 — Condução Permanente 1D
+% ==============================================================
+
+\section{Condução Permanente 1D}
+\label{sec:val_conducao1d}
+
+O primeiro caso de validação consiste no problema de condução de calor em regime permanente, em uma barra unidimensional de comprimento~$L$ com geração interna de calor~$Q$ e condições de contorno de Dirichlet em ambas as extremidades. Este problema constitui o caso mais simples de validação do MEF, pois admite solução analítica exata e envolve elementos lineares unidimensionais (P1), correspondendo diretamente à formulação desenvolvida na Seção~\ref{sec:forma_fraca}.
+
+\subsection{Formulação do Problema}
+
+O problema é governado pela equação de Poisson unidimensional, caso particular da equação geral de condução (Equação~\ref{eq:conducao_geral}):
+
+\begin{equation}
+    -k \frac{d^2 T}{dx^2} = Q, \quad x \in [0, L]
+    \label{eq:val_conducao1d_edp}
+\end{equation}
+
+\noindent com as condições de contorno:
+
+\begin{equation}
+    T(0) = T_0, \quad T(L) = T_L
+    \label{eq:val_conducao1d_cc}
+\end{equation}
+
+A Tabela~\ref{tab:val_conducao1d_params} apresenta os parâmetros utilizados na simulação.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Parâmetros da simulação de condução permanente 1D.}
+    \label{tab:val_conducao1d_params}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Parâmetro} & \textbf{Símbolo} & \textbf{Valor} \\
+        \hline
+        Comprimento da barra   & $L$    & $1{,}0$ m     \\
+        Número de elementos    & $n_e$  & $10$          \\
+        Temperatura em $x=0$   & $T_0$  & $0{,}0$ °C    \\
+        Temperatura em $x=L$   & $T_L$  & $100{,}0$ °C  \\
+        Condutividade térmica  & $k$    & $1{,}0$ W/(m·°C) \\
+        Geração interna        & $Q$    & $500{,}0$ W/m³   \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Solução Analítica}
+
+A integração direta da Equação~\eqref{eq:val_conducao1d_edp} fornece a solução exata:
+
+\begin{equation}
+    T(x) = -\frac{Q}{2k} x^2 + C_1 x + C_2
+    \label{eq:val_conducao1d_analitica}
+\end{equation}
+
+\noindent onde as constantes de integração são determinadas pelas condições de contorno:
+
+\begin{equation}
+    C_2 = T_0, \qquad C_1 = \frac{T_L - T_0 + \dfrac{Q L^2}{2k}}{L}
+    \label{eq:val_conducao1d_constantes}
+\end{equation}
+
+Substituindo os valores da Tabela~\ref{tab:val_conducao1d_params}, obtém-se $C_1 = 350{,}0$~°C/m e $C_2 = 0{,}0$~°C. O perfil de temperatura resultante é uma parábola com valor máximo no interior do domínio, decorrente da competição entre a geração interna de calor e a difusão para as fronteiras.
+
+\subsection{Solução MEF e Comparação}
+
+A discretização por elementos finitos utiliza $n_e = 10$ elementos lineares (P1) com espaçamento uniforme $h = L/n_e = 0{,}1$~m, resultando em 11 nós. A montagem do sistema global e a imposição das condições de contorno de Dirichlet seguem o procedimento descrito nas Seções~\ref{sec:galerkin} e~\ref{sec:montagem_global}. Para este problema de Poisson unidimensional com elementos P1, a solução MEF coincide exatamente com a solução analítica nos nós da malha (propriedade bem conhecida da interpolação linear por partes para polinômios de grau~$\leq 2$).
+
+A Figura~\ref{fig:val_conducao1d_resultado} apresenta os resultados obtidos. A curva MEF (pontos azuis) está perfeitamente sobreposta à solução analítica (linha tracejada vermelha), confirmando a corretude da implementação.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{figuras/prints/fig_val_conducao1d_resultado.png}
+    \caption{Condução permanente 1D: comparação entre a solução MEF (pontos azuis, $n_e = 10$ elementos P1) e a solução analítica (linha tracejada vermelha). A sobreposição exata confirma a propriedade de reprodução polinomial dos elementos lineares para fontes uniformes.}
+    \label{fig:val_conducao1d_resultado}
+\end{figure}
+
+\subsection{Análise de Erro}
+
+Para este caso particular — equação de Poisson 1D com fonte constante e elementos lineares — a solução analítica é um polinômio de grau~2. Como a interpolação P1 reproduz exatamente qualquer polinômio de grau~$\leq 2$ nos nós da malha, espera-se que o erro nodal seja da ordem do erro de arredondamento de máquina ($\sim 10^{-15}$). De fato, ao calcular o erro máximo absoluto e o erro relativo na norma $L_2$:
+
+\begin{equation}
+    e_{\max} = \max_{i} |T_i^{\text{MEF}} - T_i^{\text{ana}}|, \qquad
+    e_{L_2} = \frac{\left( \sum_{i} (T_i^{\text{MEF}} - T_i^{\text{ana}})^2 \right)^{1/2}}{\left( \sum_{i} (T_i^{\text{ana}})^2 \right)^{1/2}}
+    \label{eq:val_metricas_erro}
+\end{equation}
+
+\noindent obtém-se $e_{\max} \approx 10^{-13}$ °C e $e_{L_2} \approx 10^{-15}$, confirmando erro essencialmente nulo nos nós da malha. Este resultado era esperado teoricamente e valida a montagem das matrizes elementares de rigidez e do vetor de carga, a montagem global e a imposição das condições de contorno de Dirichlet implementadas no módulo \texttt{conducao-permanente-barra1d-mef}.
+
+\paragraph{Nota sobre a precisão nodal exata.} A concordância perfeita nos nós não implica erro nulo entre os nós. O campo MEF é linear por partes, enquanto a solução exata é parabólica. O erro de interpolação entre nós é da ordem $O(h^2)$. Essa observação será relevante nos casos subsequentes, que envolvem equações com soluções de maior grau ou não-polinomiais.

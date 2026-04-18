@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  22 FEB 2026 14:38
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  22 FEB 2026 15:06
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -806,61 +806,72 @@ Package pdftex.def Info: figuras/prints/fig_ns2d_cylinder.png  used on input lin
 
 [38]
 Cap\'{\i }tulo 5.
-(./resultados.tex)
+(./resultados.tex
 
 [39
 
 ]
+Overfull \hbox (15.02443pt too wide) in paragraph at lines 17--18
+[]\OT1/cmr/bx/n/12 An^^Salise de erro\OT1/cmr/m/n/12 : m^^Setricas quan-ti-ta-ti-vas de com-para^^Xc~ao en-tre re-sul-tado num^^Serico
+ []
+
+
+
+[40]
+<figuras/prints/fig_val_conducao1d_resultado.png, id=219, 1630.09pt x 865.2325pt>
+File: figuras/prints/fig_val_conducao1d_resultado.png Graphic file (type png)
+<use figuras/prints/fig_val_conducao1d_resultado.png>
+Package pdftex.def Info: figuras/prints/fig_val_conducao1d_resultado.png  used on input line 93.
+(pdftex.def)             Requested size: 405.45045pt x 215.1986pt.
+
+
+[41]
+
+[42 <./figuras/prints/fig_val_conducao1d_resultado.png>])
+
+[43]
 Cap\'{\i }tulo 6.
 (./conclusao.tex)
 
-[40
+[44
 
 ] (./Principal.bbl
 
-[41
+[45
 
 
 ]
 
-[42]
-
-[43]
-
-[44])
-
-[45]
-Ap\^endice A.
-(./apendice_modulos_1d.tex (../simulations/mef/conducao-permanente-barra1d-mef/simulation.py
-
-[46
-
-]
+[46]
 
 [47]
 
-[48]) (../simulations/mef/calor-transiente-1d/simulation.py
+[48])
 
 [49]
+Ap\^endice A.
+(./apendice_modulos_1d.tex (../simulations/mef/conducao-permanente-barra1d-mef/simulation.py
+
+[50
+
+]
+
+[51]
+
+[52]) (../simulations/mef/calor-transiente-1d/simulation.py
+
+[53]
 Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 [][][][][][] 
  []
 
 
 
-[50]
-
-[51]
-
-[52]
-
-[53]
-
 [54]
 
 [55]
 
-[56]) (../simulations/mef/conveccao-difusao-1d/simulation.py
+[56]
 
 [57]
 
@@ -868,11 +879,11 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [59]
 
-[60]
+[60]) (../simulations/mef/conveccao-difusao-1d/simulation.py
 
 [61]
 
-[62]) (../simulations/mef/viga-1d-mef/simulation.py
+[62]
 
 [63]
 
@@ -880,7 +891,7 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [65]
 
-[66]
+[66]) (../simulations/mef/viga-1d-mef/simulation.py
 
 [67]
 
@@ -896,7 +907,7 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [73]
 
-[74]) (../simulations/mef/vibracao-1d-mef/simulation.py
+[74]
 
 [75]
 
@@ -904,7 +915,7 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [77]
 
-[78]
+[78]) (../simulations/mef/vibracao-1d-mef/simulation.py
 
 [79]
 
@@ -918,48 +929,48 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [84]
 
-[85]))
+[85]
 
 [86]
-Ap\^endice B.
-(./apendice_modulos_2d.tex (../simulations/mef/escoamento-fluido-2d/common.py
 
-[87
-
-]
+[87]
 
 [88]
 
-[89])
+[89]))
+
+[90]
+Ap\^endice B.
+(./apendice_modulos_2d.tex (../simulations/mef/escoamento-fluido-2d/common.py
+
+[91
+
+]
+
+[92]
+
+[93])
 Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 []\OT1/cmr/bx/n/17.28 M^^Sodulo Com-par-ti-lhado: Ge-o-me-trias de Obst^^Saculo 
  []
 
 
 
-[90] (../simulations/mef/escoamento-fluido-2d/geometry.py
-
-[91]
-
-[92]) (../simulations/mef/transcalor/simulation.py
-
-[93]
-
-[94]
+[94] (../simulations/mef/escoamento-fluido-2d/geometry.py
 
 [95]
 
-[96])
+[96]) (../simulations/mef/transcalor/simulation.py
 
-[97] (../simulations/mef/escoamento-fluido-2d/escoamento-potencial/simulation.py
+[97]
 
 [98]
 
 [99]
 
-[100]
+[100])
 
-[101]
+[101] (../simulations/mef/escoamento-fluido-2d/escoamento-potencial/simulation.py
 
 [102]
 
@@ -971,17 +982,17 @@ Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 
 [106]
 
-[107])
+[107]
 
-[108] (../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py
+[108]
 
 [109]
 
 [110]
 
-[111]
+[111])
 
-[112]
+[112] (../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py
 
 [113]
 
@@ -995,9 +1006,17 @@ Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 
 [118]
 
-[119]))
+[119]
 
-[120] (./Principal.aux)
+[120]
+
+[121]
+
+[122]
+
+[123]))
+
+[124] (./Principal.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -1008,18 +1027,18 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 15806 strings out of 473190
- 271440 string characters out of 5715799
+ 15824 strings out of 473190
+ 272077 string characters out of 5715799
  1286896 words of memory out of 5000000
- 38743 multiletter control sequences out of 15000+600000
+ 38761 multiletter control sequences out of 15000+600000
  575033 words of font info for 97 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 80i,10n,98p,1323b,1869s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 80i,11n,98p,1323b,1869s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Principal.pdf (133 pages, 9773554 bytes).
+Output written on Principal.pdf (137 pages, 10258284 bytes).
 PDF statistics:
- 593 PDF objects out of 1000 (max. 8388607)
- 377 compressed objects within 4 object streams
+ 607 PDF objects out of 1000 (max. 8388607)
+ 385 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

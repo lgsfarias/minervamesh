@@ -1,13 +1,13 @@
 # Fdb version 4
-["bibtex Principal"] 1771781631.49131 "Principal.aux" "Principal.bbl" "Principal" 1771781936.88427 0
+["bibtex Principal"] 1771783606.38203 "Principal.aux" "Principal.bbl" "Principal" 1771783614.11852 0
   "./biblio.bib" 1771616869.93931 16717 59a80acae5e141db8d88856bf5361c47 ""
   "./coppe.bst" 1769512320.86384 24458 858d1cea7157546113f910063fcfbbab ""
-  "Principal.aux" 1771781936.5808 29389 652d6da88866707b64a76ac4e1e16f6d "pdflatex"
+  "Principal.aux" 1771783613.80901 31049 442984fc70a339b4bd5805a326c3985d "pdflatex"
   (generated)
   "Principal.bbl"
   "Principal.blg"
   (rewritten before read)
-["pdflatex"] 1771781929.5251 "/Users/lgsfarias/Developer/minervamesh/minervamesh/tcc_minervamesh/Principal.tex" "Principal.pdf" "Principal" 1771781936.88448 0
+["pdflatex"] 1771783606.50859 "/Users/lgsfarias/Developer/minervamesh/minervamesh/tcc_minervamesh/Principal.tex" "Principal.pdf" "Principal" 1771783614.1187 0
   "../simulations/mef/calor-transiente-1d/simulation.py" 1763913299.90928 8900 9336e5d59d65c0295f93a65da6f4aa24 ""
   "../simulations/mef/conducao-permanente-barra1d-mef/simulation.py" 1763913299.90974 3258 835290e13e5ac0f3d1b97cefd845e45c ""
   "../simulations/mef/conveccao-difusao-1d/simulation.py" 1763913299.91031 7360 3a619f146b11679805f39583a2d567bc ""
@@ -177,12 +177,12 @@
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
   "Capa.tex" 1769512486.9677 2266 df1457e1ccad55396745adadc923791a ""
   "Preambulo.tex" 1771716645.54269 6462 008aa36b15f2c578282a86b6e034ea68 ""
-  "Principal.aux" 1771781936.5808 29389 652d6da88866707b64a76ac4e1e16f6d "pdflatex"
-  "Principal.bbl" 1771781631.60938 10580 5ac6d29ba8411de022db8c089c9e5511 "bibtex Principal"
-  "Principal.lof" 1771781936.58489 1918 e1b6b4596f6a0f5f2b92842b9df66417 "pdflatex"
-  "Principal.lot" 1771781936.58492 321 ba555f02b1f20f54dfbce6862a4a5d6a "pdflatex"
+  "Principal.aux" 1771783613.80901 31049 442984fc70a339b4bd5805a326c3985d "pdflatex"
+  "Principal.bbl" 1771783606.50538 10382 7ade7024d267ae357f31456f2683ff97 "bibtex Principal"
+  "Principal.lof" 1771783613.81288 2255 cae83ec8b05aac581c0d1c6887b74374 "pdflatex"
+  "Principal.lot" 1771783613.81292 440 16884a18bffa702f1b8e0e1fc7fd43ea "pdflatex"
   "Principal.tex" 1771777582.63775 3240 e0f41e011d9092b934c242e589d76528 ""
-  "Principal.toc" 1771781936.58481 8730 8115e6af3cb53659b1ccbf74ef02e6af "pdflatex"
+  "Principal.toc" 1771783613.81278 9135 27b3b4edfb14ac6a9722e142f6083e6d "pdflatex"
   "TesePack.tex" 1771779335.5459 3044 3fc0459ef354bfd39221d6c1f2a31692 ""
   "apendice_modulos_1d.tex" 1771781437.10508 1941 2fc8594d562367094925896cf2ac4c19 ""
   "apendice_modulos_2d.tex" 1771781437.91565 1970 71ddcb604a46e2257a24f2d2fc366848 ""
@@ -198,13 +198,14 @@
   "figuras/prints/fig_ns2d_cylinder.png" 1771715179.32603 501807 1873158d8e61e74cc457674e6b102bbd ""
   "figuras/prints/fig_potencial2d_linhas.png" 1771714879.88791 2396796 30dc12be92e0146621707c66aa363cdc ""
   "figuras/prints/fig_transcalor2d_campo.png" 1771714760.83262 1131886 21b6f7435f12076da239042df88f5124 ""
+  "figuras/prints/fig_val_conducao1d_resultado.png" 1771783516.76823 808228 e639b7298e79c29a04369e39034a03dc ""
   "figuras/prints/fig_vibracao1d_modos.png" 1771714541.88094 1495055 74c4d8888e941290516cbb109438b93b ""
   "figuras/prints/fig_viga1d_resultado.png" 1771714464.7656 1286404 ecf471016331f15bdbf3ef55e0083950 ""
   "fundamentacao_teorica.tex" 1771711179.83005 23976 8a73b52c65174694ebc18db7b2c8c440 ""
   "indentfirst.sty" 1769512320.8618 791 669543ca2dcbd5c0e900e06ead6a7a98 ""
   "introducao.tex" 1771620470.73746 5020 a7ca5f3081e5fbbe5c90896d4cec3ce8 ""
   "pagina.sty" 1769512320.87106 462 9452fea7eafcf87b590f8eb029f5f0ae ""
-  "resultados.tex" 1771620478.76956 349 34c72c818184b58375243223011989e4 ""
+  "resultados.tex" 1771782801.01815 7988 0be6264e671b5d94838e25fb64556ee3 ""
   "revisao_bibliografica.tex" 1771620472.70587 6418 feb0b54ca4aface231004433bdd21005 ""
   "rotating.sty" 1769512320.87463 4432 bb6ecf60c864b096ab48e6f7c3aebf6f ""
   (generated)

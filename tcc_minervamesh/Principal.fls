@@ -368,6 +368,11 @@ INPUT ./resultados.tex
 INPUT ./resultados.tex
 INPUT ./resultados.tex
 INPUT resultados.tex
+INPUT ./figuras/prints/fig_val_conducao1d_resultado.png
+INPUT ./figuras/prints/fig_val_conducao1d_resultado.png
+INPUT ./figuras/prints/fig_val_conducao1d_resultado.png
+INPUT ./figuras/prints/fig_val_conducao1d_resultado.png
+INPUT ./figuras/prints/fig_val_conducao1d_resultado.png
 INPUT ./conclusao.tex
 INPUT ./conclusao.tex
 INPUT ./conclusao.tex
