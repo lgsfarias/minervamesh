@@ -346,43 +346,127 @@
 \@writefile{toc}{\contentsline {paragraph}{Nota sobre a precisão nodal exata.}{42}{}\protected@file@percent }
 \@writefile{toc}{\contentsline {section}{\numberline {5.3}Condução Transiente 1D com $k(x)$ Variável}{42}{}\protected@file@percent }
 \newlabel{sec:val_calor_transiente}{{5.3}{42}{}{section.5.3}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces (Esqueleto) Evolução temporal do campo $T(x,t)$ e convergência ao regime permanente.}}{42}{}\protected@file@percent }
-\newlabel{fig:val_calor_transiente}{{5.2}{42}{}{figure.5.2}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.4}Convecção-Difusão 1D com Estabilização SUPG}{42}{}\protected@file@percent }
-\newlabel{sec:val_convdif}{{5.4}{42}{}{section.5.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces (Esqueleto) Comparação Galerkin vs.\ SUPG em alto número de Péclet.}}{42}{}\protected@file@percent }
-\newlabel{fig:val_convdif}{{5.3}{42}{}{figure.5.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.5}Viga 1D — Flexão de Euler-Bernoulli}{42}{}\protected@file@percent }
-\newlabel{sec:val_viga}{{5.5}{42}{}{section.5.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces (Esqueleto) Deflexão, momento fletor e esforço cortante para viga simplesmente apoiada com carga uniforme.}}{42}{}\protected@file@percent }
-\newlabel{fig:val_viga}{{5.4}{42}{}{figure.5.4}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces (Esqueleto) Cinco primeiros modos de vibração e respectivas frequências naturais.}}{43}{}\protected@file@percent }
-\newlabel{fig:val_vibracao}{{5.5}{43}{}{figure.5.5}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces (Esqueleto) Campo de temperatura em placa 2D durante a evolução transiente.}}{43}{}\protected@file@percent }
-\newlabel{fig:val_transcalor}{{5.6}{43}{}{figure.5.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.6}Vibração 1D — Problema de Autovalor}{43}{}\protected@file@percent }
-\newlabel{sec:val_vibracao}{{5.6}{43}{}{section.5.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.7}Transferência de Calor 2D}{43}{}\protected@file@percent }
-\newlabel{sec:val_transcalor}{{5.7}{43}{}{section.5.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.8}Escoamento Potencial 2D}{43}{}\protected@file@percent }
-\newlabel{sec:val_potencial}{{5.8}{43}{}{section.5.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces (Esqueleto) Linhas de corrente ao redor do cilindro e distribuição de $C_p$ na superfície.}}{43}{}\protected@file@percent }
-\newlabel{fig:val_potencial}{{5.7}{43}{}{figure.5.7}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {5.9}Navier-Stokes 2D — Cavidade com Tampa Móvel}{43}{}\protected@file@percent }
-\newlabel{sec:val_ns}{{5.9}{43}{}{section.5.9}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces (Esqueleto) Campos de $\psi $, $\omega $ e linhas de corrente na cavidade a $\mathrm  {Re} = 100$.}}{44}{}\protected@file@percent }
-\newlabel{fig:val_ns_cavity}{{5.8}{44}{}{figure.5.8}{}}
-\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces Perfil $u(y)$ em $x=0{,}5$ comparado aos valores tabulados por Ghia, Ghia \& Shin (1982) para a cavidade com tampa móvel a $\mathrm  {Re}=100$. RMS $=0{,}036$ em malha $41\times 41$ com 2000 passos de tempo. Figura gerada pelo runner \texttt  {.agents/review/thom\_validation/run\_cavity.py} com a fórmula de Thom na forma canônica.}}{44}{}\protected@file@percent }
-\newlabel{fig:val_ns_ghia_uy}{{5.9}{44}{}{figure.5.9}{}}
-\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusões}{45}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.1}Formulação do Problema}{42}{}\protected@file@percent }
+\newlabel{eq:val_calor_transiente_edp}{{5.6}{42}{}{equation.5.6}{}}
+\newlabel{eq:val_calor_transiente_cc}{{5.7}{42}{}{equation.5.7}{}}
+\newlabel{eq:val_calor_transiente_k}{{5.8}{43}{}{equation.5.8}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.2}{\ignorespaces Parâmetros da simulação de condução transiente 1D com $k(x)$ variável.}}{43}{}\protected@file@percent }
+\newlabel{tab:val_calor_transiente_params}{{5.2}{43}{}{table.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.2}Solução Analítica de Regime Permanente}{43}{}\protected@file@percent }
+\newlabel{eq:val_calor_transiente_continuidade}{{5.9}{43}{}{equation.5.9}{}}
+\newlabel{eq:val_calor_transiente_analitica}{{5.10}{43}{}{equation.5.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.3}Solução MEF e Comparação}{44}{}\protected@file@percent }
+\newlabel{eq:val_calor_transiente_scheme}{{5.11}{44}{}{equation.5.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.2}{\ignorespaces Condução transiente 1D com condutividade descontínua ($k_1 = 5$, $k_2 = 1$): evolução temporal do campo $T(x,t)$ (curvas em azul, alpha crescente com o tempo) comparada à solução analítica de regime permanente (linha sólida vermelha). A malha de $40$~elementos P1 com $\theta = 1/2$ reproduz fielmente o \emph  {kink} de condutividade em~$x = L/2$ e converge para $T(L/2) = 1/6$.}}{44}{}\protected@file@percent }
+\newlabel{fig:val_calor_transiente}{{5.2}{44}{}{figure.5.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.3.4}Análise de Erro}{45}{}\protected@file@percent }
+\newlabel{eq:val_calor_transiente_erro}{{5.12}{45}{}{equation.5.12}{}}
+\@writefile{toc}{\contentsline {paragraph}{Nota sobre o regime transiente visível.}{45}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Convecção-Difusão 1D com Estabilização SUPG}{45}{}\protected@file@percent }
+\newlabel{sec:val_convdif}{{5.4}{45}{}{section.5.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.1}Formulação do Problema}{45}{}\protected@file@percent }
+\newlabel{eq:val_convdif_edp}{{5.13}{46}{}{equation.5.13}{}}
+\newlabel{eq:val_convdif_pe}{{5.14}{46}{}{equation.5.14}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.3}{\ignorespaces Parâmetros da simulação de convecção-difusão 1D. Dois regimes de $\mathrm  {Pe}_e$ são apresentados.}}{46}{}\protected@file@percent }
+\newlabel{tab:val_convdif_params}{{5.3}{46}{}{table.5.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.2}Solução Analítica}{46}{}\protected@file@percent }
+\newlabel{eq:val_convdif_analitica}{{5.15}{47}{}{equation.5.15}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.3}Solução MEF com e sem SUPG}{47}{}\protected@file@percent }
+\newlabel{eq:val_convdif_tau}{{5.16}{47}{}{equation.5.16}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.4.4}Análise de Erro}{47}{}\protected@file@percent }
+\newlabel{eq:val_convdif_erros}{{5.17}{47}{}{equation.5.17}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.3}{\ignorespaces Convecção-difusão 1D em dois regimes de Péclet elementar: $\mathrm  {Pe}_e = 0{,}5$ (esquerda) e $\mathrm  {Pe}_e = 5$ (direita). A formulação SUPG (verde) reproduz a solução analítica (vermelho) com erro da ordem da precisão de máquina em ambos os regimes, enquanto Galerkin clássico (azul) apresenta erro moderado em $\mathrm  {Pe}_e < 1$ e oscilações espúrias pronunciadas em $\mathrm  {Pe}_e > 1$.}}{48}{}\protected@file@percent }
+\newlabel{fig:val_convdif}{{5.3}{48}{}{figure.5.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Nota sobre o comportamento de Galerkin em alto Péclet.}{48}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.5}Viga 1D --- Flexão de Euler-Bernoulli}{48}{}\protected@file@percent }
+\newlabel{sec:val_viga}{{5.5}{48}{}{section.5.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.1}Formulação do Problema}{49}{}\protected@file@percent }
+\newlabel{eq:val_viga_edp}{{5.18}{49}{}{equation.5.18}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.4}{\ignorespaces Parâmetros da simulação de flexão de viga 1D.}}{49}{}\protected@file@percent }
+\newlabel{tab:val_viga_params}{{5.4}{49}{}{table.5.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.2}Solução Analítica}{49}{}\protected@file@percent }
+\newlabel{eq:val_viga_w}{{5.19}{49}{}{equation.5.19}{}}
+\newlabel{eq:val_viga_M}{{5.20}{49}{}{equation.5.20}{}}
+\newlabel{eq:val_viga_V}{{5.21}{49}{}{equation.5.21}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.3}Solução MEF e Comparação}{50}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.5.4}Análise de Erro}{50}{}\protected@file@percent }
+\newlabel{eq:val_viga_erro}{{5.22}{50}{}{equation.5.22}{}}
+\@writefile{toc}{\contentsline {paragraph}{Nota sobre momento e cortante.}{50}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.4}{\ignorespaces Viga simplesmente apoiada com carga uniforme: deflexão $w(x)$ (topo), momento fletor $M(x)$ (meio) e esforço cortante $V(x)$ (base). Pontos azuis representam a solução MEF com elementos de Hermite cúbicos; linha vermelha, a solução analítica. A deflexão máxima MEF coincide com $w_{\max } = 5qL^4/(384EI) = 1{,}0417$~mm; $M$ e $V$ são reconstruídos por diferenciação numérica da deflexão nodal, o que explica o leve ruído próximo aos apoios (pontos de borda omitidos).}}{51}{}\protected@file@percent }
+\newlabel{fig:val_viga}{{5.4}{51}{}{figure.5.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.6}Vibração 1D --- Problema de Autovalor}{52}{}\protected@file@percent }
+\newlabel{sec:val_vibracao}{{5.6}{52}{}{section.5.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.1}Formulação do Problema}{52}{}\protected@file@percent }
+\newlabel{eq:val_vibracao_edp}{{5.23}{52}{}{equation.5.23}{}}
+\newlabel{eq:val_vibracao_autovalor}{{5.24}{52}{}{equation.5.24}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.2}Solução Analítica}{52}{}\protected@file@percent }
+\newlabel{eq:val_vibracao_analitica}{{5.25}{52}{}{equation.5.25}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.5}{\ignorespaces Parâmetros da simulação de vibração axial 1D (barra de aço bi-engastada).}}{53}{}\protected@file@percent }
+\newlabel{tab:val_vibracao_params}{{5.5}{53}{}{table.5.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.3}Solução MEF e Comparação}{53}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.6.4}Análise de Erro}{53}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.5}{\ignorespaces Cinco primeiros modos de vibração axial da barra bi-engastada. Linha azul: forma modal MEF normalizada; pontos vermelhos: valores analíticos em nós selecionados (senos). Cada painel exibe a frequência MEF, a frequência analítica e o erro relativo correspondente. O número de nós internos cresce monotonicamente de~$0$ (modo~$1$) a~$4$ (modo~$5$).}}{54}{}\protected@file@percent }
+\newlabel{fig:val_vibracao}{{5.5}{54}{}{figure.5.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.6}{\ignorespaces Frequências naturais: MEF vs.\ analítica para barra bi-engastada.}}{54}{}\protected@file@percent }
+\newlabel{tab:val_vibracao_erros}{{5.6}{54}{}{table.5.6}{}}
+\@writefile{toc}{\contentsline {paragraph}{Nota sobre a matriz de massa consistente.}{55}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.7}Transferência de Calor Transiente 2D}{55}{}\protected@file@percent }
+\newlabel{sec:val_transcalor}{{5.7}{55}{}{section.5.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7.1}Formulação do Problema}{55}{}\protected@file@percent }
+\newlabel{eq:val_transcalor_edp}{{5.26}{55}{}{equation.5.26}{}}
+\newlabel{eq:val_transcalor_cc}{{5.27}{55}{}{equation.5.27}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.7}{\ignorespaces Parâmetros da simulação de transferência de calor transiente 2D.}}{56}{}\protected@file@percent }
+\newlabel{tab:val_transcalor_params}{{5.7}{56}{}{table.5.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7.2}Solução Analítica de Regime Permanente}{56}{}\protected@file@percent }
+\newlabel{eq:val_transcalor_analitica}{{5.28}{56}{}{equation.5.28}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7.3}Solução MEF e Comparação}{56}{}\protected@file@percent }
+\newlabel{eq:val_transcalor_cn}{{5.29}{57}{}{equation.5.29}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.6}{\ignorespaces Transferência de calor transiente 2D: campo $T(x,y)$ MEF em $t = 2{,}0$~s (esquerda) comparado ao perfil analítico de regime permanente $T_{\infty }(x,y) = 30 + 70\,y$ (direita). As isotermas MEF são horizontais, confirmando a invariância em $x$ prevista pela solução analítica.}}{57}{}\protected@file@percent }
+\newlabel{fig:val_transcalor}{{5.6}{57}{}{figure.5.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.7.4}Análise de Erro}{57}{}\protected@file@percent }
+\newlabel{eq:val_transcalor_erro}{{5.30}{57}{}{equation.5.30}{}}
+\@writefile{toc}{\contentsline {paragraph}{Nota sobre o transiente visível ao usuário.}{58}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.8}Escoamento Potencial 2D em Torno de Cilindro}{58}{}\protected@file@percent }
+\newlabel{sec:val_potencial}{{5.8}{58}{}{section.5.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.8.1}Formulação do Problema}{58}{}\protected@file@percent }
+\newlabel{eq:val_potencial_edp}{{5.31}{58}{}{equation.5.31}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.8}{\ignorespaces Parâmetros da simulação de escoamento potencial 2D em torno de cilindro.}}{59}{}\protected@file@percent }
+\newlabel{tab:val_potencial_params}{{5.8}{59}{}{table.5.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.8.2}Solução Analítica em Domínio Infinito}{59}{}\protected@file@percent }
+\newlabel{eq:val_potencial_cp}{{5.32}{59}{}{equation.5.32}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.8.3}Solução MEF e Comparação}{60}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.7}{\ignorespaces Escoamento potencial em torno de cilindro: linhas de corrente (esquerda) e distribuição de $C_p(\theta )$ sobre a superfície (direita). A simulação (azul) reproduz a estrutura qualitativa do escoamento simétrico, com os pontos de estagnação frontal/traseiro e os polos de pressão mínima próximos dos valores teóricos $C_p = 1$ e $C_p = -3$. A quebra de simetria entre $\theta = +90^{\circ }$ e $\theta = -90^{\circ }$ é consequência do confinamento lateral do domínio ($2r/H = 30\%$) e do viés da malha estruturada.}}{60}{}\protected@file@percent }
+\newlabel{fig:val_potencial}{{5.7}{60}{}{figure.5.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.8.4}Análise de Erro}{60}{}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {5.9}{\ignorespaces Coeficiente de pressão $C_p$ na superfície do cilindro: MEF vs.\ teoria potencial.}}{61}{}\protected@file@percent }
+\newlabel{tab:val_potencial_cp}{{5.9}{61}{}{table.5.9}{}}
+\@writefile{toc}{\contentsline {paragraph}{Nota sobre o paradoxo de d'Alembert.}{61}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.9}Navier-Stokes 2D --- Cavidade com Tampa Móvel}{62}{}\protected@file@percent }
+\newlabel{sec:val_ns}{{5.9}{62}{}{section.5.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.9.1}Formulação do Problema}{62}{}\protected@file@percent }
+\newlabel{eq:val_ns_poisson}{{5.33}{62}{}{equation.5.33}{}}
+\newlabel{eq:val_ns_transporte}{{5.34}{62}{}{equation.5.34}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.10}{\ignorespaces Parâmetros da simulação de Navier-Stokes 2D --- cavidade com tampa móvel.}}{63}{}\protected@file@percent }
+\newlabel{tab:val_ns_params}{{5.10}{63}{}{table.5.10}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.9.2}Benchmark de Referência}{63}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.9.3}Solução MEF e Comparação}{63}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {5.9.4}Análise de Erro}{64}{}\protected@file@percent }
+\newlabel{eq:val_ns_psimin}{{5.35}{64}{}{equation.5.35}{}}
+\newlabel{eq:val_ns_rms}{{5.36}{64}{}{equation.5.36}{}}
+\@writefile{toc}{\contentsline {paragraph}{Nota sobre a condição de contorno de vorticidade.}{64}{}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {5.8}{\ignorespaces Cavidade com tampa móvel a $\mathrm  {Re} = 100$: função de corrente $\psi $ (topo), vorticidade $\omega $ (meio) e linhas de corrente sobre o campo de magnitude de velocidade (base). O vórtice primário está centrado em $(0{,}625;\, 0{,}750)$ com $\psi _{\min } = -0{,}103$. A intensa vorticidade negativa sob a tampa é a assinatura da camada-limite induzida pelo cisalhamento.}}{65}{}\protected@file@percent }
+\newlabel{fig:val_ns_cavity}{{5.8}{65}{}{figure.5.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5.9}{\ignorespaces Perfil $u(y)$ em $x = 0{,}5$ comparado aos valores tabulados por Ghia, Ghia e Shin (1982) para a cavidade com tampa móvel a $\mathrm  {Re} = 100$. RMS $= 0{,}036$ em malha $41 \times 41$ com 2000 passos de tempo.}}{66}{}\protected@file@percent }
+\newlabel{fig:val_ns_ghia_uy}{{5.9}{66}{}{figure.5.9}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}Conclusões}{68}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{cap6}{{6}{45}{}{chapter.6}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {6.1}Conclusões}{45}{}\protected@file@percent }
-\newlabel{sec:conclusao}{{6.1}{45}{}{section.6.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{45}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{45}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {paragraph}{}{45}{}\protected@file@percent }
+\newlabel{cap6}{{6}{68}{}{chapter.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {6.1}Conclusões}{68}{}\protected@file@percent }
+\newlabel{sec:conclusao}{{6.1}{68}{}{section.6.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{68}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {6.2}Trabalhos Futuros}{68}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{}{68}{}\protected@file@percent }
 \bibstyle{coppe}
 \bibdata{biblio}
 \bibcite{Maliska2004}{1}
@@ -396,7 +480,7 @@
 \bibcite{Incropera2008}{9}
 \bibcite{Ozisik1993}{10}
 \bibcite{Cengel2015}{11}
-\@writefile{toc}{\contentsline {chapter}{Bibliografia}{46}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{Bibliografia}{69}{}\protected@file@percent }
 \bibcite{Bejan1992}{12}
 \bibcite{Fox2010}{13}
 \bibcite{White2006}{14}
@@ -437,54 +521,54 @@
 \bibcite{GomesMatheus2021}{49}
 \bibcite{GomesYuri2025}{50}
 \bibcite{Thom1933}{51}
-\@writefile{toc}{\contentsline {chapter}{\numberline {A}Listagens dos Módulos de Simulação 1D}{52}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}Listagens dos Módulos de Simulação 1D}{75}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ApendiceA}{{A}{52}{}{chapter.1}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{52}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {A.1}Condução Permanente 1D}{52}{}\protected@file@percent }
-\newlabel{ap:conducao1d}{{A.1}{52}{}{section.1.1}{}}
-\newlabel{lst:conducao1d}{{A.1}{52}{}{lstlisting.1.1}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {A.1}Condução permanente 1D --- \texttt  {simulation.py}}{52}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {A.2}Condução Transiente 1D com $k(x)$ Variável}{55}{}\protected@file@percent }
-\newlabel{ap:calor_transiente}{{A.2}{55}{}{section.1.2}{}}
-\newlabel{lst:calor_transiente}{{A.2}{56}{}{lstlisting.1.2}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {A.2}Condução transiente 1D --- \texttt  {simulation.py}}{56}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {A.3}Convecção-Difusão 1D com SUPG}{64}{}\protected@file@percent }
-\newlabel{ap:convdif1d}{{A.3}{64}{}{section.1.3}{}}
-\newlabel{lst:convdif1d}{{A.3}{64}{}{lstlisting.1.3}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {A.3}Convecção-difusão 1D com SUPG --- \texttt  {simulation.py}}{64}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {A.4}Viga 1D --- Euler-Bernoulli}{70}{}\protected@file@percent }
-\newlabel{ap:viga1d}{{A.4}{70}{}{section.1.4}{}}
-\newlabel{lst:viga1d}{{A.4}{70}{}{lstlisting.1.4}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {A.4}Viga 1D (Euler-Bernoulli) --- \texttt  {simulation.py}}{70}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{83}{}\protected@file@percent }
-\newlabel{ap:vibracao1d}{{A.5}{83}{}{section.1.5}{}}
-\newlabel{lst:vibracao1d}{{A.5}{83}{}{lstlisting.1.5}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {A.5}Vibração 1D --- \texttt  {simulation.py}}{83}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{94}{}\protected@file@percent }
+\newlabel{ApendiceA}{{A}{75}{}{chapter.1}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{75}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A.1}Condução Permanente 1D}{75}{}\protected@file@percent }
+\newlabel{ap:conducao1d}{{A.1}{75}{}{section.1.1}{}}
+\newlabel{lst:conducao1d}{{A.1}{75}{}{lstlisting.1.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {A.1}Condução permanente 1D --- \texttt  {simulation.py}}{75}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A.2}Condução Transiente 1D com $k(x)$ Variável}{78}{}\protected@file@percent }
+\newlabel{ap:calor_transiente}{{A.2}{78}{}{section.1.2}{}}
+\newlabel{lst:calor_transiente}{{A.2}{79}{}{lstlisting.1.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {A.2}Condução transiente 1D --- \texttt  {simulation.py}}{79}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A.3}Convecção-Difusão 1D com SUPG}{87}{}\protected@file@percent }
+\newlabel{ap:convdif1d}{{A.3}{87}{}{section.1.3}{}}
+\newlabel{lst:convdif1d}{{A.3}{87}{}{lstlisting.1.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {A.3}Convecção-difusão 1D com SUPG --- \texttt  {simulation.py}}{87}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A.4}Viga 1D --- Euler-Bernoulli}{93}{}\protected@file@percent }
+\newlabel{ap:viga1d}{{A.4}{93}{}{section.1.4}{}}
+\newlabel{lst:viga1d}{{A.4}{93}{}{lstlisting.1.4}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {A.4}Viga 1D (Euler-Bernoulli) --- \texttt  {simulation.py}}{93}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{106}{}\protected@file@percent }
+\newlabel{ap:vibracao1d}{{A.5}{106}{}{section.1.5}{}}
+\newlabel{lst:vibracao1d}{{A.5}{106}{}{lstlisting.1.5}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {A.5}Vibração 1D --- \texttt  {simulation.py}}{106}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{117}{}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ApendiceB}{{B}{94}{}{chapter.2}{}}
-\@writefile{toc}{\contentsline {paragraph}{}{94}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B.1}Módulo Compartilhado: Malha e Matrizes MEF}{94}{}\protected@file@percent }
-\newlabel{ap:common}{{B.1}{94}{}{section.2.1}{}}
-\newlabel{lst:common}{{B.1}{94}{}{lstlisting.2.1}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {B.1}Módulo compartilhado de malha e matrizes MEF --- \texttt  {common.py}}{94}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B.2}Módulo Compartilhado: Geometrias de Obstáculo}{98}{}\protected@file@percent }
-\newlabel{ap:geometry}{{B.2}{98}{}{section.2.2}{}}
-\newlabel{lst:geometry}{{B.2}{98}{}{lstlisting.2.2}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {B.2}Geometrias de obstáculo --- \texttt  {geometry.py}}{98}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{100}{}\protected@file@percent }
-\newlabel{ap:transcalor}{{B.3}{100}{}{section.2.3}{}}
-\newlabel{lst:transcalor}{{B.3}{100}{}{lstlisting.2.3}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {B.3}Transferência de calor 2D --- \texttt  {simulation.py}}{100}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{104}{}\protected@file@percent }
-\newlabel{ap:potencial}{{B.4}{104}{}{section.2.4}{}}
-\newlabel{lst:potencial}{{B.4}{105}{}{lstlisting.2.4}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {B.4}Escoamento potencial 2D --- \texttt  {simulation.py}}{105}{}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{115}{}\protected@file@percent }
-\newlabel{ap:ns2d}{{B.5}{115}{}{section.2.5}{}}
-\newlabel{lst:ns2d}{{B.5}{115}{}{lstlisting.2.5}{}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {B.5}Navier-Stokes 2D --- \texttt  {simulation.py}}{115}{}\protected@file@percent }
-\gdef \@abspage@last{142}
+\newlabel{ApendiceB}{{B}{117}{}{chapter.2}{}}
+\@writefile{toc}{\contentsline {paragraph}{}{117}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B.1}Módulo Compartilhado: Malha e Matrizes MEF}{117}{}\protected@file@percent }
+\newlabel{ap:common}{{B.1}{117}{}{section.2.1}{}}
+\newlabel{lst:common}{{B.1}{117}{}{lstlisting.2.1}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {B.1}Módulo compartilhado de malha e matrizes MEF --- \texttt  {common.py}}{117}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B.2}Módulo Compartilhado: Geometrias de Obstáculo}{121}{}\protected@file@percent }
+\newlabel{ap:geometry}{{B.2}{121}{}{section.2.2}{}}
+\newlabel{lst:geometry}{{B.2}{121}{}{lstlisting.2.2}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {B.2}Geometrias de obstáculo --- \texttt  {geometry.py}}{121}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{123}{}\protected@file@percent }
+\newlabel{ap:transcalor}{{B.3}{123}{}{section.2.3}{}}
+\newlabel{lst:transcalor}{{B.3}{123}{}{lstlisting.2.3}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {B.3}Transferência de calor 2D --- \texttt  {simulation.py}}{123}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{127}{}\protected@file@percent }
+\newlabel{ap:potencial}{{B.4}{127}{}{section.2.4}{}}
+\newlabel{lst:potencial}{{B.4}{128}{}{lstlisting.2.4}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {B.4}Escoamento potencial 2D --- \texttt  {simulation.py}}{128}{}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{138}{}\protected@file@percent }
+\newlabel{ap:ns2d}{{B.5}{138}{}{section.2.5}{}}
+\newlabel{lst:ns2d}{{B.5}{138}{}{lstlisting.2.5}{}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {B.5}Navier-Stokes 2D --- \texttt  {simulation.py}}{138}{}\protected@file@percent }
+\gdef \@abspage@last{166}

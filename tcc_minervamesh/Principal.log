@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  18 APR 2026 13:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  18 APR 2026 13:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -678,30 +678,33 @@ con-du-ti-vi-dade vari^^Savel
 [13
 
 ]
-Overfull \hbox (10.33475pt too wide) in paragraph at lines 22--22
- [][] []\OT1/cmr/m/n/12 (Esqueleto) Cinco pri-mei-ros mo-dos de vi-bra^^Xc~ao e
- res-pec-ti-vas frequ^encias 
+Overfull \hbox (1.48137pt too wide) in paragraph at lines 21--21
+ [][] []\OT1/cmr/m/n/12 Viga sim-ples-mente apoi-ada com carga uni-forme: de-fl
+ex~ao $\OML/cmm/m/it/12 w\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 )$ 
+(topo), 
  []
 
 
-Overfull \hbox (1.90196pt too wide) in paragraph at lines 26--26
- \OT1/cmr/m/n/12 rada pelo run-ner \OT1/cmtt/m/n/12 .agents/review/thom[]valida
-tion/run[]cavity.py 
+Overfull \hbox (14.5472pt too wide) in paragraph at lines 24--24
+ \OT1/cmr/m/n/12 mula^^Xc~ao (azul) re-pro-duz a es-tru-tura qua-li-ta-tiva do 
+es-co-a-mento sim^^Setrico, 
  []
 
-)
+
+
+[14])
 \tf@lof=\write4
 \openout4 = `Principal.lof'.
 
 
 
-[14] (./Principal.lot)
+[15] (./Principal.lot)
 \tf@lot=\write5
 \openout5 = `Principal.lot'.
 
 
 
-[15
+[16
 
 ]
 Cap\'{\i }tulo 1.
@@ -798,7 +801,7 @@ Overfull \hbox (8.47636pt too wide) in paragraph at lines 1--2
 [20
 
 ]
-<figuras/prints/fig_minervamesh_home.png, id=133, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_minervamesh_home.png, id=135, 1630.09pt x 1064.97874pt>
 File: figuras/prints/fig_minervamesh_home.png Graphic file (type png)
 <use figuras/prints/fig_minervamesh_home.png>
 Package pdftex.def Info: figuras/prints/fig_minervamesh_home.png  used on input
@@ -823,7 +826,7 @@ Overfull \hbox (4.87741pt too wide) in paragraph at lines 120--121
  os par^ametros f^^S^^Psicos e num^^Sericos atrav^^Ses
  []
 
-<figuras/prints/fig_interface_parametros.png, id=153, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_interface_parametros.png, id=156, 1630.09pt x 1064.97874pt>
 
 File: figuras/prints/fig_interface_parametros.png Graphic file (type png)
 <use figuras/prints/fig_interface_parametros.png>
@@ -838,7 +841,7 @@ Overfull \hbox (15.00407pt too wide) in paragraph at lines 138--139
 eta en-tre ope-ra-do-res ma-tem^^Saticos
  []
 
-<figuras/prints/fig_conducao1d_resultado.png, id=158, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_conducao1d_resultado.png, id=161, 1630.09pt x 1064.97874pt>
 
 File: figuras/prints/fig_conducao1d_resultado.png Graphic file (type png)
 <use figuras/prints/fig_conducao1d_resultado.png>
@@ -848,7 +851,7 @@ nput line 162.
 
 
 [26]
-<figuras/prints/fig_calor_transiente1d_evolucao.png, id=163, 1630.09pt x 1064.9
+<figuras/prints/fig_calor_transiente1d_evolucao.png, id=166, 1630.09pt x 1064.9
 7874pt>
 File: figuras/prints/fig_calor_transiente1d_evolucao.png Graphic file (type png
 )
@@ -861,7 +864,7 @@ ed on input line 190.
 [27 <./figuras/prints/fig_conducao1d_resultado.png>]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 210.
-<figuras/prints/fig_convdif1d_com_supg.png, id=168, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_convdif1d_com_supg.png, id=172, 1630.09pt x 1064.97874pt>
 File: figuras/prints/fig_convdif1d_com_supg.png Graphic file (type png)
 <use figuras/prints/fig_convdif1d_com_supg.png>
 Package pdftex.def Info: figuras/prints/fig_convdif1d_com_supg.png  used on inp
@@ -872,7 +875,7 @@ ut line 218.
 [28 <./figuras/prints/fig_calor_transiente1d_evolucao.png>]
 
 [29 <./figuras/prints/fig_convdif1d_com_supg.png>]
-<figuras/prints/fig_viga1d_resultado.png, id=178, 1042.89626pt x 1064.97874pt>
+<figuras/prints/fig_viga1d_resultado.png, id=181, 1042.89626pt x 1064.97874pt>
 File: figuras/prints/fig_viga1d_resultado.png Graphic file (type png)
 <use figuras/prints/fig_viga1d_resultado.png>
 Package pdftex.def Info: figuras/prints/fig_viga1d_resultado.png  used on input
@@ -881,7 +884,7 @@ Package pdftex.def Info: figuras/prints/fig_viga1d_resultado.png  used on input
 
 
 [30 <./figuras/prints/fig_viga1d_resultado.png>]
-<figuras/prints/fig_vibracao1d_modos.png, id=183, 1213.53375pt x 1064.97874pt>
+<figuras/prints/fig_vibracao1d_modos.png, id=186, 1213.53375pt x 1064.97874pt>
 File: figuras/prints/fig_vibracao1d_modos.png Graphic file (type png)
 <use figuras/prints/fig_vibracao1d_modos.png>
 Package pdftex.def Info: figuras/prints/fig_vibracao1d_modos.png  used on input
@@ -902,7 +905,7 @@ Overfull \hbox (36.11914pt too wide) in paragraph at lines 277--278
 
 
 [31 <./figuras/prints/fig_vibracao1d_modos.png>]
-<figuras/prints/fig_transcalor2d_campo.png, id=188, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_transcalor2d_campo.png, id=191, 1630.09pt x 1064.97874pt>
 File: figuras/prints/fig_transcalor2d_campo.png Graphic file (type png)
 <use figuras/prints/fig_transcalor2d_campo.png>
 Package pdftex.def Info: figuras/prints/fig_transcalor2d_campo.png  used on inp
@@ -911,7 +914,7 @@ ut line 295.
 
 
 [32 <./figuras/prints/fig_transcalor2d_campo.png>]
-<figuras/prints/fig_potencial2d_linhas.png, id=193, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_potencial2d_linhas.png, id=196, 1630.09pt x 1064.97874pt>
 File: figuras/prints/fig_potencial2d_linhas.png Graphic file (type png)
 <use figuras/prints/fig_potencial2d_linhas.png>
 Package pdftex.def Info: figuras/prints/fig_potencial2d_linhas.png  used on inp
@@ -920,7 +923,7 @@ ut line 316.
 
 
 [33 <./figuras/prints/fig_potencial2d_linhas.png>]
-<figuras/prints/fig_ns2d_cavity_re100.png, id=198, 587.5551pt x 860.013pt>
+<figuras/prints/fig_ns2d_cavity_re100.png, id=203, 587.5551pt x 860.013pt>
 File: figuras/prints/fig_ns2d_cavity_re100.png Graphic file (type png)
 <use figuras/prints/fig_ns2d_cavity_re100.png>
 Package pdftex.def Info: figuras/prints/fig_ns2d_cavity_re100.png  used on inpu
@@ -929,7 +932,7 @@ t line 338.
 
 
 [34]
-<figuras/prints/fig_ns2d_cylinder.png, id=204, 586.8324pt x 860.013pt>
+<figuras/prints/fig_ns2d_cylinder.png, id=207, 586.8324pt x 860.013pt>
 File: figuras/prints/fig_ns2d_cylinder.png Graphic file (type png)
 <use figuras/prints/fig_ns2d_cylinder.png>
 Package pdftex.def Info: figuras/prints/fig_ns2d_cylinder.png  used on input li
@@ -958,7 +961,7 @@ i-vas de com-para^^Xc~ao en-tre re-sul-tado num^^Serico
 [39]
 
 [40]
-<figuras/prints/fig_val_conducao1d_resultado.png, id=226, 570.933pt x 354.123pt
+<figuras/prints/fig_val_conducao1d_resultado.png, id=229, 570.933pt x 354.123pt
 >
 File: figuras/prints/fig_val_conducao1d_resultado.png Graphic file (type png)
 <use figuras/prints/fig_val_conducao1d_resultado.png>
@@ -968,91 +971,162 @@ on input line 93.
 
 
 [41 <./figuras/prints/fig_val_conducao1d_resultado.png>]
-Overfull \hbox (18.00232pt too wide) in paragraph at lines 140--140
+
+[42]
+Overfull \hbox (23.24652pt too wide) in paragraph at lines 168--169
+[]\OT1/cmr/m/n/12 No li-mite $\OML/cmm/m/it/12 t \OMS/cmsy/m/n/12 ! 1$\OT1/cmr/
+m/n/12 , o termo tran-si-ente se anula e a solu^^Xc~ao sa-tis-faz $[](\OML/cmm/
+m/it/12 k\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x\OT1/cmr/m/n/12 ) \OML/cmm/m/it/12 
+dT=dx\OT1/cmr/m/n/12 ) =
+ []
+
+
+
+[43]
+<figuras/prints/fig_val_calor_transiente1d_evolucao.png, id=241, 593.5776pt x 4
+26.393pt>
+File: figuras/prints/fig_val_calor_transiente1d_evolucao.png Graphic file (type
+ png)
+<use figuras/prints/fig_val_calor_transiente1d_evolucao.png>
+Package pdftex.def Info: figuras/prints/fig_val_calor_transiente1d_evolucao.png
+  used on input line 197.
+(pdftex.def)             Requested size: 384.10959pt x 275.92899pt.
+
+
+[44 <./figuras/prints/fig_val_calor_transiente1d_evolucao.png>]
+Overfull \hbox (18.00232pt too wide) in paragraph at lines 219--219
 []\OT1/cmr/bx/n/17.28 Convec^^Xc~ao-Difus~ao 1D com Es-ta-bi-liza^^Xc~ao SUPG 
  []
 
 
 
-[42]
-<figuras/prints/fig_val_ns_ghia_uy.png, id=235, 498.1812pt x 426.393pt>
-File: figuras/prints/fig_val_ns_ghia_uy.png Graphic file (type png)
-<use figuras/prints/fig_val_ns_ghia_uy.png>
-Package pdftex.def Info: figuras/prints/fig_val_ns_ghia_uy.png  used on input l
-ine 296.
-(pdftex.def)             Requested size: 320.09349pt x 273.97713pt.
-)
+[45]
 
-[43]
+[46]
+<figuras/prints/fig_val_convdif1d_supg.png, id=254, 1005.0348pt x 371.9496pt>
+File: figuras/prints/fig_val_convdif1d_supg.png Graphic file (type png)
+<use figuras/prints/fig_val_convdif1d_supg.png>
+Package pdftex.def Info: figuras/prints/fig_val_convdif1d_supg.png  used on inp
+ut line 289.
+(pdftex.def)             Requested size: 405.45045pt x 150.04851pt.
 
-[44 <./figuras/prints/fig_val_ns_ghia_uy.png>]
-Cap\'{\i }tulo 6.
-(./conclusao.tex)
-
-[45
-
-] (./Principal.bbl
-
-[46
-
-
-]
 
 [47]
 
-[48]
+[48 <./figuras/prints/fig_val_convdif1d_supg.png>]
 
 [49]
+<figuras/prints/fig_val_viga1d_resultado.png, id=265, 581.0508pt x 714.9912pt>
+File: figuras/prints/fig_val_viga1d_resultado.png Graphic file (type png)
+<use figuras/prints/fig_val_viga1d_resultado.png>
+Package pdftex.def Info: figuras/prints/fig_val_viga1d_resultado.png  used on i
+nput line 369.
+(pdftex.def)             Requested size: 320.09349pt x 393.89006pt.
 
-[50])
 
-[51]
-Ap\^endice A.
-(./apendice_modulos_1d.tex
-(../simulations/mef/conducao-permanente-barra1d-mef/simulation.py
+[50]
 
-[52
+[51 <./figuras/prints/fig_val_viga1d_resultado.png>]
 
-]
+[52]
+<figuras/prints/fig_val_vibracao1d_modos.png, id=277, 715.473pt x 870.6126pt>
+File: figuras/prints/fig_val_vibracao1d_modos.png Graphic file (type png)
+<use figuras/prints/fig_val_vibracao1d_modos.png>
+Package pdftex.def Info: figuras/prints/fig_val_vibracao1d_modos.png  used on i
+nput line 450.
+(pdftex.def)             Requested size: 320.09349pt x 389.5004pt.
+
 
 [53]
 
-[54]) (../simulations/mef/calor-transiente-1d/simulation.py
-
-[55]
-Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
-[][][][][][] 
+[54 <./figuras/prints/fig_val_vibracao1d_modos.png>]
+Overfull \hbox (9.82887pt too wide) in paragraph at lines 478--479
+\OT1/cmr/m/n/12 cen-trada ^^Se a ma-triz de massa con-sis-tente (tri-di-a-go-na
+l), ob-tida in-te-grando $[] \OML/cmm/m/it/12 N[]N[] ^^ZA dx$
  []
 
 
 
-[56]
+[55]
 
-[57]
+[56]
+<figuras/prints/fig_val_transcalor2d_campo.png, id=291, 824.3598pt x 370.5042pt
+>
+File: figuras/prints/fig_val_transcalor2d_campo.png Graphic file (type png)
+<use figuras/prints/fig_val_transcalor2d_campo.png>
+Package pdftex.def Info: figuras/prints/fig_val_transcalor2d_campo.png  used on
+ input line 557.
+(pdftex.def)             Requested size: 405.45045pt x 182.22705pt.
+
+
+[57 <./figuras/prints/fig_val_transcalor2d_campo.png>]
 
 [58]
+Overfull \hbox (12.7887pt too wide) in paragraph at lines 597--598
+[]\OT1/cmr/bx/n/12 superf^^S^^Pcie do ci-lin-dro\OT1/cmr/m/n/12 : $\OML/cmm/m/i
+t/12  $ \OT1/cmr/m/n/12 cons-tante (pa-rede des-li-zante, corpo n~ao-atravess^^
+Savel). 
+ []
+
+
 
 [59]
+<figuras/prints/fig_val_potencial2d_linhas.png, id=303, 850.8588pt x 424.9476pt
+>
+File: figuras/prints/fig_val_potencial2d_linhas.png Graphic file (type png)
+<use figuras/prints/fig_val_potencial2d_linhas.png>
+Package pdftex.def Info: figuras/prints/fig_val_potencial2d_linhas.png  used on
+ input line 639.
+(pdftex.def)             Requested size: 405.45045pt x 202.49413pt.
 
-[60]
+
+[60 <./figuras/prints/fig_val_potencial2d_linhas.png>]
+Overfull \hbox (12.31972pt too wide) in paragraph at lines 674--675
+ \OT1/cmr/bx/n/12 Nota so-bre o pa-ra-doxo de d'Alembert.[] \OT1/cmr/m/n/12 A i
+n-te-gra^^Xc~ao num^^Serica de $[] \OML/cmm/m/it/12 C[]\OT1/cmr/m/n/12 (\OML/cm
+m/m/it/12 ^^R\OT1/cmr/m/n/12 ) [] \OML/cmm/m/it/12 ^^R d`$
+ []
+
+
 
 [61]
 
-[62])
+[62]
 
-[63] (../simulations/mef/conveccao-difusao-1d/simulation.py
+[63]
+<figuras/prints/fig_val_ns2d_cavity_re100.png, id=318, 526.6074pt x 1064.778pt>
+
+File: figuras/prints/fig_val_ns2d_cavity_re100.png Graphic file (type png)
+<use figuras/prints/fig_val_ns2d_cavity_re100.png>
+Package pdftex.def Info: figuras/prints/fig_val_ns2d_cavity_re100.png  used on 
+input line 734.
+(pdftex.def)             Requested size: 271.11343pt x 548.16986pt.
+<figuras/prints/fig_val_ns_ghia_uy.png, id=319, 498.1812pt x 426.393pt>
+File: figuras/prints/fig_val_ns_ghia_uy.png Graphic file (type png)
+<use figuras/prints/fig_val_ns_ghia_uy.png>
+Package pdftex.def Info: figuras/prints/fig_val_ns_ghia_uy.png  used on input l
+ine 741.
+(pdftex.def)             Requested size: 320.09349pt x 273.97713pt.
+)
 
 [64]
 
-[65]
+[65 <./figuras/prints/fig_val_ns2d_cavity_re100.png>]
 
-[66]
+[66 <./figuras/prints/fig_val_ns_ghia_uy.png>]
 
 [67]
+Cap\'{\i }tulo 6.
+(./conclusao.tex)
 
-[68]
+[68
 
-[69]) (../simulations/mef/viga-1d-mef/simulation.py
+] (./Principal.bbl
+
+[69
+
+
+]
 
 [70]
 
@@ -1060,33 +1134,43 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [72]
 
-[73]
+[73])
 
 [74]
+Ap\^endice A.
+(./apendice_modulos_1d.tex
+(../simulations/mef/conducao-permanente-barra1d-mef/simulation.py
 
-[75]
+[75
+
+]
 
 [76]
 
-[77]
+[77]) (../simulations/mef/calor-transiente-1d/simulation.py
 
 [78]
+Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
+[][][][][][] 
+ []
+
+
 
 [79]
 
 [80]
 
-[81])
+[81]
 
-[82] (../simulations/mef/vibracao-1d-mef/simulation.py
+[82]
 
 [83]
 
 [84]
 
-[85]
+[85])
 
-[86]
+[86] (../simulations/mef/conveccao-difusao-1d/simulation.py
 
 [87]
 
@@ -1098,31 +1182,21 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [91]
 
-[92]))
+[92]) (../simulations/mef/viga-1d-mef/simulation.py
 
 [93]
-Ap\^endice B.
-(./apendice_modulos_2d.tex (../simulations/mef/escoamento-fluido-2d/common.py
 
-[94
-
-]
+[94]
 
 [95]
 
-[96])
-Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
-[]\OT1/cmr/bx/n/17.28 M^^Sodulo Com-par-ti-lhado: Ge-o-me-trias de Obst^^Saculo
- 
- []
+[96]
 
-
-
-[97] (../simulations/mef/escoamento-fluido-2d/geometry.py
+[97]
 
 [98]
 
-[99]) (../simulations/mef/transcalor/simulation.py
+[99]
 
 [100]
 
@@ -1130,12 +1204,11 @@ Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 
 [102]
 
-[103])
+[103]
 
-[104]
-(../simulations/mef/escoamento-fluido-2d/escoamento-potencial/simulation.py
+[104])
 
-[105]
+[105] (../simulations/mef/vibracao-1d-mef/simulation.py
 
 [106]
 
@@ -1153,23 +1226,33 @@ Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 
 [113]
 
-[114]) (../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py
+[114]
 
-[115]
+[115]))
 
 [116]
+Ap\^endice B.
+(./apendice_modulos_2d.tex (../simulations/mef/escoamento-fluido-2d/common.py
 
-[117]
+[117
+
+]
 
 [118]
 
-[119]
+[119])
+Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
+[]\OT1/cmr/bx/n/17.28 M^^Sodulo Com-par-ti-lhado: Ge-o-me-trias de Obst^^Saculo
+ 
+ []
 
-[120]
+
+
+[120] (../simulations/mef/escoamento-fluido-2d/geometry.py
 
 [121]
 
-[122]
+[122]) (../simulations/mef/transcalor/simulation.py
 
 [123]
 
@@ -1177,22 +1260,69 @@ Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 
 [125]
 
-[126]))
+[126])
 
-[127] (./Principal.aux)
+[127]
+(../simulations/mef/escoamento-fluido-2d/escoamento-potencial/simulation.py
+
+[128]
+
+[129]
+
+[130]
+
+[131]
+
+[132]
+
+[133]
+
+[134]
+
+[135]
+
+[136]
+
+[137]) (../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py
+
+[138]
+
+[139]
+
+[140]
+
+[141]
+
+[142]
+
+[143]
+
+[144]
+
+[145]
+
+[146]
+
+[147]
+
+[148]
+
+[149]))
+
+[150] (./Principal.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15852 strings out of 473190
- 272518 string characters out of 5715799
+ 15948 strings out of 473190
+ 276113 string characters out of 5715799
  1245896 words of memory out of 5000000
- 38790 multiletter control sequences out of 15000+600000
- 575033 words of font info for 97 fonts, out of 8000000 for 9000
+ 38884 multiletter control sequences out of 15000+600000
+ 575710 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 80i,11n,98p,1256b,1834s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 80i,14n,98p,1256b,1834s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb>
@@ -1216,13 +1346,14 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2025/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-
 dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2025/texmf-d
-ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/tex
-mf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Principal.pdf (142 pages, 9909005 bytes).
+ist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025
+/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/t
+exmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
+Output written on Principal.pdf (166 pages, 11238361 bytes).
 PDF statistics:
- 625 PDF objects out of 1000 (max. 8388607)
- 396 compressed objects within 4 object streams
+ 722 PDF objects out of 1000 (max. 8388607)
+ 452 compressed objects within 5 object streams
  0 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 106 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -6,6 +6,15 @@
 \contentsline {table}{\numberline {4.1}{\ignorespaces Comparação entre plataformas de simulação numérica para ensino.}}{23}{}%
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {5.1}{\ignorespaces Parâmetros da simulação de condução permanente 1D.}}{40}{}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Parâmetros da simulação de condução transiente 1D com $k(x)$ variável.}}{43}{}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Parâmetros da simulação de convecção-difusão 1D. Dois regimes de $\mathrm {Pe}_e$ são apresentados.}}{46}{}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Parâmetros da simulação de flexão de viga 1D.}}{49}{}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Parâmetros da simulação de vibração axial 1D (barra de aço bi-engastada).}}{53}{}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Frequências naturais: MEF vs.\ analítica para barra bi-engastada.}}{54}{}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Parâmetros da simulação de transferência de calor transiente 2D.}}{56}{}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Parâmetros da simulação de escoamento potencial 2D em torno de cilindro.}}{59}{}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces Coeficiente de pressão $C_p$ na superfície do cilindro: MEF vs.\ teoria potencial.}}{61}{}%
+\contentsline {table}{\numberline {5.10}{\ignorespaces Parâmetros da simulação de Navier-Stokes 2D --- cavidade com tampa móvel.}}{63}{}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

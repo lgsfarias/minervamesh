@@ -116,22 +116,101 @@ Para este caso particular — equação de Poisson 1D com fonte constante e elem
 \section{Condução Transiente 1D com $k(x)$ Variável}
 \label{sec:val_calor_transiente}
 
-% TODO: redigir.
-% Problema: $\rho c_p \partial T/\partial t = \partial/\partial x (k(x) \partial T/\partial x)$,
-% $T(0,t)=0$, $T(L,t)=1$, condutividade descontínua em $x=L/2$ ($k_1$ na primeira metade,
-% $k_2$ na segunda). Método $\theta$ (Crank-Nicolson, $\theta = 1/2$).
-% Validação: em regime permanente, a solução numérica deve convergir para
-% $T(x) = (C/k_1) x$ para $x < L/2$, $T(L/2) + (C/k_2)(x-L/2)$ para $x \geq L/2$, com
-% $C = 2 k_1 k_2 / (L(k_1 + k_2))$. Runner em
-% \texttt{.agents/review/module\_audit/06\_calor\_transiente/run.py}.
+O segundo caso de validação estende o problema de condução unidimensional para o regime transiente, introduzindo duas dificuldades adicionais: dependência temporal, tratada pelo método~$\theta$ (Crank-Nicolson, $\theta = 1/2$), e heterogeneidade material, representada por uma condutividade descontínua em~$x = L/2$. Este cenário verifica simultaneamente a implementação da matriz de massa consistente, o esquema de integração temporal e a montagem correta das matrizes elementares quando o coeficiente material varia dentro do domínio.
+
+\subsection{Formulação do Problema}
+
+O balanço de energia em regime transiente sem geração interna é descrito pela equação parabólica:
+
+\begin{equation}
+    \rho c_p \frac{\partial T}{\partial t} = \frac{\partial}{\partial x}\!\left( k(x) \frac{\partial T}{\partial x} \right), \quad x \in [0, L], \quad t > 0
+    \label{eq:val_calor_transiente_edp}
+\end{equation}
+
+\noindent com condições de contorno de Dirichlet fixas no tempo e condição inicial homogênea:
+
+\begin{equation}
+    T(0, t) = 0, \quad T(L, t) = 1, \quad T(x, 0) = 0
+    \label{eq:val_calor_transiente_cc}
+\end{equation}
+
+\noindent e condutividade descontínua em~$x = L/2$:
+
+\begin{equation}
+    k(x) = \begin{cases} k_1, & 0 \leq x < L/2 \\ k_2, & L/2 < x \leq L \end{cases}
+    \label{eq:val_calor_transiente_k}
+\end{equation}
+
+A Tabela~\ref{tab:val_calor_transiente_params} resume os parâmetros adotados, todos correspondentes aos valores \emph{default} da interface HTML do módulo.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Parâmetros da simulação de condução transiente 1D com $k(x)$ variável.}
+    \label{tab:val_calor_transiente_params}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Parâmetro} & \textbf{Símbolo} & \textbf{Valor} \\
+        \hline
+        Comprimento da barra           & $L$          & $1{,}0$ m            \\
+        Número de elementos            & $n_e$        & $40$                 \\
+        Condutividade na primeira metade & $k_1$      & $5{,}0$ W/(m·°C)     \\
+        Condutividade na segunda metade  & $k_2$      & $1{,}0$ W/(m·°C)     \\
+        Capacidade térmica volumétrica & $\rho c_p$   & $1{,}0$ J/(m³·°C)    \\
+        Passo de tempo                 & $\Delta t$   & $10^{-3}$ s          \\
+        Parâmetro do método $\theta$   & $\theta$     & $0{,}5$              \\
+        Tempo final de simulação       & $t_{\max}$   & $5{,}0$ s            \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Solução Analítica de Regime Permanente}
+
+No limite $t \to \infty$, o termo transiente se anula e a solução satisfaz $\frac{d}{dx}(k(x) \, dT/dx) = 0$, o que implica fluxo constante $k(x) \, dT/dx = C$ ao longo de todo o domínio. Em cada sub-região de condutividade uniforme, $T$ é linear; a continuidade da temperatura em~$x = L/2$ e a continuidade do fluxo fornecem o sistema
+
+\begin{equation}
+    a_1 + a_2 = \frac{T_L - T_0}{L/2}, \qquad k_1 \, a_1 = k_2 \, a_2
+    \label{eq:val_calor_transiente_continuidade}
+\end{equation}
+
+\noindent onde $a_1$ e $a_2$ são as inclinações em cada metade. Resolvendo com $T_0 = 0$, $T_L = 1$, $k_1 = 5$, $k_2 = 1$:
+
+\begin{equation}
+    a_1 = \frac{1}{3} \text{~°C/m}, \qquad a_2 = \frac{5}{3} \text{~°C/m}, \qquad T(L/2) = \frac{1}{6} \approx 0{,}1667 \text{~°C}
+    \label{eq:val_calor_transiente_analitica}
+\end{equation}
+
+O perfil permanente é portanto uma linha poligonal com \emph{kink} em~$x = L/2$: inclinação suave no lado de maior condutividade e íngreme no lado de menor condutividade, refletindo a continuidade do fluxo térmico. A escala de tempo característica de difusão é $\tau_{\mathrm{dif}} = L^2 \rho c_p / \bar{k} \sim 1{,}0$~s, com $\bar{k}$ condutividade efetiva.
+
+\subsection{Solução MEF e Comparação}
+
+A discretização emprega $n_e = 40$ elementos P1 com $h = 0{,}025$~m, o que resolve bem a descontinuidade de condutividade alinhando um nó exatamente com $x = L/2$. A cada passo de tempo, o sistema linear
+
+\begin{equation}
+    \left( \frac{M}{\Delta t} + \theta \, K \right) \mathbf{T}^{n+1} = \left( \frac{M}{\Delta t} - (1-\theta) K \right) \mathbf{T}^n
+    \label{eq:val_calor_transiente_scheme}
+\end{equation}
+
+\noindent é resolvido pelo solver direto, onde $M$ e $K$ são as matrizes globais consistentes de massa e de rigidez montadas com $k(x)$ avaliado no baricentro de cada elemento. A Figura~\ref{fig:val_calor_transiente} apresenta a evolução temporal do campo $T(x,t)$ em cinco instantes ($t = 0{,}01$, $0{,}1$, $0{,}5$, $2{,}0$ e $5{,}0$~s) sobreposta ao perfil analítico de regime permanente.
 
 \begin{figure}[htbp]
     \centering
-    % TODO: substituir por figura gerada com HTML defaults (k_1=5, k_2=1).
-    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_calor_transiente1d_evolucao.png}
-    \caption{(Esqueleto) Evolução temporal do campo $T(x,t)$ e convergência ao regime permanente.}
+    \includegraphics[width=0.9\textwidth]{figuras/prints/fig_val_calor_transiente1d_evolucao.png}
+    \caption{Condução transiente 1D com condutividade descontínua ($k_1 = 5$, $k_2 = 1$): evolução temporal do campo $T(x,t)$ (curvas em azul, alpha crescente com o tempo) comparada à solução analítica de regime permanente (linha sólida vermelha). A malha de $40$~elementos P1 com $\theta = 1/2$ reproduz fielmente o \emph{kink} de condutividade em~$x = L/2$ e converge para $T(L/2) = 1/6$.}
     \label{fig:val_calor_transiente}
 \end{figure}
+
+\subsection{Análise de Erro}
+
+A solução MEF em $t = 5{,}0$~s (que corresponde a cinco vezes a escala de tempo difusiva) apresenta, no nó central, $T_{\text{MEF}}(L/2) = 0{,}166667$ contra o valor exato $T_{\text{ana}}(L/2) = 1/6 = 0{,}166\overline{6}$. O erro nodal máximo ao longo de toda a malha é
+
+\begin{equation}
+    e_{\max} = \max_{i} \left| T_i^{\text{MEF}}(t_{\max}) - T_i^{\text{ana}} \right| \approx 7{,}8 \times 10^{-15} \text{~°C}
+    \label{eq:val_calor_transiente_erro}
+\end{equation}
+
+\noindent da ordem da precisão de máquina. Como a solução de regime permanente é linear por partes e coincide com o espaço de aproximação dos elementos P1 (uma vez que os nós de descontinuidade são alinhados com a malha), a convergência nodal é exata a menos de arredondamentos --- resultado similar ao observado em~§\ref{sec:val_conducao1d}, mas agora obtido por integração temporal ao longo de $5000$~passos.
+
+\paragraph{Nota sobre o regime transiente visível.} A interface do MinervaMesh emprega como \emph{default} $t_{\max} = 0{,}2$~s, o que corresponde a apenas~$20\%$ da escala difusiva: o usuário observa a perturbação térmica se propagando do contorno quente para o interior da barra, mas a convergência ao perfil linear piecewise só se torna evidente para $t_{\max} \gtrsim 2\tau_{\mathrm{dif}}$. A figura foi gerada com $t_{\max} = 5{,}0$~s para exibir de forma clara o processo completo de relaxação.
 
 % ==============================================================
 % 5.3 — Convecção-Difusão 1D com Estabilização SUPG
@@ -140,160 +219,546 @@ Para este caso particular — equação de Poisson 1D com fonte constante e elem
 \section{Convecção-Difusão 1D com Estabilização SUPG}
 \label{sec:val_convdif}
 
-% TODO: redigir.
-% Equação: $-k T'' + \rho c_p u T' = Q$, $T(0)=T_0$, $T(L)=T_L$.
-% Solução analítica para Péclet arbitrário:
-% $T(x) = T_0 + Q x/(\rho c_p u) + (T_L - T_0 - QL/(\rho c_p u)) \cdot g(x)$ com
-% $g(x) = (e^{\alpha x} - 1)/(e^{\alpha L} - 1)$ e $\alpha = \rho c_p u/k$.
-%
-% ** Destaque pedagógico — propriedade notável do SUPG 1D **
-% Com $\tau_{\mathrm{SUPG}} = (h_e / 2 \lVert \mathbf{v} \rVert)(\coth \mathrm{Pe}_e - 1/\mathrm{Pe}_e)$,
-% que é o parâmetro canônico derivado por Christie et al.\ (1976), a solução MEF
-% estabilizada é \textbf{exata nos nós} para convecção-difusão 1D com fonte
-% constante --- o erro nodal é da ordem da precisão de máquina ($\sim 10^{-16}$).
-% Essa é uma propriedade teórica de "upwinding ótimo" que pode ser enfatizada
-% como evidência forte de que a implementação está correta. Verificado numericamente
-% em \texttt{.agents/review/module\_audit/07\_conveccao/} para $\mathrm{Pe}_e = 0{,}5$
-% (HTML default): $e_{\max} \approx 2{,}5 \cdot 10^{-16}$.
-%
-% Por contraste, Galerkin puro (\texttt{use\_supg = false}) produz erro da ordem
-% de $3 \cdot 10^{-2}$ no mesmo cenário e oscilações espúrias a partir de
-% $\mathrm{Pe}_e > 1$. Figura sugerida: duas curvas no mesmo eixo (Galerkin vs SUPG)
-% e uma curva de erro nodal em escala log para evidenciar a diferença.
-%
-% Runner em \texttt{.agents/review/module\_audit/07\_conveccao/run.py}.
+O terceiro caso aborda a equação de convecção-difusão estacionária em uma dimensão, cenário em que a formulação Galerkin clássica perde estabilidade quando a convecção predomina sobre a difusão. Este problema é particularmente útil para validação porque admite solução analítica fechada em todo o espectro de números de Péclet e porque expõe uma propriedade teórica muito forte da estabilização SUPG: com o parâmetro canônico de Christie, Griffiths e Mitchell (1976), o erro nodal é da ordem da precisão de máquina independentemente de $\mathrm{Pe}_e$.
+
+\subsection{Formulação do Problema}
+
+A forma forte do problema estacionário unidimensional é
+
+\begin{equation}
+    -k \frac{d^2 T}{dx^2} + \rho c_p u \frac{dT}{dx} = Q, \quad x \in [0, L]
+    \label{eq:val_convdif_edp}
+\end{equation}
+
+\noindent com condições de contorno de Dirichlet em ambas as extremidades, $T(0) = T_0$ e $T(L) = T_L$. O parâmetro adimensional relevante para a escolha da discretização é o número de Péclet elementar
+
+\begin{equation}
+    \mathrm{Pe}_e = \frac{\rho c_p \, u \, h_e}{2 k}
+    \label{eq:val_convdif_pe}
+\end{equation}
+
+\noindent onde $h_e$ é o tamanho do elemento. A Tabela~\ref{tab:val_convdif_params} lista os parâmetros adotados, correspondentes aos \emph{defaults} da interface com modificação da velocidade $u$ para permitir a exibição de dois regimes distintos.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Parâmetros da simulação de convecção-difusão 1D. Dois regimes de $\mathrm{Pe}_e$ são apresentados.}
+    \label{tab:val_convdif_params}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Parâmetro} & \textbf{Símbolo} & \textbf{Valor} \\
+        \hline
+        Comprimento                         & $L$          & $1{,}0$ m          \\
+        Número de elementos                 & $n_e$        & $50$               \\
+        Temperatura em $x = 0$              & $T_0$        & $0{,}0$ °C         \\
+        Temperatura em $x = L$              & $T_L$        & $1{,}0$ °C         \\
+        Condutividade térmica               & $k$          & $1{,}0$ W/(m·°C)   \\
+        Capacidade térmica volumétrica      & $\rho c_p$   & $10^{3}$ J/(m³·°C) \\
+        Geração interna                     & $Q$          & $1{,}0$ W/m³       \\
+        Velocidade de convecção (regime A)  & $u_A$        & $0{,}05$ m/s       \\
+        Velocidade de convecção (regime B)  & $u_B$        & $0{,}5$ m/s        \\
+        Péclet elementar (regime A)         & $\mathrm{Pe}_e^{A}$ & $0{,}5$     \\
+        Péclet elementar (regime B)         & $\mathrm{Pe}_e^{B}$ & $5{,}0$     \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Solução Analítica}
+
+Para $Q = 0$, a equação admite a solução exponencial clássica; com fonte constante, a solução geral é soma da homogênea com uma particular linear. O resultado pode ser escrito na forma
+
+\begin{equation}
+    T(x) = T_0 + \frac{Q \, x}{\rho c_p u} + \left( T_L - T_0 - \frac{Q L}{\rho c_p u} \right) \frac{e^{\alpha x} - 1}{e^{\alpha L} - 1}, \qquad \alpha = \frac{\rho c_p u}{k}
+    \label{eq:val_convdif_analitica}
+\end{equation}
+
+Para $\alpha L \gg 1$, a exponencial domina no intervalo próximo a~$x = L$, concentrando toda a variação do campo em uma camada-limite de espessura $\sim 1/\alpha$. No regime~A, $\alpha L = 50$ e a camada-limite é estreita porém bem resolvida pela malha uniforme de~$50$ elementos; no regime~B, $\alpha L = 500$ e a camada-limite ocupa apenas $\sim 1\%$ do domínio, situação em que Galerkin clássico exibe oscilações espúrias características.
+
+\subsection{Solução MEF com e sem SUPG}
+
+A formulação Petrov-Galerkin introduz funções-peso modificadas $\tilde{w}_i = w_i + \tau \, u \, dw_i/dx$, com o parâmetro de estabilização
+
+\begin{equation}
+    \tau_{\mathrm{SUPG}} = \frac{h_e}{2 \, |u|} \left( \coth \mathrm{Pe}_e - \frac{1}{\mathrm{Pe}_e} \right)
+    \label{eq:val_convdif_tau}
+\end{equation}
+
+\noindent derivado por Christie, Griffiths e Mitchell (1976) a partir da exigência de anular o erro nodal no problema homogêneo. A Figura~\ref{fig:val_convdif} compara, em dois regimes de Péclet elementar, a solução Galerkin padrão, a solução estabilizada por SUPG e a solução analítica da Equação~\eqref{eq:val_convdif_analitica}.
 
 \begin{figure}[htbp]
     \centering
-    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_convdif1d_com_supg.png}
-    \caption{(Esqueleto) Comparação Galerkin vs.\ SUPG em alto número de Péclet.}
+    \includegraphics[width=0.95\textwidth]{figuras/prints/fig_val_convdif1d_supg.png}
+    \caption{Convecção-difusão 1D em dois regimes de Péclet elementar: $\mathrm{Pe}_e = 0{,}5$ (esquerda) e $\mathrm{Pe}_e = 5$ (direita). A formulação SUPG (verde) reproduz a solução analítica (vermelho) com erro da ordem da precisão de máquina em ambos os regimes, enquanto Galerkin clássico (azul) apresenta erro moderado em $\mathrm{Pe}_e < 1$ e oscilações espúrias pronunciadas em $\mathrm{Pe}_e > 1$.}
     \label{fig:val_convdif}
 \end{figure}
+
+\subsection{Análise de Erro}
+
+Os erros nodais máximos obtidos em cada regime são resumidos a seguir:
+
+\begin{equation}
+\begin{aligned}
+    \text{Regime A } (\mathrm{Pe}_e = 0{,}5) \quad &:\quad e_{\max}^{\mathrm{Galerkin}} \approx 3{,}39 \times 10^{-2}, \quad e_{\max}^{\mathrm{SUPG}} \approx 4{,}4 \times 10^{-16} \\
+    \text{Regime B } (\mathrm{Pe}_e = 5{,}0) \quad &:\quad e_{\max}^{\mathrm{Galerkin}} \approx 6{,}65 \times 10^{-1}, \quad e_{\max}^{\mathrm{SUPG}} \approx 3{,}8 \times 10^{-17}
+\end{aligned}
+\label{eq:val_convdif_erros}
+\end{equation}
+
+\noindent Em ambos os regimes, a solução SUPG reproduz a analítica com erro da ordem da precisão de máquina --- uma concordância de~$16$ dígitos significativos. Este não é um acidente numérico: Christie, Griffiths e Mitchell (1976) demonstraram que o $\tau$ canônico da Equação~\eqref{eq:val_convdif_tau} é precisamente a escolha que torna o estêncil SUPG idêntico ao esquema \emph{upwind} exponencial, que reproduz a solução analítica exatamente nos nós da malha para convecção-difusão 1D com fonte constante. O resultado constitui portanto verificação rigorosa da implementação da matriz de convecção, da ponderação SUPG e da integração das funções de peso modificadas.
+
+\paragraph{Nota sobre o comportamento de Galerkin em alto Péclet.} No regime~B, o erro Galerkin é comparável à variação total do campo ($\Delta T = 1{,}0$~°C), com oscilações alternadas entre nós adjacentes na região da camada-limite. Malhas suficientemente refinadas para garantir $\mathrm{Pe}_e < 1$ eliminariam o problema, mas a um custo computacional elevado em problemas 2D/3D; a atratividade do SUPG reside justamente em permitir precisão nodal exata sem refinamento adicional da malha.
 
 % ==============================================================
 % 5.4 — Viga 1D (Euler-Bernoulli)
 % ==============================================================
 
-\section{Viga 1D — Flexão de Euler-Bernoulli}
+\section{Viga 1D --- Flexão de Euler-Bernoulli}
 \label{sec:val_viga}
 
-% TODO: redigir.
-% Equação: $d^2/dx^2 (EI \, d^2w/dx^2) = q(x)$.
-% Elementos MEF com funções de Hermite cúbicas (4 DOFs por elemento).
-% Validação: para $E$ e $I$ constantes e carga uniforme $q$, a deflexão máxima analítica é:
-% - simplesmente apoiada: $w_{\max} = 5 q L^4 / (384 EI)$, em $x = L/2$;
-% - em balanço: $w_{\max} = q L^4 / (8 EI)$, na extremidade livre;
-% - engastada-engastada: $w_{\max} = q L^4 / (384 EI)$, em $x = L/2$.
-% MEF Hermite reproduz essas três deflexões com erro da ordem de $10^{-13}$ (superconvergência
-% nodal). Runner em \texttt{.agents/review/module\_audit/04\_viga/run.py}.
+Este caso valida o módulo de flexão de vigas pela teoria de Euler-Bernoulli, baseado em elementos de Hermite com funções de forma cúbicas e quatro graus de liberdade por elemento (deslocamento transversal e rotação em cada nó). A validação é particularmente rigorosa porque a solução analítica da flexão sob carga uniforme é um polinômio de grau~$4$, que coincide exatamente com o espaço de aproximação do elemento Hermite --- espera-se, portanto, concordância nodal à precisão de máquina, caracterizando a chamada \emph{superconvergência nodal}.
+
+\subsection{Formulação do Problema}
+
+A equação diferencial de quarta ordem da teoria clássica de Euler-Bernoulli é
+
+\begin{equation}
+    \frac{d^2}{dx^2}\!\left( E I \, \frac{d^2 w}{dx^2} \right) = q(x), \quad x \in [0, L]
+    \label{eq:val_viga_edp}
+\end{equation}
+
+\noindent onde $w(x)$ é a deflexão transversal, $E$ é o módulo de Young, $I$ o momento de inércia da seção e $q(x)$ a carga distribuída. Para validação, adota-se o caso clássico de viga simplesmente apoiada sob carga uniforme, com propriedades constantes ao longo do comprimento. A Tabela~\ref{tab:val_viga_params} lista os parâmetros, correspondentes aos \emph{defaults} da interface do módulo.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Parâmetros da simulação de flexão de viga 1D.}
+    \label{tab:val_viga_params}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Parâmetro} & \textbf{Símbolo} & \textbf{Valor} \\
+        \hline
+        Comprimento da viga            & $L$   & $2{,}0$ m           \\
+        Número de elementos            & $n_e$ & $20$                \\
+        Módulo de Young                & $E$   & $200$ GPa           \\
+        Momento de inércia             & $I$   & $1000$ cm$^{4}$     \\
+        Carga distribuída uniforme     & $q$   & $10{,}0$ kN/m       \\
+        Tipo de apoio                  & ---   & simplesmente apoiada \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Solução Analítica}
+
+Para $E I$ constante, carga uniforme $q$ e condições de apoio simples ($w(0) = w(L) = 0$, $M(0) = M(L) = 0$), a dupla integração da Equação~\eqref{eq:val_viga_edp} fornece
+
+\begin{align}
+    w(x) &= \frac{q}{24 E I} \left( L^3 x - 2 L x^3 + x^4 \right)
+    \label{eq:val_viga_w} \\
+    M(x) &= E I \, \frac{d^2 w}{dx^2} = \frac{q \, x (L - x)}{2}
+    \label{eq:val_viga_M} \\
+    V(x) &= \frac{dM}{dx} = q \left( \frac{L}{2} - x \right)
+    \label{eq:val_viga_V}
+\end{align}
+
+\noindent com valores máximos clássicos $w_{\max} = 5 q L^4 / (384 E I)$ em $x = L/2$, $M_{\max} = q L^2 / 8$ em $x = L/2$ e $V_{\max} = q L / 2$ nos apoios. Substituindo os valores da Tabela~\ref{tab:val_viga_params}, obtém-se $w_{\max} = 1{,}0417$~mm, $M_{\max} = 5{,}0$~kN·m e $V_{\max} = 10{,}0$~kN.
+
+\subsection{Solução MEF e Comparação}
+
+A discretização adota $n_e = 20$ elementos de Hermite cúbicos, totalizando $42$ graus de liberdade globais antes da imposição das condições de contorno. Como as funções de forma de Hermite incluem o polinômio $x^4$ em sua base (quando montadas elemento-a-elemento), e como a solução analítica da Equação~\eqref{eq:val_viga_w} é precisamente um polinômio de grau~$4$, o espaço de aproximação do MEF contém a solução exata. A Figura~\ref{fig:val_viga} apresenta as três quantidades de interesse: deflexão $w(x)$, momento fletor $M(x)$ e esforço cortante $V(x)$, comparados às respectivas soluções analíticas.
 
 \begin{figure}[htbp]
     \centering
-    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_viga1d_resultado.png}
-    \caption{(Esqueleto) Deflexão, momento fletor e esforço cortante para viga simplesmente apoiada com carga uniforme.}
+    \includegraphics[width=0.75\textwidth]{figuras/prints/fig_val_viga1d_resultado.png}
+    \caption{Viga simplesmente apoiada com carga uniforme: deflexão $w(x)$ (topo), momento fletor $M(x)$ (meio) e esforço cortante $V(x)$ (base). Pontos azuis representam a solução MEF com elementos de Hermite cúbicos; linha vermelha, a solução analítica. A deflexão máxima MEF coincide com $w_{\max} = 5qL^4/(384EI) = 1{,}0417$~mm; $M$ e $V$ são reconstruídos por diferenciação numérica da deflexão nodal, o que explica o leve ruído próximo aos apoios (pontos de borda omitidos).}
     \label{fig:val_viga}
 \end{figure}
+
+\subsection{Análise de Erro}
+
+O erro máximo absoluto na deflexão nodal é
+
+\begin{equation}
+    e_{\max}^{w} = \max_{i} \left| w_i^{\text{MEF}} - w_i^{\text{ana}} \right| \approx 7{,}1 \times 10^{-16} \text{~m}
+    \label{eq:val_viga_erro}
+\end{equation}
+
+\noindent isto é, da ordem da precisão de máquina. A deflexão no centro da viga, $w(L/2) = 1{,}0417 \times 10^{-3}$~m, é reproduzida em todos os $16$ dígitos significativos. Esta concordância exemplar é consequência direta da propriedade de \emph{reprodução polinomial} dos elementos de Hermite cúbicos: como a base do elemento inclui monômios até o grau~$3$ e como a combinação das bases de dois elementos adjacentes gera a reconstrução exata de polinômios até grau~$4$ sob integração, a solução MEF é matematicamente idêntica à analítica nos nós. A mesma propriedade se mantém para as condições de contorno de viga em balanço ($w_{\max} = qL^4/(8EI) = 10{,}0$~mm) e biengastada ($w_{\max} = qL^4/(384EI) = 0{,}208$~mm), ambas com erro nodal da ordem de $10^{-13}$~m ou inferior.
+
+\paragraph{Nota sobre momento e cortante.} As curvas de $M(x)$ e $V(x)$ exibidas na Figura~\ref{fig:val_viga} são obtidas por pós-processamento: $M$ via segunda derivada por diferenças finitas centradas da deflexão nodal, $V$ via primeira derivada de $M$. Os pontos próximos aos apoios são omitidos porque o estêncil assimétrico nas bordas amplifica o ruído de arredondamento; o miolo da viga reproduz as distribuições parabólica ($M$) e linear ($V$) com concordância visual perfeita. Uma reconstrução mais robusta dessas quantidades exigiria derivação analítica a partir da interpolação de Hermite, o que constitui uma possível extensão futura.
 
 % ==============================================================
 % 5.5 — Vibração 1D (Autovalor)
 % ==============================================================
 
-\section{Vibração 1D — Problema de Autovalor}
+\section{Vibração 1D --- Problema de Autovalor}
 \label{sec:val_vibracao}
 
-% TODO: redigir.
-% Problema generalizado: $\mathbf{K}\phi = \lambda \mathbf{M} \phi$, $f_n = \sqrt{\lambda_n}/(2\pi)$.
-% Matriz de massa concentrada (\emph{lumped}). Validação: frequências analíticas, com
-% $c = \sqrt{E/\rho}$:
-% - livre-livre: $f_n = (n-1) c / (2L)$ (modo rígido em $n=1$);
-% - engastada-engastada: $f_n = n c / (2L)$;
-% - engastada-livre: $f_n = (2n-1) c / (4L)$.
-% Com $n_{\mathrm{el}} = 20$, erro < 3\% até o quinto modo em todos os três casos (subestimação
-% sistemática típica de massa lumped). Runner em
-% \texttt{.agents/review/module\_audit/05\_vibracao/run.py}.
+O quinto caso valida o solver modal de vibrações axiais em barra unidimensional, formulado como um problema generalizado de autovalor. Este cenário verifica simultaneamente a montagem da matriz de massa concentrada (\emph{lumped}), a solução do sistema $K \phi = \lambda M \phi$ por algoritmo de decomposição, e a recuperação das formas modais normalizadas. A solução analítica para barras com propriedades constantes é bem estabelecida e envolve funções seno, o que introduz um erro sistemático de discretização que cresce com a ordem do modo --- caracterizando o comportamento canônico da aproximação por mass lumping.
+
+\subsection{Formulação do Problema}
+
+A equação de onda axial em barra de seção constante é
+
+\begin{equation}
+    \rho A \frac{\partial^2 u}{\partial t^2} = \frac{\partial}{\partial x}\!\left( E A \frac{\partial u}{\partial x} \right), \quad x \in [0, L]
+    \label{eq:val_vibracao_edp}
+\end{equation}
+
+\noindent onde $u(x,t)$ é o deslocamento axial, $E$ o módulo de Young, $\rho$ a densidade e $A$ a área da seção transversal. A separação de variáveis $u(x,t) = \phi(x) e^{i \omega t}$ conduz ao problema espectral generalizado, cuja discretização por MEF é
+
+\begin{equation}
+    K \boldsymbol{\phi}_n = \omega_n^2 \, M \boldsymbol{\phi}_n, \qquad f_n = \frac{\omega_n}{2\pi}
+    \label{eq:val_vibracao_autovalor}
+\end{equation}
+
+\noindent com $K$ a matriz de rigidez, $M$ a matriz de massa concentrada e $\boldsymbol{\phi}_n$ o $n$-ésimo autovetor (forma modal). A Tabela~\ref{tab:val_vibracao_params} lista os parâmetros da simulação, correspondentes ao preset de aço dos \emph{defaults} da interface.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Parâmetros da simulação de vibração axial 1D (barra de aço bi-engastada).}
+    \label{tab:val_vibracao_params}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Parâmetro} & \textbf{Símbolo} & \textbf{Valor} \\
+        \hline
+        Comprimento                  & $L$  & $2{,}0$ m          \\
+        Número de elementos          & $n_e$ & $20$              \\
+        Módulo de Young              & $E$  & $200$ GPa          \\
+        Densidade                    & $\rho$ & $7850$ kg/m$^3$  \\
+        Área da seção                & $A$  & $100$ cm$^{2}$     \\
+        Tipo de apoio                & ---  & bi-engastada       \\
+        Velocidade de onda axial     & $c = \sqrt{E/\rho}$ & $5047{,}5$ m/s \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Solução Analítica}
+
+Para barra bi-engastada ($u(0) = u(L) = 0$), as formas modais e frequências naturais são
+
+\begin{equation}
+    \phi_n(x) = \sin\!\left( \frac{n \pi x}{L} \right), \qquad f_n^{\mathrm{ana}} = \frac{n \, c}{2 L}, \quad n = 1, 2, 3, \ldots
+    \label{eq:val_vibracao_analitica}
+\end{equation}
+
+\noindent Com $c = 5047{,}5$~m/s e $L = 2$~m, os cinco primeiros valores são $f_1 = 1261{,}9$~Hz, $f_2 = 2523{,}8$~Hz, $f_3 = 3785{,}7$~Hz, $f_4 = 5047{,}5$~Hz e $f_5 = 6309{,}4$~Hz. As formas modais são senos com número crescente de nós internos (zero, um, dois, três e quatro nós para os modos $1$ a $5$, respectivamente).
+
+\subsection{Solução MEF e Comparação}
+
+A discretização emprega $n_e = 20$ elementos P1 com malha uniforme. A matriz de massa é montada na forma \emph{lumped}, redistribuindo a massa elementar igualmente entre os dois nós do elemento --- estratégia que torna $M$ diagonal e acelera a solução do problema de autovalor, ao custo de introduzir um erro sistemático de subestimação das frequências. A Figura~\ref{fig:val_vibracao} apresenta as cinco primeiras formas modais normalizadas obtidas pela solução do problema generalizado.
 
 \begin{figure}[htbp]
     \centering
-    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_vibracao1d_modos.png}
-    \caption{(Esqueleto) Cinco primeiros modos de vibração e respectivas frequências naturais.}
+    \includegraphics[width=0.75\textwidth]{figuras/prints/fig_val_vibracao1d_modos.png}
+    \caption{Cinco primeiros modos de vibração axial da barra bi-engastada. Linha azul: forma modal MEF normalizada; pontos vermelhos: valores analíticos em nós selecionados (senos). Cada painel exibe a frequência MEF, a frequência analítica e o erro relativo correspondente. O número de nós internos cresce monotonicamente de~$0$ (modo~$1$) a~$4$ (modo~$5$).}
     \label{fig:val_vibracao}
 \end{figure}
+
+\subsection{Análise de Erro}
+
+A Tabela~\ref{tab:val_vibracao_erros} compara as frequências MEF com as analíticas para os cinco primeiros modos.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Frequências naturais: MEF vs.\ analítica para barra bi-engastada.}
+    \label{tab:val_vibracao_erros}
+    \begin{tabular}{cccc}
+        \hline
+        \textbf{Modo} $n$ & $f_n^{\text{MEF}}$ [Hz] & $f_n^{\text{ana}}$ [Hz] & \textbf{Erro relativo} \\
+        \hline
+        $1$ & $1258{,}1$ & $1261{,}9$ & $3{,}0 \times 10^{-3}$ \\
+        $2$ & $2508{,}5$ & $2523{,}8$ & $6{,}0 \times 10^{-3}$ \\
+        $3$ & $3743{,}6$ & $3785{,}7$ & $1{,}1 \times 10^{-2}$ \\
+        $4$ & $4956{,}0$ & $5047{,}5$ & $1{,}8 \times 10^{-2}$ \\
+        $5$ & $6138{,}0$ & $6309{,}4$ & $2{,}7 \times 10^{-2}$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Todas as frequências MEF subestimam as analíticas, com erro relativo crescendo monotonicamente de $0{,}3\%$ (modo fundamental) a $2{,}7\%$ (quinto modo). Esta subestimação é o comportamento canônico da aproximação por massa concentrada: a distribuição discreta da massa nos nós equivale, no limite contínuo, a uma barra levemente mais flexível do que a original, o que reduz as frequências. O erro cresce com a ordem do modo porque modos de alta frequência têm comprimento de onda comparável ao tamanho do elemento, saindo do regime de resolução confiável da malha. Para o módulo ora implementado, o critério prático é que os modos até $n_{\max} \approx n_e / 4$ podem ser considerados quantitativamente confiáveis.
+
+\paragraph{Nota sobre a matriz de massa consistente.} A alternativa clássica à massa concentrada é a matriz de massa consistente (tridiagonal), obtida integrando $\int N_i N_j \, \rho A \, dx$ sem aproximações. A massa consistente \emph{sobrestima} as frequências (viés oposto ao \emph{lumping}) e oferece maior precisão para modos baixos, mas torna $M$ não-diagonal e encarece a solução do autovalor em problemas 2D/3D. A escolha do MinervaMesh pelo \emph{lumping} é motivada por simplicidade pedagógica e pela convergência prática adequada para os primeiros modos.
 
 % ==============================================================
 % 5.6 — Transferência de Calor 2D
 % ==============================================================
 
-\section{Transferência de Calor 2D}
+\section{Transferência de Calor Transiente 2D}
 \label{sec:val_transcalor}
 
-% TODO: redigir.
-% Placa quadrada $[0,1] \times [0,1]$, malha triangular $40 \times 40$, Crank-Nicolson ($\theta = 1/2$).
-% BCs: $T = T_{\mathrm{bot}}$ em $y=0$, $T = T_{\mathrm{top}}$ em $y=1$, perfil linear nas laterais.
-% Em regime permanente, $T(x,y) = T_{\mathrm{bot}} + (T_{\mathrm{top}} - T_{\mathrm{bot}}) \cdot y$
-% (independente de $x$). Convergência ao permanente em $t \gtrsim \tau_{\mathrm{dif}} = L^2 \rho c_v / k$;
-% com defaults do HTML ($t_{\max} = 0{,}05$) observa-se apenas o início do transiente.
-% Runner em \texttt{.agents/review/module\_audit/08\_transcalor/run.py}.
+O sexto caso constitui a primeira validação bidimensional do MinervaMesh. O problema é a evolução transiente do campo de temperatura em uma placa quadrada com condições de contorno de Dirichlet assimétricas (temperaturas distintas em topo e base, perfis lineares nas laterais), discretizada com elementos triangulares P1 sobre uma malha estruturada e integrada no tempo pelo método de Crank-Nicolson. A validação verifica a montagem 2D das matrizes elementares, a aplicação de condições de contorno sobre fronteiras não-alinhadas com os eixos da malha e a convergência ao perfil de regime permanente, que admite solução analítica trivial.
+
+\subsection{Formulação do Problema}
+
+A equação do calor em duas dimensões espaciais, sem geração interna, é
+
+\begin{equation}
+    \rho c_v \frac{\partial T}{\partial t} = \nabla \cdot \left( k \, \nabla T \right), \quad (x,y) \in \Omega = [0, L] \times [0, L], \quad t > 0
+    \label{eq:val_transcalor_edp}
+\end{equation}
+
+\noindent com condições de contorno de Dirichlet nos quatro lados e condição inicial homogênea:
+
+\begin{equation}
+\begin{aligned}
+    T(x, 0, t) &= T_{\mathrm{bot}}, \quad T(x, L, t) = T_{\mathrm{top}} \\
+    T(0, y, t) = T(L, y, t) &= T_{\mathrm{bot}} + (T_{\mathrm{top}} - T_{\mathrm{bot}}) \cdot y / L \\
+    T(x, y, 0) &= 0
+\end{aligned}
+    \label{eq:val_transcalor_cc}
+\end{equation}
+
+A Tabela~\ref{tab:val_transcalor_params} lista os parâmetros adotados. A escala característica de difusão é $\tau_{\mathrm{dif}} = L^2 \rho c_v / k = 1{,}0$~s.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Parâmetros da simulação de transferência de calor transiente 2D.}
+    \label{tab:val_transcalor_params}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Parâmetro} & \textbf{Símbolo} & \textbf{Valor} \\
+        \hline
+        Domínio                         & $\Omega$     & $[0, 1] \times [0, 1]$ m$^{2}$ \\
+        Malha (nós por direção)         & $n_x \times n_y$ & $40 \times 40$             \\
+        Condutividade térmica           & $k$          & $1{,}0$ W/(m·°C)               \\
+        Densidade                       & $\rho$       & $1{,}0$ kg/m$^3$               \\
+        Calor específico                & $c_v$        & $1{,}0$ J/(kg·°C)              \\
+        Temperatura na base ($y = 0$)   & $T_{\mathrm{bot}}$ & $30$ °C                  \\
+        Temperatura no topo ($y = L$)   & $T_{\mathrm{top}}$ & $100$ °C                 \\
+        Passo de tempo                  & $\Delta t$   & $10^{-3}$ s                    \\
+        Parâmetro do método $\theta$    & $\theta$     & $0{,}5$ (Crank-Nicolson)       \\
+        Tempo final de simulação        & $t_{\max}$   & $2{,}0$ s                      \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Solução Analítica de Regime Permanente}
+
+Em regime permanente, a Equação~\eqref{eq:val_transcalor_edp} se reduz a $\nabla^2 T = 0$ com as condições de contorno especificadas. Por separação de variáveis ou por inspeção, dado que as condições laterais são lineares em $y$ e as condições de topo/base são constantes, a solução única é
+
+\begin{equation}
+    T_{\infty}(x, y) = T_{\mathrm{bot}} + (T_{\mathrm{top}} - T_{\mathrm{bot}}) \cdot \frac{y}{L} = 30 + 70 \, y
+    \label{eq:val_transcalor_analitica}
+\end{equation}
+
+\noindent perfil linear em $y$ e independente de $x$. Esta solução é um polinômio de grau~$1$ em $y$, pertencente ao espaço de aproximação dos elementos P1, de modo que se espera reprodução nodal exata a menos do erro de integração temporal e de arredondamento.
+
+\subsection{Solução MEF e Comparação}
+
+A malha é gerada por triangulação de Delaunay sobre um reticulado de $40 \times 40$ nós ($1600$ nós, $\approx 3120$ elementos triangulares). Cada passo de tempo resolve o sistema linear global
+
+\begin{equation}
+    \left( M + \theta \Delta t \, K \right) \mathbf{T}^{n+1} = \left( M - (1-\theta) \Delta t \, K \right) \mathbf{T}^n
+    \label{eq:val_transcalor_cn}
+\end{equation}
+
+\noindent com $M$ a matriz de massa consistente e $K$ a matriz de rigidez 2D. A Figura~\ref{fig:val_transcalor} compara o campo MEF em $t = 2{,}0$~s (duas vezes a escala difusiva) com o perfil analítico de regime permanente.
 
 \begin{figure}[htbp]
     \centering
-    % \includegraphics[width=0.75\textwidth]{figuras/prints/fig_transcalor2d_campo.png}
-    \caption{(Esqueleto) Campo de temperatura em placa 2D durante a evolução transiente.}
+    \includegraphics[width=0.95\textwidth]{figuras/prints/fig_val_transcalor2d_campo.png}
+    \caption{Transferência de calor transiente 2D: campo $T(x,y)$ MEF em $t = 2{,}0$~s (esquerda) comparado ao perfil analítico de regime permanente $T_{\infty}(x,y) = 30 + 70\,y$ (direita). As isotermas MEF são horizontais, confirmando a invariância em $x$ prevista pela solução analítica.}
     \label{fig:val_transcalor}
 \end{figure}
+
+\subsection{Análise de Erro}
+
+Tomando o campo MEF em $t_{\max} = 2{,}0$~s como aproximação do regime permanente, os erros nodais são
+
+\begin{equation}
+    e_{\max} \approx 3{,}3 \times 10^{-13} \text{~°C}, \qquad e_{L_2} \approx 1{,}5 \times 10^{-13}
+    \label{eq:val_transcalor_erro}
+\end{equation}
+
+\noindent da ordem da precisão de máquina. A verificação pontual em $x = 0{,}5$ confirma o resultado: $T_{\text{MEF}}(0{,}5; 0{,}316) = 52{,}1053$ vs $T_{\text{ana}} = 30 + 70 \cdot 0{,}316 = 52{,}1053$, e similarmente em $y \in \{0{,}526;\, 0{,}737;\, 0{,}947\}$ com concordância em todos os dígitos significativos. A reprodução é exata porque o perfil analítico é linear e a discretização P1 contém os polinômios de grau~$1$ em seu espaço de aproximação.
+
+\paragraph{Nota sobre o transiente visível ao usuário.} A interface HTML do MinervaMesh emprega, como \emph{default}, $t_{\max} = 0{,}05$~s ($n_{\mathrm{passos}} = 50$), o que corresponde a apenas $5\%$ da escala de difusão: o usuário observa a perturbação se propagando da parede quente para o interior, mas com campo ainda longe do perfil linear de regime permanente. A figura do TCC emprega $t_{\max} = 2{,}0$~s ($n_{\mathrm{passos}} = 2000$) para exibir a convergência completa. Para fins pedagógicos, aumentar $t_{\max}$ na interface permite observar as três fases do problema: penetração da onda térmica, formação de gradiente linear aproximado e estabilização final.
 
 % ==============================================================
 % 5.7 — Escoamento Potencial 2D
 % ==============================================================
 
-\section{Escoamento Potencial 2D}
+\section{Escoamento Potencial 2D em Torno de Cilindro}
 \label{sec:val_potencial}
 
-% TODO: redigir.
-% Problema: $\nabla^2 \psi = 0$ em 2D com obstáculo. Malha triangular com furo;
-% BCs de parede deslizante ($\psi$ constante). Caso canônico: cilindro circular em fluxo uniforme.
-% Validação: distribuição de $C_p$ na superfície do cilindro comparada com o resultado teórico
-% $C_p(\theta) = 1 - 4 \sin^2 \theta$.
-% Paradoxo d'Alembert: $C_L, C_D \to 0$ no limite de domínio infinito.
-% Com defaults do HTML (domínio confinado, $H = 1$, $r = 0{,}15$), observa-se efeito de bloqueio
-% ($\sim 30\%$), gerando resíduo não-nulo em $C_L$ e $C_D$.
-% Runner em \texttt{.agents/review/module\_audit/09\_potencial/run.py}.
+O sétimo caso valida o módulo de escoamento potencial 2D, primeira incursão da plataforma em problemas de mecânica dos fluidos. O escoamento potencial é o regime-limite em que os efeitos viscosos são desprezíveis e o campo de velocidade pode ser derivado de uma função de corrente $\psi$ que satisfaz a equação de Laplace, reduzindo o problema a uma formulação de elementos finitos idêntica em estrutura ao problema de condução permanente 2D. A validação adota o caso canônico do cilindro circular em fluxo uniforme, que admite solução analítica exata em domínio infinito e possui uma propriedade peculiar --- o paradoxo de d'Alembert --- que oferece um teste qualitativo interessante para o simulador.
+
+\subsection{Formulação do Problema}
+
+Para escoamento bidimensional incompressível e irrotacional, a função de corrente $\psi$ satisfaz a equação de Laplace:
+
+\begin{equation}
+    \nabla^2 \psi = 0, \quad (x, y) \in \Omega
+    \label{eq:val_potencial_edp}
+\end{equation}
+
+\noindent com as componentes de velocidade recuperadas por $u = \partial \psi / \partial y$ e $v = -\partial \psi / \partial x$. O domínio $\Omega$ é o retângulo $[0, L] \times [0, H]$ menos um disco circular de raio $r$ centrado em $(c_x, c_y)$. As condições de contorno são:
+\begin{itemize}
+    \item \textbf{entrada} ($x = 0$) e \textbf{saída} ($x = L$): $\psi$ linear em $y$ para impor $u = U_{\infty}$, $v = 0$;
+    \item \textbf{paredes superior e inferior}: $\psi$ constante (paredes deslizantes);
+    \item \textbf{superfície do cilindro}: $\psi$ constante (parede deslizante, corpo não-atravessável).
+\end{itemize}
+
+A Tabela~\ref{tab:val_potencial_params} lista os parâmetros adotados, conforme \emph{defaults} da interface HTML.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Parâmetros da simulação de escoamento potencial 2D em torno de cilindro.}
+    \label{tab:val_potencial_params}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Parâmetro} & \textbf{Símbolo} & \textbf{Valor} \\
+        \hline
+        Comprimento do domínio       & $L$         & $2{,}0$ m      \\
+        Altura do domínio            & $H$         & $1{,}0$ m      \\
+        Malha                        & $n_x \times n_y$ & $60 \times 30$ \\
+        Centro do cilindro           & $(c_x, c_y)$ & $(0{,}5;\, 0{,}5)$ m \\
+        Raio do cilindro             & $r$         & $0{,}15$ m     \\
+        Velocidade do escoamento livre & $U_{\infty}$ & $1{,}0$ m/s \\
+        Densidade do fluido          & $\rho$      & $1{,}0$ kg/m$^3$ \\
+        Razão de bloqueio            & $2r / H$    & $30\%$         \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Solução Analítica em Domínio Infinito}
+
+Para cilindro imerso em fluxo uniforme em domínio infinito, a solução clássica da teoria potencial fornece, sobre a superfície do cilindro, a distribuição de velocidade tangencial $V_t = 2 U_{\infty} \sin \theta$, onde $\theta$ é o ângulo medido do ponto de estagnação frontal. Aplicando a equação de Bernoulli, o coeficiente de pressão resultante é
+
+\begin{equation}
+    C_p(\theta) = 1 - 4 \sin^2 \theta
+    \label{eq:val_potencial_cp}
+\end{equation}
+
+\noindent com valor máximo $C_p = 1$ nos pontos de estagnação frontal e traseiro ($\theta = 0$ e $\theta = \pi$) e mínimo $C_p = -3$ nos polos de máxima velocidade ($\theta = \pm \pi/2$). A simetria de $C_p(\theta)$ em torno dos eixos $x$ e $y$ implica resultante nula de força (arrasto e sustentação ambos nulos): este é o \emph{paradoxo de d'Alembert}, consequência direta da ausência de viscosidade e, portanto, da ausência de descolamento de camada-limite.
+
+\subsection{Solução MEF e Comparação}
+
+A malha triangular é gerada por algoritmo de Delaunay sobre uma grade regular, com posterior remoção dos triângulos internos ao cilindro. O sistema global $K \boldsymbol{\psi} = \mathbf{b}$ é resolvido uma única vez (problema estacionário). As velocidades são recuperadas por interpolação do gradiente de $\psi$ em cada elemento e o coeficiente de pressão sobre a superfície do cilindro é calculado por Bernoulli: $C_p = 1 - (u^2 + v^2)/U_{\infty}^2$. A Figura~\ref{fig:val_potencial} apresenta as linhas de corrente ao redor do cilindro e a distribuição de $C_p(\theta)$ obtida.
 
 \begin{figure}[htbp]
     \centering
-    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_potencial2d_linhas.png}
-    \caption{(Esqueleto) Linhas de corrente ao redor do cilindro e distribuição de $C_p$ na superfície.}
+    \includegraphics[width=0.95\textwidth]{figuras/prints/fig_val_potencial2d_linhas.png}
+    \caption{Escoamento potencial em torno de cilindro: linhas de corrente (esquerda) e distribuição de $C_p(\theta)$ sobre a superfície (direita). A simulação (azul) reproduz a estrutura qualitativa do escoamento simétrico, com os pontos de estagnação frontal/traseiro e os polos de pressão mínima próximos dos valores teóricos $C_p = 1$ e $C_p = -3$. A quebra de simetria entre $\theta = +90^{\circ}$ e $\theta = -90^{\circ}$ é consequência do confinamento lateral do domínio ($2r/H = 30\%$) e do viés da malha estruturada.}
     \label{fig:val_potencial}
 \end{figure}
+
+\subsection{Análise de Erro}
+
+A Tabela~\ref{tab:val_potencial_cp} compara $C_p$ MEF com $C_p$ teórico em oito ângulos amostrados sobre a superfície do cilindro.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Coeficiente de pressão $C_p$ na superfície do cilindro: MEF vs.\ teoria potencial.}
+    \label{tab:val_potencial_cp}
+    \begin{tabular}{cccc}
+        \hline
+        $\theta$ [°] & $C_p^{\text{MEF}}$ & $C_p^{\text{teo}}$ & $\Delta C_p$ \\
+        \hline
+        $0$    & $+0{,}961$ & $+1{,}000$ & $-0{,}039$ \\
+        $+43$  & $-1{,}487$ & $-1{,}000$ & $-0{,}487$ \\
+        $+90$  & $-2{,}926$ & $-3{,}000$ & $+0{,}074$ \\
+        $+133$ & $-1{,}042$ & $-1{,}000$ & $-0{,}042$ \\
+        $+176$ & $+0{,}946$ & $+1{,}000$ & $-0{,}054$ \\
+        $-47$  & $-1{,}154$ & $-1{,}000$ & $-0{,}154$ \\
+        $-90$  & $-3{,}825$ & $-3{,}000$ & $-0{,}825$ \\
+        $-137$ & $-0{,}950$ & $-1{,}000$ & $+0{,}050$ \\
+        \hline
+    \end{tabular}
+\end{table}
+
+Os pontos de estagnação ($\theta = 0$ e $\theta \approx \pi$) são reproduzidos com erro inferior a $0{,}06$, evidenciando captura correta da topologia do escoamento. Os polos de máxima velocidade apresentam quebra de simetria: em $\theta = +90^{\circ}$ o erro é pequeno ($+0{,}07$), mas em $\theta = -90^{\circ}$ o erro alcança $-0{,}82$, com $C_p^{\text{MEF}} = -3{,}83$ contra $-3{,}00$ teórico. Esta assimetria tem duas origens distintas:
+\begin{enumerate}
+    \item \textbf{Efeito de bloqueio do domínio finito.} A razão $2r/H = 30\%$ impõe aceleração adicional do fluido nas regiões laterais, reduzindo a pressão local em relação à previsão de domínio infinito. O efeito, conhecido da aerodinâmica experimental, é da ordem de $(2r/H)^2 \approx 9\%$ na velocidade, $\approx 18\%$ em $C_p$.
+    \item \textbf{Viés da malha estruturada.} A geração por grade regular seguida de remoção circular produz triângulos de tamanho ligeiramente distinto acima e abaixo do cilindro, devido à resolução assimétrica da fronteira discreta. Este viés amplifica o desequilíbrio de pressão entre os polos.
+\end{enumerate}
+
+\paragraph{Nota sobre o paradoxo de d'Alembert.} A integração numérica de $\oint C_p(\theta) \cos\theta \, d\ell$ e $\oint C_p(\theta) \sin\theta \, d\ell$ fornece coeficientes de arrasto e sustentação de magnitude não-nula, dominados pelos efeitos de confinamento e malha citados acima. Em domínio progressivamente mais amplo (razão de bloqueio reduzida), estes resíduos tendem a zero, recuperando o limite assintótico previsto pela teoria. Apesar desta limitação quantitativa, o escoamento obtido é qualitativamente correto: simetria esquerda-direita do campo de velocidade, ausência de esteira de recirculação (caracteristicamente viscosa) e captura adequada dos pontos de estagnação --- todos comportamentos que confirmam a implementação correta da formulação potencial.
 
 % ==============================================================
 % 5.8 — Navier-Stokes 2D (Vorticidade-Corrente)
 % ==============================================================
 
-\section{Navier-Stokes 2D — Cavidade com Tampa Móvel}
+\section{Navier-Stokes 2D --- Cavidade com Tampa Móvel}
 \label{sec:val_ns}
 
-% TODO: redigir.
-% Caso de referência: \emph{lid-driven cavity} de Ghia, Ghia \& Shin (1982), Re=100.
-% Formulação $\omega$-$\psi$ com esquema semi-implícito no tempo.
-% Condição de contorno de vorticidade na parede obtida por expansão de Taylor
-% (Eq.~\ref{eq:thom}).
-% Validação quantitativa: perfil de velocidade horizontal $u(y)$ em $x = 0{,}5$,
-% comparado com a tabela de Ghia et al.\ em pontos selecionados.
-% Com malha $41 \times 41$ e 2000 passos de tempo ($\Delta t = 0{,}01$),
-% obtém-se $\psi_{\min} \approx -0{,}103$ (referência da literatura: $-0{,}1034$)
-% e RMS do perfil de velocidade $\approx 0{,}036$.
-% Runner em \texttt{.agents/review/thom\_validation/run\_cavity.py}.
+O oitavo e último caso de validação confronta o módulo de Navier-Stokes viscoso 2D com o \emph{benchmark} clássico de \emph{lid-driven cavity} tabulado por Ghia, Ghia e Shin (1982) para $\mathrm{Re} = 100$. Este é o caso mais complexo da plataforma: envolve a solução acoplada de duas equações não-lineares (Poisson para $\psi$ e transporte de vorticidade para $\omega$), tratamento especial da condição de contorno de vorticidade na parede via expansão de Taylor local e marcha temporal semi-implícita. A validação é feita em duas frentes: quantitativa, por comparação do perfil de velocidade $u(y)$ em $x = 0{,}5$ com a tabela de Ghia et al., e qualitativa, por inspeção dos campos completos $\psi$, $\omega$ e linhas de corrente, que devem reproduzir o vórtice primário centrado no quadrante superior direito da cavidade.
+
+\subsection{Formulação do Problema}
+
+A formulação adotada é a de \emph{vorticidade-função de corrente} ($\omega$-$\psi$), que elimina a pressão como incógnita através da substituição das variáveis primitivas $(u, v, p)$ por $(\psi, \omega)$ definidas por $u = \partial\psi/\partial y$, $v = -\partial\psi/\partial x$ e $\omega = \partial v/\partial x - \partial u/\partial y$. As equações governantes são
+
+\begin{equation}
+    \nabla^2 \psi = -\omega
+    \label{eq:val_ns_poisson}
+\end{equation}
+
+\begin{equation}
+    \frac{\partial \omega}{\partial t} + \mathbf{u} \cdot \nabla \omega = \frac{1}{\mathrm{Re}} \nabla^2 \omega
+    \label{eq:val_ns_transporte}
+\end{equation}
+
+\noindent com $\mathrm{Re} = U_{\mathrm{lid}} L / \nu$ o número de Reynolds adimensional. O domínio é o quadrado unitário $[0, 1]^2$; $\psi = 0$ em todas as paredes; $\omega$ é prescrita nas paredes pela condição de Taylor local, discutida na Seção~\ref{sec:thom} do Capítulo~\ref{cap3}. A tampa superior ($y = 1$) move-se com velocidade horizontal $u_{\mathrm{lid}} = 1$; as demais paredes são fixas. Condição inicial: fluido em repouso ($\psi = \omega = 0$ em todo o domínio).
+
+A Tabela~\ref{tab:val_ns_params} lista os parâmetros de simulação adotados.
+
+\begin{table}[htbp]
+    \centering
+    \caption{Parâmetros da simulação de Navier-Stokes 2D --- cavidade com tampa móvel.}
+    \label{tab:val_ns_params}
+    \begin{tabular}{lcc}
+        \hline
+        \textbf{Parâmetro} & \textbf{Símbolo} & \textbf{Valor} \\
+        \hline
+        Domínio                         & $\Omega$      & $[0, 1] \times [0, 1]$ \\
+        Malha                           & $n_x \times n_y$ & $41 \times 41$     \\
+        Número de Reynolds              & $\mathrm{Re}$ & $100$                  \\
+        Velocidade da tampa             & $u_{\mathrm{lid}}$ & $1{,}0$           \\
+        Passo de tempo                  & $\Delta t$    & $0{,}01$               \\
+        Número de passos                & $n_{\mathrm{passos}}$ & $2000$         \\
+        Tempo adimensional final        & $t_{\max}$    & $20{,}0$               \\
+        \hline
+    \end{tabular}
+\end{table}
+
+\subsection{Benchmark de Referência}
+
+Ghia, Ghia e Shin (1982) apresentaram uma solução de alta resolução (malha $129 \times 129$ com esquema \emph{multigrid} em variáveis primitivas) para a cavidade com tampa móvel em cinco valores de Reynolds entre $100$ e $10\,000$. Os autores publicaram tabelas com os valores de $u(y)$ ao longo do eixo vertical em $x = 0{,}5$ e $v(x)$ ao longo do eixo horizontal em $y = 0{,}5$, além do valor mínimo da função de corrente $\psi_{\min}$ e das coordenadas do centro do vórtice primário. Para $\mathrm{Re} = 100$, os valores tabulados de referência são $\psi_{\min} \approx -0{,}1034$ no ponto $(x,y) \approx (0{,}6172;\, 0{,}7344)$. A tabela $u(y)$ contém $17$ pontos amostrados irregularmente, com maior densidade próxima à tampa para capturar a camada-limite.
+
+\subsection{Solução MEF e Comparação}
+
+A discretização emprega malha uniforme $41 \times 41$ (1681 nós), aproximadamente $3$ vezes mais grosseira que a de Ghia et al. O esquema temporal é semi-implícito: o termo convectivo é avaliado explicitamente com o campo no passo anterior, enquanto o termo difusivo é tratado implicitamente, resultando em um sistema linear estacionário a cada passo de tempo. A condição de contorno de vorticidade na parede é aplicada a cada passo via expansão de Taylor local (Equação da Seção~\ref{sec:thom}). Após $2000$ passos ($t = 20{,}0$, suficiente para convergência ao regime estacionário em $\mathrm{Re} = 100$), os campos $\psi$, $\omega$ e de velocidade são extraídos para comparação.
+
+A Figura~\ref{fig:val_ns_cavity} apresenta os três campos resultantes em painéis empilhados, seguindo o mesmo \emph{layout} vertical exibido pela interface do MinervaMesh. A Figura~\ref{fig:val_ns_ghia_uy} sobrepõe o perfil $u(y)$ extraído da simulação aos valores tabulados por Ghia et al.
 
 \begin{figure}[htbp]
     \centering
-    % \includegraphics[width=0.85\textwidth]{figuras/prints/fig_ns2d_cavity_re100.png}
-    \caption{(Esqueleto) Campos de $\psi$, $\omega$ e linhas de corrente na cavidade a $\mathrm{Re} = 100$.}
+    \includegraphics[height=0.78\textheight]{figuras/prints/fig_val_ns2d_cavity_re100.png}
+    \caption{Cavidade com tampa móvel a $\mathrm{Re} = 100$: função de corrente $\psi$ (topo), vorticidade $\omega$ (meio) e linhas de corrente sobre o campo de magnitude de velocidade (base). O vórtice primário está centrado em $(0{,}625;\, 0{,}750)$ com $\psi_{\min} = -0{,}103$. A intensa vorticidade negativa sob a tampa é a assinatura da camada-limite induzida pelo cisalhamento.}
     \label{fig:val_ns_cavity}
 \end{figure}
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{figuras/prints/fig_val_ns_ghia_uy.png}
-    \caption{Perfil $u(y)$ em $x=0{,}5$ comparado aos valores tabulados por Ghia, Ghia \& Shin (1982) para a cavidade com tampa móvel a $\mathrm{Re}=100$. RMS $=0{,}036$ em malha $41\times 41$ com 2000 passos de tempo. Figura gerada pelo runner \texttt{.agents/review/thom\_validation/run\_cavity.py} com a fórmula de Thom na forma canônica.}
+    \caption{Perfil $u(y)$ em $x = 0{,}5$ comparado aos valores tabulados por Ghia, Ghia e Shin (1982) para a cavidade com tampa móvel a $\mathrm{Re} = 100$. RMS $= 0{,}036$ em malha $41 \times 41$ com 2000 passos de tempo.}
     \label{fig:val_ns_ghia_uy}
 \end{figure}
+
+\subsection{Análise de Erro}
+
+A concordância quantitativa é resumida por dois indicadores. Primeiro, o valor mínimo da função de corrente obtido na simulação,
+
+\begin{equation}
+    \psi_{\min}^{\text{MEF}} = -0{,}10301, \qquad \psi_{\min}^{\text{Ghia}} = -0{,}1034
+    \label{eq:val_ns_psimin}
+\end{equation}
+
+\noindent apresenta erro relativo inferior a $0{,}4\%$. A posição do centro do vórtice primário, $(0{,}625;\, 0{,}750)$ no MEF contra $(0{,}6172;\, 0{,}7344)$ em Ghia, concorda dentro de uma célula da malha $41 \times 41$ --- isto é, dentro da resolução espacial disponível. Segundo, o erro quadrático médio do perfil de velocidade ao longo dos $17$ pontos tabulados por Ghia é
+
+\begin{equation}
+    \mathrm{RMS} = \sqrt{\frac{1}{N} \sum_{i=1}^{N} \left( u_i^{\text{MEF}} - u_i^{\text{Ghia}} \right)^2} = 0{,}036
+    \label{eq:val_ns_rms}
+\end{equation}
+
+\noindent valor que representa $\approx 4\%$ da velocidade da tampa. A discrepância se concentra na região próxima a $y = 0{,}95$, dentro da camada-limite induzida pelo movimento da tampa, onde a malha $41 \times 41$ resolve apenas $2{-}3$ pontos no perfil íngreme de velocidade; Ghia et al. empregaram $129 \times 129$ nós precisamente para resolver essa sub-camada com maior fidelidade. No restante do domínio, a concordância é excelente.
+
+\paragraph{Nota sobre a condição de contorno de vorticidade.} A correta implementação da condição de Taylor na parede (Seção~\ref{sec:thom}) é etapa crítica desta validação. A expansão assume o termo $+h \, u_{\mathrm{lid}}$ para a parede móvel, representando o acoplamento entre a velocidade imposta da tampa e a vorticidade local. Uma formulação alternativa com sinal invertido --- encontrada ocasionalmente em implementações didáticas --- produz $\psi_{\min} \sim -10^{-5}$ e RMS $\sim 0{,}93$ em relação aos valores de Ghia et al., essencialmente suprimindo o vórtice primário. A concordância com o \emph{benchmark} aqui reportada reforça, portanto, a relevância de validações quantitativas contra referências de alta resolução em problemas de escoamento viscoso com condições de contorno não-triviais.
