@@ -117,7 +117,7 @@ async def run_mef_1d(event=None):
     metrics_html = f"""
     <div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full">
         <h4 class="font-semibold text-blue-800 mb-1">Validação</h4>
-        <p class="text-sm text-gray-700"><strong>Malha:</strong> {nel} elementos P1, h = {h:.4f} m</p>
+        <p class="text-sm text-gray-700"><strong>Malha:</strong> {nel} elementos lineares, h = {h:.4f} m</p>
         <p class="text-sm text-gray-700"><strong>T_max (MEF):</strong> {T_max_mef:.6f} °C em x = {x_max_mef:.3f} m</p>
         <p class="text-sm text-gray-700"><strong>T_max (analítica):</strong> {T_max_ana:.6f} °C em x = {x_max_ana:.3f} m</p>
         <p class="text-sm text-gray-700"><strong>Erro máximo nodal:</strong> {e_max:.2e} °C</p>

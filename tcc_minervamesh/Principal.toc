@@ -56,7 +56,7 @@
 \contentsline {paragraph}{}{6}{}%
 \contentsline {paragraph}{}{6}{}%
 \contentsline {paragraph}{}{6}{}%
-\contentsline {section}{\numberline {2.5}Trabalhos Correlatos (Ênfase em TCCs Semelhantes)}{6}{}%
+\contentsline {section}{\numberline {2.5}Trabalhos Correlatos}{6}{}%
 \contentsline {paragraph}{}{6}{}%
 \contentsline {paragraph}{}{6}{}%
 \contentsline {paragraph}{}{7}{}%
@@ -76,7 +76,7 @@
 \contentsline {paragraph}{}{11}{}%
 \contentsline {subsection}{\numberline {3.4.2}O Método de Galerkin}{12}{}%
 \contentsline {paragraph}{}{13}{}%
-\contentsline {subsection}{\numberline {3.4.3}Elementos Triangulares Lineares (P1)}{13}{}%
+\contentsline {subsection}{\numberline {3.4.3}Elementos Triangulares Lineares}{13}{}%
 \contentsline {paragraph}{}{13}{}%
 \contentsline {subsection}{\numberline {3.4.4}Matrizes Elementares}{14}{}%
 \contentsline {subsubsection}{\numberline {3.4.4.1}Matriz de Rigidez Elementar}{14}{}%
@@ -179,14 +179,14 @@
 \contentsline {chapter}{\numberline {A}Listagens dos Módulos de Simulação 1D}{78}{}%
 \contentsline {paragraph}{}{78}{}%
 \contentsline {section}{\numberline {A.1}Condução Permanente 1D}{78}{}%
-\contentsline {section}{\numberline {A.2}Condução Transiente 1D com $k(x)$ Variável}{81}{}%
-\contentsline {section}{\numberline {A.3}Convecção-Difusão 1D com SUPG}{90}{}%
-\contentsline {section}{\numberline {A.4}Viga 1D --- Euler-Bernoulli}{96}{}%
-\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{109}{}%
-\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{120}{}%
-\contentsline {paragraph}{}{120}{}%
-\contentsline {section}{\numberline {B.1}Módulo Compartilhado: Malha e Matrizes MEF}{120}{}%
-\contentsline {section}{\numberline {B.2}Módulo Compartilhado: Geometrias de Obstáculo}{124}{}%
-\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{126}{}%
-\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{130}{}%
-\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{141}{}%
+\contentsline {section}{\numberline {A.2}Condução Transiente 1D com $k(x)$ Variável}{82}{}%
+\contentsline {section}{\numberline {A.3}Convecção-Difusão 1D com SUPG}{91}{}%
+\contentsline {section}{\numberline {A.4}Viga 1D --- Euler-Bernoulli}{97}{}%
+\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{112}{}%
+\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{124}{}%
+\contentsline {paragraph}{}{124}{}%
+\contentsline {section}{\numberline {B.1}Módulo Compartilhado: Malha e Matrizes MEF}{124}{}%
+\contentsline {section}{\numberline {B.2}Módulo Compartilhado: Geometrias de Obstáculo}{128}{}%
+\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{130}{}%
+\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{136}{}%
+\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{147}{}%

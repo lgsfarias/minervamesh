@@ -26,7 +26,7 @@ Todos os resultados foram gerados diretamente no navegador, utilizando a platafo
 \section{Condução Permanente 1D}
 \label{sec:val_conducao1d}
 
-O primeiro caso de validação consiste no problema de condução de calor em regime permanente, em uma barra unidimensional de comprimento~$L$ com geração interna de calor~$Q$ e condições de contorno de Dirichlet em ambas as extremidades. Este problema constitui o caso mais simples de validação do MEF, pois admite solução analítica exata e envolve elementos lineares unidimensionais (P1), correspondendo diretamente à formulação desenvolvida na Seção~\ref{sec:forma_fraca}.
+O primeiro caso de validação consiste no problema de condução de calor em regime permanente, em uma barra unidimensional de comprimento~$L$ com geração interna de calor~$Q$ e condições de contorno de Dirichlet em ambas as extremidades. Este problema constitui o caso mais simples de validação do MEF, pois admite solução analítica exata e envolve elementos lineares unidimensionais, correspondendo diretamente à formulação desenvolvida na Seção~\ref{sec:forma_fraca}.
 
 \subsection{Formulação do Problema}
 
@@ -84,20 +84,20 @@ Substituindo os valores da Tabela~\ref{tab:val_conducao1d_params}, obtém-se $C_
 
 \subsection{Solução MEF e Comparação}
 
-A discretização por elementos finitos utiliza $n_e = 10$ elementos lineares (P1) com espaçamento uniforme $h = L/n_e = 0{,}1$~m, resultando em 11 nós. A montagem do sistema global e a imposição das condições de contorno de Dirichlet seguem o procedimento descrito nas Seções~\ref{sec:galerkin} e~\ref{sec:montagem_global}. Para este problema de Poisson unidimensional com elementos P1, a solução MEF coincide exatamente com a solução analítica nos nós da malha (propriedade bem conhecida da interpolação linear por partes para polinômios de grau~$\leq 2$).
+A discretização por elementos finitos utiliza $n_e = 10$ elementos lineares com espaçamento uniforme $h = L/n_e = 0{,}1$~m, resultando em 11 nós. A montagem do sistema global e a imposição das condições de contorno de Dirichlet seguem o procedimento descrito nas Seções~\ref{sec:galerkin} e~\ref{sec:montagem_global}. Para este problema de Poisson unidimensional com elementos lineares, a solução MEF coincide exatamente com a solução analítica nos nós da malha (propriedade bem conhecida da interpolação linear por partes para polinômios de grau~$\leq 2$).
 
 A Figura~\ref{fig:val_conducao1d_resultado} apresenta os resultados obtidos. A curva MEF (pontos azuis) está perfeitamente sobreposta à solução analítica (linha tracejada vermelha), confirmando a corretude da implementação.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{figuras/prints/fig_val_conducao1d_resultado.png}
-    \caption{Condução permanente 1D: comparação entre a solução MEF (pontos azuis, $n_e = 10$ elementos P1) e a solução analítica (linha tracejada vermelha). A sobreposição exata confirma a propriedade de reprodução polinomial dos elementos lineares para fontes uniformes.}
+    \caption{Condução permanente 1D: comparação entre a solução MEF (pontos azuis, $n_e = 10$ elementos lineares) e a solução analítica (linha tracejada vermelha). A sobreposição exata confirma a propriedade de reprodução polinomial dos elementos lineares para fontes uniformes.}
     \label{fig:val_conducao1d_resultado}
 \end{figure}
 
 \subsection{Análise de Erro}
 
-Para este caso particular — equação de Poisson 1D com fonte constante e elementos lineares — a solução analítica é um polinômio de grau~2. Como a interpolação P1 reproduz exatamente qualquer polinômio de grau~$\leq 2$ nos nós da malha, espera-se que o erro nodal seja da ordem do erro de arredondamento de máquina ($\sim 10^{-15}$). De fato, ao calcular o erro máximo absoluto e o erro relativo na norma $L_2$:
+Para este caso particular — equação de Poisson 1D com fonte constante e elementos lineares — a solução analítica é um polinômio de grau~2. Como a interpolação linear reproduz exatamente qualquer polinômio de grau~$\leq 2$ nos nós da malha, espera-se que o erro nodal seja da ordem do erro de arredondamento de máquina ($\sim 10^{-15}$). De fato, ao calcular o erro máximo absoluto e o erro relativo na norma $L_2$:
 
 \begin{equation}
     e_{\max} = \max_{i} |T_i^{\text{MEF}} - T_i^{\text{ana}}|, \qquad
@@ -183,7 +183,7 @@ O perfil permanente é portanto uma linha poligonal com \emph{kink} em~$x = L/2$
 
 \subsection{Solução MEF e Comparação}
 
-A discretização emprega $n_e = 40$ elementos P1 com $h = 0{,}025$~m, o que resolve bem a descontinuidade de condutividade alinhando um nó exatamente com $x = L/2$. A cada passo de tempo, o sistema linear
+A discretização emprega $n_e = 40$ elementos lineares com $h = 0{,}025$~m, o que resolve bem a descontinuidade de condutividade alinhando um nó exatamente com $x = L/2$. A cada passo de tempo, o sistema linear
 
 \begin{equation}
     \left( \frac{M}{\Delta t} + \theta \, K \right) \mathbf{T}^{n+1} = \left( \frac{M}{\Delta t} - (1-\theta) K \right) \mathbf{T}^n
@@ -195,13 +195,13 @@ A discretização emprega $n_e = 40$ elementos P1 com $h = 0{,}025$~m, o que res
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{figuras/prints/fig_val_calor_transiente1d_evolucao.png}
-    \caption{Condução transiente 1D com condutividade descontínua ($k_1 = 5$, $k_2 = 1$): solução MEF no instante final $t = 0{,}2$~s (pontos azuis) comparada ao perfil analítico de regime permanente (linha tracejada vermelha). A curva verde tracejada no eixo secundário indica a variação de $k(x)$ com a descontinuidade em $x = L/2$. A malha de $40$~elementos P1 com $\theta = 1/2$ reproduz fielmente o \emph{kink} de condutividade, com $T(L/2) \approx 1/6$.}
+    \caption{Condução transiente 1D com condutividade descontínua ($k_1 = 5$, $k_2 = 1$): solução MEF no instante final $t = 0{,}2$~s (pontos azuis) comparada ao perfil analítico de regime permanente (linha tracejada vermelha). A curva verde tracejada no eixo secundário indica a variação de $k(x)$ com a descontinuidade em $x = L/2$. A malha de $40$~elementos lineares com $\theta = 1/2$ reproduz fielmente o \emph{kink} de condutividade, com $T(L/2) \approx 1/6$.}
     \label{fig:val_calor_transiente}
 \end{figure}
 
 \subsection{Análise de Erro}
 
-Em $t_{\max} = 0{,}2$~s ($20\%$ da escala de tempo difusiva $\tau_{\mathrm{dif}} \sim 1{,}0$~s), a solução MEF já se encontra em regime quase-permanente: a figura mostra os pontos nodais visualmente coincidentes com a linha poligonal analítica, incluindo a captura correta do \emph{kink} de condutividade em $x = L/2$. A convergência pontual segue o decaimento exponencial esperado para equações parabólicas, $|T(x,t) - T_{\infty}(x)| \sim e^{-t/\tau}$, de modo que em $t \gtrsim 2\tau_{\mathrm{dif}}$ o erro nodal atinge a precisão de máquina, dado que a solução de regime permanente (linear por partes) pertence exatamente ao espaço de aproximação dos elementos P1 com nós alinhados à descontinuidade.
+Em $t_{\max} = 0{,}2$~s ($20\%$ da escala de tempo difusiva $\tau_{\mathrm{dif}} \sim 1{,}0$~s), a solução MEF já se encontra em regime quase-permanente: a figura mostra os pontos nodais visualmente coincidentes com a linha poligonal analítica, incluindo a captura correta do \emph{kink} de condutividade em $x = L/2$. A convergência pontual segue o decaimento exponencial esperado para equações parabólicas, $|T(x,t) - T_{\infty}(x)| \sim e^{-t/\tau}$, de modo que em $t \gtrsim 2\tau_{\mathrm{dif}}$ o erro nodal atinge a precisão de máquina, dado que a solução de regime permanente (linear por partes) pertence exatamente ao espaço de aproximação dos elementos lineares com nós alinhados à descontinuidade.
 
 \paragraph{Nota sobre a propagação térmica.} Para tempos menores, inferiores a $\tau_{\mathrm{dif}}$, o campo exibe a perturbação térmica se propagando da parede quente ($x = L$, onde $T_L = 1$) para o interior da barra, com frente de difusão progredindo à razão $\sqrt{\kappa \, t}$ ($\kappa = k / \rho c_p$). A descontinuidade de condutividade em $x = L/2$ introduz um retardo do avanço da frente quando esta atravessa para a região de menor condutividade ($k_2 = 1$), comportamento observável interativamente ao se reduzir $t_{\max}$ na interface.
 
@@ -439,7 +439,7 @@ Para barra livre-livre (ambas as extremidades com $du/dx = 0$), as formas modais
 
 \subsection{Solução MEF e Comparação}
 
-A discretização emprega $n_e = 20$ elementos P1 com malha uniforme. A matriz de massa é montada na forma \emph{lumped}, redistribuindo a massa elementar igualmente entre os dois nós do elemento --- estratégia que torna $M$ diagonal e acelera a solução do problema de autovalor, ao custo de introduzir um erro sistemático de subestimação das frequências. A Figura~\ref{fig:val_vibracao} apresenta as cinco primeiras formas modais normalizadas e a tabela de frequências obtidas pela solução do problema generalizado.
+A discretização emprega $n_e = 20$ elementos lineares com malha uniforme. A matriz de massa é montada na forma \emph{lumped}, redistribuindo a massa elementar igualmente entre os dois nós do elemento --- estratégia que torna $M$ diagonal e acelera a solução do problema de autovalor, ao custo de introduzir um erro sistemático de subestimação das frequências. A Figura~\ref{fig:val_vibracao} apresenta as cinco primeiras formas modais normalizadas e a tabela de frequências obtidas pela solução do problema generalizado.
 
 \begin{figure}[htbp]
     \centering
@@ -480,7 +480,7 @@ O modo de corpo rígido ($n = 1$) é reproduzido exatamente pelo MEF, com $f_1 =
 \section{Transferência de Calor Transiente 2D}
 \label{sec:val_transcalor}
 
-O sexto caso constitui a primeira validação bidimensional do MinervaMesh. O problema é a evolução transiente do campo de temperatura em uma placa quadrada com condições de contorno de Dirichlet assimétricas (temperaturas distintas em topo e base, perfis lineares nas laterais), discretizada com elementos triangulares P1 sobre uma malha estruturada e integrada no tempo pelo método de Crank-Nicolson. A validação verifica a montagem 2D das matrizes elementares, a aplicação de condições de contorno sobre fronteiras não-alinhadas com os eixos da malha e a convergência ao perfil de regime permanente, que admite solução analítica trivial.
+O sexto caso constitui a primeira validação bidimensional do MinervaMesh. O problema é a evolução transiente do campo de temperatura em uma placa quadrada com condições de contorno de Dirichlet assimétricas (temperaturas distintas em topo e base, perfis lineares nas laterais), discretizada com elementos triangulares lineares sobre uma malha estruturada e integrada no tempo pelo método de Crank-Nicolson. A validação verifica a montagem 2D das matrizes elementares, a aplicação de condições de contorno sobre fronteiras não-alinhadas com os eixos da malha e a convergência ao perfil de regime permanente, que admite solução analítica trivial.
 
 \subsection{Formulação do Problema}
 
@@ -536,7 +536,7 @@ Em regime permanente, a Equação~\eqref{eq:val_transcalor_edp} se reduz a $\nab
     \label{eq:val_transcalor_analitica}
 \end{equation}
 
-\noindent perfil linear em $y$ e independente de $x$. Esta solução é um polinômio de grau~$1$ em $y$, pertencente ao espaço de aproximação dos elementos P1, de modo que se espera reprodução nodal exata a menos do erro de integração temporal e de arredondamento.
+\noindent perfil linear em $y$ e independente de $x$. Esta solução é um polinômio de grau~$1$ em $y$, pertencente ao espaço de aproximação dos elementos lineares, de modo que se espera reprodução nodal exata a menos do erro de integração temporal e de arredondamento.
 
 \subsection{Solução MEF e Comparação}
 
@@ -558,7 +558,7 @@ A malha é gerada por triangulação de Delaunay sobre um reticulado de $40 \tim
 
 \subsection{Análise de Erro}
 
-A solução analítica de regime permanente da Equação~\eqref{eq:val_transcalor_analitica} não é diretamente comparável ao campo em $t = 0{,}049$~s, pois o sistema está a apenas $\approx 5\%$ de $\tau_{\mathrm{dif}}$. Uma validação quantitativa pode ser obtida interativamente prolongando-se a simulação: para $t \gtrsim 2\tau_{\mathrm{dif}}$, o campo MEF converge ao perfil linear analítico $T_{\infty}(x, y) = 30 + 70\,y$ com erro nodal da ordem da precisão de máquina --- comportamento esperado porque o perfil analítico é um polinômio de grau~$1$ em $y$, pertencente ao espaço de aproximação dos elementos P1.
+A solução analítica de regime permanente da Equação~\eqref{eq:val_transcalor_analitica} não é diretamente comparável ao campo em $t = 0{,}049$~s, pois o sistema está a apenas $\approx 5\%$ de $\tau_{\mathrm{dif}}$. Uma validação quantitativa pode ser obtida interativamente prolongando-se a simulação: para $t \gtrsim 2\tau_{\mathrm{dif}}$, o campo MEF converge ao perfil linear analítico $T_{\infty}(x, y) = 30 + 70\,y$ com erro nodal da ordem da precisão de máquina --- comportamento esperado porque o perfil analítico é um polinômio de grau~$1$ em $y$, pertencente ao espaço de aproximação dos elementos lineares.
 
 A validação qualitativa no regime transiente é, por sua vez, satisfatória: (i) as isotermas instantâneas são aproximadamente horizontais na região central, consistentes com a simetria em $x$ das condições de contorno; (ii) as frentes de difusão avançam com velocidade $\sim \sqrt{\kappa t}$ (onde $\kappa = k / \rho c_v$), comportamento escalar característico da equação do calor; (iii) os valores nas paredes permanecem fixos em $30$°C na base e $100$°C no topo ao longo de toda a simulação, confirmando a aplicação correta das condições de contorno de Dirichlet.
 

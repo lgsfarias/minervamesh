@@ -274,7 +274,7 @@ O problema de autovalor é resolvido pela rotina \texttt{scipy.linalg.eigh}, que
 \subsection{Transferência de Calor 2D}
 \label{sec:caso_transcalor}
 
-O módulo de transferência de calor bidimensional resolve a equação de condução transiente em uma placa quadrada discretizada com elementos triangulares P1 (Seção~\ref{sec:elementos_p1}). As matrizes elementares de rigidez e massa são construídas pela função compartilhada \texttt{element\_matrices}, que implementa diretamente as expressões derivadas na Seção~\ref{sec:matrizes_elementares} (Eqs.~\ref{eq:rigidez_elementar} e~\ref{eq:massa_elementar}):
+O módulo de transferência de calor bidimensional resolve a equação de condução transiente em uma placa quadrada discretizada com elementos triangulares lineares (Seção~\ref{sec:elementos_p1}). As matrizes elementares de rigidez e massa são construídas pela função compartilhada \texttt{element\_matrices}, que implementa diretamente as expressões derivadas na Seção~\ref{sec:matrizes_elementares} (Eqs.~\ref{eq:rigidez_elementar} e~\ref{eq:massa_elementar}):
 
 \begin{lstlisting}
 def element_matrices(coords, k, rho, cv):

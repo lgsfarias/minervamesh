@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  18 APR 2026 14:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  19 APR 2026 17:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -563,10 +563,10 @@ e
 
 (./Capa.tex
 Package epstopdf Info: Source file: <./figuras/Poli.eps>
-(epstopdf)                    date: 2026-01-27 08:12:00
+(epstopdf)                    date: 2026-04-18 15:02:38
 (epstopdf)                    size: 546883 bytes
 (epstopdf)             Output file: <./figuras/Poli-eps-converted-to.pdf>
-(epstopdf)                    date: 2026-01-27 08:12:00
+(epstopdf)                    date: 2026-04-18 15:02:38
 (epstopdf)                    size: 43660 bytes
 (epstopdf)             Command: <repstopdf --outfile=./figuras/Poli-eps-convert
 ed-to.pdf ./figuras/Poli.eps>
@@ -686,19 +686,21 @@ UPG de-sa-ti-vado), mes-
 
 
 [14{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.en
-c}])
+c}]
+
+[15])
 \tf@lof=\write4
 \openout4 = `Principal.lof'.
 
 
 
-[15] (./Principal.lot)
+[16] (./Principal.lot)
 \tf@lot=\write5
 \openout5 = `Principal.lot'.
 
 
 
-[16
+[17
 
 ]
 Cap\'{\i }tulo 1.
@@ -794,7 +796,7 @@ Overfull \hbox (8.47636pt too wide) in paragraph at lines 1--2
 [20
 
 ]
-<figuras/prints/fig_minervamesh_home.png, id=135, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_minervamesh_home.png, id=139, 1630.09pt x 1064.97874pt>
 File: figuras/prints/fig_minervamesh_home.png Graphic file (type png)
 <use figuras/prints/fig_minervamesh_home.png>
 Package pdftex.def Info: figuras/prints/fig_minervamesh_home.png  used on input
@@ -819,7 +821,7 @@ Overfull \hbox (4.87741pt too wide) in paragraph at lines 120--121
  os par^ametros f^^S^^Psicos e num^^Sericos atrav^^Ses
  []
 
-<figuras/prints/fig_interface_parametros.png, id=156, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_interface_parametros.png, id=159, 1630.09pt x 1064.97874pt>
 
 File: figuras/prints/fig_interface_parametros.png Graphic file (type png)
 <use figuras/prints/fig_interface_parametros.png>
@@ -834,7 +836,7 @@ Overfull \hbox (15.00407pt too wide) in paragraph at lines 138--139
 eta en-tre ope-ra-do-res ma-tem^^Saticos
  []
 
-<figuras/prints/fig_conducao1d_resultado.png, id=161, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_conducao1d_resultado.png, id=164, 1630.09pt x 1064.97874pt>
 
 File: figuras/prints/fig_conducao1d_resultado.png Graphic file (type png)
 <use figuras/prints/fig_conducao1d_resultado.png>
@@ -844,7 +846,7 @@ nput line 162.
 
 
 [26]
-<figuras/prints/fig_calor_transiente1d_evolucao.png, id=166, 1630.09pt x 1064.9
+<figuras/prints/fig_calor_transiente1d_evolucao.png, id=170, 1630.09pt x 1064.9
 7874pt>
 File: figuras/prints/fig_calor_transiente1d_evolucao.png Graphic file (type png
 )
@@ -857,7 +859,7 @@ ed on input line 190.
 [27 <./figuras/prints/fig_conducao1d_resultado.png>]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 210.
-<figuras/prints/fig_convdif1d_com_supg.png, id=172, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_convdif1d_com_supg.png, id=175, 1630.09pt x 1064.97874pt>
 File: figuras/prints/fig_convdif1d_com_supg.png Graphic file (type png)
 <use figuras/prints/fig_convdif1d_com_supg.png>
 Package pdftex.def Info: figuras/prints/fig_convdif1d_com_supg.png  used on inp
@@ -868,7 +870,7 @@ ut line 218.
 [28 <./figuras/prints/fig_calor_transiente1d_evolucao.png>]
 
 [29 <./figuras/prints/fig_convdif1d_com_supg.png>]
-<figuras/prints/fig_viga1d_resultado.png, id=181, 1042.89626pt x 1064.97874pt>
+<figuras/prints/fig_viga1d_resultado.png, id=184, 1042.89626pt x 1064.97874pt>
 File: figuras/prints/fig_viga1d_resultado.png Graphic file (type png)
 <use figuras/prints/fig_viga1d_resultado.png>
 Package pdftex.def Info: figuras/prints/fig_viga1d_resultado.png  used on input
@@ -877,7 +879,7 @@ Package pdftex.def Info: figuras/prints/fig_viga1d_resultado.png  used on input
 
 
 [30 <./figuras/prints/fig_viga1d_resultado.png>]
-<figuras/prints/fig_vibracao1d_modos.png, id=186, 1213.53375pt x 1064.97874pt>
+<figuras/prints/fig_vibracao1d_modos.png, id=189, 1213.53375pt x 1064.97874pt>
 File: figuras/prints/fig_vibracao1d_modos.png Graphic file (type png)
 <use figuras/prints/fig_vibracao1d_modos.png>
 Package pdftex.def Info: figuras/prints/fig_vibracao1d_modos.png  used on input
@@ -890,15 +892,9 @@ e-solve a equa^^Xc~ao de condu^^Xc~ao
  []
 
 
-Overfull \hbox (36.11914pt too wide) in paragraph at lines 277--278
-\OT1/cmr/m/n/12 tran-si-ente em uma placa qua-drada dis-cre-ti-zada com ele-men
--tos tri-an-gu-la-res P1 (Se^^Xc~ao 3.4.3[]).
- []
-
-
 
 [31 <./figuras/prints/fig_vibracao1d_modos.png>]
-<figuras/prints/fig_transcalor2d_campo.png, id=191, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_transcalor2d_campo.png, id=194, 1630.09pt x 1064.97874pt>
 File: figuras/prints/fig_transcalor2d_campo.png Graphic file (type png)
 <use figuras/prints/fig_transcalor2d_campo.png>
 Package pdftex.def Info: figuras/prints/fig_transcalor2d_campo.png  used on inp
@@ -907,7 +903,7 @@ ut line 295.
 
 
 [32 <./figuras/prints/fig_transcalor2d_campo.png>]
-<figuras/prints/fig_potencial2d_linhas.png, id=196, 1630.09pt x 1064.97874pt>
+<figuras/prints/fig_potencial2d_linhas.png, id=201, 1630.09pt x 1064.97874pt>
 File: figuras/prints/fig_potencial2d_linhas.png Graphic file (type png)
 <use figuras/prints/fig_potencial2d_linhas.png>
 Package pdftex.def Info: figuras/prints/fig_potencial2d_linhas.png  used on inp
@@ -916,7 +912,7 @@ ut line 316.
 
 
 [33 <./figuras/prints/fig_potencial2d_linhas.png>]
-<figuras/prints/fig_ns2d_cavity_re100.png, id=203, 587.5551pt x 860.013pt>
+<figuras/prints/fig_ns2d_cavity_re100.png, id=206, 587.5551pt x 860.013pt>
 File: figuras/prints/fig_ns2d_cavity_re100.png Graphic file (type png)
 <use figuras/prints/fig_ns2d_cavity_re100.png>
 Package pdftex.def Info: figuras/prints/fig_ns2d_cavity_re100.png  used on inpu
@@ -925,7 +921,7 @@ t line 338.
 
 
 [34]
-<figuras/prints/fig_ns2d_cylinder.png, id=207, 586.8324pt x 860.013pt>
+<figuras/prints/fig_ns2d_cylinder.png, id=210, 586.8324pt x 860.013pt>
 File: figuras/prints/fig_ns2d_cylinder.png Graphic file (type png)
 <use figuras/prints/fig_ns2d_cylinder.png>
 Package pdftex.def Info: figuras/prints/fig_ns2d_cylinder.png  used on input li
@@ -954,7 +950,7 @@ i-vas de com-para^^Xc~ao en-tre re-sul-tado num^^Serico
 [39]
 
 [40]
-<figuras/prints/fig_val_conducao1d_resultado.png, id=229, 570.933pt x 354.123pt
+<figuras/prints/fig_val_conducao1d_resultado.png, id=232, 570.933pt x 354.123pt
 >
 File: figuras/prints/fig_val_conducao1d_resultado.png Graphic file (type png)
 <use figuras/prints/fig_val_conducao1d_resultado.png>
@@ -976,7 +972,7 @@ dT=dx\OT1/cmr/m/n/12 ) =
 
 
 [43]
-<figuras/prints/fig_val_calor_transiente1d_evolucao.png, id=241, 1003.75pt x 60
+<figuras/prints/fig_val_calor_transiente1d_evolucao.png, id=244, 1003.75pt x 60
 2.25pt>
 File: figuras/prints/fig_val_calor_transiente1d_evolucao.png Graphic file (type
  png)
@@ -996,13 +992,13 @@ Overfull \hbox (18.00232pt too wide) in paragraph at lines 212--212
 [45]
 
 [46]
-<figuras/prints/fig_val_convdif1d_supg.png, id=254, 1505.625pt x 1204.5pt>
+<figuras/prints/fig_val_convdif1d_supg.png, id=257, 1505.625pt x 1204.5pt>
 File: figuras/prints/fig_val_convdif1d_supg.png Graphic file (type png)
 <use figuras/prints/fig_val_convdif1d_supg.png>
 Package pdftex.def Info: figuras/prints/fig_val_convdif1d_supg.png  used on inp
 ut line 281.
 (pdftex.def)             Requested size: 362.77524pt x 290.22542pt.
-<figuras/prints/fig_val_convdif1d_galerkin.png, id=255, 1505.625pt x 1204.5pt>
+<figuras/prints/fig_val_convdif1d_galerkin.png, id=258, 1505.625pt x 1204.5pt>
 File: figuras/prints/fig_val_convdif1d_galerkin.png Graphic file (type png)
 <use figuras/prints/fig_val_convdif1d_galerkin.png>
 Package pdftex.def Info: figuras/prints/fig_val_convdif1d_galerkin.png  used on
@@ -1017,7 +1013,7 @@ Package pdftex.def Info: figuras/prints/fig_val_convdif1d_galerkin.png  used on
 [49 <./figuras/prints/fig_val_convdif1d_galerkin.png>]
 
 [50]
-<figuras/prints/fig_val_viga1d_resultado.png, id=270, 1790.69pt x 2693.06125pt>
+<figuras/prints/fig_val_viga1d_resultado.png, id=274, 1790.69pt x 2693.06125pt>
 
 File: figuras/prints/fig_val_viga1d_resultado.png Graphic file (type png)
 <use figuras/prints/fig_val_viga1d_resultado.png>
@@ -1033,7 +1029,7 @@ nput line 365.
 [53]
 
 [54]
-<figuras/prints/fig_val_vibracao1d_modos.png, id=285, 1890.06125pt x 2787.41376
+<figuras/prints/fig_val_vibracao1d_modos.png, id=288, 1890.06125pt x 2787.41376
 pt>
 File: figuras/prints/fig_val_vibracao1d_modos.png Graphic file (type png)
 <use figuras/prints/fig_val_vibracao1d_modos.png>
@@ -1055,7 +1051,7 @@ l), ob-tida in-te-grando $[] \OML/cmm/m/it/12 N[]N[] ^^ZA dx$
 [57]
 
 [58]
-<figuras/prints/fig_val_transcalor2d_campo.png, id=300, 602.25pt x 501.875pt>
+<figuras/prints/fig_val_transcalor2d_campo.png, id=303, 602.25pt x 501.875pt>
 File: figuras/prints/fig_val_transcalor2d_campo.png Graphic file (type png)
 <use figuras/prints/fig_val_transcalor2d_campo.png>
 Package pdftex.def Info: figuras/prints/fig_val_transcalor2d_campo.png  used on
@@ -1077,7 +1073,7 @@ Savel).
 [61]
 
 [62]
-<figuras/prints/fig_val_potencial2d_linhas.png, id=314, 714.7503pt x 860.013pt>
+<figuras/prints/fig_val_potencial2d_linhas.png, id=318, 714.7503pt x 860.013pt>
 
 File: figuras/prints/fig_val_potencial2d_linhas.png Graphic file (type png)
 <use figuras/prints/fig_val_potencial2d_linhas.png>
@@ -1100,7 +1096,7 @@ m/m/it/12 ^^R\OT1/cmr/m/n/12 ) [] \OML/cmm/m/it/12 ^^R d`$
 [65]
 
 [66]
-<figuras/prints/fig_val_ns2d_cavity_re100.png, id=329, 360.6273pt x 860.013pt>
+<figuras/prints/fig_val_ns2d_cavity_re100.png, id=332, 360.6273pt x 860.013pt>
 File: figuras/prints/fig_val_ns2d_cavity_re100.png Graphic file (type png)
 <use figuras/prints/fig_val_ns2d_cavity_re100.png>
 Package pdftex.def Info: figuras/prints/fig_val_ns2d_cavity_re100.png  used on 
@@ -1110,7 +1106,7 @@ input line 726.
 
 LaTeX Warning: Float too large for page by 32.38689pt on input line 729.
 
-<figuras/prints/fig_val_ns_ghia_uy.png, id=330, 498.1812pt x 426.393pt>
+<figuras/prints/fig_val_ns_ghia_uy.png, id=333, 498.1812pt x 426.393pt>
 File: figuras/prints/fig_val_ns_ghia_uy.png Graphic file (type png)
 <use figuras/prints/fig_val_ns_ghia_uy.png>
 Package pdftex.def Info: figuras/prints/fig_val_ns_ghia_uy.png  used on input l
@@ -1156,9 +1152,9 @@ Ap\^endice A.
 
 [79]
 
-[80]) (../simulations/mef/calor-transiente-1d/simulation.py
+[80]
 
-[81]
+[81]) (../simulations/mef/calor-transiente-1d/simulation.py
 Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 [][][][][][] 
  []
@@ -1177,11 +1173,11 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [87]
 
-[88])
+[88]
 
-[89] (../simulations/mef/conveccao-difusao-1d/simulation.py
+[89]
 
-[90]
+[90]) (../simulations/mef/conveccao-difusao-1d/simulation.py
 
 [91]
 
@@ -1191,9 +1187,9 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [94]
 
-[95]) (../simulations/mef/viga-1d-mef/simulation.py
+[95]
 
-[96]
+[96]) (../simulations/mef/viga-1d-mef/simulation.py
 
 [97]
 
@@ -1215,15 +1211,15 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [106]
 
-[107])
+[107]
 
-[108] (../simulations/mef/vibracao-1d-mef/simulation.py
+[108]
 
 [109]
 
 [110]
 
-[111]
+[111]) (../simulations/mef/vibracao-1d-mef/simulation.py
 
 [112]
 
@@ -1237,19 +1233,27 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [117]
 
-[118]))
+[118]
 
 [119]
-Ap\^endice B.
-(./apendice_modulos_2d.tex (../simulations/mef/escoamento-fluido-2d/common.py
 
-[120
-
-]
+[120]
 
 [121]
 
-[122])
+[122]))
+
+[123]
+Ap\^endice B.
+(./apendice_modulos_2d.tex (../simulations/mef/escoamento-fluido-2d/common.py
+
+[124
+
+]
+
+[125]
+
+[126])
 Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 []\OT1/cmr/bx/n/17.28 M^^Sodulo Com-par-ti-lhado: Ge-o-me-trias de Obst^^Saculo
  
@@ -1257,22 +1261,13 @@ Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 
 
 
-[123] (../simulations/mef/escoamento-fluido-2d/geometry.py
-
-[124]
-
-[125]) (../simulations/mef/transcalor/simulation.py
-
-[126]
-
-[127]
+[127] (../simulations/mef/escoamento-fluido-2d/geometry.py
 
 [128]
 
-[129])
+[129]) (../simulations/mef/transcalor/simulation.py
 
 [130]
-(../simulations/mef/escoamento-fluido-2d/escoamento-potencial/simulation.py
 
 [131]
 
@@ -1282,7 +1277,41 @@ Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 
 [134]
 
+! LaTeX Error: Invalid UTF-8 byte sequence (â\lst@FillFixed@\lst@ECˆ).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.160         f"(T_bot + (T_top âˆ’ 
+                                    T_bot)Â·y):</strong> {T_centro_ss:.4f} Â...
+
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+
+! LaTeX Error: Invalid UTF-8 byte "92.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.160         f"(T_bot + (T_top âˆ’ 
+                                    T_bot)Â·y):</strong> {T_centro_ss:.4f} Â...
+
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+)
+
 [135]
+(../simulations/mef/escoamento-fluido-2d/escoamento-potencial/simulation.py
 
 [136]
 
@@ -1292,7 +1321,7 @@ Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 
 [139]
 
-[140]) (../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py
+[140]
 
 [141]
 
@@ -1302,9 +1331,40 @@ Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 
 [144]
 
+! LaTeX Error: Invalid UTF-8 byte sequence (â\lst@FillFixed@\lst@ECˆ).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.346             "(teoria: C_p = 1 âˆ’ 
+                                        4 senÂ²Î¸)</p>"
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+
+! LaTeX Error: Invalid UTF-8 byte "92.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.346             "(teoria: C_p = 1 âˆ’ 
+                                        4 senÂ²Î¸)</p>"
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+
+
 [145]
 
-[146]
+[146]) (../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py
 
 [147]
 
@@ -1316,22 +1376,67 @@ Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 
 [151]
 
-[152]))
+[152]
 
-[153] (./Principal.aux)
+[153]
+
+[154]
+
+[155]
+
+[156]
+
+[157]
+
+! LaTeX Error: Invalid UTF-8 byte sequence (Ã\lst@FillFixed@).
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.363             f"malha {params['nx']}Ã—{
+                                           params['ny']}</p>"
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+
+! LaTeX Error: Invalid UTF-8 byte "97.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.363             f"malha {params['nx']}Ã—{
+                                           params['ny']}</p>"
+The document does not appear to be in UTF-8 encoding.
+Try adding \UseRawInputEncoding as the first line of the file
+or specify an encoding such as \usepackage [latin1]{inputenc}
+in the document preamble.
+Alternatively, save the file in UTF-8 using your editor or another tool
+
+
+
+[158]
+
+[159]))
+
+[160] (./Principal.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15953 strings out of 473190
- 276438 string characters out of 5715799
- 1245896 words of memory out of 5000000
- 38889 multiletter control sequences out of 15000+600000
+ 16008 strings out of 473190
+ 277170 string characters out of 5715799
+ 1273896 words of memory out of 5000000
+ 38944 multiletter control sequences out of 15000+600000
  575710 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 80i,14n,98p,1256b,1834s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 80i,14n,98p,1256b,1871s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb><
 /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb>
@@ -1359,10 +1464,10 @@ ist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025
 /texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/t
 exmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Principal.pdf (169 pages, 11218616 bytes).
+Output written on Principal.pdf (177 pages, 11246692 bytes).
 PDF statistics:
- 734 PDF objects out of 1000 (max. 8388607)
- 459 compressed objects within 5 object streams
+ 759 PDF objects out of 1000 (max. 8388607)
+ 476 compressed objects within 5 object streams
  0 named destinations out of 1000 (max. 500000)
  111 words of extra memory for PDF output out of 10000 (max. 10000000)
 

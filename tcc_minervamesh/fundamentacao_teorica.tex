@@ -3,7 +3,7 @@
 
 \paragraph{}Este capítulo apresenta a formulação matemática e os métodos numéricos que fundamentam as análises realizadas no \textit{MinervaMesh}. O objetivo central é fornecer uma base sólida, típica da Engenharia Mecânica, para a conversão dos modelos físicos contínuos em sistemas algébricos discretos resolvidos computacionalmente.
 
-\paragraph{}Inicialmente, revisam-se as equações diferenciais parciais (EDPs) governantes da condução de calor térmica e do escoamento de fluidos de forma conceitual. Em seguida, após uma breve fundamentação do Método das Diferenças Finitas (MDF), o capítulo se aprofunda extensamente no Método dos Elementos Finitos (MEF). O desenvolvimento abrange desde a formulação de Galerkin, passando pela discretização com elementos triangulares de primeira ordem (P1), até a consolidação da formulação em Vorticidade-Corrente adotada para a dinâmica de fluidos.
+\paragraph{}Inicialmente, revisam-se as equações diferenciais parciais (EDPs) governantes da condução de calor térmica e do escoamento de fluidos de forma conceitual. Em seguida, após uma breve fundamentação do Método das Diferenças Finitas (MDF), o capítulo se aprofunda extensamente no Método dos Elementos Finitos (MEF). O desenvolvimento abrange desde a formulação de Galerkin, passando pela discretização com elementos triangulares lineares, até a consolidação da formulação em Vorticidade-Corrente adotada para a dinâmica de fluidos.
 
 \section{Equações Governantes}
 \label{sec:equacoes_governantes}
@@ -155,12 +155,12 @@ A resolução deste sistema algébrico fornece os coeficientes nodais $\mathbf{U
 
 A construção efetiva das matrizes $\mathbf{K}$ e do vetor $\mathbf{F}$ depende da escolha dos elementos e das funções de forma, desenvolvida na seção seguinte.
 
-\subsection{Elementos Triangulares Lineares (P1)}
+\subsection{Elementos Triangulares Lineares}
 \label{sec:elementos_p1}
 
 A discretização do domínio $\Omega$ é realizada por uma malha de $N_e$ elementos triangulares, cujos vértices coincidem com os $N$ nós globais da malha. Cada elemento $e$ possui três nós locais ($1, 2, 3$), com coordenadas $(x_i, y_i)$, $i = 1, 2, 3$.
 
-As funções de forma lineares $N_i^e$ para o elemento triangular P1 são definidas de modo que $N_i^e(\mathbf{x}_j) = \delta_{ij}$ (propriedade de partição da unidade nodal). Em coordenadas cartesianas, estas funções são expressas por \cite{Reddy2005}:
+As funções de forma lineares $N_i^e$ para o elemento triangular linear são definidas de modo que $N_i^e(\mathbf{x}_j) = \delta_{ij}$ (propriedade de partição da unidade nodal). Em coordenadas cartesianas, estas funções são expressas por \cite{Reddy2005}:
 
 \begin{equation}
 N_i^e(x, y) = \frac{1}{2A^e} (a_i + b_i \, x + c_i \, y), \quad i = 1, 2, 3
@@ -179,7 +179,7 @@ A^e = \frac{1}{2} \left| x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2) \right
 \label{eq:area_elemento}
 \end{equation}
 
-\paragraph{}Os gradientes das funções de forma são constantes dentro de cada elemento P1:
+\paragraph{}Os gradientes das funções de forma são constantes dentro de cada elemento linear:
 
 \begin{equation}
 \nabla N_i^e = \frac{1}{2A^e} \begin{pmatrix} b_i \\ c_i \end{pmatrix}
@@ -191,7 +191,7 @@ Esta propriedade simplifica consideravelmente as integrais elementares, uma vez 
 \subsection{Matrizes Elementares}
 \label{sec:matrizes_elementares}
 
-A partir das funções de forma P1, as integrais da formulação de Galerkin (Eqs.~\ref{eq:matriz_rigidez} e \ref{eq:vetor_carga}) são calculadas elemento a elemento e, em seguida, assembradas no sistema global.
+A partir das funções de forma lineares, as integrais da formulação de Galerkin (Eqs.~\ref{eq:matriz_rigidez} e \ref{eq:vetor_carga}) são calculadas elemento a elemento e, em seguida, assembradas no sistema global.
 
 \subsubsection{Matriz de Rigidez Elementar}
 
@@ -204,7 +204,7 @@ K_{ij}^e = \int_{\Omega^e} k \, \nabla N_i^e \cdot \nabla N_j^e \, d\Omega = \fr
 
 \subsubsection{Matriz de Massa Elementar}
 
-Em problemas transientes, a discretização temporal introduz um termo de acumulação que requer a \textit{matriz de massa}. Para elementos P1, a matriz de massa consistente é \cite{Zienkiewicz2013}:
+Em problemas transientes, a discretização temporal introduz um termo de acumulação que requer a \textit{matriz de massa}. Para elementos lineares, a matriz de massa consistente é \cite{Zienkiewicz2013}:
 
 \begin{equation}
 M_{ij}^e = \int_{\Omega^e} \rho c_p \, N_i^e \, N_j^e \, d\Omega = \frac{\rho c_p \, A^e}{12}
@@ -298,7 +298,7 @@ O sistema $\omega$-$\psi$ é resolvido iterativamente. A cada passo de tempo (ou
 \subsection{Matriz de Convecção e Estabilização SUPG}
 \label{sec:supg}
 
-A discretização via MEF do operador convectivo $\mathbf{v} \cdot \nabla \phi$ conduz à \textit{matriz de convecção} elementar, de dimensão $3 \times 3$ para elementos P1:
+A discretização via MEF do operador convectivo $\mathbf{v} \cdot \nabla \phi$ conduz à \textit{matriz de convecção} elementar, de dimensão $3 \times 3$ para elementos lineares:
 
 \begin{equation}
 C_{ij}^e = \int_{\Omega^e} N_i \, (\mathbf{v} \cdot \nabla N_j) \, d\Omega = \frac{A^e}{3} \left( \frac{u_e \, b_j + v_e \, c_j}{2 A^e} \right)
@@ -371,4 +371,4 @@ onde $\psi_w$ e $\psi_{\text{nb}}$ são os valores da função corrente na pared
 \section{Síntese do Capítulo}
 \label{sec:sintese_fundamentacao}
 
-Este capítulo estabeleceu o arcabouço matemático completo empregado pelo \textit{MinervaMesh}. A formulação parte das EDPs governantes para fenômenos térmicos e fluidodinâmicos, transita pela introdução conceitual do MDF e se aprofunda no MEF via Galerkin. A discretização com elementos triangulares P1 permite a construção explícita das matrizes elementares de rigidez, massa e convecção, enquanto a formulação Vorticidade-Corrente viabiliza a solução de escoamentos 2D sem a necessidade de resolver diretamente o campo de pressão. A integração temporal semi-implícita e a aproximação de primeira ordem para a vorticidade na parede completam o ferramental necessário para a simulação dos casos apresentados no Capítulo 5.
+Este capítulo estabeleceu o arcabouço matemático completo empregado pelo \textit{MinervaMesh}. A formulação parte das EDPs governantes para fenômenos térmicos e fluidodinâmicos, transita pela introdução conceitual do MDF e se aprofunda no MEF via Galerkin. A discretização com elementos triangulares lineares permite a construção explícita das matrizes elementares de rigidez, massa e convecção, enquanto a formulação Vorticidade-Corrente viabiliza a solução de escoamentos 2D sem a necessidade de resolver diretamente o campo de pressão. A integração temporal semi-implícita e a aproximação de primeira ordem para a vorticidade na parede completam o ferramental necessário para a simulação dos casos apresentados no Capítulo 5.
