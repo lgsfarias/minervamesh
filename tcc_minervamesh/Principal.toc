@@ -195,8 +195,8 @@
 \contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{116}{}%
 \contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{128}{}%
 \contentsline {paragraph}{}{128}{}%
-\contentsline {section}{\numberline {B.1}Módulo Compartilhado: Malha e Matrizes MEF}{128}{}%
-\contentsline {section}{\numberline {B.2}Módulo Compartilhado: Geometrias de Obstáculo}{132}{}%
+\contentsline {section}{\numberline {B.1}Malha e Matrizes MEF}{128}{}%
+\contentsline {section}{\numberline {B.2}Geometrias de Obstáculo}{131}{}%
 \contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{134}{}%
-\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{140}{}%
+\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{139}{}%
 \contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{151}{}%

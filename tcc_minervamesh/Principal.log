@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  20 APR 2026 19:25
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  20 APR 2026 19:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -736,12 +736,6 @@ Overfull \hbox (5.70859pt too wide) in paragraph at lines 29--29
 
 
 [6]
-Overfull \hbox (41.8469pt too wide) in paragraph at lines 33--34
- [] \OT1/cmr/m/n/12 No con-texto de trans-porte con-vec-tivo e Navier-Stokes, f
-or-mula^^Xc~oes Petrov-Galerkin/SUPG
- []
-
-
 
 [7])
 
@@ -764,12 +758,6 @@ Cap\'{\i }tulo 3.
 [14]
 
 [15]
-Overfull \hbox (25.72583pt too wide) in paragraph at lines 247--248
-[]\OT1/cmr/m/n/12 Ap^^Sos a mon-ta-gem, as condi^^Xc~oes de con-torno de Di-ri-
-ch-let s~ao im-pos-tas modificando-
- []
-
-
 
 [16]
 
@@ -1267,12 +1255,6 @@ Ap\^endice B.
 [129]
 
 [130])
-Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
-[]\OT1/cmr/bx/n/17.28 M^^Sodulo Com-par-ti-lhado: Ge-o-me-trias de Obst^^Saculo
- 
- []
-
-
 
 [131] (../simulations/mef/escoamento-fluido-2d/geometry.py
 
@@ -1289,9 +1271,9 @@ Overfull \hbox (40.9344pt too wide) in paragraph at lines 11--11
 [137]
 
 [138])
+(../simulations/mef/escoamento-fluido-2d/escoamento-potencial/simulation.py
 
 [139]
-(../simulations/mef/escoamento-fluido-2d/escoamento-potencial/simulation.py
 
 [140]
 
@@ -1350,7 +1332,7 @@ L3 programming layer <2025-01-18>
 Here is how much of TeX's memory you used:
  16001 strings out of 473190
  276837 string characters out of 5715799
- 1273031 words of memory out of 5000000
+ 1274031 words of memory out of 5000000
  38937 multiletter control sequences out of 15000+600000
  575710 words of font info for 99 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1382,7 +1364,7 @@ ist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/tex
 mf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025
 /texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/t
 exmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Principal.pdf (181 pages, 10717246 bytes).
+Output written on Principal.pdf (181 pages, 10717613 bytes).
 PDF statistics:
  771 PDF objects out of 1000 (max. 8388607)
  486 compressed objects within 5 object streams
