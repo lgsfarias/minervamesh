@@ -7,14 +7,14 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {5.1}{\ignorespaces Parâmetros da simulação de condução permanente 1D.}}{41}{}%
 \contentsline {table}{\numberline {5.2}{\ignorespaces Parâmetros da simulação de condução transiente 1D com $k(x)$ variável.}}{44}{}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Parâmetros da simulação de convecção-difusão 1D.}}{47}{}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Parâmetros da simulação de flexão de viga 1D.}}{52}{}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces Parâmetros da simulação de vibração axial 1D (barra de aço bi-engastada).}}{55}{}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Frequências naturais: MEF vs.\ analítica para barra livre-livre.}}{56}{}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Parâmetros da simulação de transferência de calor transiente 2D.}}{59}{}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Parâmetros da simulação de escoamento potencial 2D em torno de cilindro.}}{63}{}%
-\contentsline {table}{\numberline {5.9}{\ignorespaces Coeficiente de pressão $C_p$ na superfície do cilindro: MEF vs.\ teoria potencial.}}{64}{}%
-\contentsline {table}{\numberline {5.10}{\ignorespaces Parâmetros da simulação de Navier-Stokes 2D --- cavidade com tampa móvel.}}{67}{}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Parâmetros da simulação de convecção-difusão 1D.}}{48}{}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Parâmetros da simulação de flexão de viga 1D.}}{53}{}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Parâmetros da simulação de vibração axial 1D (barra de aço bi-engastada).}}{56}{}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Frequências naturais: MEF vs.\ analítica para barra livre-livre.}}{57}{}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Parâmetros da simulação de transferência de calor transiente 2D.}}{60}{}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Parâmetros da simulação de escoamento potencial 2D em torno de cilindro.}}{64}{}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces Coeficiente de pressão $C_p$ na superfície do cilindro: MEF vs.\ teoria potencial.}}{65}{}%
+\contentsline {table}{\numberline {5.10}{\ignorespaces Parâmetros da simulação de Navier-Stokes 2D --- cavidade com tampa móvel.}}{68}{}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
