@@ -1,8 +1,28 @@
 \section{Conclusões}
 \label{sec:conclusao}
 
-\paragraph{}Este trabalho apresentou o desenvolvimento e a validação do \textit{MinervaMesh}, uma plataforma \textit{client-side} para simulação numérica em Engenharia Mecânica. Os resultados obtidos demonstram a viabilidade do uso de tecnologias web modernas para a execução de métodos numéricos com rigor acadêmico.
+\paragraph{}Este trabalho apresentou o desenvolvimento e a validação do \textit{MinervaMesh}, uma plataforma \textit{client-side} para simulação numérica em Engenharia Mecânica, executada integralmente no navegador por meio da combinação de \textit{PyScript}, \textit{Pyodide} e \textit{WebAssembly}. Os objetivos estabelecidos na Introdução foram alcançados: implementaram-se oito módulos de Método dos Elementos Finitos descritos no Capítulo~\ref{cap4}, dois módulos complementares de Método das Diferenças Finitas (Seção~\ref{sec:modulos_mdf}) e uma interface interativa de pré/pós-processamento comum a todas as simulações, validada prioritariamente contra soluções analíticas e, para os casos 2D sem solução fechada, contra benchmark consagrado da literatura.
+
+\paragraph{}Os resultados de validação apresentados no Capítulo~\ref{cap5} demonstram que a plataforma preserva a ordem de convergência esperada para cada discretização: erros nodais da ordem da precisão de máquina ($\sim 10^{-13}$) para problemas com solução polinomial --- condução 1D e viga de Euler-Bernoulli --- como consequência da superconvergência de elementos lineares e da reprodução polinomial dos elementos cúbicos de Hermite; concordância visual com soluções analíticas em problemas parabólicos e hiperbólicos; e, para o escoamento em cavidade com tampa móvel a $\text{Re}=100$, erro relativo inferior a 0,4\% na vorticidade mínima comparada à referência de Ghia et al.\ \cite{Ghia1982}, utilizando apenas malha $41 \times 41$. A estabilização SUPG reproduz quantitativamente o parâmetro $\tau$ canônico \cite{Christie1976,Brooks1982}, e a formulação Vorticidade-Corrente com a condição de contorno de Thom \cite{Thom1933} na parede reproduz o vórtice primário da cavidade dentro da resolução da malha utilizada.
+
+\paragraph{}A contribuição didática do trabalho articula-se em três eixos: (i) \textbf{acessibilidade} --- a plataforma é gratuita, opera sem instalação e pode ser hospedada em serviços de páginas estáticas sem custo operacional; (ii) \textbf{transparência} --- o código-fonte Python de cada simulação é inspecionável pelo usuário diretamente na página, permitindo o uso tanto como ferramenta de simulação quanto como objeto de estudo em métodos numéricos; e (iii) \textbf{unificação} --- os três domínios clássicos abordados (térmico, fluidodinâmico e estrutural) são cobertos em uma única interface consistente, facilitando comparações pedagógicas entre métodos e formulações para um mesmo fenômeno físico.
+
+\paragraph{}A principal limitação da arquitetura \textit{client-side} é a capacidade computacional: embora o \textit{WebAssembly} opere em velocidade próxima à nativa para as rotinas de \textit{NumPy} e \textit{SciPy} utilizadas, malhas com dezenas de milhares de nós impõem tempos de resposta incompatíveis com a interatividade esperada em ambiente didático. Para os casos deste trabalho (centenas a poucos milhares de nós), essa restrição não se mostrou limitante, mas condiciona a estratégia de extensão discutida a seguir.
 
 \section{Trabalhos Futuros}
 
-\paragraph{}Como extensões deste trabalho, propõe-se a implementação de elementos de ordem superior, a inclusão de modelos de turbulência e a otimização do solver para problemas tridimensionais de maior escala.
+\paragraph{}A partir da base estabelecida, identificam-se seis linhas naturais de continuidade:
+
+\begin{itemize}
+    \item \textbf{Análise de convergência quantitativa:} produzir gráficos log-log de erro $L^2$ em função do refinamento de malha ($h$) para os casos 2D, validando numericamente a ordem de convergência teórica discutida na fundamentação.
+
+    \item \textbf{Elementos de ordem superior:} estender a biblioteca de funções de forma para elementos quadráticos ($\mathbb{P}_2$) e quadriláteros bilineares ($\mathbb{Q}_1$), permitindo estudos comparativos entre discretizações distintas para o mesmo problema físico.
+
+    \item \textbf{Modelos de turbulência:} incorporar formulações RANS ou de \textit{Large Eddy Simulation} ao solver de Navier-Stokes 2D, ampliando o alcance da plataforma para regimes não laminares.
+
+    \item \textbf{Escalabilidade tridimensional:} investigar a viabilidade de solvers 3D sob a restrição de memória e tempo do \textit{WebAssembly}, possivelmente explorando execução assíncrona via \textit{Web Workers} e solvers iterativos esparsos.
+
+    \item \textbf{Validação experimental:} complementar o atual processo de verificação numérica com comparações contra dados experimentais, introduzindo a nomenclatura formal de V\&V (Verificação e Validação) e a análise de incerteza na discussão metodológica.
+
+    \item \textbf{Integração com geradores de malha externos:} ampliar o repertório de geometrias utilizáveis por meio de integração com ferramentas consagradas (Gmsh, Triangle) compiladas para \textit{WebAssembly}, preservando a característica \textit{client-side} da plataforma.
+\end{itemize}
