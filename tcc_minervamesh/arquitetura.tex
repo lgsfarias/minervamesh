@@ -14,6 +14,8 @@ O \textit{MinervaMesh} é uma plataforma de simulação numérica projetada para
     \item \textbf{Mecânica Estrutural:} flexão de vigas (Euler-Bernoulli) e análise modal de vibração.
 \end{itemize}
 
+\paragraph{}A Figura~\ref{fig:minervamesh_home} apresenta a tela inicial da plataforma, com o menu que organiza as simulações por método numérico e dá acesso a cada módulo por um único clique.
+
 % Figura: Tela inicial do MinervaMesh
 \begin{figure}[H]
     \centering
@@ -122,6 +124,8 @@ O ciclo de vida de uma simulação no \textit{MinervaMesh} pode ser descrito em 
     \item \textbf{Visualização:} os gráficos resultantes são convertidos para formato de imagem codificado em Base64 e inseridos dinamicamente no DOM da página.
     \item \textbf{Inspeção:} o botão ``Ver Código'' exibe o código-fonte Python da simulação com \textit{syntax highlighting}, permitindo ao aluno estudar a implementação.
 \end{enumerate}
+
+\paragraph{}A Figura~\ref{fig:interface_parametros} ilustra a etapa de parametrização em um módulo representativo (Condução Permanente 1D), com os campos de entrada preenchidos e o resultado ainda não renderizado.
 
 \begin{figure}[H]
     \centering
@@ -340,12 +344,17 @@ O solver suporta dois cenários: escoamento em canal com obstáculos (cilindro, 
     \label{fig:ns2d_cavity}
 \end{figure}
 
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.85\textwidth]{figuras/prints/fig_ns2d_cylinder.png}
-    \caption{Navier-Stokes 2D --- linhas de corrente para escoamento ao redor de um cilindro.}
-    \label{fig:ns2d_cylinder}
-\end{figure}
+\section{Módulos Complementares em MDF}
+\label{sec:modulos_mdf}
+
+\paragraph{}Além dos oito módulos MEF descritos na seção anterior, a plataforma disponibiliza dois módulos implementados pelo Método das Diferenças Finitas, desenvolvidos nas etapas iniciais do projeto e mantidos no portfólio por seu valor didático-comparativo:
+
+\begin{itemize}
+    \item \textbf{Condução Permanente 1D com Geração Interna:} resolve o mesmo problema térmico da Seção~\ref{sec:caso_conducao_1d}, substituindo a discretização variacional pela aproximação de derivadas via expansão de Taylor (Seção~\ref{sec:introducao_mdf}), o que permite contrastar as duas formulações para um fenômeno físico idêntico.
+    \item \textbf{Equação da Onda 1D:} problema hiperbólico linear com avanço temporal explícito, incluído como exercício conceitual de integração temporal em malha estruturada.
+\end{itemize}
+
+\paragraph{}Ambos os módulos reproduzem suas respectivas soluções analíticas com erro numérico compatível com a precisão de máquina. Como constituem implementações iniciais de caráter preparatório e o escopo central do trabalho recai sobre o MEF, a validação quantitativa apresentada no Capítulo~\ref{cap5} concentra-se exclusivamente nos módulos de elementos finitos.
 
 \section{Síntese do Capítulo}
 \label{sec:sintese_arquitetura}

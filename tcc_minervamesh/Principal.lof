@@ -13,7 +13,6 @@
 \contentsline {figure}{\numberline {4.8}{\ignorespaces Campo de temperatura em placa 2D durante a evolução transiente (método de Crank-Nicolson).}}{32}{}%
 \contentsline {figure}{\numberline {4.9}{\ignorespaces Escoamento potencial 2D: linhas de corrente ao redor de um obstáculo.}}{33}{}%
 \contentsline {figure}{\numberline {4.10}{\ignorespaces Navier-Stokes 2D --- cavidade com tampa móvel ($\text {Re} = 100$): campos de $\psi $, $\omega $ e linhas de corrente.}}{35}{}%
-\contentsline {figure}{\numberline {4.11}{\ignorespaces Navier-Stokes 2D --- linhas de corrente para escoamento ao redor de um cilindro.}}{36}{}%
 \addvspace {10\p@ }
 \contentsline {figure}{\numberline {5.1}{\ignorespaces Condução permanente 1D: comparação entre a solução MEF (pontos azuis, $n_e = 10$ elementos lineares) e a solução analítica (linha tracejada vermelha). A sobreposição exata confirma a propriedade de reprodução polinomial dos elementos lineares para fontes uniformes.}}{41}{}%
 \contentsline {figure}{\numberline {5.2}{\ignorespaces Condução transiente 1D com condutividade descontínua ($k_1 = 5$, $k_2 = 1$): solução MEF no instante final $t = 0{,}2$~s (pontos azuis) comparada ao perfil analítico de regime permanente (linha tracejada vermelha). A curva verde tracejada no eixo secundário indica a variação de $k(x)$ com a descontinuidade em $x = L/2$. A malha de $40$~elementos lineares com $\theta = 1/2$ reproduz fielmente o \emph {kink} de condutividade, com $T(L/2) \approx 1/6$.}}{44}{}%
