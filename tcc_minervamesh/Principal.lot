@@ -2,19 +2,22 @@
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Classificação variacional e tratamento numérico das condições de contorno no MEF.}}{14}{}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {4.1}{\ignorespaces Comparação entre plataformas de simulação numérica para ensino.}}{24}{}%
+\contentsline {table}{\numberline {4.1}{\ignorespaces Comparação entre plataformas de simulação numérica para ensino.}}{26}{}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Tempo total do solver (mediana, com MAD reportado abaixo de 1\% em todas as células) em CPython nativo e Pyodide (navegador), na mesma máquina (Apple M1 Max). $t_{\text {mont}}$ é o tempo de montagem (incluindo geração de malha quando aplicável) e $t_{\text {slv}}$ é o tempo da resolução linear (\texttt {np.linalg.solve} no caso 1D denso, ou o total dos passos de \texttt {spsolve} nos casos 2D esparsos). ``CP'' = CPython nativo; ``Py'' = Pyodide.}}{27}{}%
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {5.1}{\ignorespaces Parâmetros da simulação de condução permanente 1D.}}{41}{}%
-\contentsline {table}{\numberline {5.2}{\ignorespaces Parâmetros da simulação de condução transiente 1D com $k(x)$ variável.}}{44}{}%
-\contentsline {table}{\numberline {5.3}{\ignorespaces Parâmetros da simulação de convecção-difusão 1D.}}{48}{}%
-\contentsline {table}{\numberline {5.4}{\ignorespaces Parâmetros da simulação de flexão de viga 1D.}}{53}{}%
-\contentsline {table}{\numberline {5.5}{\ignorespaces Parâmetros da simulação de vibração axial 1D (barra de aço bi-engastada).}}{56}{}%
-\contentsline {table}{\numberline {5.6}{\ignorespaces Frequências naturais: MEF vs.\ analítica para barra livre-livre.}}{57}{}%
-\contentsline {table}{\numberline {5.7}{\ignorespaces Parâmetros da simulação de transferência de calor transiente 2D.}}{60}{}%
-\contentsline {table}{\numberline {5.8}{\ignorespaces Parâmetros da simulação de escoamento potencial 2D em torno de cilindro.}}{64}{}%
-\contentsline {table}{\numberline {5.9}{\ignorespaces Coeficiente de pressão $C_p$ na superfície do cilindro: MEF vs.\ teoria potencial.}}{65}{}%
-\contentsline {table}{\numberline {5.10}{\ignorespaces Parâmetros da simulação de Navier-Stokes 2D --- cavidade com tampa móvel.}}{68}{}%
+\contentsline {table}{\numberline {5.1}{\ignorespaces Parâmetros da simulação de condução permanente 1D.}}{49}{}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Parâmetros da simulação de condução transiente 1D com $k(x)$ variável.}}{52}{}%
+\contentsline {table}{\numberline {5.3}{\ignorespaces Parâmetros da simulação de convecção-difusão 1D.}}{56}{}%
+\contentsline {table}{\numberline {5.4}{\ignorespaces Parâmetros da simulação de flexão de viga 1D.}}{61}{}%
+\contentsline {table}{\numberline {5.5}{\ignorespaces Parâmetros da simulação de vibração axial 1D (barra de aço bi-engastada).}}{64}{}%
+\contentsline {table}{\numberline {5.6}{\ignorespaces Frequências naturais: MEF vs.\ analítica para barra livre-livre.}}{65}{}%
+\contentsline {table}{\numberline {5.7}{\ignorespaces Parâmetros da simulação de transferência de calor transiente 2D.}}{68}{}%
+\contentsline {table}{\numberline {5.8}{\ignorespaces Parâmetros da simulação de escoamento potencial 2D em torno de cilindro.}}{72}{}%
+\contentsline {table}{\numberline {5.9}{\ignorespaces Coeficiente de pressão $C_p$ na superfície do cilindro: MEF vs.\ teoria potencial.}}{73}{}%
+\contentsline {table}{\numberline {5.10}{\ignorespaces Parâmetros da simulação de Navier-Stokes 2D --- cavidade com tampa móvel.}}{76}{}%
+\addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }
 \addvspace {10\p@ }

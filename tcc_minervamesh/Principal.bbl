@@ -256,4 +256,9 @@ THOM, A., \enquote{The Flow Past Circular Cylinders at Low Speeds},
   \emph{Proceedings of the Royal Society A}, v.~141, n. 845, pp.~651--669,
   1933.
 
+\bibitem{TriangleWasm}
+IMBRIZI, B., \enquote{{triangle-wasm}: {J}avascript wrapper around {T}riangle
+  compiled to {WebAssembly}}, Reposit\'orio GitHub. Dispon\'{i}vel em:
+  https://github.com/brunoimbrizi/triangle-wasm, Acesso em: 09 maio 2026.
+
 \end{thebibliography}

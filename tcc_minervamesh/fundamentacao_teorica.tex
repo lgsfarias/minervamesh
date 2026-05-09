@@ -8,7 +8,7 @@
 \section{Equações Governantes}
 \label{sec:equacoes_governantes}
 
-A modelagem térmica e fluidodinâmica sustenta-se em princípios de conservação: massa, quantidade de movimento e energia. Estas leis físicas, contínuas no espaço e no tempo, são expressas por EDPs que determinam o comportamento termofluidodinâmico do meio contínuo abordado.
+A modelagem térmica e fluidodinâmica sustenta-se em princípios de conservação: massa, quantidade de movimento e energia. Estas leis físicas, contínuas no espaço e no tempo, são expressas por EDPs que determinam o comportamento termofluidodinâmico do meio contínuo abordado. Adota-se ao longo deste trabalho a convenção de denotar grandezas vetoriais em negrito (e.g., $\mathbf{v}$, $\mathbf{f_b}$) e suas componentes escalares em itálico (e.g., $\mathbf{v} = (u, v)$, com $u$ e $v$ associadas às direções $x$ e $y$, respectivamente).
 
 \subsection{Condução e Convecção Térmica}
 
@@ -113,6 +113,46 @@ Substituindo a condição de Neumann (Eq.~\ref{eq:cc_neumann}) no termo de conto
 \end{equation}
 
 Esta expressão é de importância central: ela reduz os requisitos de regularidade sobre $u$ (de $C^2$ para $H^1$), incorpora naturalmente as condições de Neumann no funcional, e constitui a base sobre a qual o MEF opera.
+
+\subsection{Condições de Contorno}
+\label{sec:condicoes_contorno}
+
+A unicidade da solução de uma EDP elíptica ou parabólica depende da prescrição de informações apropriadas em $\Gamma = \partial\Omega$. No contexto da formulação variacional do MEF, as condições de contorno classificam-se em dois grupos: as \textit{essenciais}, que restringem o espaço de soluções admissíveis $\mathcal{V}$, e as \textit{naturais}, que emergem espontaneamente do termo de contorno gerado pela integração por partes (Eq.~\ref{eq:poisson_pos_green}) \cite{Reddy2005}. Os três tipos canônicos --- Dirichlet, Neumann e Robin --- abrangem a quase totalidade dos problemas de engenharia tratados pelo MEF.
+
+\paragraph{Dirichlet (essencial).} Já apresentada na Eq.~\ref{eq:cc_dirichlet}, a condição de Dirichlet prescreve diretamente o valor da incógnita em $\Gamma_D$ --- por exemplo, temperatura fixa em parede aquecida, ou condição de não-deslizamento $\mathbf{v} = \mathbf{0}$ em paredes sólidas. Por restringir o espaço admissível $\mathcal{V} = \{u \in H^1(\Omega) : u = \bar{u} \text{ em } \Gamma_D\}$, a função-teste $w$ deve anular-se em $\Gamma_D$. Numericamente, sua imposição é feita após a montagem global, zerando-se as linhas e colunas de $\mathbf{K}$ correspondentes aos nós em $\Gamma_D$ e ajustando o vetor de carga $\mathbf{F}$ para incorporar o valor prescrito \cite{Zienkiewicz2013}.
+
+\paragraph{Neumann (natural).} A condição de Neumann (Eq.~\ref{eq:cc_neumann}) prescreve o fluxo $k\,\partial u / \partial n = \bar{q}$ em $\Gamma_N$. Sua designação como ``natural'' reflete o fato de que ela aparece de forma direta no termo de contorno da forma fraca após a integração por partes: basta substituir $\bar{q}$ no integrando $\int_{\Gamma_N} w\,\bar{q}\,d\Gamma$ (Eq.~\ref{eq:forma_fraca_poisson}) para incorporá-la no vetor de carga global. O caso particular mais comum é a parede adiabática ($\bar{q} = 0$), em que a integral simplesmente se anula, dispensando qualquer manipulação adicional.
+
+\paragraph{Robin (mista).} As condições de Robin (também chamadas de mistas ou de terceiro tipo) combinam o valor da incógnita e seu fluxo na fronteira em uma relação linear:
+\begin{equation}
+\alpha\,u + \beta\,\frac{\partial u}{\partial n} = \gamma \quad \text{em } \Gamma_R
+\label{eq:cc_robin}
+\end{equation}
+com $\alpha, \beta, \gamma$ coeficientes que parametrizam o tipo de interação física na fronteira. O caso canônico em transferência de calor é a convecção newtoniana, em que o fluxo por condução é igualado ao fluxo convectivo trocado com o meio externo a temperatura $T_\infty$ via coeficiente convectivo $h$ \cite{Incropera2006}:
+\begin{equation}
+-k\,\frac{\partial T}{\partial n} = h\,(T - T_\infty) \quad \text{em } \Gamma_R
+\label{eq:cc_robin_convectiva}
+\end{equation}
+Substituindo a relação acima no termo de contorno $\int_{\Gamma_R} w\,k\,\partial u/\partial n\,d\Gamma$ da forma fraca, surgem duas contribuições simultâneas: uma na matriz de rigidez --- $\int_{\Gamma_R} h\,N_i\,N_j\,d\Gamma$ --- e outra no vetor de carga --- $\int_{\Gamma_R} h\,T_\infty\,N_i\,d\Gamma$. Robin é, portanto, a única dentre as três que altera simultaneamente $\mathbf{K}$ e $\mathbf{F}$ \cite{Reddy2005}.
+
+A Tabela~\ref{tab:cc_resumo} sintetiza a classificação variacional e o impacto numérico de cada tipo.
+
+\begin{table}[H]
+\centering
+\caption{Classificação variacional e tratamento numérico das condições de contorno no MEF.}
+\label{tab:cc_resumo}
+\begin{tabular}{llll}
+\hline
+\textbf{Tipo} & \textbf{Forma} & \textbf{Classificação} & \textbf{Impacto em $\mathbf{K},\mathbf{F}$} \\
+\hline
+Dirichlet & $u = \bar{u}$                                      & Essencial    & Modifica $\mathbf{K}$ e $\mathbf{F}$ \\
+Neumann   & $k\,\partial u/\partial n = \bar{q}$               & Natural      & Modifica apenas $\mathbf{F}$ \\
+Robin     & $\alpha\,u + \beta\,\partial u/\partial n = \gamma$ & Natural mista & Modifica $\mathbf{K}$ e $\mathbf{F}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+Os módulos da plataforma documentados no Capítulo~\ref{cap4} fazem uso predominante de condições de Dirichlet (temperaturas e velocidades prescritas) e, de forma implícita, de Neumann homogêneas em paredes adiabáticas e fronteiras livres ($\bar{q} = 0$). Condições de Robin não são empregadas nos módulos atuais; sua incorporação --- particularmente no módulo de transferência de calor 2D, para representar troca convectiva com o meio externo --- configura-se como extensão natural prevista nas considerações finais do Capítulo~\ref{cap6}.
 
 \subsection{O Método de Galerkin}
 \label{sec:galerkin}
