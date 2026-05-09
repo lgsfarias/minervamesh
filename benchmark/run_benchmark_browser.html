@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MinervaMesh - Benchmark (Navegador / Pyodide)</title>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js"></script>
+    <style>
+      #bench-log { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 0.85rem; line-height: 1.4; }
+      #bench-log code { font-size: 0.75rem; }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-900 min-h-screen">
+    <main class="max-w-3xl mx-auto p-6">
+      <h1 class="text-2xl font-bold mb-2">Benchmark no Navegador</h1>
+      <p class="text-sm text-gray-600 mb-4">
+        Executa os mesmos solvers do MinervaMesh (versão adaptada em
+        <code>benchmark/core/</code>) sob Pyodide, mede tempos de montagem
+        e solve, e oferece download de <code>results_browser.csv</code>.
+        O cold start do Pyodide (carga do runtime + pacotes) ocorre antes
+        do botão habilitar e <strong>não</strong> entra na medição.
+      </p>
+
+      <div id="bench-status" class="text-sm text-blue-700 mb-4">
+        Carregando Pyodide e pacotes (numpy, scipy, matplotlib)…
+      </div>
+
+      <button
+        id="bench-run"
+        class="px-4 py-2 bg-blue-600 text-white rounded shadow hover:bg-blue-700 disabled:opacity-50"
+      >
+        Rodar benchmark
+      </button>
+
+      <section class="mt-6">
+        <h2 class="font-semibold text-lg mb-2">Ambiente</h2>
+        <div id="bench-env" class="bg-white p-3 rounded shadow text-sm">
+          (preenchido após executar)
+        </div>
+      </section>
+
+      <section class="mt-6">
+        <h2 class="font-semibold text-lg mb-2">Progresso</h2>
+        <div id="bench-log" class="bg-white p-3 rounded shadow min-h-[6rem]"></div>
+      </section>
+
+      <section class="mt-6">
+        <h2 class="font-semibold text-lg mb-2">Download dos resultados</h2>
+        <div id="bench-download"></div>
+      </section>
+    </main>
+
+    <script type="py" src="run_benchmark_browser.py" config="config.toml"></script>
+  </body>
+</html>

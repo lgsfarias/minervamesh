@@ -1,0 +1,9 @@
+packages = ["numpy", "scipy", "matplotlib"]
+
+[[fetch]]
+files = [
+    "./bench_lib.py",
+    "./core/__init__.py",
+    "./core/cond_1d.py",
+    "./core/transcalor_2d.py",
+]
