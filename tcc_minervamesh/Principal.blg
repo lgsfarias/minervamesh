@@ -5,7 +5,7 @@ The style file: coppe.bst
 Database file #1: biblio.bib
 You've used 52 entries,
             2465 wiz_defined-function locations,
-            880 strings with 12324 characters,
+            879 strings with 12320 characters,
 and the built_in function-call counts, 12894 in all, are:
 = -- 1531
 > -- 391

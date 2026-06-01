@@ -66,7 +66,7 @@ Para permitir tratamento sistemático de geometrias complexas e de condições d
 \section{O Método dos Elementos Finitos (MEF)}
 \label{sec:mef}
 
-O Método dos Elementos Finitos constitui a abordagem numérica central adotada neste trabalho. Diferentemente do MDF, o MEF parte de uma formulação integral (variacional ou de resíduos ponderados) da EDP, permitindo o uso de malhas não estruturadas que se adaptam naturalmente a geometrias complexas \cite{Zienkiewicz2013,Reddy2005}. Esta seção desenvolve a formulação desde a forma forte até a obtenção do sistema algébrico global.
+O Método dos Elementos Finitos constitui a abordagem numérica central adotada neste trabalho. Diferentemente do MDF, o MEF parte de uma formulação integral (variacional ou de resíduos ponderados) da EDP, permitindo o uso de malhas não estruturadas que se adaptam naturalmente a geometrias complexas \cite{Zienkiewicz2013}. Esta seção desenvolve a formulação desde a forma forte até a obtenção do sistema algébrico global.
 
 \subsection{Da Forma Forte à Forma Fraca}
 \label{sec:forma_fraca}
@@ -289,7 +289,7 @@ Após a montagem, as condições de contorno de Dirichlet são impostas por modi
 \section{Formulação Vorticidade-Corrente}
 \label{sec:vorticidade_corrente}
 
-A resolução direta das equações de Navier-Stokes em variáveis primitivas (velocidade-pressão) apresenta dificuldades numéricas associadas ao acoplamento pressão-velocidade e à satisfação da restrição de continuidade (Eq.~\ref{eq:continuidade}). Em problemas bidimensionais, a formulação em \textit{Vorticidade-Corrente} ($\omega$-$\psi$) oferece uma alternativa eficaz, eliminando o campo de pressão das incógnitas e reduzindo o sistema a duas equações escalares \cite{Maliska2004,Versteeg2007}.
+A resolução direta das equações de Navier-Stokes em variáveis primitivas (velocidade-pressão) apresenta dificuldades numéricas associadas ao acoplamento pressão-velocidade e à satisfação da restrição de continuidade (Eq.~\ref{eq:continuidade}). Em problemas bidimensionais, a formulação em \textit{Vorticidade-Corrente} ($\omega$-$\psi$) oferece uma alternativa eficaz, eliminando o campo de pressão das incógnitas e reduzindo o sistema a duas equações escalares \cite{Maliska2004}.
 
 \subsection{Definições}
 
@@ -346,7 +346,7 @@ C_{ij}^e = \int_{\Omega^e} N_i \, (\mathbf{v} \cdot \nabla N_j) \, d\Omega = \fr
 \end{equation}
 onde $u_e$ e $v_e$ são as componentes de velocidade avaliadas no centroide do elemento.
 
-Quando o campo de velocidades é intenso em relação à difusão (número de Péclet elevado), a formulação de Galerkin padrão produz oscilações espúrias. Para contornar essa limitação, emprega-se a técnica \textit{Streamline Upwind Petrov-Galerkin} (SUPG), que adiciona uma difusão artificial orientada na direção do escoamento \cite{Christie1976,Brooks1982}.
+Quando o campo de velocidades é intenso em relação à difusão (número de Péclet elevado), a formulação de Galerkin padrão produz oscilações espúrias. Para contornar essa limitação, emprega-se a técnica \textit{Streamline Upwind Petrov-Galerkin} (SUPG), que adiciona uma difusão artificial orientada na direção do escoamento. A formulação SUPG foi proposta por Brooks e Hughes \cite{Brooks1982}, generalizando as funções de peso assimétricas (\textit{upwind}) introduzidas anteriormente por Christie et al.\ \cite{Christie1976}.
 
 Na formulação SUPG, a função-teste é modificada para $w_i = N_i + \tau_{\text{SUPG}} \, \mathbf{v} \cdot \nabla N_i$, com o parâmetro de estabilização:
 
@@ -400,7 +400,7 @@ Para problemas puramente difusivos (conducão transiente), utiliza-se o método 
 \subsection{Condição de Contorno de Vorticidade na Parede}
 \label{sec:thom}
 
-Na formulação $\omega$-$\psi$, a vorticidade nas paredes sólidas não é conhecida \textit{a priori} e deve ser calculada indiretamente a partir do campo de função corrente. Aplicando uma expansão de Taylor de $\psi$ na direção normal à parede, obtém-se uma aproximação de primeira ordem para $\omega_w$ \cite{Thom1933,Maliska2004}:
+Na formulação $\omega$-$\psi$, a vorticidade nas paredes sólidas não é conhecida \textit{a priori} e deve ser calculada indiretamente a partir do campo de função corrente. Aplicando uma expansão de Taylor de $\psi$ na direção normal à parede, obtém-se uma aproximação de primeira ordem para $\omega_w$, conhecida como condição de Thom \cite{Thom1933}:
 
 \begin{equation}
 \omega_w = -\frac{2(\psi_{\text{nb}} - \psi_w)}{h^2} - \frac{2 \, u_{\text{tan}}}{h}
@@ -411,4 +411,4 @@ onde $\psi_w$ e $\psi_{\text{nb}}$ são os valores da função corrente na pared
 \section{Síntese do Capítulo}
 \label{sec:sintese_fundamentacao}
 
-Este capítulo estabeleceu o arcabouço matemático completo empregado pelo \textit{MinervaMesh}. A formulação parte das EDPs governantes para fenômenos térmicos e fluidodinâmicos, transita pela introdução conceitual do MDF e se aprofunda no MEF via Galerkin. A discretização com elementos triangulares lineares permite a construção explícita das matrizes elementares de rigidez, massa e convecção, enquanto a formulação Vorticidade-Corrente viabiliza a solução de escoamentos 2D sem a necessidade de resolver diretamente o campo de pressão. A integração temporal semi-implícita e a aproximação de primeira ordem para a vorticidade na parede completam o ferramental necessário para a simulação dos casos apresentados no Capítulo 5.
+Este capítulo estabeleceu o arcabouço matemático completo empregado pelo \textit{MinervaMesh}. A formulação parte das EDPs governantes para fenômenos térmicos e fluidodinâmicos, transita pela introdução conceitual do MDF e se aprofunda no MEF via Galerkin. A discretização com elementos triangulares lineares permite a construção explícita das matrizes elementares de rigidez, massa e convecção, enquanto a formulação Vorticidade-Corrente viabiliza a solução de escoamentos 2D sem a necessidade de resolver diretamente o campo de pressão. A integração temporal semi-implícita e a aproximação de primeira ordem para a vorticidade na parede completam o ferramental necessário para a simulação dos casos apresentados no Capítulo~\ref{cap5}.
