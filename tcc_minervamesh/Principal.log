@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  31 MAY 2026 17:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  31 MAY 2026 22:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1199,40 +1199,40 @@ Overfull \hbox (9.34584pt too wide) in paragraph at lines 23--24
 [90]
 
 [91]
-
-[92]
-Underfull \hbox (badness 10000) in paragraph at lines 260--263
+Underfull \hbox (badness 10000) in paragraph at lines 237--240
 []\OT1/cmr/m/n/12 IMBRIZI, B., ``triangle-wasm: Ja-vas-cript wrap-per around Tr
 i-an-
  []
 
 
-Underfull \hbox (badness 4660) in paragraph at lines 260--263
+Underfull \hbox (badness 4660) in paragraph at lines 237--240
 \OT1/cmr/m/n/12 gle com-pi-led to We-bAs-sem-bly'', Re-po-sit^^Sorio GitHub. Di
 s-pon^^S^^Pvel em:
  []
 
 )
 
-[93]
+[92]
 Ap\^endice A.
 (./apendice_modulos_1d.tex
 (../simulations/mef/conducao-permanente-barra1d-mef/simulation.py
 
-[94
+[93
 
 ]
 
+[94]
+
 [95]
 
-[96]
-
-[97]) (../simulations/mef/calor-transiente-1d/simulation.py
+[96]) (../simulations/mef/calor-transiente-1d/simulation.py
 Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 [][][][][][] 
  []
 
 
+
+[97]
 
 [98]
 
@@ -1248,9 +1248,9 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [104]
 
-[105]
+[105]) (../simulations/mef/conveccao-difusao-1d/simulation.py
 
-[106]) (../simulations/mef/conveccao-difusao-1d/simulation.py
+[106]
 
 [107]
 
@@ -1260,9 +1260,9 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [110]
 
-[111]
+[111]) (../simulations/mef/viga-1d-mef/simulation.py
 
-[112]) (../simulations/mef/viga-1d-mef/simulation.py
+[112]
 
 [113]
 
@@ -1290,9 +1290,9 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [125]
 
-[126]
+[126]) (../simulations/mef/vibracao-1d-mef/simulation.py
 
-[127]) (../simulations/mef/vibracao-1d-mef/simulation.py
+[127]
 
 [128]
 
@@ -1312,27 +1312,27 @@ Overfull \hbox (7.00786pt too wide) in paragraph at lines 5--6
 
 [136]
 
-[137]
+[137]))
 
-[138]))
-
-[139]
+[138]
 Ap\^endice B.
 (./apendice_modulos_2d.tex (../simulations/mef/escoamento-fluido-2d/common.py
 
-[140
+[139
 
 ]
 
-[141]
+[140]
 
-[142])
+[141])
 
-[143] (../simulations/mef/escoamento-fluido-2d/geometry.py
+[142] (../simulations/mef/escoamento-fluido-2d/geometry.py
 
-[144]
+[143]
 
-[145]) (../simulations/mef/transcalor/simulation.py
+[144]) (../simulations/mef/transcalor/simulation.py
+
+[145]
 
 [146]
 
@@ -1340,10 +1340,10 @@ Ap\^endice B.
 
 [148]
 
-[149]
-
-[150])
+[149])
 (../simulations/mef/escoamento-fluido-2d/escoamento-potencial/simulation.py
+
+[150]
 
 [151]
 
@@ -1365,9 +1365,9 @@ Ap\^endice B.
 
 [160]
 
-[161]
+[161]) (../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py
 
-[162]) (../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py
+[162]
 
 [163]
 
@@ -1391,11 +1391,9 @@ Ap\^endice B.
 
 [173]
 
-[174]
+[174]))
 
-[175]))
-
-[176]
+[175]
 Ap\^endice C.
 (./apendice_benchmark.tex
 Overfull \hbox (6.69493pt too wide) in paragraph at lines 1--2
@@ -1405,51 +1403,51 @@ m-ple-menta^^Xc~oes dos m^^Sodulos \OT1/cmtt/m/n/12 simulation.py
 
 (../benchmark/core/cond_1d.py
 
-[177
+[176
 
 ]
 
-[178])
+[177])
 
-[179] (../benchmark/core/transcalor_2d.py
+[178] (../benchmark/core/transcalor_2d.py
+
+[179]
 
 [180]
 
-[181]
+[181]) (../benchmark/bench_lib.py
 
-[182]) (../benchmark/bench_lib.py
+[182]
 
 [183]
 
-[184]
+[184]) (../benchmark/run_benchmark_local.py
 
-[185]) (../benchmark/run_benchmark_local.py
+[185]
 
 [186]
 
-[187]
+[187]) (../benchmark/run_benchmark_browser.py
 
-[188]) (../benchmark/run_benchmark_browser.py
+[188]
 
 [189]
 
 [190]
 
-[191]
+[191]))
 
-[192]))
-
-[193] (./Principal.aux)
+[192] (./Principal.aux)
  ***********
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 16178 strings out of 473190
- 280111 string characters out of 5715799
+ 16171 strings out of 473190
+ 280035 string characters out of 5715799
  1274031 words of memory out of 5000000
- 39094 multiletter control sequences out of 15000+600000
+ 39087 multiletter control sequences out of 15000+600000
  577925 words of font info for 107 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  80i,14n,98p,1677b,1921s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1481,10 +1479,10 @@ st/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texm
 f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/
 texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/te
 xmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on Principal.pdf (211 pages, 10852915 bytes).
+Output written on Principal.pdf (210 pages, 10851402 bytes).
 PDF statistics:
- 930 PDF objects out of 1000 (max. 8388607)
- 563 compressed objects within 6 object streams
+ 926 PDF objects out of 1000 (max. 8388607)
+ 560 compressed objects within 6 object streams
  0 named destinations out of 1000 (max. 500000)
  111 words of extra memory for PDF output out of 10000 (max. 10000000)
 

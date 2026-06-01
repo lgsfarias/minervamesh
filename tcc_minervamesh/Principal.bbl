@@ -36,23 +36,12 @@ INCROPERA, F.~P., DEWITT, D.~P., BERGMAN, T.~L., \emph{et~al.},
 CENGEL, Y.~A., GHAJAR, A.~J., \emph{Heat and Mass Transfer: Fundamentals and
   Applications}. 5 ed. New York, McGraw-Hill Education, 2015.
 
-\bibitem{Ozisik1993}
-OZISIK, M.~N., \emph{Heat Conduction}. 2 ed. New York, John Wiley \& Sons,
-  1993.
-
-\bibitem{Bejan1993}
-BEJAN, A., \emph{Heat Transfer}. New York, Wiley, 1993.
-
 \bibitem{Fox2012}
 FOX, R.~W., MCDONALD, A.~T., PRITCHARD, P.~J., \emph{Introdu\c{c}\~ao \`a
   Mec\^anica dos Fluidos}. 7th ed. Rio de Janeiro, LTC, 2012.
 
 \bibitem{White2006}
 WHITE, F.~M., \emph{Viscous Fluid Flow}. 3 ed. New York, McGraw-Hill, 2006.
-
-\bibitem{Bird2002}
-BIRD, R.~B., STEWART, W.~E., LIGHTFOOT, E.~N., \emph{Transport Phenomena}. 2
-  ed. New York, John Wiley \& Sons, 2002.
 
 \bibitem{Versteeg2007}
 VERSTEEG, H.~K., MALALASEKERA, W., \emph{An Introduction to Computational Fluid
@@ -65,18 +54,6 @@ PATANKAR, S.~V., \emph{Numerical Heat Transfer and Fluid Flow}. New York,
 \bibitem{Zienkiewicz2013}
 ZIENKIEWICZ, O.~C., TAYLOR, R.~L., ZHU, J.~Z., \emph{The Finite Element Method:
   Its Basis and Fundamentals}. 7th ed. Oxford, Butterworth-Heinemann, 2013.
-
-\bibitem{Bathe1996}
-BATHE, K.-J., \emph{Finite Element Procedures}. Upper Saddle River, Prentice
-  Hall, 1996.
-
-\bibitem{Logan2007}
-LOGAN, D.~L., \emph{A First Course in the Finite Element Method}. 4 ed.
-  Belmont, Thomson, 2007.
-
-\bibitem{Huebner2001}
-HUEBNER, K.~H., DEWHIRST, D.~L., SMITH, D.~E., \emph{et~al.}, \emph{The Finite
-  Element Method for Engineers}. 4 ed. New York, John Wiley \& Sons, 2001.
 
 \bibitem{Lewis2004}
 LEWIS, R.~W., NITHIARASU, P., SEETHARAMU, K.~N., \emph{Fundamentals of the
