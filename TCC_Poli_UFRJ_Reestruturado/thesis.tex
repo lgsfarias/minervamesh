@@ -1,0 +1,155 @@
+\documentclass[grad,pdftex]{poli}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,amssymb}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{appendix}
+\usepackage{listings}
+\usepackage[table]{xcolor}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{longtable}
+\usepackage{hyperref}
+
+% Caminhos das imagens (figuras copiadas para Imagens/ e Imagens/prints/)
+\graphicspath{{Imagens/}{Imagens/prints/}}
+
+% ---------------------------------------------------------------------------
+% Estilos de listagem (portados do TesePack.tex original do TCC):
+% mantêm o destaque de sintaxe Python e, sobretudo, o mapeamento "literate"
+% de acentos e símbolos Unicode (∂ ∇ ρ α τ θ Γ Δ ψ ² × ≥ ≤ ≈ · → −),
+% necessário para que os \lstinputlisting dos scripts Python (Apêndices)
+% compilem sem erro de codificação.
+% ---------------------------------------------------------------------------
+\definecolor{codebg}{gray}{0.96}
+\definecolor{codeframe}{gray}{0.75}
+\definecolor{codekeyword}{RGB}{0,112,192}
+\definecolor{codestring}{RGB}{163,21,21}
+\definecolor{codecomment}{RGB}{106,153,85}
+\definecolor{codenumber}{gray}{0.50}
+
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  backgroundcolor=\color{codebg},
+  rulecolor=\color{codeframe},
+  frame=single,
+  framesep=6pt,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\color{codekeyword}\bfseries,
+  stringstyle=\color{codestring},
+  commentstyle=\color{codecomment}\itshape,
+  numbers=left,
+  numberstyle=\tiny\color{codenumber},
+  numbersep=8pt,
+  breaklines=true,
+  breakatwhitespace=false,
+  showstringspaces=false,
+  tabsize=4,
+  captionpos=t,
+  aboveskip=10pt,
+  belowskip=6pt,
+  xleftmargin=18pt,
+  framexleftmargin=18pt,
+  extendedchars=true,
+  inputencoding=utf8,
+  morekeywords={async,await,True,False,None,self,as,with,yield,lambda},
+  literate=
+    {á}{{\'a}}1 {à}{{\`a}}1 {ã}{{\~a}}1 {â}{{\^a}}1
+    {é}{{\'e}}1 {ê}{{\^e}}1
+    {í}{{\'i}}1
+    {ó}{{\'o}}1 {õ}{{\~o}}1 {ô}{{\^o}}1
+    {ú}{{\'u}}1 {ü}{{\"u}}1
+    {ç}{{\c{c}}}1
+    {Á}{{\'A}}1 {À}{{\`A}}1 {Ã}{{\~A}}1 {Â}{{\^A}}1
+    {É}{{\'E}}1 {Ê}{{\^E}}1
+    {Í}{{\'I}}1
+    {Ó}{{\'O}}1 {Õ}{{\~O}}1 {Ô}{{\^O}}1
+    {Ú}{{\'U}}1
+    {Ç}{{\c{C}}}1
+    {°}{{$^{\circ}$}}1
+    {—}{{---}}1
+    {–}{{--}}1
+    {∂}{{$\partial$}}1
+    {∇}{{$\nabla$}}1
+    {ρ}{{$\rho$}}1
+    {α}{{$\alpha$}}1
+    {τ}{{$\tau$}}1
+    {θ}{{$\theta$}}1
+    {Γ}{{$\Gamma$}}1
+    {Δ}{{$\Delta$}}1
+    {ψ}{{$\psi$}}1
+    {²}{{$^{2}$}}1
+    {³}{{$^{3}$}}1
+    {⁴}{{$^{4}$}}1
+    {≥}{{$\geq$}}1
+    {≤}{{$\leq$}}1
+    {≈}{{$\approx$}}1
+    {·}{{$\cdot$}}1
+    {×}{{$\times$}}1
+    {−}{{$-$}}1
+    {→}{{$\rightarrow$}}1,
+}
+
+% Estilo para árvore de diretórios (sem highlight)
+\lstdefinestyle{dirstyle}{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{codebg},
+  rulecolor=\color{codeframe},
+  frame=single,
+  framesep=6pt,
+  aboveskip=10pt,
+  belowskip=6pt,
+  xleftmargin=6pt,
+  framexleftmargin=6pt,
+}
+
+\lstset{style=pythonstyle}
+\renewcommand{\lstlistingname}{Listagem}
+\renewcommand{\lstlistlistingname}{Lista de Listagens}
+
+\makelosymbols
+\makeloabbreviations
+
+\begin{document}
+  \title{MinervaMesh: uma plataforma web para simulações numéricas em Engenharia Mecânica}
+  \foreigntitle{MinervaMesh: a web platform for numerical simulations in Mechanical Engineering}
+  \author{Luiz Gustavo Santos}{Farias}
+  \advisor{Prof.}{Gustavo Rabello dos}{Anjos}{Ph.D.}
+  \examiner{Prof.}{Examinador Um}{D.Sc.}
+  \examiner{Prof.}{Examinador Dois}{D.Sc.}
+  \department{DEM}
+  \date{5}{2026}
+  \keyword{Método dos Elementos Finitos}
+  \keyword{Método das Diferenças Finitas}
+  \keyword{Simulação Web}
+  \keyword{Mecânica Computacional}
+  \keyword{Ensino de Engenharia}
+  \maketitle
+
+  \frontmatter
+  \include{Pre-textual/dedic}
+  \include{Pre-textual/thanks}
+  \include{Pre-textual/resumo}
+  \include{Pre-textual/abstract}
+  \tableofcontents
+  \listoffigures
+  \listoftables
+  \printloabbreviations
+
+  \mainmatter
+  \include{Textual/introducao}
+  \include{Textual/revisao_bibliografica}
+  \include{Textual/fundamentacao_teorica}
+  \include{Textual/resultados}
+  \include{Textual/arquitetura}
+  \include{Textual/conclusao}
+
+  \backmatter
+  \bibliographystyle{poli-unsrt}
+  \bibliography{thesis}
+
+  \appendix
+  \include{Pos-textual/apendice_modulos_1d}
+  \include{Pos-textual/apendice_modulos_2d}
+  \include{Pos-textual/apendice_benchmark}
+\end{document}

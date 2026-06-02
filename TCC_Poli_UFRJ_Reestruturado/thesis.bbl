@@ -1,0 +1,268 @@
+\begin{thebibliography}{10}
+\newcommand{\enquote}[1]{``#1''}
+
+\bibitem{Maliska2004}
+\MakeUppercase{ Maliska, C.~R.}, {\em Transfer\^encia de Calor e Mec\^anica dos
+  Fluidos Computacional\/}.
+\newblock 2nd ed.
+\newblock LTC: Rio de Janeiro, 2004.
+
+\bibitem{Anjos2024}
+\MakeUppercase{ Anjos, G.~R.}, {\em Computa\c{c}\~ao Cient\'{i}fica para
+  Engenheiros\/}.
+\newblock PEM/COPPE/UFRJ: Rio de Janeiro, 2024, Notas de Aula, vers\~ao de 23
+  de maio de 2024.
+
+\bibitem{PyScript2023}
+\MakeUppercase{ {PyScript Development Team}}, \enquote{PyScript Documentation},
+  Dispon\'{i}vel em: https://pyscript.net, 2023, Acesso em: 20 fev. 2026.
+
+\bibitem{Harris2020}
+\MakeUppercase{ Harris, C.~R., Millman, K.~J., van~der Walt, S.~J.,
+  \MakeLowercase{et~al.}}, \enquote{Array programming with NumPy}, {\em
+  Nature\/}, v.~585, n. 7825, pp.~357--362, 2020.
+
+\bibitem{Brooks1982}
+\MakeUppercase{ Brooks, A.~N., Hughes, T. J.~R.}, \enquote{Streamline
+  upwind/Petrov-Galerkin formulations for convection dominated flows with
+  particular emphasis on the incompressible Navier-Stokes equations}, {\em
+  Computer Methods in Applied Mechanics and Engineering\/}, v.~32, n. 1-3,
+  pp.~199--259, 1982.
+
+\bibitem{Fish2007}
+\MakeUppercase{ Fish, J., Belytschko, T.}, {\em A First Course in Finite
+  Elements\/}.
+\newblock John Wiley \& Sons: West Sussex, 2007.
+
+\bibitem{Incropera2006}
+\MakeUppercase{ Incropera, F.~P., DeWitt, D.~P., Bergman, T.~L.,
+  \MakeLowercase{et~al.}}, {\em Fundamentals of Heat and Mass Transfer\/}.
+\newblock 6th ed.
+\newblock John Wiley \& Sons: Hoboken, 2006.
+
+\bibitem{Cengel2015}
+\MakeUppercase{ Cengel, Y.~A., Ghajar, A.~J.}, {\em Heat and Mass Transfer:
+  Fundamentals and Applications\/}.
+\newblock 5th ed.
+\newblock McGraw-Hill Education: New York, 2015.
+
+\bibitem{Fox2012}
+\MakeUppercase{ Fox, R.~W., McDonald, A.~T., Pritchard, P.~J.}, {\em
+  Introdu\c{c}\~ao \`a Mec\^anica dos Fluidos\/}.
+\newblock 7th ed.
+\newblock LTC: Rio de Janeiro, 2012.
+
+\bibitem{White2006}
+\MakeUppercase{ White, F.~M.}, {\em Viscous Fluid Flow\/}.
+\newblock 3rd ed.
+\newblock McGraw-Hill: New York, 2006.
+
+\bibitem{Versteeg2007}
+\MakeUppercase{ Versteeg, H.~K., Malalasekera, W.}, {\em An Introduction to
+  Computational Fluid Dynamics: The Finite Volume Method\/}.
+\newblock 2nd ed.
+\newblock Pearson Education: Harlow, 2007.
+
+\bibitem{Patankar1980}
+\MakeUppercase{ Patankar, S.~V.}, {\em Numerical Heat Transfer and Fluid
+  Flow\/}.
+\newblock Hemisphere Publishing Corporation: New York, 1980.
+
+\bibitem{Zienkiewicz2013}
+\MakeUppercase{ Zienkiewicz, O.~C., Taylor, R.~L., Zhu, J.~Z.}, {\em The Finite
+  Element Method: Its Basis and Fundamentals\/}.
+\newblock 7th ed.
+\newblock Butterworth-Heinemann: Oxford, 2013.
+
+\bibitem{Lewis2004}
+\MakeUppercase{ Lewis, R.~W., Nithiarasu, P., Seetharamu, K.~N.}, {\em
+  Fundamentals of the Finite Element Method for Heat and Fluid Flow\/}.
+\newblock John Wiley \& Sons: Chichester, 2004.
+
+\bibitem{Reddy2005}
+\MakeUppercase{ Reddy, J.~N.}, {\em An Introduction to the Finite Element
+  Method\/}.
+\newblock 3rd ed.
+\newblock McGraw-Hill: New York, 2005.
+
+\bibitem{Galerkin1915}
+\MakeUppercase{ Galerkin, B.~G.}, \enquote{Series in some questions of elastic
+  equilibrium of beams and plates}, {\em Vestnik Inzhenerov i Tekhnikov\/},
+  v.~19, pp.~897--908, 1915.
+
+\bibitem{Courant1943}
+\MakeUppercase{ Courant, R.}, \enquote{Variational methods for the solution of
+  problems of equilibrium and vibrations}, {\em Bulletin of the American
+  Mathematical Society\/}, v.~49, n.~1, pp.~1--23, 1943.
+
+\bibitem{Hrennikoff1941}
+\MakeUppercase{ Hrennikoff, A.}, \enquote{Solution of problems of elasticity by
+  the framework method}, {\em Journal of Applied Mechanics\/}, v.~8, n.~4,
+  pp.~A169--A175, 1941.
+
+\bibitem{Turner1956}
+\MakeUppercase{ Turner, M.~J., Clough, R.~W., Martin, H.~C.,
+  \MakeLowercase{et~al.}}, \enquote{Stiffness and deflection analysis of
+  complex structures}, {\em Journal of the Aeronautical Sciences\/}, v.~23,
+  n.~9, pp.~805--823, 1956.
+
+\bibitem{Clough1960}
+\MakeUppercase{ Clough, R.~W.}, \enquote{The finite element method in plane
+  stress analysis}.
+\newblock In: {\em Proceedings of the 2nd ASCE Conference on Electronic
+  Computation\/}, Pittsburgh, 1960.
+
+\bibitem{Christie1976}
+\MakeUppercase{ Christie, I., Griffiths, D.~F., Mitchell, A.~R.,
+  \MakeLowercase{et~al.}}, \enquote{Finite element methods for second order
+  differential equations with significant first derivatives}, {\em
+  International Journal for Numerical Methods in Engineering\/}, v.~10,
+  pp.~1389--1396, 1976.
+
+\bibitem{Donea1984}
+\MakeUppercase{ Donea, J.}, \enquote{A Taylor-Galerkin method for convective
+  transport problems}, {\em International Journal for Numerical Methods in
+  Engineering\/}, v.~20, n.~1, pp.~101--119, 1984.
+
+\bibitem{Lohner1984}
+\MakeUppercase{ L{\"o}hner, R., Morgan, K., Zienkiewicz, O.~C.}, \enquote{The
+  solution of non-linear hyperbolic equation systems by the finite element
+  method}, {\em International Journal for Numerical Methods in Fluids\/}, v.~4,
+  pp.~1043--1063, 1984.
+
+\bibitem{Ghia1982}
+\MakeUppercase{ Ghia, U., Ghia, K.~N., Shin, C.~T.}, \enquote{High-Re solutions
+  for incompressible flow using the Navier-Stokes equations and a multigrid
+  method}, {\em Journal of Computational Physics\/}, v.~48, pp.~387--411, 1982.
+
+\bibitem{Marchi2009}
+\MakeUppercase{ Marchi, C.~H., Suero, R., Araki, L.~K.}, \enquote{The
+  lid-driven square cavity flow: numerical solution with a 1024 x 1024 grid},
+  {\em Journal of the Brazilian Society of Mechanical Sciences and
+  Engineering\/}, v.~31, n.~3, pp.~186--198, 2009.
+
+\bibitem{Armaly1983}
+\MakeUppercase{ Armaly, B.~F., Durst, F., Pereira, J. C.~F.,
+  \MakeLowercase{et~al.}}, \enquote{Experimental and theoretical investigation
+  of backward-facing step flow}, {\em Journal of Fluid Mechanics\/}, v.~127,
+  pp.~473--496, 1983.
+
+\bibitem{Thomas1981}
+\MakeUppercase{ Thomas, C., Morgan, K., Taylor, C.}, \enquote{A finite element
+  analysis of flow over a backward facing step}, {\em Computers \& Fluids\/},
+  v.~9, n.~3, pp.~265--278, 1981.
+
+\bibitem{Pironneau1982}
+\MakeUppercase{ Pironneau, O.}, \enquote{On the transport-diffusion algorithm
+  and its applications to the Navier-Stokes equations}, {\em Numerische
+  Mathematik\/}, v.~38, pp.~309--332, 1982.
+
+\bibitem{Geuzaine2009}
+\MakeUppercase{ Geuzaine, C., Remacle, J.-F.}, \enquote{Gmsh: A 3-D finite
+  element mesh generator with built-in pre- and post-processing facilities},
+  {\em International Journal for Numerical Methods in Engineering\/}, v.~79,
+  n.~11, pp.~1309--1331, 2009.
+
+\bibitem{Aguiar2020}
+\MakeUppercase{ da~S. O. N.~de Aguiar, G.}, {\em Simula\c{c}\~ao Num\'{e}rica
+  da Transfer\^encia de Calor em um Disco de Freio Durante Frenagem usando o
+  M\'{e}todo de Elementos Finitos\/}, Projeto de gradua\c{c}\~ao, Universidade
+  Federal do Rio de Janeiro, Rio de Janeiro, 2020.
+
+\bibitem{Alves2021}
+\MakeUppercase{ de~M.~Alves, F.~R.}, {\em Solu\c{c}\~ao da equa\c{c}\~ao
+  tridimensional transiente do calor atrav\'{e}s do m\'{e}todo de elementos
+  finitos aplicado a discos de freio\/}, Projeto de gradua\c{c}\~ao,
+  Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2021.
+
+\bibitem{Ferreira2022}
+\MakeUppercase{ Ferreira, G.~P.}, {\em Cria\c{c}\~ao de um c\'{o}digo em Python
+  para simular a transfer\^encia de calor em um processador computacional\/},
+  Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de
+  Janeiro, 2022.
+
+\bibitem{Pinheiro2022}
+\MakeUppercase{ Pinheiro, V.~G.}, {\em An\'{a}lise de condu\c{c}\~ao de calor
+  em componentes eletr\^onicos de material heterog\^eneo utilizando m\'{e}todo
+  de elementos finitos\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do
+  Rio de Janeiro, Rio de Janeiro, 2022.
+
+\bibitem{Capitanio2023}
+\MakeUppercase{ Capitanio, T.~A.}, {\em Implementa\c{c}\~ao do m\'{e}todo de
+  elementos finitos em Python para o estudo param\'{e}trico de dissipadores de
+  calor de processadores computacionais\/}, Projeto de gradua\c{c}\~ao,
+  Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2023.
+
+\bibitem{Miranda2023}
+\MakeUppercase{ Miranda, L.~M.}, {\em Estudo de geometrias de canais em placa
+  fria para arrefecimento de eletr\^onicos atrav\'{e}s do m\'{e}todo de
+  elementos finitos\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio
+  de Janeiro, Rio de Janeiro, 2023.
+
+\bibitem{Teixeira2023}
+\MakeUppercase{ Teixeira, M.~M.}, {\em Solu\c{c}\~ao da equa\c{c}\~ao de
+  Laplace tridimensional para a temperatura aplicada a um bloco de motor
+  atrav\'{e}s do M\'{e}todo dos Elementos Finitos\/}, Projeto de
+  gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de Janeiro,
+  2023.
+
+\bibitem{Oliveira2025}
+\MakeUppercase{ de~Oliveira, M.~D.}, {\em Estudo da transfer\^encia de calor em
+  dissipador de calor de aletas retas por meio do M\'{e}todo dos Elementos
+  Finitos\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de
+  Janeiro, Rio de Janeiro, 2025.
+
+\bibitem{Florentino2022}
+\MakeUppercase{ da~S.~Florentino, Y.}, {\em Estudo de escoamentos para
+  arrefecimento de eletr\^onicos atrav\'{e}s de M\'{e}todo de Elementos
+  Finitos\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de
+  Janeiro, Rio de Janeiro, 2022.
+
+\bibitem{Santos2022}
+\MakeUppercase{ de~O.~dos Santos, J.}, {\em Investiga\c{c}\~ao dos campos de
+  velocidade, vorticidade e fun\c{c}\~ao corrente em escoamento livre
+  utilizando o M\'{e}todo de Elementos Finitos\/}, Projeto de gradua\c{c}\~ao,
+  Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2022.
+
+\bibitem{SilvaJessica2020}
+\MakeUppercase{ Silva, J.~A.}, {\em M\'{e}todo de Elementos Finitos em Python
+  com a abordagem lagrangiana-euleriana para as oscila\c{c}\~oes de um
+  cilindro\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de
+  Janeiro, Rio de Janeiro, 2020.
+
+\bibitem{Amaral2020}
+\MakeUppercase{ do~Amaral, T. A.~C.}, {\em An\'{a}lise CFD de difus\~ao de
+  esp\'{e}cie qu\'{i}mica para diferentes geometrias de stent
+  farmacol\'{o}gico\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio
+  de Janeiro, Rio de Janeiro, 2020.
+
+\bibitem{GomesMatheus2021}
+\MakeUppercase{ Gomes, M.~F.}, {\em An\'{a}lise CFD de escoamento em
+  art\'{e}rias coron\'{a}rias para diferentes configura\c{c}\~oes de
+  restri\c{c}\~ao de fluxo\/}, Projeto de gradua\c{c}\~ao, Universidade Federal
+  do Rio de Janeiro, Rio de Janeiro, 2021.
+
+\bibitem{Araujo2022}
+\MakeUppercase{ de~A.~Araujo, R.~S.}, {\em Compara\c{c}\~ao e valida\c{c}\~ao
+  de m\'{e}todos num\'{e}ricos aplicados \`a Transfer\^encia de Calor\/},
+  Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de
+  Janeiro, 2022.
+
+\bibitem{GomesYuri2025}
+\MakeUppercase{ Gomes, Y.~P.}, {\em An\'{a}lise Variacional e Num\'{e}rica da
+  Equa\c{c}\~ao de Poisson em Problemas de Transfer\^encia de Calor\/}, Projeto
+  de gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de Janeiro,
+  2025.
+
+\bibitem{Thom1933}
+\MakeUppercase{ Thom, A.}, \enquote{The Flow Past Circular Cylinders at Low
+  Speeds}, {\em Proceedings of the Royal Society A\/}, v.~141, n. 845,
+  pp.~651--669, 1933.
+
+\bibitem{TriangleWasm}
+\MakeUppercase{ Imbrizi, B.}, \enquote{{triangle-wasm}: {J}avascript wrapper
+  around {T}riangle compiled to {WebAssembly}}, Reposit\'orio GitHub.
+  Dispon\'{i}vel em: https://github.com/brunoimbrizi/triangle-wasm, Acesso em:
+  09 maio 2026.
+
+\end{thebibliography}

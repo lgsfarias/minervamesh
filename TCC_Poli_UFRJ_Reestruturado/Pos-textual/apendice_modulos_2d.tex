@@ -1,0 +1,44 @@
+\chapter{Listagens dos Módulos de Simulação 2D}
+\label{ApendiceB}
+
+\paragraph{}Este apêndice apresenta as listagens completas dos módulos de simulação bidimensionais implementados no \textit{MinervaMesh}, incluindo os módulos compartilhados de geração de malha e geometria. Os códigos são incluídos com o propósito de garantir a reprodutibilidade científica dos resultados apresentados neste trabalho: cada listagem corresponde diretamente às formulações matemáticas derivadas no Capítulo~\ref{cap3} e às implementações descritas no Capítulo~\ref{cap4}. Cabe ressaltar que este apêndice não constitui um repositório de software, mas sim documentação técnica destinada à verificação e validação das soluções numéricas obtidas. Os códigos Python a seguir são executados integralmente no navegador via PyScript/WebAssembly.
+
+\section{Malha e Matrizes MEF}
+\label{ap:common}
+
+\lstinputlisting[
+  caption={Módulo compartilhado de malha e matrizes MEF --- \texttt{common.py}},
+  label={lst:common}
+]{../simulations/mef/escoamento-fluido-2d/common.py}
+
+\section{Geometrias de Obstáculo}
+\label{ap:geometry}
+
+\lstinputlisting[
+  caption={Geometrias de obstáculo --- \texttt{geometry.py}},
+  label={lst:geometry}
+]{../simulations/mef/escoamento-fluido-2d/geometry.py}
+
+\section{Transferência de Calor 2D}
+\label{ap:transcalor}
+
+\lstinputlisting[
+  caption={Transferência de calor 2D --- \texttt{simulation.py}},
+  label={lst:transcalor}
+]{../simulations/mef/transcalor/simulation.py}
+
+\section{Escoamento Potencial 2D}
+\label{ap:potencial}
+
+\lstinputlisting[
+  caption={Escoamento potencial 2D --- \texttt{simulation.py}},
+  label={lst:potencial}
+]{../simulations/mef/escoamento-fluido-2d/escoamento-potencial/simulation.py}
+
+\section{Navier-Stokes 2D (Vorticidade-Corrente)}
+\label{ap:ns2d}
+
+\lstinputlisting[
+  caption={Navier-Stokes 2D --- \texttt{simulation.py}},
+  label={lst:ns2d}
+]{../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py}

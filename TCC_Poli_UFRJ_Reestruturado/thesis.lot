@@ -1,0 +1,25 @@
+\babel@toc {brazil}{}\relax 
+\babel@toc {english}{}\relax 
+\babel@toc {brazil}{}\relax 
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {3.1}{\ignorespaces Classificação variacional e tratamento numérico das condições de contorno no MEF.}}{17}{table.caption.41}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces Parâmetros da simulação de condução permanente 1D.}}{28}{table.caption.48}%
+\contentsline {table}{\numberline {4.2}{\ignorespaces Parâmetros da simulação de condução transiente 1D com $k(x)$ variável.}}{31}{table.caption.51}%
+\contentsline {table}{\numberline {4.3}{\ignorespaces Parâmetros da simulação de convecção-difusão 1D.}}{35}{table.caption.54}%
+\contentsline {table}{\numberline {4.4}{\ignorespaces Parâmetros da simulação de flexão de viga 1D.}}{39}{table.caption.58}%
+\contentsline {table}{\numberline {4.5}{\ignorespaces Parâmetros da simulação de vibração axial 1D (barra de aço bi-engastada).}}{43}{table.caption.61}%
+\contentsline {table}{\numberline {4.6}{\ignorespaces Frequências naturais: MEF vs.\ analítica para barra livre-livre.}}{45}{table.caption.63}%
+\contentsline {table}{\numberline {4.7}{\ignorespaces Parâmetros da simulação de transferência de calor transiente 2D.}}{46}{table.caption.65}%
+\contentsline {table}{\numberline {4.8}{\ignorespaces Parâmetros da simulação de escoamento potencial 2D em torno de cilindro.}}{50}{table.caption.68}%
+\contentsline {table}{\numberline {4.9}{\ignorespaces Coeficiente de pressão $C_p$ na superfície do cilindro: MEF vs.\ teoria potencial.}}{53}{table.caption.70}%
+\contentsline {table}{\numberline {4.10}{\ignorespaces Parâmetros da simulação de Navier-Stokes 2D --- cavidade com tampa móvel.}}{55}{table.caption.72}%
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {5.1}{\ignorespaces Comparação entre plataformas de simulação numérica para ensino.}}{62}{table.caption.83}%
+\contentsline {table}{\numberline {5.2}{\ignorespaces Tempo total do solver (mediana, com MAD reportado abaixo de 1\% em todas as células) em CPython nativo e Pyodide (navegador), na mesma máquina (Apple M1 Max). $t_{\text {mont}}$ é o tempo de montagem (incluindo geração de malha quando aplicável) e $t_{\text {slv}}$ é o tempo da resolução linear (\texttt {np.linalg.solve} no caso 1D denso, ou o total dos passos de \texttt {spsolve} nos casos 2D esparsos). ``CP'' = CPython nativo; ``Py'' = Pyodide.}}{63}{table.caption.84}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }

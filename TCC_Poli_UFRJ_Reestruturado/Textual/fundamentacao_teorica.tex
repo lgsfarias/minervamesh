@@ -1,0 +1,417 @@
+\chapter{Fundamentação Teórica}
+\label{cap3}
+
+\section{Introdução ao Capítulo}
+\label{sec:fundamentacao_intro}
+
+\paragraph{}Este capítulo apresenta a formulação matemática e os métodos numéricos que fundamentam as análises realizadas no \textit{MinervaMesh}. O objetivo central é fornecer uma base sólida, típica da Engenharia Mecânica, para a conversão dos modelos físicos contínuos em sistemas algébricos discretos resolvidos computacionalmente.
+
+\paragraph{}Inicialmente, revisam-se as equações diferenciais parciais (EDPs) governantes da condução de calor térmica e do escoamento de fluidos de forma conceitual. Em seguida, após uma breve fundamentação do Método das Diferenças Finitas (MDF), o capítulo se aprofunda extensamente no Método dos Elementos Finitos (MEF). O desenvolvimento abrange desde a formulação de Galerkin, passando pela discretização com elementos triangulares lineares, até a consolidação da formulação em Vorticidade-Corrente adotada para a dinâmica de fluidos.
+
+\section{Equações Governantes}
+\label{sec:equacoes_governantes}
+
+A modelagem térmica e fluidodinâmica sustenta-se em princípios de conservação: massa, quantidade de movimento e energia. Estas leis físicas, contínuas no espaço e no tempo, são expressas por EDPs que determinam o comportamento termofluidodinâmico do meio contínuo abordado. Adota-se ao longo deste trabalho a convenção de denotar grandezas vetoriais em negrito (e.g., $\mathbf{v}$, $\mathbf{f_b}$) e suas componentes escalares em itálico (e.g., $\mathbf{v} = (u, v)$, com $u$ e $v$ associadas às direções $x$ e $y$, respectivamente).
+
+\subsection{Condução e Convecção Térmica}
+
+A transferência de calor em meios sólidos contínuos é regida pela equação da difusão de calor (Lei de Fourier acoplada à conservação da energia térmica). Para um meio estacionário, a distribuição de temperatura $T(\mathbf{x}, t)$ é ditada por \cite{Incropera2006}:
+
+\begin{equation}
+\rho c_p \frac{\partial T}{\partial t} = \nabla \cdot (k \nabla T) + q'''
+\label{eq:conducao_geral}
+\end{equation}
+onde $\rho$ é a massa específica, $c_p$ é o calor específico a pressão constante, $k$ é a condutividade térmica do material, e $q'''$ representa a taxa volumétrica de geração de energia térmica. Para regimes permanentes e propriedades constantes, a Equação \ref{eq:conducao_geral} se simplifica na clássica equação de Poisson (ou Laplace, se $q''' = 0$).
+
+Quando existe escoamento (\textit{convecção}), adiciona-se à equação o transporte advectivo promovido pelo campo de velocidades $\mathbf{v}$:
+\begin{equation}
+\rho c_p \left( \frac{\partial T}{\partial t} + \mathbf{v} \cdot \nabla T \right) = \nabla \cdot (k \nabla T) + q'''
+\label{eq:conveccao_difusao}
+\end{equation}
+Esta é a equação de convecção-difusão, paradigma central para o estudo da transferência de calor conjugada ou escoamentos não-isotérmicos.
+
+\subsection{Escoamento de Fluidos (Navier-Stokes)}
+
+O escoamento de fluidos incompressíveis newtonianos é regido pela restrição de continuidade (conservação de massa) e pelas Equações de Navier-Stokes (conservação do momento linear) \cite{White2006}:
+
+\begin{equation}
+\nabla \cdot \mathbf{v} = 0
+\label{eq:continuidade}
+\end{equation}
+
+\begin{equation}
+\rho \left( \frac{\partial \mathbf{v}}{\partial t} + (\mathbf{v} \cdot \nabla) \mathbf{v} \right) = -\nabla p + \mu \nabla^2 \mathbf{v} + \mathbf{f_b}
+\label{eq:navier_stokes_vel_pressao}
+\end{equation}
+onde $p$ representa o campo de pressão estática, $\mu$ a viscosidade dinâmica do fluido e $\mathbf{f_b}$ eventuais forças de campo (como as forças de empuxo gravitacional). Esta formulação em variáveis primitivas (velocidade-pressão) apresenta consideráveis desafios numéricos devido ao acoplamento embutido pela restrição de continuidade \cite{Maliska2004}. Consequentemente, abordagens numéricas como a Vorticidade-Corrente são frequentemente adotadas em 2D para contornar a incógnita da pressão diretamente.
+
+\section{Transição Discreta: O Método das Diferenças Finitas (MDF)}
+\label{sec:introducao_mdf}
+
+Antes do extensivo emprego de formulações variacionais associadas a malhas arbitrárias, a conversão de EDPs a um sistema matricial utilizou maciçamente as propriedades da expansão da série de Taylor. O Método das Diferenças Finitas (MDF) consiste na substituição direta dos operadores diferenciais exatos pelas respectivas aproximações algébricas discretizadas em nós de uma malha tipicamente ortogonal e estruturada \cite{Anjos2024}.
+
+Considere a representação da derivada parcial aproximada pelo método da diferença adiantada e atrasada para aproximações de derivadas espaciais e temporais:
+
+\begin{equation}
+\left. \frac{\partial u}{\partial x} \right|_{i} \approx \frac{u_{i+1} - u_{i-1}}{2\Delta x} \quad \text{(Diferença Central)}
+\label{eq:mdf_primeira_derivada}
+\end{equation}
+
+\begin{equation}
+\left. \frac{\partial^2 u}{\partial x^2} \right|_{i} \approx \frac{u_{i+1} - 2u_i + u_{i-1}}{(\Delta x)^2}
+\label{eq:mdf_segunda_derivada}
+\end{equation}
+
+Embora de inegável valor histórico e de extrema eficácia para discretizações explícitas no tempo e problemas de topologia regular simples, o MDF apresenta entraves práticos quando restrições de domínios geométricos altamente complexos exigem representações intrincadas de fronteiras, resultando em interpolações estéreo ou \textit{stair-step} dos contornos físicos do domínio fluido ou de sólidos.
+
+Para permitir tratamento sistemático de geometrias complexas e de condições de contorno de von Neumann ou mistas, o trabalho adota a seguir a formulação integral característica do Método dos Elementos Finitos (MEF).
+
+\section{O Método dos Elementos Finitos (MEF)}
+\label{sec:mef}
+
+O Método dos Elementos Finitos constitui a abordagem numérica central adotada neste trabalho. Diferentemente do MDF, o MEF parte de uma formulação integral (variacional ou de resíduos ponderados) da EDP, permitindo o uso de malhas não estruturadas que se adaptam naturalmente a geometrias complexas \cite{Zienkiewicz2013}. Esta seção desenvolve a formulação desde a forma forte até a obtenção do sistema algébrico global.
+
+\subsection{Da Forma Forte à Forma Fraca}
+\label{sec:forma_fraca}
+
+Considere, para fins de generalidade, uma EDP elíptica em um domínio $\Omega \subset \mathbb{R}^d$ com fronteira $\Gamma = \partial\Omega$. De maneira genérica, a \textit{forma forte} do problema visa encontrar $u(\mathbf{x})$ tal que:
+
+\begin{equation}
+\mathcal{L}(u) = f \quad \text{em } \Omega
+\label{eq:forma_forte_generica}
+\end{equation}
+sujeita às condições de contorno:
+\begin{align}
+u &= \bar{u} \quad \text{em } \Gamma_D \quad \text{(Dirichlet)} \label{eq:cc_dirichlet} \\
+k \frac{\partial u}{\partial n} &= \bar{q} \quad \text{em } \Gamma_N \quad \text{(Neumann)} \label{eq:cc_neumann}
+\end{align}
+onde $\mathcal{L}$ é um operador diferencial (por exemplo, $-\nabla \cdot (k \nabla (\cdot))$ para condução), $f$ é o termo fonte, $\bar{u}$ é o valor prescrito na fronteira de Dirichlet $\Gamma_D$, $\bar{q}$ é o fluxo prescrito na fronteira de Neumann $\Gamma_N$, e $\Gamma_D \cup \Gamma_N = \Gamma$.
+
+A \textit{forma fraca} (ou variacional) é obtida multiplicando-se a Equação \ref{eq:forma_forte_generica} por uma \textit{função-teste} (ou função de ponderação) $w \in \mathcal{V}_0$, pertencente a um espaço funcional adequado, e integrando-se sobre o domínio $\Omega$:
+
+\begin{equation}
+\int_\Omega w \, \mathcal{L}(u) \, d\Omega = \int_\Omega w \, f \, d\Omega
+\label{eq:residuo_ponderado}
+\end{equation}
+
+\paragraph{}A vantagem fundamental desta operação reside na possibilidade de aplicar o Teorema de Green (integração por partes generalizada), transferindo uma ordem de derivação do operador diferencial $\mathcal{L}$ para a função-teste $w$. Considere o caso concreto da equação de Poisson estacionária ($-\nabla \cdot (k \nabla u) = f$). Multiplicando por $w$ e integrando:
+
+\begin{equation}
+-\int_\Omega w \, \nabla \cdot (k \nabla u) \, d\Omega = \int_\Omega w \, f \, d\Omega
+\label{eq:poisson_pre_green}
+\end{equation}
+
+Aplicando o Teorema de Green ao lado esquerdo:
+
+\begin{equation}
+\int_\Omega k \, \nabla w \cdot \nabla u \, d\Omega - \int_{\Gamma_N} w \, k \frac{\partial u}{\partial n} \, d\Gamma = \int_\Omega w \, f \, d\Omega
+\label{eq:poisson_pos_green}
+\end{equation}
+
+Substituindo a condição de Neumann (Eq.~\ref{eq:cc_neumann}) no termo de contorno, obtém-se a \textit{forma fraca}: encontrar $u \in \mathcal{V}$ tal que, para todo $w \in \mathcal{V}_0$:
+
+\begin{equation}
+\boxed{\int_\Omega k \, \nabla w \cdot \nabla u \, d\Omega = \int_\Omega w \, f \, d\Omega + \int_{\Gamma_N} w \, \bar{q} \, d\Gamma}
+\label{eq:forma_fraca_poisson}
+\end{equation}
+
+Esta expressão é de importância central: ela reduz os requisitos de regularidade sobre $u$ (de $C^2$ para $H^1$), incorpora naturalmente as condições de Neumann no funcional, e constitui a base sobre a qual o MEF opera.
+
+\subsection{Condições de Contorno}
+\label{sec:condicoes_contorno}
+
+A unicidade da solução de uma EDP elíptica ou parabólica depende da prescrição de informações apropriadas em $\Gamma = \partial\Omega$. No contexto da formulação variacional do MEF, as condições de contorno classificam-se em dois grupos: as \textit{essenciais}, que restringem o espaço de soluções admissíveis $\mathcal{V}$, e as \textit{naturais}, que emergem espontaneamente do termo de contorno gerado pela integração por partes (Eq.~\ref{eq:poisson_pos_green}) \cite{Reddy2005}. Os três tipos canônicos --- Dirichlet, Neumann e Robin --- abrangem a quase totalidade dos problemas de engenharia tratados pelo MEF.
+
+\paragraph{Dirichlet (essencial).} Já apresentada na Eq.~\ref{eq:cc_dirichlet}, a condição de Dirichlet prescreve diretamente o valor da incógnita em $\Gamma_D$ --- por exemplo, temperatura fixa em parede aquecida, ou condição de não-deslizamento $\mathbf{v} = \mathbf{0}$ em paredes sólidas. Por restringir o espaço admissível $\mathcal{V} = \{u \in H^1(\Omega) : u = \bar{u} \text{ em } \Gamma_D\}$, a função-teste $w$ deve anular-se em $\Gamma_D$. Numericamente, sua imposição é feita após a montagem global, zerando-se as linhas e colunas de $\mathbf{K}$ correspondentes aos nós em $\Gamma_D$ e ajustando o vetor de carga $\mathbf{F}$ para incorporar o valor prescrito \cite{Zienkiewicz2013}.
+
+\paragraph{Neumann (natural).} A condição de Neumann (Eq.~\ref{eq:cc_neumann}) prescreve o fluxo $k\,\partial u / \partial n = \bar{q}$ em $\Gamma_N$. Sua designação como ``natural'' reflete o fato de que ela aparece de forma direta no termo de contorno da forma fraca após a integração por partes: basta substituir $\bar{q}$ no integrando $\int_{\Gamma_N} w\,\bar{q}\,d\Gamma$ (Eq.~\ref{eq:forma_fraca_poisson}) para incorporá-la no vetor de carga global. O caso particular mais comum é a parede adiabática ($\bar{q} = 0$), em que a integral simplesmente se anula, dispensando qualquer manipulação adicional.
+
+\paragraph{Robin (mista).} As condições de Robin (também chamadas de mistas ou de terceiro tipo) combinam o valor da incógnita e seu fluxo na fronteira em uma relação linear:
+\begin{equation}
+\alpha\,u + \beta\,\frac{\partial u}{\partial n} = \gamma \quad \text{em } \Gamma_R
+\label{eq:cc_robin}
+\end{equation}
+com $\alpha, \beta, \gamma$ coeficientes que parametrizam o tipo de interação física na fronteira. O caso canônico em transferência de calor é a convecção newtoniana, em que o fluxo por condução é igualado ao fluxo convectivo trocado com o meio externo a temperatura $T_\infty$ via coeficiente convectivo $h$ \cite{Incropera2006}:
+\begin{equation}
+-k\,\frac{\partial T}{\partial n} = h\,(T - T_\infty) \quad \text{em } \Gamma_R
+\label{eq:cc_robin_convectiva}
+\end{equation}
+Substituindo a relação acima no termo de contorno $\int_{\Gamma_R} w\,k\,\partial u/\partial n\,d\Gamma$ da forma fraca, surgem duas contribuições simultâneas: uma na matriz de rigidez --- $\int_{\Gamma_R} h\,N_i\,N_j\,d\Gamma$ --- e outra no vetor de carga --- $\int_{\Gamma_R} h\,T_\infty\,N_i\,d\Gamma$. Robin é, portanto, a única dentre as três que altera simultaneamente $\mathbf{K}$ e $\mathbf{F}$ \cite{Reddy2005}.
+
+A Tabela~\ref{tab:cc_resumo} sintetiza a classificação variacional e o impacto numérico de cada tipo.
+
+\begin{table}[H]
+\centering
+\caption{Classificação variacional e tratamento numérico das condições de contorno no MEF.}
+\label{tab:cc_resumo}
+\begin{tabular}{llll}
+\hline
+\textbf{Tipo} & \textbf{Forma} & \textbf{Classificação} & \textbf{Impacto em $\mathbf{K},\mathbf{F}$} \\
+\hline
+Dirichlet & $u = \bar{u}$                                      & Essencial    & Modifica $\mathbf{K}$ e $\mathbf{F}$ \\
+Neumann   & $k\,\partial u/\partial n = \bar{q}$               & Natural      & Modifica apenas $\mathbf{F}$ \\
+Robin     & $\alpha\,u + \beta\,\partial u/\partial n = \gamma$ & Natural mista & Modifica $\mathbf{K}$ e $\mathbf{F}$ \\
+\hline
+\end{tabular}
+\end{table}
+
+Os módulos da plataforma documentados no Capítulo~\ref{cap4} fazem uso predominante de condições de Dirichlet (temperaturas e velocidades prescritas) e, de forma implícita, de Neumann homogêneas em paredes adiabáticas e fronteiras livres ($\bar{q} = 0$). Condições de Robin não são empregadas nos módulos atuais; sua incorporação --- particularmente no módulo de transferência de calor 2D, para representar troca convectiva com o meio externo --- configura-se como extensão natural prevista nas considerações finais do Capítulo~\ref{cap6}.
+
+\subsection{O Método de Galerkin}
+\label{sec:galerkin}
+
+O método de Galerkin consiste em restringir o problema variacional contínuo (Eq.~\ref{eq:forma_fraca_poisson}) a um subespaço de dimensão finita $\mathcal{V}^h \subset \mathcal{V}$, parametrizado por uma malha de elementos finitos. A solução aproximada $u^h$ é expressa como uma combinação linear de $N$ funções de base $\{N_j\}_{j=1}^{N}$:
+
+\begin{equation}
+u^h(\mathbf{x}) = \sum_{j=1}^{N} U_j \, N_j(\mathbf{x})
+\label{eq:aproximacao_galerkin}
+\end{equation}
+onde $U_j$ são os coeficientes nodais (incógnitas do sistema discreto) e $N_j(\mathbf{x})$ são as funções de forma associadas a cada nó $j$ da malha.
+
+A escolha fundamental do método de Galerkin é adotar as \textit{mesmas} funções de base como funções-teste: $w^h = N_i$, $i = 1, \ldots, N$. Substituindo na forma fraca (Eq.~\ref{eq:forma_fraca_poisson}):
+
+\begin{equation}
+\sum_{j=1}^{N} U_j \int_\Omega k \, \nabla N_i \cdot \nabla N_j \, d\Omega = \int_\Omega N_i \, f \, d\Omega + \int_{\Gamma_N} N_i \, \bar{q} \, d\Gamma \quad \forall \, i = 1, \ldots, N
+\label{eq:sistema_galerkin}
+\end{equation}
+
+Esta expressão define um sistema linear $\mathbf{K} \mathbf{U} = \mathbf{F}$, onde:
+
+\begin{equation}
+K_{ij} = \int_\Omega k \, \nabla N_i \cdot \nabla N_j \, d\Omega \qquad \text{(Matriz de Rigidez)}
+\label{eq:matriz_rigidez}
+\end{equation}
+
+\begin{equation}
+F_i = \int_\Omega N_i \, f \, d\Omega + \int_{\Gamma_N} N_i \, \bar{q} \, d\Gamma \qquad \text{(Vetor de Carga)}
+\label{eq:vetor_carga}
+\end{equation}
+
+A resolução deste sistema algébrico fornece os coeficientes nodais $\mathbf{U}$, a partir dos quais o campo aproximado $u^h$ é reconstituído via Equação \ref{eq:aproximacao_galerkin}. A qualidade da aproximação depende diretamente da riqueza do espaço $\mathcal{V}^h$, controlada pelo refinamento da malha e pela ordem polinomial das funções de base \cite{Fish2007}.
+
+\paragraph{}De maneira compacta, o procedimento de Galerkin converte o problema contínuo em:
+
+\begin{equation}
+\boxed{\mathbf{K} \mathbf{U} = \mathbf{F}}
+\label{eq:sistema_global}
+\end{equation}
+
+A construção efetiva das matrizes $\mathbf{K}$ e do vetor $\mathbf{F}$ depende da escolha dos elementos e das funções de forma, desenvolvida na seção seguinte.
+
+\subsection{Elementos Triangulares Lineares}
+\label{sec:elementos_p1}
+
+A discretização do domínio $\Omega$ é realizada por uma malha de $N_e$ elementos triangulares, cujos vértices coincidem com os $N$ nós globais da malha. Cada elemento $e$ possui três nós locais ($1, 2, 3$), com coordenadas $(x_i, y_i)$, $i = 1, 2, 3$.
+
+As funções de forma lineares $N_i^e$ para o elemento triangular linear são definidas de modo que $N_i^e(\mathbf{x}_j) = \delta_{ij}$ (propriedade de partição da unidade nodal). Em coordenadas cartesianas, estas funções são expressas por \cite{Reddy2005}:
+
+\begin{equation}
+N_i^e(x, y) = \frac{1}{2A^e} (a_i + b_i \, x + c_i \, y), \quad i = 1, 2, 3
+\label{eq:funcoes_forma_p1}
+\end{equation}
+onde $A^e$ é a área do elemento triangular e os coeficientes são dados por permutação cíclica dos índices dos vértices:
+
+\begin{equation}
+a_i = x_j y_k - x_k y_j, \qquad b_i = y_j - y_k, \qquad c_i = x_k - x_j
+\label{eq:coeficientes_p1}
+\end{equation}
+com $(i, j, k)$ em ordem cíclica $(1,2,3)$, $(2,3,1)$, $(3,1,2)$. A área do elemento é calculada por:
+
+\begin{equation}
+A^e = \frac{1}{2} \left| x_1(y_2 - y_3) + x_2(y_3 - y_1) + x_3(y_1 - y_2) \right|
+\label{eq:area_elemento}
+\end{equation}
+
+\paragraph{}Os gradientes das funções de forma são constantes dentro de cada elemento linear:
+
+\begin{equation}
+\nabla N_i^e = \frac{1}{2A^e} \begin{pmatrix} b_i \\ c_i \end{pmatrix}
+\label{eq:gradiente_p1}
+\end{equation}
+
+Esta propriedade simplifica consideravelmente as integrais elementares, uma vez que os integrandos envolvendo $\nabla N_i \cdot \nabla N_j$ tornam-se constantes no interior do elemento.
+
+\subsection{Matrizes Elementares}
+\label{sec:matrizes_elementares}
+
+A partir das funções de forma lineares, as integrais da formulação de Galerkin (Eqs.~\ref{eq:matriz_rigidez} e \ref{eq:vetor_carga}) são calculadas elemento a elemento e, em seguida, assembradas no sistema global.
+
+\subsubsection{Matriz de Rigidez Elementar}
+
+Para o problema de difusão com condutividade $k$ constante por elemento, a matriz de rigidez elementar $\mathbf{K}^e$ de dimensão $3 \times 3$ é:
+
+\begin{equation}
+K_{ij}^e = \int_{\Omega^e} k \, \nabla N_i^e \cdot \nabla N_j^e \, d\Omega = \frac{k}{4A^e} (b_i b_j + c_i c_j)
+\label{eq:rigidez_elementar}
+\end{equation}
+
+\subsubsection{Matriz de Massa Elementar}
+
+Em problemas transientes, a discretização temporal introduz um termo de acumulação que requer a \textit{matriz de massa}. Para elementos lineares, a matriz de massa consistente é \cite{Zienkiewicz2013}:
+
+\begin{equation}
+M_{ij}^e = \int_{\Omega^e} \rho c_p \, N_i^e \, N_j^e \, d\Omega = \frac{\rho c_p \, A^e}{12}
+\begin{cases}
+2 & \text{se } i = j \\
+1 & \text{se } i \neq j
+\end{cases}
+\label{eq:massa_elementar}
+\end{equation}
+
+Alternativamente, a \textit{matriz de massa concentrada} (\textit{lumped}) distribui a massa uniformemente nos nós, resultando em uma matriz diagonal:
+
+\begin{equation}
+M_{ij}^{e,\text{lump}} = \frac{\rho c_p \, A^e}{3} \, \delta_{ij}
+\label{eq:massa_lumped}
+\end{equation}
+
+\subsubsection{Vetor de Carga Elementar}
+
+Para um termo fonte $f$ uniforme no elemento, o vetor de carga elementar resulta em:
+
+\begin{equation}
+F_i^e = \int_{\Omega^e} N_i^e \, f \, d\Omega = \frac{f \, A^e}{3}
+\label{eq:carga_elementar}
+\end{equation}
+
+\subsection{Montagem Global}
+\label{sec:montagem_global}
+
+A construção do sistema global $\mathbf{K} \mathbf{U} = \mathbf{F}$ é realizada pelo procedimento de \textit{assembly}, que consiste em acumular as contribuições de cada elemento nas posições globais correspondentes. Para cada elemento $e$, a conectividade local-global é definida por um mapa de índices $\text{IEN}(a, e) \to I$, que associa o nó local $a$ do elemento $e$ ao nó global $I$.
+
+A montagem é expressa como:
+
+\begin{equation}
+K_{IJ} = \sum_{e=1}^{N_e} K_{\text{IEN}(a,e), \, \text{IEN}(b,e)}^e, \qquad
+F_I = \sum_{e=1}^{N_e} F_{\text{IEN}(a,e)}^e
+\label{eq:assembly}
+\end{equation}
+
+Após a montagem, as condições de contorno de Dirichlet são impostas por modificação das linhas correspondentes do sistema. A resolução do sistema linear resultante fornece os valores nodais $\mathbf{U}$.
+
+\section{Formulação Vorticidade-Corrente}
+\label{sec:vorticidade_corrente}
+
+A resolução direta das equações de Navier-Stokes em variáveis primitivas (velocidade-pressão) apresenta dificuldades numéricas associadas ao acoplamento pressão-velocidade e à satisfação da restrição de continuidade (Eq.~\ref{eq:continuidade}). Em problemas bidimensionais, a formulação em \textit{Vorticidade-Corrente} ($\omega$-$\psi$) oferece uma alternativa eficaz, eliminando o campo de pressão das incógnitas e reduzindo o sistema a duas equações escalares \cite{Maliska2004}.
+
+\subsection{Definições}
+
+Para um escoamento bidimensional, define-se a \textit{função corrente} $\psi(x,y,t)$ tal que o campo de velocidades satisfaça identicamente a equação da continuidade:
+
+\begin{equation}
+u = \frac{\partial \psi}{\partial y}, \qquad v = -\frac{\partial \psi}{\partial x}
+\label{eq:funcao_corrente}
+\end{equation}
+
+A \textit{vorticidade}, componente escalar no plano 2D, é definida como o rotacional do campo de velocidades:
+
+\begin{equation}
+\omega = \frac{\partial v}{\partial x} - \frac{\partial u}{\partial y}
+\label{eq:vorticidade_def}
+\end{equation}
+
+Substituindo as definições da função corrente na expressão da vorticidade, obtém-se a \textit{equação de Poisson para a função corrente}:
+
+\begin{equation}
+\nabla^2 \psi = -\omega
+\label{eq:poisson_psi}
+\end{equation}
+
+\subsection{Equação de Transporte da Vorticidade}
+
+Aplicando o rotacional às equações de Navier-Stokes (Eq.~\ref{eq:navier_stokes_vel_pressao}), o gradiente de pressão é eliminado e obtém-se a equação de transporte da vorticidade:
+
+\begin{equation}
+\frac{\partial \omega}{\partial t} + u \frac{\partial \omega}{\partial x} + v \frac{\partial \omega}{\partial y} = \nu \nabla^2 \omega
+\label{eq:transporte_vorticidade}
+\end{equation}
+onde $\nu = \mu/\rho$ é a viscosidade cinemática. Esta equação possui a estrutura clássica de convecção-difusão, onde o campo de velocidades ($u, v$) transporta a vorticidade $\omega$ enquanto a difusão viscosa a dissipa.
+
+\subsection{Sistema Acoplado e Solução Iterativa}
+
+O sistema $\omega$-$\psi$ é resolvido iterativamente. A cada passo de tempo (ou iteração estacionária), o procedimento consiste em:
+
+\begin{enumerate}
+    \item Resolver a equação de Poisson (Eq.~\ref{eq:poisson_psi}) para $\psi$, dado $\omega$.
+    \item Calcular o campo de velocidades ($u$, $v$) a partir de $\psi$ (Eq.~\ref{eq:funcao_corrente}).
+    \item Resolver a equação de transporte (Eq.~\ref{eq:transporte_vorticidade}) para $\omega$, dado ($u$, $v$).
+    \item Verificar a convergência e repetir, se necessário.
+\end{enumerate}
+
+\subsection{Matriz de Convecção e Estabilização SUPG}
+\label{sec:supg}
+
+A discretização via MEF do operador convectivo $\mathbf{v} \cdot \nabla \phi$ conduz à \textit{matriz de convecção} elementar, de dimensão $3 \times 3$ para elementos lineares:
+
+\begin{equation}
+C_{ij}^e = \int_{\Omega^e} N_i \, (\mathbf{v} \cdot \nabla N_j) \, d\Omega = \frac{A^e}{3} \left( \frac{u_e \, b_j + v_e \, c_j}{2 A^e} \right)
+\label{eq:conveccao_galerkin}
+\end{equation}
+onde $u_e$ e $v_e$ são as componentes de velocidade avaliadas no centroide do elemento.
+
+Quando o campo de velocidades é intenso em relação à difusão (número de Péclet elevado), a formulação de Galerkin padrão produz oscilações espúrias. Para contornar essa limitação, emprega-se a técnica \textit{Streamline Upwind Petrov-Galerkin} (SUPG), que adiciona uma difusão artificial orientada na direção do escoamento. A formulação SUPG foi proposta por Brooks e Hughes \cite{Brooks1982}, generalizando as funções de peso assimétricas (\textit{upwind}) introduzidas anteriormente por Christie et al.\ \cite{Christie1976}.
+
+Na formulação SUPG, a função-teste é modificada para $w_i = N_i + \tau_{\text{SUPG}} \, \mathbf{v} \cdot \nabla N_i$, com o parâmetro de estabilização:
+
+\begin{equation}
+\tau_{\text{SUPG}} = \frac{h_e}{2 \|\mathbf{v}\|} \left( \coth \text{Pe}_e - \frac{1}{\text{Pe}_e} \right)
+\label{eq:tau_supg}
+\end{equation}
+onde $\text{Pe}_e = \|\mathbf{v}\| h_e / (2\alpha)$ é o número de Péclet elementar.
+
+No \textit{MinervaMesh}, a estabilização SUPG é empregada no caso unidimensional de convecção-difusão, onde o efeito do número de Péclet é mais crítico. No solver bidimensional de Navier-Stokes, a convecção da vorticidade utiliza a formulação de Galerkin padrão (Eq.~\ref{eq:conveccao_galerkin}), sendo a estabilidade controlada pela escolha adequada do passo de tempo e do número de Reynolds.
+
+\section{Integração Temporal}
+\label{sec:integracao_temporal}
+
+Para problemas transientes, a discretização temporal converte a EDP semidiscreta (após a discretização espacial por MEF) em um sistema algébrico a cada intervalo de tempo $\Delta t$. No caso geral, o sistema semidiscreto assume a forma:
+
+\begin{equation}
+\mathbf{M} \frac{d\mathbf{U}}{dt} + \mathbf{K} \mathbf{U} = \mathbf{F}(t)
+\label{eq:semidiscreto}
+\end{equation}
+
+\subsection{Método $\theta$ Generalizado}
+
+A família de métodos $\theta$ parametriza a ponderação temporal entre os instantes $t^n$ e $t^{n+1}$:
+
+\begin{equation}
+\mathbf{M} \frac{\mathbf{U}^{n+1} - \mathbf{U}^n}{\Delta t} + \mathbf{K} \left[ \theta \, \mathbf{U}^{n+1} + (1 - \theta) \, \mathbf{U}^n \right] = \theta \, \mathbf{F}^{n+1} + (1 - \theta) \, \mathbf{F}^n
+\label{eq:theta_method}
+\end{equation}
+
+Os casos particulares mais relevantes são:
+\begin{itemize}
+    \item $\theta = 0$: Euler explícito (condicionalmente estável);
+    \item $\theta = 1/2$: Crank-Nicolson (incondicionalmente estável, segunda ordem);
+    \item $\theta = 1$: Euler implícito (incondicionalmente estável, primeira ordem).
+\end{itemize}
+
+\subsection{Esquema Semi-Implícito Adotado}
+\label{sec:semi_implicito}
+
+No solver de Navier-Stokes do \textit{MinervaMesh}, a equação de transporte da vorticidade (Eq.~\ref{eq:transporte_vorticidade}) é discretizada com um esquema \textit{semi-implícito}: o termo difusivo é tratado implicitamente ($\theta = 1$), enquanto o termo convectivo é avaliado explicitamente no instante $t^n$. Isso resulta no sistema:
+
+\begin{equation}
+\boxed{\left( \mathbf{M} + \frac{\Delta t}{\text{Re}} \, \mathbf{K} \right) \boldsymbol{\omega}^{n+1} = \mathbf{M} \, \boldsymbol{\omega}^n - \Delta t \, \mathbf{C}^n \, \boldsymbol{\omega}^n}
+\label{eq:sistema_temporal_ns}
+\end{equation}
+onde $\mathbf{C}^n$ é a matriz de convecção assembrada a partir do campo de velocidades no instante atual e $\text{Re} = \rho U L / \mu$ é o número de Reynolds. O tratamento implícito da difusão garante estabilidade incondicional para esse operador, enquanto a convecção explícita impor restrições sobre $\Delta t$ associadas ao número de Courant.
+
+Para problemas puramente difusivos (conducão transiente), utiliza-se o método $\theta$ generalizado (Eq.~\ref{eq:theta_method}), permitindo ao usuário selecionar entre Euler e Crank-Nicolson conforme o compromisso desejado entre precisão e estabilidade.
+
+\subsection{Condição de Contorno de Vorticidade na Parede}
+\label{sec:thom}
+
+Na formulação $\omega$-$\psi$, a vorticidade nas paredes sólidas não é conhecida \textit{a priori} e deve ser calculada indiretamente a partir do campo de função corrente. Aplicando uma expansão de Taylor de $\psi$ na direção normal à parede, obtém-se uma aproximação de primeira ordem para $\omega_w$, conhecida como condição de Thom \cite{Thom1933}:
+
+\begin{equation}
+\omega_w = -\frac{2(\psi_{\text{nb}} - \psi_w)}{h^2} - \frac{2 \, u_{\text{tan}}}{h}
+\label{eq:thom}
+\end{equation}
+onde $\psi_w$ e $\psi_{\text{nb}}$ são os valores da função corrente na parede e no nó vizinho mais próximo na direção normal (apontando para o interior do domínio), respectivamente; $h$ é a distância entre esses nós; e $u_{\text{tan}}$ é a componente tangencial da velocidade da parede, consistente com a convenção $u = \partial\psi/\partial y$ adotada nesta formulação ($u_{\text{tan}} = 0$ para paredes estacionárias e $u_{\text{tan}} = U_{\text{lid}}$ para a tampa móvel da cavidade com velocidade $U_{\text{lid}}$ na direção $+x$).
+
+\section{Síntese do Capítulo}
+\label{sec:sintese_fundamentacao}
+
+Este capítulo estabeleceu o arcabouço matemático completo empregado pelo \textit{MinervaMesh}. A formulação parte das EDPs governantes para fenômenos térmicos e fluidodinâmicos, transita pela introdução conceitual do MDF e se aprofunda no MEF via Galerkin. A discretização com elementos triangulares lineares permite a construção explícita das matrizes elementares de rigidez, massa e convecção, enquanto a formulação Vorticidade-Corrente viabiliza a solução de escoamentos 2D sem a necessidade de resolver diretamente o campo de pressão. A integração temporal semi-implícita e a aproximação de primeira ordem para a vorticidade na parede completam o ferramental necessário para a simulação dos casos apresentados no Capítulo~\ref{cap5}.

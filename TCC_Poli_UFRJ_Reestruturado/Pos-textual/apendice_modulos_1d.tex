@@ -1,0 +1,44 @@
+\chapter{Listagens dos Módulos de Simulação 1D}
+\label{ApendiceA}
+
+\paragraph{}Este apêndice apresenta as listagens completas dos módulos de simulação unidimensionais implementados no \textit{MinervaMesh}. Os códigos são incluídos com o propósito de garantir a reprodutibilidade científica dos resultados apresentados neste trabalho: cada listagem corresponde diretamente às formulações matemáticas derivadas no Capítulo~\ref{cap3} e às implementações descritas no Capítulo~\ref{cap4}. Cabe ressaltar que este apêndice não constitui um repositório de software, mas sim documentação técnica destinada à verificação e validação das soluções numéricas obtidas. Os códigos Python a seguir correspondem aos arquivos \texttt{simulation.py} de cada caso, executados integralmente no navegador via PyScript/WebAssembly.
+
+\section{Condução Permanente 1D}
+\label{ap:conducao1d}
+
+\lstinputlisting[
+  caption={Condução permanente 1D --- \texttt{simulation.py}},
+  label={lst:conducao1d}
+]{../simulations/mef/conducao-permanente-barra1d-mef/simulation.py}
+
+\section{Condução Transiente 1D com $k(x)$ Variável}
+\label{ap:calor_transiente}
+
+\lstinputlisting[
+  caption={Condução transiente 1D --- \texttt{simulation.py}},
+  label={lst:calor_transiente}
+]{../simulations/mef/calor-transiente-1d/simulation.py}
+
+\section{Convecção-Difusão 1D com SUPG}
+\label{ap:convdif1d}
+
+\lstinputlisting[
+  caption={Convecção-difusão 1D com SUPG --- \texttt{simulation.py}},
+  label={lst:convdif1d}
+]{../simulations/mef/conveccao-difusao-1d/simulation.py}
+
+\section{Viga 1D --- Euler-Bernoulli}
+\label{ap:viga1d}
+
+\lstinputlisting[
+  caption={Viga 1D (Euler-Bernoulli) --- \texttt{simulation.py}},
+  label={lst:viga1d}
+]{../simulations/mef/viga-1d-mef/simulation.py}
+
+\section{Vibração 1D --- Problema de Autovalor}
+\label{ap:vibracao1d}
+
+\lstinputlisting[
+  caption={Vibração 1D --- \texttt{simulation.py}},
+  label={lst:vibracao1d}
+]{../simulations/mef/vibracao-1d-mef/simulation.py}

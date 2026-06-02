@@ -1,0 +1,54 @@
+\chapter{Introdução}
+\label{cap1}
+
+% Abreviaturas/siglas (migradas da seção "Siglas" do template antigo) --
+% compõem a Lista de Abreviaturas gerada por \printloabbreviations.
+\abbrev{CFD}{\textit{Computational Fluid Dynamics} (Dinâmica dos Fluidos Computacional)}
+\abbrev{MDF}{Método das Diferenças Finitas}
+\abbrev{MEF}{Método dos Elementos Finitos}
+\abbrev{SUPG}{\textit{Streamline Upwind/Petrov-Galerkin}}
+\abbrev{UFRJ}{Universidade Federal do Rio de Janeiro}
+\abbrev{WASM}{WebAssembly}
+
+\section{Introdução}
+\label{sec:introducao}
+
+\paragraph{}A simulação numérica consolidou-se como instrumento central da engenharia contemporânea, complementando abordagens teóricas e experimentais na investigação de fenômenos físicos complexos. No contexto da Engenharia Mecânica, a Dinâmica dos Fluidos Computacional (\textit{Computational Fluid Dynamics} -- CFD) e a modelagem de transferência de calor viabilizam a análise de problemas governados por Equações Diferenciais Parciais (EDPs), muitas vezes inviáveis por solução analítica direta ou por experimentação em escala de laboratório \cite{Maliska2004}. Essa capacidade preditiva tem papel relevante no dimensionamento, na otimização e na verificação de desempenho de sistemas térmicos e fluidodinâmicos.
+
+\paragraph{}Apesar dos avanços metodológicos, o acesso a ambientes de simulação permanece limitado por barreiras econômicas e operacionais. Soluções comerciais amplamente utilizadas exigem licenciamento oneroso, infraestrutura computacional específica e configuração de ambiente com elevado custo de entrada, sobretudo em cenários de ensino e pesquisa inicial. Como consequência, a formação em métodos numéricos frequentemente fica condicionada à disponibilidade de laboratório e suporte técnico especializado, o que reduz a reprodutibilidade e a acessibilidade das atividades acadêmicas \cite{Anjos2024}.
+
+\paragraph{}Neste contexto, este trabalho ataca o problema de oferecer um ambiente de simulação numérica simultaneamente \textbf{acessível}, \textbf{didático} e \textbf{transparente} para o ensino de Engenharia Mecânica. A resposta proposta é o \textit{MinervaMesh}, uma plataforma executada integralmente no navegador, com arquitetura \textit{client-side}, que combina Python científico com tecnologias web modernas --- notadamente \textit{WebAssembly} e \textit{PyScript} --- para executar localmente rotinas de MEF e MDF sem qualquer instalação de dependências pelo usuário: o PyScript \cite{PyScript2023} executa, no próprio navegador, a pilha científica do Python, incluindo o NumPy \cite{Harris2020}. A proposta articula dois aspectos sob esse mesmo objetivo: de um lado, a \textit{implementação e a verificação} dos métodos numéricos, confrontadas com soluções analíticas e \textit{benchmarks} de referência; de outro, a \textit{disponibilização} dessas simulações na web, com formulação matemática explícita e código-fonte inspecionável em cada caso. Os dois aspectos não constituem trabalhos paralelos, mas meios complementares para reduzir a barreira de acesso ao aprendizado de métodos numéricos --- a corretude dos métodos dá fundamento à plataforma, e a entrega na web a torna efetivamente utilizável por terceiros.
+
+\section{Objetivos}
+
+\paragraph{}O objetivo geral deste trabalho é desenvolver e validar o \textbf{MinervaMesh}, uma plataforma computacional baseada na web para solução de EDPs de interesse em Engenharia Mecânica, operando integralmente no lado do cliente (\textit{client-side}).
+
+\paragraph{}Os objetivos específicos são:
+\begin{enumerate}
+    \item Implementar métodos numéricos clássicos, com ênfase no Método dos Elementos Finitos (MEF) e uso complementar do Método das Diferenças Finitas (MDF), empregando bibliotecas científicas Python no ambiente web \cite{Harris2020}.
+    \item Desenvolver uma interface interativa para pré-processamento, solução e pós-processamento, incluindo parametrização de malha e visualização de campos de interesse.
+    \item Validar a plataforma, prioritariamente, por meio de casos com solução analítica conhecida e, em seguida, demonstrar sua aplicação em casos adicionais de engenharia, com foco em mecânica dos fluidos e transferência de calor.
+    \item Consolidar um fluxo de trabalho reprodutível para problemas de:
+    \begin{itemize}
+        \item Escoamentos potenciais;
+        \item Problemas de advecção-difusão (com estabilização SUPG) \cite{Brooks1982};
+        \item Equações de Navier-Stokes para escoamentos laminares incompressíveis.
+    \end{itemize}
+\end{enumerate}
+
+\section{Justificativa}
+
+\paragraph{}A relevância do trabalho reside na articulação entre rigor numérico e acessibilidade computacional. Ao viabilizar simulações diretamente no navegador, reduz-se o atrito inicial de aprendizado e amplia-se o potencial de uso em disciplinas de graduação, monitorias e estudos independentes. Adicionalmente, a explicitação da formulação matemática e de sua implementação computacional fortalece o caráter acadêmico da proposta, permitindo que a plataforma seja utilizada tanto como ferramenta de simulação quanto como objeto de estudo em métodos numéricos \cite{Fish2007}.
+
+\paragraph{}No espectro de ferramentas disponíveis para o ensino e a prototipagem de métodos numéricos, o \textit{MinervaMesh} ocupa um nicho distinto das alternativas predominantes. Bibliotecas robustas de MEF em Python, como o FEniCS, e plataformas especializadas em métodos espectrais, como o Dedalus, oferecem grande flexibilidade e rigor, mas exigem instalação local de ambientes científicos e familiaridade com suas linguagens de domínio; suítes comerciais como COMSOL Multiphysics e ANSYS entregam interfaces gráficas de alto nível, porém seu código é proprietário e seu licenciamento restringe o uso acadêmico autônomo; e demonstrações web em \textit{p5.js} ou JavaScript puro, embora acessíveis, raramente apresentam formulação matemática explícita ou código inspecionável em linguagem científica consolidada. A contribuição original do \textit{MinervaMesh} reside na combinação simultânea de três atributos: execução integralmente no navegador sem qualquer instalação, código-fonte Python inspecionável em cada simulação através do botão ``Ver Código'', e portfólio unificado cobrindo três domínios clássicos da Engenharia Mecânica em uma única interface consistente.
+
+\section{Organização do Trabalho}
+
+\paragraph{}Este trabalho está estruturado da seguinte forma:
+\begin{itemize}
+    \item O \textbf{Capítulo 2} (Revisão Bibliográfica) apresenta o histórico e o estado da arte dos temas que sustentam o trabalho, incluindo problemas térmicos, MDF, MEF e trabalhos correlatos.
+    \item O \textbf{Capítulo 3} (Fundamentação Teórica) apresenta o embasamento matemático necessário para a discretização de EDPs via MEF.
+    \item O \textbf{Capítulo 4} (Resultados e Validação) apresenta a verificação numérica dos métodos implementados, comparando as soluções discretizadas com soluções analíticas conhecidas e \textit{benchmarks} consagrados da literatura.
+    \item O \textbf{Capítulo 5} (Desenvolvimento e Arquitetura) detalha a implementação do \textit{MinervaMesh}, com ênfase na arquitetura \textit{client-side} e PyScript que disponibiliza esses métodos na web.
+    \item O \textbf{Capítulo 6} (Conclusão) resume as contribuições e propõe trabalhos futuros.
+\end{itemize}

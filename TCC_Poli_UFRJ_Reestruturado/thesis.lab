@@ -1,0 +1,12 @@
+
+\begin{theglossary}
+  \makeatletter
+  \item [CFD] \textit{Computational Fluid Dynamics} (Dinâmica dos Fluidos Computacional), p. 
+		\hyperpage{1}
+  \item [MDF] Método das Diferenças Finitas, p. \hyperpage{1}
+  \item [MEF] Método dos Elementos Finitos, p. \hyperpage{1}
+  \item [SUPG] \textit{Streamline Upwind/Petrov-Galerkin}, p. 
+		\hyperpage{1}
+  \item [UFRJ] Universidade Federal do Rio de Janeiro, p. \hyperpage{1}
+  \item [WASM] WebAssembly, p. \hyperpage{1}
+  \end{theglossary}
