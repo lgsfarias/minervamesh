@@ -50,7 +50,7 @@
 \MakeUppercase{ Fox, R.~W., McDonald, A.~T., Pritchard, P.~J.}, {\em
   Introdu\c{c}\~ao \`a Mec\^anica dos Fluidos\/}.
 \newblock 7th ed.
-\newblock LTC: Rio de Janeiro, 2012.
+\newblock LTC: Rio de Janeiro, 2010.
 
 \bibitem{White2006}
 \MakeUppercase{ White, F.~M.}, {\em Viscous Fluid Flow\/}.
@@ -177,9 +177,10 @@
 
 \bibitem{Ferreira2022}
 \MakeUppercase{ Ferreira, G.~P.}, {\em Cria\c{c}\~ao de um c\'{o}digo em Python
-  para simular a transfer\^encia de calor em um processador computacional\/},
-  Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de
-  Janeiro, 2022.
+  para simular a transfer\^encia de calor em um processador computacional em
+  diferentes arranjos de cargas t\'{e}rmicas usando o M\'{e}todo de Elementos
+  Finitos\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de
+  Janeiro, Rio de Janeiro, 2022.
 
 \bibitem{Pinheiro2022}
 \MakeUppercase{ Pinheiro, V.~G.}, {\em An\'{a}lise de condu\c{c}\~ao de calor
@@ -209,8 +210,8 @@
 \bibitem{Oliveira2025}
 \MakeUppercase{ de~Oliveira, M.~D.}, {\em Estudo da transfer\^encia de calor em
   dissipador de calor de aletas retas por meio do M\'{e}todo dos Elementos
-  Finitos\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de
-  Janeiro, Rio de Janeiro, 2025.
+  Finitos implementado em Python\/}, Projeto de gradua\c{c}\~ao, Universidade
+  Federal do Rio de Janeiro, Rio de Janeiro, 2025.
 
 \bibitem{Florentino2022}
 \MakeUppercase{ da~S.~Florentino, Y.}, {\em Estudo de escoamentos para
@@ -226,9 +227,9 @@
 
 \bibitem{SilvaJessica2020}
 \MakeUppercase{ Silva, J.~A.}, {\em M\'{e}todo de Elementos Finitos em Python
-  com a abordagem lagrangiana-euleriana para as oscila\c{c}\~oes de um
-  cilindro\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de
-  Janeiro, Rio de Janeiro, 2020.
+  com a abordagem lagrangiana-euleriana para as oscila\c{c}\~oes de um cilindro
+  em um escoamento transversal\/}, Projeto de gradua\c{c}\~ao, Universidade
+  Federal do Rio de Janeiro, Rio de Janeiro, 2020.
 
 \bibitem{Amaral2020}
 \MakeUppercase{ do~Amaral, T. A.~C.}, {\em An\'{a}lise CFD de difus\~ao de

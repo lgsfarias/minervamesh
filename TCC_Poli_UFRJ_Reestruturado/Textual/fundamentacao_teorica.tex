@@ -6,7 +6,7 @@
 
 \paragraph{}Este capítulo apresenta a formulação matemática e os métodos numéricos que fundamentam as análises realizadas no \textit{MinervaMesh}. O objetivo central é fornecer uma base sólida, típica da Engenharia Mecânica, para a conversão dos modelos físicos contínuos em sistemas algébricos discretos resolvidos computacionalmente.
 
-\paragraph{}Inicialmente, revisam-se as equações diferenciais parciais (EDPs) governantes da condução de calor térmica e do escoamento de fluidos de forma conceitual. Em seguida, após uma breve fundamentação do Método das Diferenças Finitas (MDF), o capítulo se aprofunda extensamente no Método dos Elementos Finitos (MEF). O desenvolvimento abrange desde a formulação de Galerkin, passando pela discretização com elementos triangulares lineares, até a consolidação da formulação em Vorticidade-Corrente adotada para a dinâmica de fluidos.
+\paragraph{}Inicialmente, revisam-se as equações diferenciais parciais (EDPs) governantes da condução de calor e do escoamento de fluidos de forma conceitual. Em seguida, após uma breve fundamentação do Método das Diferenças Finitas (MDF), o capítulo se aprofunda extensamente no Método dos Elementos Finitos (MEF). O desenvolvimento abrange desde a formulação de Galerkin, passando pela discretização com elementos triangulares lineares, até a consolidação da formulação em Vorticidade-Corrente adotada para a dinâmica de fluidos.
 
 \section{Equações Governantes}
 \label{sec:equacoes_governantes}
@@ -62,9 +62,9 @@ Considere a representação da derivada parcial aproximada pelo método da difer
 \label{eq:mdf_segunda_derivada}
 \end{equation}
 
-Embora de inegável valor histórico e de extrema eficácia para discretizações explícitas no tempo e problemas de topologia regular simples, o MDF apresenta entraves práticos quando restrições de domínios geométricos altamente complexos exigem representações intrincadas de fronteiras, resultando em interpolações estéreo ou \textit{stair-step} dos contornos físicos do domínio fluido ou de sólidos.
+Embora de inegável valor histórico e de extrema eficácia para discretizações explícitas no tempo e problemas de topologia regular simples, o MDF apresenta entraves práticos quando restrições de domínios geométricos altamente complexos exigem representações intrincadas de fronteiras, resultando em aproximações em escada (\textit{stair-step}) dos contornos físicos do domínio fluido ou de sólidos.
 
-Para permitir tratamento sistemático de geometrias complexas e de condições de contorno de von Neumann ou mistas, o trabalho adota a seguir a formulação integral característica do Método dos Elementos Finitos (MEF).
+Para permitir tratamento sistemático de geometrias complexas e de condições de contorno de Neumann ou mistas, o trabalho adota a seguir a formulação integral característica do Método dos Elementos Finitos (MEF).
 
 \section{O Método dos Elementos Finitos (MEF)}
 \label{sec:mef}
@@ -396,9 +396,9 @@ No solver de Navier-Stokes do \textit{MinervaMesh}, a equação de transporte da
 \boxed{\left( \mathbf{M} + \frac{\Delta t}{\text{Re}} \, \mathbf{K} \right) \boldsymbol{\omega}^{n+1} = \mathbf{M} \, \boldsymbol{\omega}^n - \Delta t \, \mathbf{C}^n \, \boldsymbol{\omega}^n}
 \label{eq:sistema_temporal_ns}
 \end{equation}
-onde $\mathbf{C}^n$ é a matriz de convecção assembrada a partir do campo de velocidades no instante atual e $\text{Re} = \rho U L / \mu$ é o número de Reynolds. O tratamento implícito da difusão garante estabilidade incondicional para esse operador, enquanto a convecção explícita impor restrições sobre $\Delta t$ associadas ao número de Courant.
+onde $\mathbf{C}^n$ é a matriz de convecção assembrada a partir do campo de velocidades no instante atual e $\text{Re} = \rho U L / \mu$ é o número de Reynolds. O tratamento implícito da difusão garante estabilidade incondicional para esse operador, enquanto a convecção explícita impõe restrições sobre $\Delta t$ associadas ao número de Courant.
 
-Para problemas puramente difusivos (conducão transiente), utiliza-se o método $\theta$ generalizado (Eq.~\ref{eq:theta_method}), permitindo ao usuário selecionar entre Euler e Crank-Nicolson conforme o compromisso desejado entre precisão e estabilidade.
+Para problemas puramente difusivos (condução transiente), utiliza-se o método $\theta$ generalizado (Eq.~\ref{eq:theta_method}), permitindo ao usuário selecionar entre Euler e Crank-Nicolson conforme o compromisso desejado entre precisão e estabilidade.
 
 \subsection{Condição de Contorno de Vorticidade na Parede}
 \label{sec:thom}

@@ -182,24 +182,24 @@
 \contentsline {section}{\numberline {6.2}Trabalhos Futuros}{85}{section.6.2}%
 \contentsline {paragraph}{}{85}{section*.107}%
 \contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{87}{chapter*.108}%
-\contentsline {chapter}{\numberline {A}Listagens dos Módulos de Simulação 1D}{92}{appendix.A}%
-\contentsline {paragraph}{}{92}{section*.109}%
-\contentsline {section}{\numberline {A.1}Condução Permanente 1D}{92}{section.A.1}%
-\contentsline {section}{\numberline {A.2}Condução Transiente 1D com $k(x)$ Variável}{96}{section.A.2}%
-\contentsline {section}{\numberline {A.3}Convecção-Difusão 1D com SUPG}{105}{section.A.3}%
-\contentsline {section}{\numberline {A.4}Viga 1D --- Euler-Bernoulli}{111}{section.A.4}%
-\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{126}{section.A.5}%
-\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{138}{appendix.B}%
-\contentsline {paragraph}{}{138}{section*.110}%
-\contentsline {section}{\numberline {B.1}Malha e Matrizes MEF}{138}{section.B.1}%
-\contentsline {section}{\numberline {B.2}Geometrias de Obstáculo}{141}{section.B.2}%
-\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{144}{section.B.3}%
-\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{149}{section.B.4}%
-\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{161}{section.B.5}%
-\contentsline {chapter}{\numberline {C}Scripts de Benchmark Computacional}{175}{appendix.C}%
-\contentsline {paragraph}{}{175}{section*.111}%
-\contentsline {section}{\numberline {C.1}Solver de Condução Permanente 1D Adaptado}{175}{section.C.1}%
-\contentsline {section}{\numberline {C.2}Solver de Transcalor 2D Adaptado}{177}{section.C.2}%
-\contentsline {section}{\numberline {C.3}Biblioteca Auxiliar de Cronometragem}{181}{section.C.3}%
-\contentsline {section}{\numberline {C.4}Runner Local (CPython)}{184}{section.C.4}%
-\contentsline {section}{\numberline {C.5}Runner no Navegador (PyScript)}{187}{section.C.5}%
+\contentsline {chapter}{\numberline {A}Listagens dos Módulos de Simulação 1D}{93}{appendix.A}%
+\contentsline {paragraph}{}{93}{section*.109}%
+\contentsline {section}{\numberline {A.1}Condução Permanente 1D}{93}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Condução Transiente 1D com $k(x)$ Variável}{97}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Convecção-Difusão 1D com SUPG}{106}{section.A.3}%
+\contentsline {section}{\numberline {A.4}Viga 1D --- Euler-Bernoulli}{112}{section.A.4}%
+\contentsline {section}{\numberline {A.5}Vibração 1D --- Problema de Autovalor}{127}{section.A.5}%
+\contentsline {chapter}{\numberline {B}Listagens dos Módulos de Simulação 2D}{139}{appendix.B}%
+\contentsline {paragraph}{}{139}{section*.110}%
+\contentsline {section}{\numberline {B.1}Malha e Matrizes MEF}{139}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Geometrias de Obstáculo}{142}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Transferência de Calor 2D}{145}{section.B.3}%
+\contentsline {section}{\numberline {B.4}Escoamento Potencial 2D}{150}{section.B.4}%
+\contentsline {section}{\numberline {B.5}Navier-Stokes 2D (Vorticidade-Corrente)}{162}{section.B.5}%
+\contentsline {chapter}{\numberline {C}Scripts de Benchmark Computacional}{176}{appendix.C}%
+\contentsline {paragraph}{}{176}{section*.111}%
+\contentsline {section}{\numberline {C.1}Solver de Condução Permanente 1D Adaptado}{176}{section.C.1}%
+\contentsline {section}{\numberline {C.2}Solver de Transcalor 2D Adaptado}{178}{section.C.2}%
+\contentsline {section}{\numberline {C.3}Biblioteca Auxiliar de Cronometragem}{182}{section.C.3}%
+\contentsline {section}{\numberline {C.4}Runner Local (CPython)}{185}{section.C.4}%
+\contentsline {section}{\numberline {C.5}Runner no Navegador (PyScript)}{188}{section.C.5}%

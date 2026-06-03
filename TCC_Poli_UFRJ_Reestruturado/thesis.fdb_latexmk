@@ -1,5 +1,5 @@
 # Fdb version 4
-["bibtex thesis"] 1780430457.81797 "thesis.aux" "thesis.bbl" "thesis" 1780430525.15013 0
+["bibtex thesis"] 1780431385.17099 "thesis.aux" "thesis.bbl" "thesis" 1780431385.28505 2
   "./poli-unsrt.bst" 1780424667.89498 23393 84e5d5e81112b7442cde613daed1c8df ""
   "./thesis.bib" 1780424667.95679 14228 3f964e4859cb841e4e01e508ff0f6c60 ""
   "Pos-textual/apendice_benchmark.aux" 1780430524.75842 5037 2d40965d92e59b92da00c97be572c23c "pdflatex"
@@ -15,12 +15,12 @@
   "Textual/introducao.aux" 1780430516.55342 2647 0574c37c6edc83249c312386b743a993 "pdflatex"
   "Textual/resultados.aux" 1780430518.17623 26504 6a5b088e5e2af3b659b2b4ab86e8654d "pdflatex"
   "Textual/revisao_bibliografica.aux" 1780430516.58501 6193 f956ed5635927f488b8124894c6453bb "pdflatex"
-  "thesis.aux" 1780430524.75887 2925 d714e65b90cc3a14095ec27045504f0a "pdflatex"
+  "thesis.aux" 1780431385.16541 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
   (generated)
   "thesis.bbl"
   "thesis.blg"
   (rewritten before read)
-["cusdep abx lab thesis"] 1780425029.29735 "thesis.abx" "thesis.lab" "thesis" 1780430525.14999 0
+["cusdep abx lab thesis"] 1780425029.29735 "thesis.abx" "thesis.lab" "thesis" 1780431385.28461 0
   "thesis.abx" 1780430524.7715 427 418ca161ddc9932ef390ad6eebdc3b95 "pdflatex"
   (generated)
   "thesis.lab"
@@ -253,8 +253,8 @@
   "Textual/revisao_bibliografica.aux" 1780430516.58501 6193 f956ed5635927f488b8124894c6453bb "pdflatex"
   "Textual/revisao_bibliografica.tex" 1780424762.8072 13967 49d906b0056eba0dc9d118e49099a1c2 ""
   "poli.cls" 1780424667.90105 21621 f57cf10f42cdbf9305955ec27ba2d5f0 ""
-  "thesis.aux" 1780430524.75887 2925 d714e65b90cc3a14095ec27045504f0a "pdflatex"
-  "thesis.bbl" 1780430458.00396 11417 62a61d63d13869f2b9697695a26a9177 "bibtex thesis"
+  "thesis.aux" 1780431385.16541 32 3985256e7290058c681f74d7a3565a19 "pdflatex"
+  "thesis.bbl" 1780431385.28337 0 d41d8cd98f00b204e9800998ecf8427e "bibtex thesis"
   "thesis.lab" 1780425029.39804 490 4b913606fc8611ae32b35e5175ab7e1e "cusdep abx lab thesis"
   "thesis.lof" 1780430524.77162 8037 bc5f91519bd523ab933eee743ffffb13 "pdflatex"
   "thesis.lot" 1780430524.77168 2605 aabbb2afb6be8985ffc4694efffc7b03 "pdflatex"
