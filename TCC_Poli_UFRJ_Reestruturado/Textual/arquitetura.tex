@@ -375,7 +375,7 @@ A análise computacional apresentada na Seção~\ref{sec:analise_computacional} 
 \paragraph{Limitações intrínsecas.}
 
 \begin{itemize}
-    \item \textbf{Memória disponível:} o processo \textit{Pyodide} executa em \textit{sandbox} com \textit{heap} \textit{WebAssembly} tipicamente limitado a poucos gigabytes (4\,GB no padrão Wasm32, ampliável apenas via Wasm64 com suporte parcial nos navegadores), e a pressão prática de coleta de lixo torna-se relevante a partir de algumas centenas de MB.
+    \item \textbf{Memória disponível:} o processo \textit{Pyodide} executa em \textit{sandbox} com \textit{heap} \textit{WebAssembly} tipicamente limitado a poucos gigabytes (4\,GB no padrão Wasm32, ampliável apenas via Wasm64 com suporte parcial nos navegadores), e a pressão prática da coleta de lixo (\textit{garbage collection}, mecanismo de liberação automática de memória do \textit{runtime}) torna-se relevante a partir de algumas centenas de MB.
 
     \item \textbf{Escalabilidade do problema:} a combinação entre o limite de memória da \textit{sandbox} e a complexidade dos solvers diretos adotados estabelece um teto efetivo de tamanho de problema. Considerando o benchmark da Seção~\ref{sec:analise_computacional}, este teto é da ordem de $10^4$ nós para formulações com matriz densa (acima desse valor, o tempo de \texttt{np.linalg.solve} ultrapassa cinco segundos e o consumo de memória aproxima-se da fronteira da \textit{sandbox}) e da ordem de $10^5$ nós para formulações esparsas com \texttt{spsolve}. A extensão para problemas tridimensionais com malhas refinadas, comum em engenharia profissional, encontra-se fora desta faixa.
 
