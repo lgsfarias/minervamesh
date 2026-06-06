@@ -235,7 +235,7 @@ top=2.5cm,bottom=2.5cm,left=3.0cm,right=3.0cm]{geometry}
 		\end{center}
 		\vspace*{16mm}
 		\begin{flushright}
-			\begin{minipage}{90mm}
+			\begin{minipage}{110mm}
 				\frontcover@maintext
 			\end{minipage}\par
 			\vspace*{7.5mm}
@@ -375,7 +375,7 @@ top=2.5cm,bottom=2.5cm,left=3.0cm,right=3.0cm]{geometry}
 			\gdef\@dedic{#1}
 			\chapter*{\vfill
 				\begin{flushright}
-					\begin{minipage}{60mm}
+					\begin{minipage}{110mm}% era 60mm; alargado para acomodar dedicatória longa
 						\it \normalsize \@dedic
 					\end{minipage}
 				\end{flushright}}}
