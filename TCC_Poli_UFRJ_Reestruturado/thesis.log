@@ -1,8 +1,8 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  2 JUN 2026 23:44
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  5 JUN 2026 17:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**thesis
+**thesis.tex
 (./thesis.tex
 LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
@@ -869,7 +869,7 @@ Cap\'{\i }tulo 4.
 [27]
 
 [28]
-<Imagens/prints/fig_val_conducao1d_resultado.png, id=1292, 570.933pt x 354.123p
+<Imagens/prints/fig_val_conducao1d_resultado.png, id=1293, 570.933pt x 354.123p
 t>
 File: Imagens/prints/fig_val_conducao1d_resultado.png Graphic file (type png)
 <use Imagens/prints/fig_val_conducao1d_resultado.png>
@@ -898,7 +898,7 @@ m/n/12 , o termo tran-si-ente se anula e a solu^^Xc~ao sa-tis-faz
 
 
 [31]
-<Imagens/prints/fig_val_calor_transiente1d_evolucao.png, id=1316, 1003.75pt x 6
+<Imagens/prints/fig_val_calor_transiente1d_evolucao.png, id=1317, 1003.75pt x 6
 02.25pt>
 File: Imagens/prints/fig_val_calor_transiente1d_evolucao.png Graphic file (type
  png)
@@ -920,13 +920,13 @@ Underfull \hbox (badness 4328) in paragraph at lines 217--217
 [34]
 
 [35]
-<Imagens/prints/fig_val_convdif1d_supg.png, id=1347, 1505.625pt x 1204.5pt>
+<Imagens/prints/fig_val_convdif1d_supg.png, id=1348, 1505.625pt x 1204.5pt>
 File: Imagens/prints/fig_val_convdif1d_supg.png Graphic file (type png)
 <use Imagens/prints/fig_val_convdif1d_supg.png>
 Package pdftex.def Info: Imagens/prints/fig_val_convdif1d_supg.png  used on inp
 ut line 286.
 (pdftex.def)             Requested size: 362.77525pt x 290.22542pt.
-<Imagens/prints/fig_val_convdif1d_galerkin.png, id=1348, 1505.625pt x 1204.5pt>
+<Imagens/prints/fig_val_convdif1d_galerkin.png, id=1349, 1505.625pt x 1204.5pt>
 
 File: Imagens/prints/fig_val_convdif1d_galerkin.png Graphic file (type png)
 <use Imagens/prints/fig_val_convdif1d_galerkin.png>
@@ -942,7 +942,7 @@ Package pdftex.def Info: Imagens/prints/fig_val_convdif1d_galerkin.png  used on
 [38]
 
 [39]
-<Imagens/prints/fig_val_viga1d_resultado.png, id=1384, 1790.69pt x 2693.06125pt
+<Imagens/prints/fig_val_viga1d_resultado.png, id=1385, 1790.69pt x 2693.06125pt
 >
 File: Imagens/prints/fig_val_viga1d_resultado.png Graphic file (type png)
 <use Imagens/prints/fig_val_viga1d_resultado.png>
@@ -956,7 +956,7 @@ nput line 370.
 [41 <./Imagens/prints/fig_val_viga1d_resultado.png>]
 
 [42]
-<Imagens/prints/fig_val_vibracao1d_modos.png, id=1406, 1890.06125pt x 2787.4137
+<Imagens/prints/fig_val_vibracao1d_modos.png, id=1407, 1890.06125pt x 2787.4137
 6pt>
 File: Imagens/prints/fig_val_vibracao1d_modos.png Graphic file (type png)
 <use Imagens/prints/fig_val_vibracao1d_modos.png>
@@ -972,7 +972,7 @@ nput line 451.
 [45]
 
 [46]
-<Imagens/prints/fig_val_transcalor2d_campo.png, id=1432, 602.25pt x 501.875pt>
+<Imagens/prints/fig_val_transcalor2d_campo.png, id=1433, 602.25pt x 501.875pt>
 File: Imagens/prints/fig_val_transcalor2d_campo.png Graphic file (type png)
 <use Imagens/prints/fig_val_transcalor2d_campo.png>
 Package pdftex.def Info: Imagens/prints/fig_val_transcalor2d_campo.png  used on
@@ -993,7 +993,7 @@ t/12  $ \OT1/cmr/m/n/12 cons-tante (pa-rede des-li-zante, corpo n~ao-
 
 
 [50]
-<Imagens/prints/fig_val_potencial2d_linhas.png, id=1458, 714.7503pt x 860.013pt
+<Imagens/prints/fig_val_potencial2d_linhas.png, id=1459, 714.7503pt x 860.013pt
 >
 File: Imagens/prints/fig_val_potencial2d_linhas.png Graphic file (type png)
 <use Imagens/prints/fig_val_potencial2d_linhas.png>
@@ -1017,7 +1017,7 @@ Underfull \hbox (badness 3407) in paragraph at lines 671--672
 [54]
 
 [55]
-<Imagens/prints/fig_val_ns2d_cavity_re100.png, id=1500, 360.6273pt x 860.013pt>
+<Imagens/prints/fig_val_ns2d_cavity_re100.png, id=1501, 360.6273pt x 860.013pt>
 
 File: Imagens/prints/fig_val_ns2d_cavity_re100.png Graphic file (type png)
 <use Imagens/prints/fig_val_ns2d_cavity_re100.png>
@@ -1028,7 +1028,7 @@ input line 731.
 
 LaTeX Warning: Float too large for page by 29.38684pt on input line 734.
 
-<Imagens/prints/fig_val_ns_ghia_uy.png, id=1503, 498.1812pt x 426.393pt>
+<Imagens/prints/fig_val_ns_ghia_uy.png, id=1504, 498.1812pt x 426.393pt>
 File: Imagens/prints/fig_val_ns_ghia_uy.png Graphic file (type png)
 <use Imagens/prints/fig_val_ns_ghia_uy.png>
 Package pdftex.def Info: Imagens/prints/fig_val_ns_ghia_uy.png  used on input l
@@ -1059,7 +1059,7 @@ ap^^S^^Ptulo cons-ti-tuem im-ple-
 
 
 ]
-<Imagens/prints/fig_minervamesh_home.png, id=1535, 1630.09pt x 1064.97874pt>
+<Imagens/prints/fig_minervamesh_home.png, id=1536, 1630.09pt x 1064.97874pt>
 File: Imagens/prints/fig_minervamesh_home.png Graphic file (type png)
 <use Imagens/prints/fig_minervamesh_home.png>
 Package pdftex.def Info: Imagens/prints/fig_minervamesh_home.png  used on input
@@ -1079,7 +1079,7 @@ Overfull \hbox (9.23509pt too wide) in paragraph at lines 70--81
 [62]
 
 [63]
-<Imagens/benchmark_scaling.pdf, id=1579, 715.08139pt x 276.65408pt>
+<Imagens/benchmark_scaling.pdf, id=1580, 715.08139pt x 276.65408pt>
 File: Imagens/benchmark_scaling.pdf Graphic file (type pdf)
 <use Imagens/benchmark_scaling.pdf>
 Package pdftex.def Info: Imagens/benchmark_scaling.pdf  used on input line 115.
@@ -1092,7 +1092,7 @@ Package pdftex.def Info: Imagens/benchmark_scaling.pdf  used on input line 115.
 [65]
 
 [66]
-<Imagens/prints/fig_interface_parametros.png, id=1675, 1630.09pt x 1064.97874pt
+<Imagens/prints/fig_interface_parametros.png, id=1676, 1630.09pt x 1064.97874pt
 >
 File: Imagens/prints/fig_interface_parametros.png Graphic file (type png)
 <use Imagens/prints/fig_interface_parametros.png>
@@ -1102,7 +1102,7 @@ nput line 172.
 
 
 [67 <./Imagens/prints/fig_interface_parametros.png>]
-<Imagens/prints/fig_conducao1d_resultado.png, id=1691, 1630.09pt x 1064.97874pt
+<Imagens/prints/fig_conducao1d_resultado.png, id=1692, 1630.09pt x 1064.97874pt
 >
 File: Imagens/prints/fig_conducao1d_resultado.png Graphic file (type png)
 <use Imagens/prints/fig_conducao1d_resultado.png>
@@ -1121,7 +1121,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 [68 <./Imagens/prints/fig_conducao1d_resultado.png>]
-<Imagens/prints/fig_calor_transiente1d_evolucao.png, id=1706, 1630.09pt x 1064.
+<Imagens/prints/fig_calor_transiente1d_evolucao.png, id=1707, 1630.09pt x 1064.
 97874pt>
 File: Imagens/prints/fig_calor_transiente1d_evolucao.png Graphic file (type png
 )
@@ -1134,7 +1134,7 @@ ed on input line 219.
 [69 <./Imagens/prints/fig_calor_transiente1d_evolucao.png>]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 232.
-<Imagens/prints/fig_convdif1d_com_supg.png, id=1720, 1630.09pt x 1064.97874pt>
+<Imagens/prints/fig_convdif1d_com_supg.png, id=1721, 1630.09pt x 1064.97874pt>
 File: Imagens/prints/fig_convdif1d_com_supg.png Graphic file (type png)
 <use Imagens/prints/fig_convdif1d_com_supg.png>
 Package pdftex.def Info: Imagens/prints/fig_convdif1d_com_supg.png  used on inp
@@ -1143,7 +1143,7 @@ ut line 240.
 
 
 [70 <./Imagens/prints/fig_convdif1d_com_supg.png>]
-<Imagens/prints/fig_viga1d_resultado.png, id=1734, 1042.89626pt x 1064.97874pt>
+<Imagens/prints/fig_viga1d_resultado.png, id=1735, 1042.89626pt x 1064.97874pt>
 
 File: Imagens/prints/fig_viga1d_resultado.png Graphic file (type png)
 <use Imagens/prints/fig_viga1d_resultado.png>
@@ -1153,7 +1153,7 @@ Package pdftex.def Info: Imagens/prints/fig_viga1d_resultado.png  used on input
 
 
 [71 <./Imagens/prints/fig_viga1d_resultado.png>]
-<Imagens/prints/fig_vibracao1d_modos.png, id=1753, 1213.53375pt x 1064.97874pt>
+<Imagens/prints/fig_vibracao1d_modos.png, id=1754, 1213.53375pt x 1064.97874pt>
 
 File: Imagens/prints/fig_vibracao1d_modos.png Graphic file (type png)
 <use Imagens/prints/fig_vibracao1d_modos.png>
@@ -1165,7 +1165,7 @@ Package pdftex.def Info: Imagens/prints/fig_vibracao1d_modos.png  used on input
 [72]
 
 [73 <./Imagens/prints/fig_vibracao1d_modos.png>]
-<Imagens/prints/fig_transcalor2d_campo.png, id=1785, 1630.09pt x 1064.97874pt>
+<Imagens/prints/fig_transcalor2d_campo.png, id=1786, 1630.09pt x 1064.97874pt>
 File: Imagens/prints/fig_transcalor2d_campo.png Graphic file (type png)
 <use Imagens/prints/fig_transcalor2d_campo.png>
 Package pdftex.def Info: Imagens/prints/fig_transcalor2d_campo.png  used on inp
@@ -1174,7 +1174,7 @@ ut line 310.
 
 
 [74 <./Imagens/prints/fig_transcalor2d_campo.png>]
-<Imagens/prints/fig_potencial2d_linhas.png, id=1796, 1630.09pt x 1064.97874pt>
+<Imagens/prints/fig_potencial2d_linhas.png, id=1797, 1630.09pt x 1064.97874pt>
 File: Imagens/prints/fig_potencial2d_linhas.png Graphic file (type png)
 <use Imagens/prints/fig_potencial2d_linhas.png>
 Package pdftex.def Info: Imagens/prints/fig_potencial2d_linhas.png  used on inp
@@ -1183,7 +1183,7 @@ ut line 331.
 
 
 [75 <./Imagens/prints/fig_potencial2d_linhas.png>]
-<Imagens/prints/fig_ns2d_cavity_re100.png, id=1816, 587.5551pt x 860.013pt>
+<Imagens/prints/fig_ns2d_cavity_re100.png, id=1817, 587.5551pt x 860.013pt>
 File: Imagens/prints/fig_ns2d_cavity_re100.png Graphic file (type png)
 <use Imagens/prints/fig_ns2d_cavity_re100.png>
 Package pdftex.def Info: Imagens/prints/fig_ns2d_cavity_re100.png  used on inpu
@@ -1524,7 +1524,7 @@ Here is how much of TeX's memory you used:
  40829 multiletter control sequences out of 15000+600000
  581065 words of font info for 119 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,14n,93p,1682b,2230s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,14n,93p,1686b,2230s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></
@@ -1553,10 +1553,10 @@ st/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texm
 f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/
 texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/te
 xmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on thesis.pdf (210 pages, 10976034 bytes).
+Output written on thesis.pdf (210 pages, 10976230 bytes).
 PDF statistics:
- 6559 PDF objects out of 7423 (max. 8388607)
- 6135 compressed objects within 62 object streams
+ 6560 PDF objects out of 7423 (max. 8388607)
+ 6136 compressed objects within 62 object streams
  3900 named destinations out of 4296 (max. 500000)
  1172 words of extra memory for PDF output out of 10000 (max. 10000000)
 
