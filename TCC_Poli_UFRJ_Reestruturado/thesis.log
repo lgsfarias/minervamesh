@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  6 JUN 2026 19:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  7 JUN 2026 07:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1231,20 +1231,20 @@ Cap\'{\i }tulo 6.
 [89]
 
 [90]
-Underfull \hbox (badness 7344) in paragraph at lines 264--268
+
+[91]
+Underfull \hbox (badness 7344) in paragraph at lines 268--272
 []\OT1/cmr/m/n/12 IMBRIZI, B., ``triangle-wasm: Ja-vas-cript wrap-per around Tr
 i-an-gle
  []
 
 
-Underfull \hbox (badness 3803) in paragraph at lines 264--268
+Underfull \hbox (badness 3803) in paragraph at lines 268--272
 \OT1/cmr/m/n/12 com-pi-led to We-bAs-sem-bly'', Re-po-sit^^Sorio GitHub. Dis-po
 n^^S^^Pvel em:
  []
 
-
-
-[91])
+)
 
 [92]
 \openout2 = `Pos-textual/apendice_modulos_1d.aux'.
@@ -1516,7 +1516,7 @@ Package rerunfilecheck Info: File `thesis.out' has not changed.
 Here is how much of TeX's memory you used:
  21877 strings out of 473190
  356501 string characters out of 5715799
- 1288787 words of memory out of 5000000
+ 1287787 words of memory out of 5000000
  40829 multiletter control sequences out of 15000+600000
  581065 words of font info for 119 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -1549,7 +1549,7 @@ st/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texm
 f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/
 texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/local/texlive/2025/te
 xmf-dist/fonts/type1/public/cm-super/sftt1000.pfb>
-Output written on thesis.pdf (210 pages, 10976531 bytes).
+Output written on thesis.pdf (210 pages, 10976765 bytes).
 PDF statistics:
  6560 PDF objects out of 7423 (max. 8388607)
  6136 compressed objects within 62 object streams

@@ -19,24 +19,24 @@ Database file #1: thesis.bib
 Warning--empty pages in Clough1960
 You've used 46 entries,
             2438 wiz_defined-function locations,
-            903 strings with 12700 characters,
-and the built_in function-call counts, 8961 in all, are:
+            904 strings with 12729 characters,
+and the built_in function-call counts, 8994 in all, are:
 = -- 720
 > -- 276
-< -- 29
+< -- 32
 + -- 126
 - -- 80
-* -- 802
+* -- 814
 := -- 1313
 add.period$ -- 86
 call.type$ -- 46
 change.case$ -- 31
 chr.to.int$ -- 57
 cite$ -- 47
-duplicate$ -- 512
-empty$ -- 988
+duplicate$ -- 515
+empty$ -- 991
 format.name$ -- 80
-if$ -- 1934
+if$ -- 1940
 int.to.chr$ -- 0
 int.to.str$ -- 46
 missing$ -- 41
@@ -49,8 +49,8 @@ quote$ -- 0
 skip$ -- 127
 stack$ -- 0
 substring$ -- 472
-swap$ -- 165
-text.length$ -- 10
+swap$ -- 168
+text.length$ -- 13
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0

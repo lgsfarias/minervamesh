@@ -116,7 +116,7 @@
 \MakeUppercase{ Christie, I., Griffiths, D.~F., Mitchell, A.~R.,
   \MakeLowercase{et~al.}}, \enquote{Finite element methods for second order
   differential equations with significant first derivatives}, {\em
-  International Journal for Numerical Methods in Engineering\/}, v.~10,
+  International Journal for Numerical Methods in Engineering\/}, v.~10, n.~6,
   pp.~1389--1396, 1976.
 
 \bibitem{Donea1984}
@@ -128,12 +128,13 @@
 \MakeUppercase{ L{\"o}hner, R., Morgan, K., Zienkiewicz, O.~C.}, \enquote{The
   solution of non-linear hyperbolic equation systems by the finite element
   method}, {\em International Journal for Numerical Methods in Fluids\/}, v.~4,
-  pp.~1043--1063, 1984.
+  n.~11, pp.~1043--1063, 1984.
 
 \bibitem{Ghia1982}
 \MakeUppercase{ Ghia, U., Ghia, K.~N., Shin, C.~T.}, \enquote{High-Re solutions
   for incompressible flow using the Navier-Stokes equations and a multigrid
-  method}, {\em Journal of Computational Physics\/}, v.~48, pp.~387--411, 1982.
+  method}, {\em Journal of Computational Physics\/}, v.~48, n.~3, pp.~387--411,
+  1982.
 
 \bibitem{Marchi2009}
 \MakeUppercase{ Marchi, C.~H., Suero, R., Araki, L.~K.}, \enquote{The
@@ -166,94 +167,97 @@
 \bibitem{Aguiar2020}
 \MakeUppercase{ da~S. O. N.~de Aguiar, G.}, {\em Simula\c{c}\~ao Num\'{e}rica
   da Transfer\^encia de Calor em um Disco de Freio Durante Frenagem usando o
-  M\'{e}todo de Elementos Finitos\/}, Projeto de gradua\c{c}\~ao, Universidade
-  Federal do Rio de Janeiro, Rio de Janeiro, 2020.
+  M\'{e}todo de Elementos Finitos\/}, Projeto de gradua\c{c}\~ao ({E}ngenharia
+  {M}ec\^anica), Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2020.
 
 \bibitem{Alves2021}
 \MakeUppercase{ de~M.~Alves, F.~R.}, {\em Solu\c{c}\~ao da equa\c{c}\~ao
   tridimensional transiente do calor atrav\'{e}s do m\'{e}todo de elementos
-  finitos aplicado a discos de freio\/}, Projeto de gradua\c{c}\~ao,
-  Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2021.
+  finitos aplicado a discos de freio\/}, Projeto de gradua\c{c}\~ao
+  ({E}ngenharia {M}ec\^anica), Universidade Federal do Rio de Janeiro, Rio de
+  Janeiro, 2021.
 
 \bibitem{Ferreira2022}
 \MakeUppercase{ Ferreira, G.~P.}, {\em Cria\c{c}\~ao de um c\'{o}digo em Python
   para simular a transfer\^encia de calor em um processador computacional em
   diferentes arranjos de cargas t\'{e}rmicas usando o M\'{e}todo de Elementos
-  Finitos\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de
-  Janeiro, Rio de Janeiro, 2022.
+  Finitos\/}, Projeto de gradua\c{c}\~ao ({E}ngenharia {M}ec\^anica),
+  Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2022.
 
 \bibitem{Pinheiro2022}
 \MakeUppercase{ Pinheiro, V.~G.}, {\em An\'{a}lise de condu\c{c}\~ao de calor
   em componentes eletr\^onicos de material heterog\^eneo utilizando m\'{e}todo
-  de elementos finitos\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do
-  Rio de Janeiro, Rio de Janeiro, 2022.
+  de elementos finitos\/}, Projeto de gradua\c{c}\~ao ({E}ngenharia
+  {M}ec\^anica), Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2022.
 
 \bibitem{Capitanio2023}
 \MakeUppercase{ Capitanio, T.~A.}, {\em Implementa\c{c}\~ao do m\'{e}todo de
   elementos finitos em Python para o estudo param\'{e}trico de dissipadores de
-  calor de processadores computacionais\/}, Projeto de gradua\c{c}\~ao,
-  Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2023.
+  calor de processadores computacionais\/}, Projeto de gradua\c{c}\~ao
+  ({E}ngenharia {M}ec\^anica), Universidade Federal do Rio de Janeiro, Rio de
+  Janeiro, 2023.
 
 \bibitem{Miranda2023}
 \MakeUppercase{ Miranda, L.~M.}, {\em Estudo de geometrias de canais em placa
   fria para arrefecimento de eletr\^onicos atrav\'{e}s do m\'{e}todo de
-  elementos finitos\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio
-  de Janeiro, Rio de Janeiro, 2023.
+  elementos finitos\/}, Projeto de gradua\c{c}\~ao ({E}ngenharia {M}ec\^anica),
+  Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2023.
 
 \bibitem{Teixeira2023}
 \MakeUppercase{ Teixeira, M.~M.}, {\em Solu\c{c}\~ao da equa\c{c}\~ao de
   Laplace tridimensional para a temperatura aplicada a um bloco de motor
   atrav\'{e}s do M\'{e}todo dos Elementos Finitos\/}, Projeto de
-  gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de Janeiro,
-  2023.
+  gradua\c{c}\~ao ({E}ngenharia {M}ec\^anica), Universidade Federal do Rio de
+  Janeiro, Rio de Janeiro, 2023.
 
 \bibitem{Oliveira2025}
 \MakeUppercase{ de~Oliveira, M.~D.}, {\em Estudo da transfer\^encia de calor em
   dissipador de calor de aletas retas por meio do M\'{e}todo dos Elementos
-  Finitos implementado em Python\/}, Projeto de gradua\c{c}\~ao, Universidade
-  Federal do Rio de Janeiro, Rio de Janeiro, 2025.
+  Finitos implementado em Python\/}, Projeto de gradua\c{c}\~ao ({E}ngenharia
+  {M}ec\^anica), Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2025.
 
 \bibitem{Florentino2022}
 \MakeUppercase{ da~S.~Florentino, Y.}, {\em Estudo de escoamentos para
   arrefecimento de eletr\^onicos atrav\'{e}s de M\'{e}todo de Elementos
-  Finitos\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de
-  Janeiro, Rio de Janeiro, 2022.
+  Finitos\/}, Projeto de gradua\c{c}\~ao ({E}ngenharia {M}ec\^anica),
+  Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2022.
 
 \bibitem{Santos2022}
 \MakeUppercase{ de~O.~dos Santos, J.}, {\em Investiga\c{c}\~ao dos campos de
   velocidade, vorticidade e fun\c{c}\~ao corrente em escoamento livre
-  utilizando o M\'{e}todo de Elementos Finitos\/}, Projeto de gradua\c{c}\~ao,
-  Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2022.
+  utilizando o M\'{e}todo de Elementos Finitos\/}, Projeto de gradua\c{c}\~ao
+  ({E}ngenharia {M}ec\^anica), Universidade Federal do Rio de Janeiro, Rio de
+  Janeiro, 2022.
 
 \bibitem{SilvaJessica2020}
 \MakeUppercase{ Silva, J.~A.}, {\em M\'{e}todo de Elementos Finitos em Python
   com a abordagem lagrangiana-euleriana para as oscila\c{c}\~oes de um cilindro
-  em um escoamento transversal\/}, Projeto de gradua\c{c}\~ao, Universidade
-  Federal do Rio de Janeiro, Rio de Janeiro, 2020.
+  em um escoamento transversal\/}, Projeto de gradua\c{c}\~ao ({E}ngenharia
+  {M}ec\^anica), Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2020.
 
 \bibitem{Amaral2020}
 \MakeUppercase{ do~Amaral, T. A.~C.}, {\em An\'{a}lise CFD de difus\~ao de
   esp\'{e}cie qu\'{i}mica para diferentes geometrias de stent
-  farmacol\'{o}gico\/}, Projeto de gradua\c{c}\~ao, Universidade Federal do Rio
-  de Janeiro, Rio de Janeiro, 2020.
+  farmacol\'{o}gico\/}, Projeto de gradua\c{c}\~ao ({E}ngenharia {M}ec\^anica),
+  Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2020.
 
 \bibitem{GomesMatheus2021}
 \MakeUppercase{ Gomes, M.~F.}, {\em An\'{a}lise CFD de escoamento em
   art\'{e}rias coron\'{a}rias para diferentes configura\c{c}\~oes de
-  restri\c{c}\~ao de fluxo\/}, Projeto de gradua\c{c}\~ao, Universidade Federal
-  do Rio de Janeiro, Rio de Janeiro, 2021.
+  restri\c{c}\~ao de fluxo\/}, Projeto de gradua\c{c}\~ao ({E}ngenharia
+  {M}ec\^anica), Universidade Federal do Rio de Janeiro, Rio de Janeiro, 2021.
 
 \bibitem{Araujo2022}
 \MakeUppercase{ de~A.~Araujo, R.~S.}, {\em Compara\c{c}\~ao e valida\c{c}\~ao
   de m\'{e}todos num\'{e}ricos aplicados \`a Transfer\^encia de Calor\/},
-  Projeto de gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de
-  Janeiro, 2022.
+  Projeto de gradua\c{c}\~ao ({E}ngenharia {M}ec\^anica), Universidade Federal
+  do Rio de Janeiro, Rio de Janeiro, 2022.
 
 \bibitem{GomesYuri2025}
 \MakeUppercase{ Gomes, Y.~P.}, {\em An\'{a}lise Variacional e Num\'{e}rica da
   Equa\c{c}\~ao de Poisson em Problemas de Transfer\^encia de Calor\/}, Projeto
-  de gradua\c{c}\~ao, Universidade Federal do Rio de Janeiro, Rio de Janeiro,
-  2025.
+  de gradua\c{c}\~ao ({E}ngenharia {M}ec\^anica), Universidade Federal do Rio
+  de Janeiro, Rio de Janeiro, 2025.
 
 \bibitem{Thom1933}
 \MakeUppercase{ Thom, A.}, \enquote{The Flow Past Circular Cylinders at Low
