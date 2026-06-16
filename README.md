@@ -1,5 +1,7 @@
 # MinervaMesh 🌐
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 Plataforma educacional para simulações numéricas de transferência de calor, mecânica dos fluidos e análise estrutural, executada **integralmente no navegador** com PyScript.
 
 ---

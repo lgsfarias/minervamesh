@@ -8,21 +8,36 @@
 \section{Introdução}
 \label{sec:resultados_intro}
 
-Este capítulo apresenta a validação numérica dos oito módulos de simulação por Elementos Finitos do \textit{MinervaMesh}, cuja arquitetura e implementação \textit{client-side} são detalhadas no Capítulo~\ref{cap4}. Cada caso simulado é comparado com soluções analíticas conhecidas ou \textit{benchmarks} consagrados da literatura, de modo a verificar a corretude da discretização e quantificar os erros numéricos associados.
+Este capítulo apresenta a validação numérica dos oito módulos de simulação por Elementos Finitos do \textit{MinervaMesh}, cuja plataforma de execução e implementação são detalhadas, respectivamente, nos Capítulos~\ref{cap:plataforma} e~\ref{cap:implementacao}. Cada caso simulado é comparado com soluções analíticas conhecidas ou \textit{benchmarks} consagrados da literatura, de modo a verificar a corretude da discretização e quantificar os erros numéricos associados.
 
-A estratégia de validação segue um critério de complexidade crescente. Os primeiros casos — condução de calor em regime permanente e transiente — envolvem problemas unidimensionais com solução analítica fechada, permitindo o cálculo direto de métricas de erro como o erro máximo absoluto e o erro relativo na norma~$L^2$. Na sequência, os problemas de convecção-difusão testam a estabilização SUPG, comparando a solução estabilizada com a solução Galerkin padrão em regime de alto número de Péclet. Os módulos estruturais — flexão e vibração de barras — são validados contra soluções clássicas da Resistência dos Materiais e da Dinâmica Estrutural. Finalmente, os casos bidimensionais de transferência de calor, escoamento potencial e escoamento viscoso (Navier-Stokes) completam a validação com problemas de geometria e condições de contorno mais complexas.
+A estratégia de validação segue um critério de complexidade crescente. Os primeiros casos — condução de calor em regime permanente e transiente — envolvem problemas unidimensionais com solução analítica fechada, permitindo o cálculo direto de métricas de erro como o erro máximo absoluto e o erro relativo na norma~$L^2$. Na sequência, os problemas de convecção-difusão testam a estabilização SUPG, comparando a solução estabilizada com a solução Galerkin padrão em regime de alto número de Péclet. Os módulos estruturais — flexão e vibração de barras — são validados contra soluções clássicas da Resistência dos Materiais e da Dinâmica Estrutural. Finalmente, os casos bidimensionais de transferência de calor, escoamento potencial e escoamento viscoso (Navier-Stokes) completam a validação com problemas de geometria e condições de contorno mais complexas. A Tabela~\ref{tab:visao_casos} resume os oito casos apresentados neste capítulo, com a respectiva referência de validação.
+
+\begin{table}[H]
+\centering
+\caption{Visão geral dos casos de validação apresentados neste capítulo.}
+\label{tab:visao_casos}
+\footnotesize
+\begin{tabular}{llll}
+\hline
+\textbf{Caso} & \textbf{Domínio} & \textbf{Referência de validação} & \textbf{Seção} \\
+\hline
+Condução permanente 1D            & Térmico    & Solução analítica polinomial            & \ref{sec:val_conducao1d} \\
+Condução transiente 1D, $k(x)$    & Térmico    & Regime permanente analítico             & \ref{sec:val_calor_transiente} \\
+Convecção-difusão 1D (SUPG)       & Transporte & Solução analítica exponencial           & \ref{sec:val_convdif} \\
+Viga 1D (Euler-Bernoulli)         & Estrutural & Resistência dos Materiais               & \ref{sec:val_viga} \\
+Vibração 1D (autovalor)           & Estrutural & Frequências naturais analíticas         & \ref{sec:val_vibracao} \\
+Transferência de calor 2D         & Térmico    & Regime permanente analítico             & \ref{sec:val_transcalor} \\
+Escoamento potencial 2D           & Fluidos    & Solução analítica (cilindro)            & \ref{sec:val_potencial} \\
+Navier-Stokes 2D (cavidade)       & Fluidos    & \textit{Benchmark} de Ghia et al.\ \cite{Ghia1982} & \ref{sec:val_ns} \\
+\hline
+\end{tabular}
+\end{table}
 
 \paragraph{Verificação e validação.} Convém distinguir dois tipos complementares de teste no contexto de simulação numérica: \emph{verificação} consiste em garantir que o código resolve corretamente as equações que se propõe a resolver, tipicamente confrontando a saída numérica contra soluções analíticas ou \emph{benchmarks} de alta resolução; \emph{validação} consiste em avaliar se as equações resolvidas descrevem adequadamente o fenômeno físico real, o que requer confronto com dados experimentais e quantificação formal de incerteza. Os oito casos apresentados neste capítulo inscrevem-se integralmente na primeira categoria: seis contra solução analítica fechada (Seções~\ref{sec:val_conducao1d} a~\ref{sec:val_transcalor}), escoamento potencial contra referência teórica clássica (Seção~\ref{sec:val_potencial}) e Navier-Stokes 2D contra o \emph{benchmark} de Ghia et al.\ \cite{Ghia1982} (Seção~\ref{sec:val_ns}). A validação experimental, com medidas laboratoriais e análise formal de incertezas, não constitui escopo do presente trabalho e fica indicada como extensão natural nos trabalhos futuros (Capítulo~\ref{cap6}).
 
-Para cada caso, a metodologia de apresentação é a seguinte:
-\begin{enumerate}
-    \item \textbf{Definição do problema}: equação governante, domínio, condições de contorno e parâmetros adotados.
-    \item \textbf{Referência de validação}: solução analítica ou \textit{benchmark} utilizado para comparação.
-    \item \textbf{Resultados numéricos}: campos obtidos pelo simulador, apresentados graficamente.
-    \item \textbf{Análise de erro}: métricas quantitativas de comparação entre resultado numérico e referência.
-\end{enumerate}
+Cada caso é apresentado de forma uniforme: parte-se da definição do problema --- equação governante, domínio, condições de contorno e parâmetros adotados ---, estabelece-se a referência de validação (solução analítica ou \textit{benchmark} adotado para comparação), expõem-se graficamente os campos obtidos pelo simulador e, por fim, quantifica-se a aderência à referência por meio de métricas de erro.
 
-Todos os resultados foram gerados diretamente no navegador, utilizando a plataforma \textit{MinervaMesh} em execução local via PyScript/WebAssembly, conforme descrito no Capítulo~\ref{cap4}. Os parâmetros de entrada de cada simulação são reproduzidos integralmente nas tabelas a seguir, garantindo a reprodutibilidade dos experimentos.
+Todos os resultados foram gerados diretamente no navegador, utilizando a plataforma \textit{MinervaMesh} em execução local via PyScript/WebAssembly, conforme descrito no Capítulo~\ref{cap:plataforma}. Os parâmetros de entrada de cada simulação são reproduzidos integralmente nas tabelas a seguir, garantindo a reprodutibilidade dos experimentos.
 
 % ==============================================================
 % 5.1 — Condução Permanente 1D
