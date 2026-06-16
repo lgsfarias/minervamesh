@@ -29,8 +29,8 @@ poli.cls / poli-unsrt.bst / poli.ist / latexmkrc   # template oficial (não edit
 Logo_poli.jpg / Logo_mec.jpg                       # logos usados pela capa/folha de aprovação
 Pre-textual/  dedic.tex  thanks.tex  resumo.tex  abstract.tex
 Textual/      introducao  revisao_bibliografica  fundamentacao_teorica
-              resultados  arquitetura  conclusao
-Pos-textual/  apendice_modulos_1d  apendice_modulos_2d  apendice_benchmark
+              plataforma  implementacao  resultados  conclusao
+Pos-textual/  apendice_listagens  apendice_benchmark
 Imagens/      benchmark_scaling.pdf + prints/*.png (21 figuras)
 ```
 
@@ -63,9 +63,11 @@ migrado **1:1, sem alteração**. Os 6 capítulos foram preservados na mesma ord
 
 1. **Examinadores**: `\examiner{Prof.}{Examinador Um}{D.Sc.}` e `{Examinador Dois}` em `thesis.tex`
    são *placeholders* — substituir pelos nomes e graus reais da banca.
-2. **Labels `cap4`/`cap5`**: mantidos verbatim do original (são semânticos: `cap5`=Resultados,
-   `cap4`=Arquitetura) para preservar todas as `\ref` cruzadas. Renomear quebraria referências —
-   só alterar se renomear todas as ocorrências em conjunto.
+2. **Labels de capítulo**: são semânticos, não posicionais. Na reestruturação de junho/2026
+   (pós-feedback do orientador), `cap4` foi **aposentado**: o capítulo de arquitetura virou dois
+   (`cap:plataforma` em `Textual/plataforma.tex` e `cap:implementacao` em `Textual/implementacao.tex`).
+   `cap5`=Resultados permanece (hoje renderiza como Capítulo 6). Renomear labels quebraria
+   referências — só alterar se renomear todas as ocorrências em conjunto.
 3. **Palavras-chave**: aparecem agora na ficha catalográfica (padrão do template), não ao final do
    resumo como no documento antigo. Se desejar exibi-las também ao fim do resumo, adicionar manualmente.
 4. **Dedicatória**: condensada para o formato curto em itálico do comando `\dedication{}` do template

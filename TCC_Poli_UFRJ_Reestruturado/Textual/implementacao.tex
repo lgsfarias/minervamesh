@@ -1,0 +1,202 @@
+\chapter{Implementação dos Módulos Numéricos}
+\label{cap:implementacao}
+
+\paragraph{}Os módulos computacionais apresentados neste capítulo constituem implementações diretas das formulações matemáticas desenvolvidas no Capítulo~\ref{cap3}. Cada simulador corresponde a uma discretização específica obtida via formulação variacional de Galerkin ou, nos casos pertinentes, por diferenças finitas, e a estrutura do código reflete o fluxo numérico subjacente: discretização espacial (MEF/MDF), montagem do sistema matricial, integração temporal e imposição das condições de contorno. Dessa forma, cada módulo reproduz, em nível computacional, a sequência de operações matemáticas que conduz das equações governantes contínuas aos sistemas algébricos discretos efetivamente resolvidos.
+
+\paragraph{}O foco deste capítulo recai sobre \emph{como} cada método é codificado e executado no navegador, com ênfase nas decisões de código e na correspondência entre operadores matemáticos e numéricos. A formulação detalhada e a validação de cada caso --- equação governante, condições de contorno, solução de referência e análise de erro --- são apresentadas no Capítulo~\ref{cap5}. Os trechos de código exibidos referem-se às funções centrais de cada simulação; listagens representativas constam no Apêndice~\ref{ap:listagens}, e o código integral de todos os módulos está disponível no repositório público da plataforma.
+
+\section{Módulos de Simulação MEF}
+\label{sec:modulos_mef}
+
+\paragraph{}Todos os módulos implementam diretamente as formulações variacionais e discretizações desenvolvidas no Capítulo~\ref{cap3}. As matrizes elementares de rigidez, massa e carga são construídas a partir das expressões derivadas nas Seções~\ref{sec:matrizes_elementares} e~\ref{sec:supg}, e cada trecho de código apresentado nesta seção referencia explicitamente a equação teórica correspondente, mantendo correspondência direta entre operadores matemáticos e operadores numéricos.
+
+\subsection{Condução Permanente 1D}
+\label{sec:caso_conducao_1d}
+
+O primeiro módulo resolve o problema de condução térmica unidimensional em regime permanente com geração interna de calor, validado na Seção~\ref{sec:val_conducao1d}. A discretização por elementos finitos lineares resulta na matriz de rigidez e no vetor de carga elementares (Seção~\ref{sec:matrizes_elementares}), implementados como:
+
+\begin{lstlisting}
+# Elemento linear 1D: ke e be
+ke = (k / h) * np.array([[1.0, -1.0], [-1.0, 1.0]])
+be = (Q * h / 2.0) * np.array([1.0, 1.0])
+\end{lstlisting}
+
+A montagem percorre os $N_{el}$ elementos, acumulando as contribuições nas posições globais. Após a imposição das condições de Dirichlet (zerando linhas e colunas correspondentes), o sistema $\mathbf{K}\mathbf{T} = \mathbf{b}$ é resolvido por \texttt{numpy.linalg.solve}. A Figura \ref{fig:conducao1d_resultado} mostra a comparação entre a solução MEF e a solução analítica.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_conducao1d_resultado.png}
+    \caption{Condução permanente 1D: solução MEF ($N_{el}=10$) comparada à solução analítica.}
+    \label{fig:conducao1d_resultado}
+\end{figure}
+
+\subsection{Condução Transiente 1D com $k(x)$ Variável}
+\label{sec:caso_calor_transiente}
+
+Este módulo estende o problema anterior para o regime transiente com condutividade térmica variável $k(x)$, incorporando a matriz de massa e a integração temporal conforme o sistema semidiscreto estabelecido na Seção~\ref{sec:integracao_temporal}. A formulação e a validação completas constam na Seção~\ref{sec:val_calor_transiente}. As matrizes elementares são calculadas por:
+
+\begin{lstlisting}
+# Matrizes de elemento 1D transiente
+ke = (k_avg / h) * np.array([[1, -1], [-1, 1]])
+me = (rho_cp * h / 6) * np.array([[2, 1], [1, 2]])
+\end{lstlisting}
+
+A integração temporal utiliza o método $\theta$ generalizado (Eq.~\ref{eq:theta_method}), seguindo rigorosamente o esquema de avanço temporal derivado na Seção~\ref{sec:integracao_temporal}, e permitindo ao usuário selecionar entre Euler explícito, Crank-Nicolson e Euler implícito. A Figura \ref{fig:calor_transiente1d} ilustra a evolução temporal do campo de temperatura.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_calor_transiente1d_evolucao.png}
+    \caption{Evolução temporal do campo de temperatura com condutividade variável $k(x)$.}
+    \label{fig:calor_transiente1d}
+\end{figure}
+
+\subsection{Convecção-Difusão 1D com Estabilização SUPG}
+\label{sec:caso_convdif}
+
+O módulo de convecção-difusão 1D resolve a equação de advecção-difusão estacionária aplicando a técnica de estabilização SUPG (formulação desenvolvida na Seção~\ref{sec:supg}; caso validado na Seção~\ref{sec:val_convdif}). A discretização MEF gera três matrizes elementares: difusão, convecção e estabilização SUPG. O parâmetro $\tau_{\text{SUPG}}$ é calculado segundo a expressão analítica da Eq.~\ref{eq:tau_supg}, implementado como:
+
+\begin{lstlisting}
+# Numero de Peclet local e tau SUPG
+Pe_local = (rho_cp * u * h) / (2 * k)
+tau = h / (2*abs(u)) * (1/np.tanh(abs(Pe_local))
+                        - 1/abs(Pe_local))
+\end{lstlisting}
+
+A Figura \ref{fig:convdif_supg} demonstra o efeito da estabilização SUPG em um problema com número de Péclet elevado. Sem estabilização, a formulação de Galerkin padrão produz oscilações espúrias; com SUPG, a solução numérica converge suavemente para a solução analítica.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_convdif1d_com_supg.png}
+    \caption{Convecção-difusão 1D com estabilização SUPG ($\text{Pe} \gg 1$): solução MEF comparada à analítica.}
+    \label{fig:convdif_supg}
+\end{figure}
+
+\subsection{Viga 1D --- Análise de Flexão (Euler-Bernoulli)}
+\label{sec:caso_viga}
+
+O módulo de viga 1D implementa elementos finitos de Euler-Bernoulli com dois graus de liberdade por nó: deslocamento vertical $w$ e rotação $\theta$, seguindo o procedimento de Galerkin apresentado na Seção~\ref{sec:galerkin} com funções de interpolação cúbicas de Hermite (caso validado na Seção~\ref{sec:val_viga}). A matriz de rigidez elementar $4 \times 4$ é construída com essas funções:
+
+\begin{lstlisting}
+# Matriz de rigidez do elemento de viga
+ke = (EI / h**3) * np.array([
+    [12,   6*h,  -12,   6*h  ],
+    [6*h,  4*h**2, -6*h, 2*h**2],
+    [-12, -6*h,   12,  -6*h  ],
+    [6*h,  2*h**2, -6*h, 4*h**2]
+])
+\end{lstlisting}
+
+O módulo suporta quatro condições de contorno (simplesmente apoiada, balanço, engastada-engastada e engastada-apoiada) e cinco tipos de carregamento (uniforme, linear, triangular, senoidal e pontual), além de propriedades materiais variáveis ao longo do comprimento. A Figura \ref{fig:viga1d_resultado} apresenta a análise completa de uma viga, incluindo deflexão, diagramas de momento fletor e esforço cortante.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_viga1d_resultado.png}
+    \caption{Análise de flexão de viga 1D (Euler-Bernoulli): deflexão, carregamento, propriedades, momento fletor e esforço cortante.}
+    \label{fig:viga1d_resultado}
+\end{figure}
+
+\subsection{Vibração 1D --- Problema de Autovalor}
+\label{sec:caso_vibracao}
+
+O módulo de vibração resolve o problema de autovalor generalizado $\mathbf{K} \boldsymbol{\phi} = \lambda \, \mathbf{M} \boldsymbol{\phi}$ para uma barra elástica 1D (caso validado na Seção~\ref{sec:val_vibracao}), onde as frequências naturais são $f_n = \sqrt{\lambda_n} / (2\pi)$ e os autovetores $\boldsymbol{\phi}_n$ representam os modos de vibração. As matrizes de rigidez e massa são construídas conforme o procedimento de montagem global descrito na Seção~\ref{sec:montagem_global}, empregando massa concentrada (\textit{lumped}, Eq.~\ref{eq:massa_lumped}):
+
+\begin{lstlisting}
+# Matrizes de rigidez e massa (barra 1D)
+ke = (E*A / h) * np.array([[1, -1], [-1, 1]])
+me = (rho*A*h / 2) * np.array([[1, 0], [0, 1]])
+\end{lstlisting}
+
+O problema de autovalor é resolvido pela rotina \texttt{scipy.linalg.eigh}, que explora a simetria das matrizes para eficiência e estabilidade numérica. A solução fornece $n$ frequências naturais e os correspondentes modos de vibração, comparáveis com as expressões analíticas clássicas --- por exemplo, $f_n = n c / (2L)$ para barras engastadas em ambas as extremidades, onde $c = \sqrt{E/\rho}$ é a velocidade de propagação de ondas. A Figura \ref{fig:vibracao1d_modos} ilustra os cinco primeiros modos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_vibracao1d_modos.png}
+    \caption{Frequências naturais e cinco primeiros modos de vibração de uma barra 1D.}
+    \label{fig:vibracao1d_modos}
+\end{figure}
+
+\subsection{Transferência de Calor 2D}
+\label{sec:caso_transcalor}
+
+O módulo de transferência de calor bidimensional resolve a equação de condução transiente em uma placa quadrada discretizada com elementos triangulares lineares (Seção~\ref{sec:elementos_p1}; caso validado na Seção~\ref{sec:val_transcalor}). As matrizes elementares de rigidez e massa são construídas pela função compartilhada \texttt{element\_matrices}, que implementa diretamente as expressões derivadas na Seção~\ref{sec:matrizes_elementares} (Eqs.~\ref{eq:rigidez_elementar} e~\ref{eq:massa_elementar}):
+
+\begin{lstlisting}
+def element_matrices(coords, k, rho, cv):
+    x0, x1, x2 = coords
+    area = 0.5 * abs((x1[0]-x0[0])*(x2[1]-x0[1])
+                    -(x2[0]-x0[0])*(x1[1]-x0[1]))
+    b = np.array([x1[1]-x2[1], x2[1]-x0[1], x0[1]-x1[1]])
+    c = np.array([x2[0]-x1[0], x0[0]-x2[0], x1[0]-x0[0]])
+    ke = (k/(4*area)) * (np.outer(b,b) + np.outer(c,c))
+    me = (rho*cv*area/12) * (np.ones((3,3)) + np.eye(3))
+    return ke, me
+\end{lstlisting}
+
+A integração temporal emprega o método de Crank-Nicolson ($\theta = 1/2$), conforme a formulação do método $\theta$ generalizado apresentada na Seção~\ref{sec:integracao_temporal} (Eq.~\ref{eq:theta_method}), formulado com matrizes esparsas (\texttt{scipy.sparse}) para viabilizar a execução no navegador com malhas de até $40 \times 40$ nós. A cada passo de tempo, um frame do campo de temperatura é gerado e acumulado para compor uma animação GIF. A Figura \ref{fig:transcalor2d_campo} ilustra um instante da evolução temporal.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{fig_transcalor2d_campo.png}
+    \caption{Campo de temperatura em placa 2D durante a evolução transiente (método de Crank-Nicolson).}
+    \label{fig:transcalor2d_campo}
+\end{figure}
+
+\subsection{Escoamento Potencial 2D}
+\label{sec:caso_potencial}
+
+O módulo de escoamento potencial resolve a equação de Laplace $\nabla^2 \psi = 0$ em domínios 2D com obstáculos, caso particular da equação de Poisson para a função corrente (Eq.~\ref{eq:poisson_psi}) com vorticidade nula (caso validado na Seção~\ref{sec:val_potencial}). A malha triangular é gerada pelo módulo \texttt{common.py}, que também assembla as matrizes globais de rigidez e massa conforme o procedimento descrito na Seção~\ref{sec:montagem_global}.
+
+O módulo \texttt{geometry.py} fornece diferentes geometrias de obstáculo (cilindro, retângulo, degrau), sendo os nós do contorno do obstáculo inseridos na malha com a condição $\psi = \text{constante}$. As velocidades são recuperadas por:
+
+\begin{equation}
+u = \frac{\partial \psi}{\partial y} \approx \frac{1}{2A^e} \sum_j \psi_j c_j, \qquad v = -\frac{\partial \psi}{\partial x} \approx -\frac{1}{2A^e} \sum_j \psi_j b_j
+\label{eq:vel_recuperacao}
+\end{equation}
+
+A Figura \ref{fig:potencial2d_linhas} apresenta as linhas de corrente para escoamento ao redor de um obstáculo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_potencial2d_linhas.png}
+    \caption{Escoamento potencial 2D: linhas de corrente ao redor de um obstáculo.}
+    \label{fig:potencial2d_linhas}
+\end{figure}
+
+\subsection{Navier-Stokes 2D (Vorticidade-Corrente)}
+\label{sec:caso_ns}
+
+O módulo mais complexo da plataforma implementa o solver de Navier-Stokes 2D na formulação Vorticidade-Corrente ($\omega$-$\psi$), conforme descrito na Seção~\ref{sec:vorticidade_corrente} (caso validado na Seção~\ref{sec:val_ns}). A discretização temporal segue o esquema semi-implícito derivado na Seção~\ref{sec:semi_implicito} (Eq.~\ref{eq:sistema_temporal_ns}), enquanto as condições de contorno de vorticidade nas paredes são impostas conforme a Eq.~\ref{eq:thom}. O algoritmo segue o procedimento iterativo:
+
+\begin{enumerate}
+    \item Resolver a equação de Poisson $\mathbf{K} \boldsymbol{\psi} = \mathbf{M} \boldsymbol{\omega}$ para $\psi$;
+    \item Atualizar a vorticidade nas paredes sólidas conforme a Eq.~\ref{eq:thom};
+    \item Calcular $(u, v)$ a partir de $\psi$ (Eq.~\ref{eq:vel_recuperacao});
+    \item Assemblar a matriz de convecção $\mathbf{C}^n$ com o campo de velocidades atual;
+    \item Resolver o transporte da vorticidade pelo esquema semi-implícito (Eq.~\ref{eq:sistema_temporal_ns}).
+\end{enumerate}
+
+O solver suporta dois cenários: escoamento em canal com obstáculos (cilindro, retângulo, degrau) e cavidade com tampa móvel (\textit{lid-driven cavity}). No caso da cavidade, todas as paredes possuem $\psi = 0$ e a parede superior impõe velocidade tangencial $u_{\text{lid}} = 1$, acrescentando o termo $-2u_{\text{tan}}/h$ à condição de contorno da vorticidade. A Figura \ref{fig:ns2d_cavity} mostra os campos de $\psi$, $\omega$ e as linhas de corrente para a cavidade a $\text{Re} = 100$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{fig_ns2d_cavity_re100.png}
+    \caption{Navier-Stokes 2D --- cavidade com tampa móvel ($\text{Re} = 100$): campos de $\psi$, $\omega$ e linhas de corrente.}
+    \label{fig:ns2d_cavity}
+\end{figure}
+
+\section{Módulos Complementares em MDF}
+\label{sec:modulos_mdf}
+
+\paragraph{}Além dos oito módulos MEF descritos na seção anterior, a plataforma disponibiliza dois módulos implementados pelo Método das Diferenças Finitas, desenvolvidos nas etapas iniciais do projeto e mantidos no portfólio por seu valor didático-comparativo:
+
+\begin{itemize}
+    \item \textbf{Condução Permanente 1D com Geração Interna:} resolve o mesmo problema térmico da Seção~\ref{sec:caso_conducao_1d}, substituindo a discretização variacional pela aproximação de derivadas via expansão de Taylor (Seção~\ref{sec:introducao_mdf}), o que permite contrastar as duas formulações para um fenômeno físico idêntico.
+    \item \textbf{Equação da Onda 1D:} problema hiperbólico linear com avanço temporal explícito, incluído como exercício conceitual de integração temporal em malha estruturada.
+\end{itemize}
+
+\paragraph{}Ambos os módulos reproduzem suas respectivas soluções analíticas com erro numérico compatível com a precisão de máquina. Como constituem implementações iniciais de caráter preparatório e o escopo central do trabalho recai sobre o MEF, a validação quantitativa apresentada no Capítulo~\ref{cap5} concentra-se exclusivamente nos módulos de elementos finitos.
+
+\section{Síntese do Capítulo}
+\label{sec:sintese_implementacao}
+
+\paragraph{}Do ponto de vista da integração teórico-computacional, todos os módulos descritos neste capítulo compartilham o mesmo núcleo numérico: construção de matrizes elementares, montagem global por conectividade nodal, solução de sistemas lineares e, nos casos transientes, avanço temporal via método $\theta$ ou esquema semi-implícito. Dessa forma, a plataforma \textit{MinervaMesh} operacionaliza integralmente o arcabouço teórico estabelecido no Capítulo~\ref{cap3}, mantendo correspondência direta entre as equações governantes contínuas, os sistemas discretizados obtidos pela formulação de Galerkin e os \textit{solvers} efetivamente implementados. Listagens representativas dos códigos constam no Apêndice~\ref{ap:listagens} --- com o código integral disponível no repositório público da plataforma ---, e os \textit{scripts} de \textit{benchmark} computacional cruzado entre CPython e Pyodide constam no Apêndice~\ref{apend:benchmark}. Os oito módulos MEF cobrem três domínios da Engenharia Mecânica (térmico, estrutural e fluidodinâmico), demonstrando a versatilidade da formulação de elementos finitos; a validação quantitativa de cada um --- comparação com soluções analíticas e \textit{benchmarks} da literatura --- é apresentada no Capítulo~\ref{cap5}.

@@ -1,0 +1,61 @@
+\chapter{Listagens Representativas dos Módulos de Simulação}
+\label{ap:listagens}
+
+\paragraph{}Este apêndice reproduz listagens \emph{representativas} da implementação dos módulos de simulação do \textit{MinervaMesh}. O código-fonte integral de todos os módulos --- incluindo as interfaces HTML e os arquivos de configuração de dependências --- está disponível no repositório público da plataforma, sob licença MIT, em \url{https://github.com/lgsfarias/minervamesh}. A Tabela~\ref{tab:repo_modulos} mapeia cada módulo ao seu diretório no repositório; em cada diretório, a lógica numérica reside no arquivo \texttt{simulation.py}. As listagens selecionadas a seguir cobrem os dois padrões de implementação da plataforma: um módulo 1D completo (condução permanente, o caso mais didático) e o núcleo numérico compartilhado dos módulos 2D, acompanhado do laço temporal do solver de Navier-Stokes (o caso mais complexo).
+
+\begin{table}[H]
+\centering
+\caption{Localização de cada módulo de simulação no repositório do \textit{MinervaMesh}. Caminhos relativos ao diretório \texttt{simulations/} na raiz do repositório.}
+\label{tab:repo_modulos}
+\footnotesize
+\begin{tabular}{ll}
+\hline
+\textbf{Módulo} & \textbf{Diretório (sob \texttt{simulations/})} \\
+\hline
+Condução permanente 1D (MEF)     & \texttt{mef/conducao-permanente-barra1d-mef/} \\
+Condução transiente 1D           & \texttt{mef/calor-transiente-1d/} \\
+Convecção-difusão 1D (SUPG)      & \texttt{mef/conveccao-difusao-1d/} \\
+Viga 1D (Euler-Bernoulli)        & \texttt{mef/viga-1d-mef/} \\
+Vibração 1D (autovalor)          & \texttt{mef/vibracao-1d-mef/} \\
+Transferência de calor 2D        & \texttt{mef/transcalor/} \\
+Escoamento potencial 2D          & \texttt{mef/escoamento-fluido-2d/escoamento-potencial/} \\
+Navier-Stokes 2D                 & \texttt{mef/escoamento-fluido-2d/navier-stokes/} \\
+Núcleo MEF 2D compartilhado      & \texttt{mef/escoamento-fluido-2d/common.py} e \texttt{geometry.py} \\
+Condução permanente 1D (MDF)     & \texttt{mdf/conducao-permanente-barra1d-geracao/} \\
+Equação da onda 1D (MDF)         & \texttt{mdf/equacao-onda/} \\
+\hline
+\end{tabular}
+\end{table}
+
+\section{Módulo 1D Completo: Condução Permanente}
+\label{ap:lst_conducao1d}
+
+\paragraph{}A listagem a seguir reproduz integralmente o \texttt{simulation.py} do módulo de condução permanente 1D, representativo da estrutura comum a todos os módulos unidimensionais: leitura de parâmetros do DOM, montagem das matrizes elementares e globais, imposição de condições de contorno, solução do sistema e renderização do resultado no navegador.
+
+\lstinputlisting[
+  caption={Condução permanente 1D --- \texttt{simulation.py} (completo)},
+  label={lst:conducao1d}
+]{../simulations/mef/conducao-permanente-barra1d-mef/simulation.py}
+
+\section{Núcleo Numérico dos Módulos 2D}
+\label{ap:lst_nucleo2d}
+
+\paragraph{}O módulo \texttt{common.py}, compartilhado pelos solvers de escoamento 2D, concentra a geração da malha triangular e a montagem das matrizes globais de rigidez e massa do MEF --- o núcleo numérico reutilizado pelos módulos de escoamento potencial e de Navier-Stokes.
+
+\lstinputlisting[
+  caption={Núcleo MEF 2D compartilhado --- \texttt{common.py} (completo)},
+  label={lst:common2d}
+]{../simulations/mef/escoamento-fluido-2d/common.py}
+
+\paragraph{}Do solver de Navier-Stokes 2D, reproduz-se o trecho central: o laço de avanço temporal da formulação Vorticidade-Corrente, com a solução da equação de Poisson para $\psi$, a imposição da condição de contorno de Thom nas paredes, a recuperação do campo de velocidades e o transporte semi-implícito da vorticidade.
+% Trecho extraído de simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py,
+% função solve_navier_stokes, laço "while current_step < total_steps" (linhas 225-276).
+% Os simulation.py não devem ser editados (geraram as figuras do Cap. de Resultados),
+% portanto o linerange abaixo é estável.
+
+\lstinputlisting[
+  caption={Navier-Stokes 2D --- laço temporal da formulação Vorticidade-Corrente (trecho de \texttt{simulation.py})},
+  label={lst:ns2d_loop},
+  linerange={225-276},
+  firstnumber=225
+]{../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py}
