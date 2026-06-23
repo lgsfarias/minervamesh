@@ -125,67 +125,59 @@
 \contentsline {subsection}{\numberline {6.2.2}Solução Analítica}{52}{subsection.6.2.2}%
 \contentsline {subsection}{\numberline {6.2.3}Solução MEF e Comparação}{53}{subsection.6.2.3}%
 \contentsline {subsection}{\numberline {6.2.4}Análise de Erro}{53}{subsection.6.2.4}%
-\contentsline {paragraph}{Nota sobre a precisão nodal exata.}{54}{section*.73}%
-\contentsline {section}{\numberline {6.3}Condução Transiente 1D com $k(x)$ Variável}{55}{section.6.3}%
+\contentsline {section}{\numberline {6.3}Condução Transiente 1D com $k(x)$ Variável}{54}{section.6.3}%
 \contentsline {subsection}{\numberline {6.3.1}Formulação do Problema}{55}{subsection.6.3.1}%
-\contentsline {subsection}{\numberline {6.3.2}Solução Analítica de Regime Permanente}{55}{subsection.6.3.2}%
+\contentsline {subsection}{\numberline {6.3.2}Solução Analítica de Regime Permanente}{56}{subsection.6.3.2}%
 \contentsline {subsection}{\numberline {6.3.3}Solução MEF e Comparação}{56}{subsection.6.3.3}%
-\contentsline {subsection}{\numberline {6.3.4}Análise de Erro}{57}{subsection.6.3.4}%
-\contentsline {paragraph}{Nota sobre a propagação térmica.}{58}{section*.76}%
+\contentsline {subsection}{\numberline {6.3.4}Análise de Erro}{58}{subsection.6.3.4}%
 \contentsline {section}{\numberline {6.4}Convecção-Difusão 1D com Estabilização SUPG}{58}{section.6.4}%
 \contentsline {subsection}{\numberline {6.4.1}Formulação do Problema}{58}{subsection.6.4.1}%
 \contentsline {subsection}{\numberline {6.4.2}Solução Analítica}{59}{subsection.6.4.2}%
-\contentsline {subsection}{\numberline {6.4.3}Solução MEF com SUPG}{59}{subsection.6.4.3}%
-\contentsline {subsection}{\numberline {6.4.4}Análise de Erro}{60}{subsection.6.4.4}%
-\contentsline {paragraph}{Nota sobre o comportamento de Galerkin.}{62}{section*.80}%
+\contentsline {subsection}{\numberline {6.4.3}Solução MEF com SUPG}{60}{subsection.6.4.3}%
+\contentsline {subsection}{\numberline {6.4.4}Análise de Erro}{62}{subsection.6.4.4}%
 \contentsline {section}{\numberline {6.5}Viga 1D --- Flexão de Euler-Bernoulli}{62}{section.6.5}%
 \contentsline {subsection}{\numberline {6.5.1}Formulação do Problema}{63}{subsection.6.5.1}%
 \contentsline {subsection}{\numberline {6.5.2}Solução Analítica}{63}{subsection.6.5.2}%
 \contentsline {subsection}{\numberline {6.5.3}Solução MEF e Comparação}{64}{subsection.6.5.3}%
 \contentsline {subsection}{\numberline {6.5.4}Análise de Erro}{64}{subsection.6.5.4}%
-\contentsline {paragraph}{Nota sobre momento e cortante.}{66}{section*.83}%
 \contentsline {section}{\numberline {6.6}Vibração 1D --- Problema de Autovalor}{66}{section.6.6}%
 \contentsline {subsection}{\numberline {6.6.1}Formulação do Problema}{66}{subsection.6.6.1}%
 \contentsline {subsection}{\numberline {6.6.2}Solução Analítica}{67}{subsection.6.6.2}%
-\contentsline {subsection}{\numberline {6.6.3}Solução MEF e Comparação}{68}{subsection.6.6.3}%
-\contentsline {subsection}{\numberline {6.6.4}Análise de Erro}{68}{subsection.6.6.4}%
-\contentsline {paragraph}{Nota sobre a matriz de massa consistente.}{70}{section*.87}%
-\contentsline {section}{\numberline {6.7}Transferência de Calor Transiente 2D}{70}{section.6.7}%
+\contentsline {subsection}{\numberline {6.6.3}Solução MEF e Comparação}{67}{subsection.6.6.3}%
+\contentsline {subsection}{\numberline {6.6.4}Análise de Erro}{69}{subsection.6.6.4}%
+\contentsline {section}{\numberline {6.7}Transferência de Calor Transiente 2D}{69}{section.6.7}%
 \contentsline {subsection}{\numberline {6.7.1}Formulação do Problema}{70}{subsection.6.7.1}%
-\contentsline {subsection}{\numberline {6.7.2}Solução Analítica de Regime Permanente}{71}{subsection.6.7.2}%
-\contentsline {subsection}{\numberline {6.7.3}Solução MEF e Comparação}{72}{subsection.6.7.3}%
-\contentsline {subsection}{\numberline {6.7.4}Análise de Erro}{73}{subsection.6.7.4}%
-\contentsline {paragraph}{Nota sobre o tempo de convergência.}{73}{section*.90}%
+\contentsline {subsection}{\numberline {6.7.2}Solução Analítica de Regime Permanente}{70}{subsection.6.7.2}%
+\contentsline {subsection}{\numberline {6.7.3}Solução MEF e Comparação}{71}{subsection.6.7.3}%
+\contentsline {subsection}{\numberline {6.7.4}Análise de Erro}{71}{subsection.6.7.4}%
 \contentsline {section}{\numberline {6.8}Escoamento Potencial 2D em Torno de Cilindro}{73}{section.6.8}%
-\contentsline {subsection}{\numberline {6.8.1}Formulação do Problema}{74}{subsection.6.8.1}%
-\contentsline {subsection}{\numberline {6.8.2}Solução Analítica em Domínio Infinito}{75}{subsection.6.8.2}%
+\contentsline {subsection}{\numberline {6.8.1}Formulação do Problema}{73}{subsection.6.8.1}%
+\contentsline {subsection}{\numberline {6.8.2}Solução Analítica em Domínio Infinito}{74}{subsection.6.8.2}%
 \contentsline {subsection}{\numberline {6.8.3}Solução MEF e Comparação}{75}{subsection.6.8.3}%
 \contentsline {subsection}{\numberline {6.8.4}Análise de Erro}{75}{subsection.6.8.4}%
-\contentsline {paragraph}{Nota sobre o paradoxo de d'Alembert.}{77}{section*.94}%
-\contentsline {section}{\numberline {6.9}Navier-Stokes 2D --- Cavidade com Tampa Móvel}{78}{section.6.9}%
+\contentsline {section}{\numberline {6.9}Navier-Stokes 2D --- Cavidade com Tampa Móvel}{77}{section.6.9}%
 \contentsline {subsection}{\numberline {6.9.1}Formulação do Problema}{78}{subsection.6.9.1}%
 \contentsline {subsection}{\numberline {6.9.2}Benchmark de Referência}{79}{subsection.6.9.2}%
 \contentsline {subsection}{\numberline {6.9.3}Solução MEF e Comparação}{79}{subsection.6.9.3}%
-\contentsline {subsection}{\numberline {6.9.4}Análise de Erro}{80}{subsection.6.9.4}%
-\contentsline {paragraph}{Nota sobre a condição de contorno de vorticidade.}{80}{section*.98}%
+\contentsline {subsection}{\numberline {6.9.4}Análise de Erro}{81}{subsection.6.9.4}%
 \contentsline {chapter}{\numberline {7}Conclusões}{83}{chapter.7}%
 \contentsline {section}{\numberline {7.1}Conclusões}{83}{section.7.1}%
-\contentsline {paragraph}{}{83}{section*.99}%
-\contentsline {paragraph}{}{83}{section*.100}%
-\contentsline {paragraph}{}{84}{section*.101}%
-\contentsline {paragraph}{}{84}{section*.102}%
+\contentsline {paragraph}{}{83}{section*.91}%
+\contentsline {paragraph}{}{83}{section*.92}%
+\contentsline {paragraph}{}{84}{section*.93}%
+\contentsline {paragraph}{}{84}{section*.94}%
 \contentsline {section}{\numberline {7.2}Trabalhos Futuros}{85}{section.7.2}%
-\contentsline {paragraph}{}{85}{section*.103}%
-\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{87}{chapter*.104}%
+\contentsline {paragraph}{}{85}{section*.95}%
+\contentsline {chapter}{Refer\^encias Bibliogr\'aficas}{87}{chapter*.96}%
 \contentsline {chapter}{\numberline {A}Listagens Representativas dos Módulos de Simulação}{93}{appendix.A}%
-\contentsline {paragraph}{}{93}{section*.105}%
+\contentsline {paragraph}{}{93}{section*.97}%
 \contentsline {section}{\numberline {A.1}Módulo 1D Completo: Condução Permanente}{94}{section.A.1}%
-\contentsline {paragraph}{}{94}{section*.107}%
+\contentsline {paragraph}{}{94}{section*.99}%
 \contentsline {section}{\numberline {A.2}Núcleo Numérico dos Módulos 2D}{98}{section.A.2}%
-\contentsline {paragraph}{}{98}{section*.108}%
-\contentsline {paragraph}{}{101}{section*.109}%
+\contentsline {paragraph}{}{98}{section*.100}%
+\contentsline {paragraph}{}{101}{section*.101}%
 \contentsline {chapter}{\numberline {B}Scripts de Benchmark Computacional}{104}{appendix.B}%
-\contentsline {paragraph}{}{104}{section*.110}%
+\contentsline {paragraph}{}{104}{section*.102}%
 \contentsline {section}{\numberline {B.1}Solver de Condução Permanente 1D Adaptado}{104}{section.B.1}%
 \contentsline {section}{\numberline {B.2}Solver de Transcalor 2D Adaptado}{106}{section.B.2}%
 \contentsline {section}{\numberline {B.3}Biblioteca Auxiliar de Cronometragem}{110}{section.B.3}%

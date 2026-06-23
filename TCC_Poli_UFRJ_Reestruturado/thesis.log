@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  23 JUN 2026 14:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  23 JUN 2026 14:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1048,16 +1048,16 @@ on input line 113.
 [53]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 136.
+(hyperref)                removing `math shift' on input line 134.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 136.
+(hyperref)                removing `math shift' on input line 134.
 
 
 
 [54 <./Imagens/prints/fig_val_conducao1d_resultado.png>]
-Underfull \hbox (badness 1688) in paragraph at lines 188--189
+Underfull \hbox (badness 1688) in paragraph at lines 186--187
 []\OT1/cmr/m/n/12 No li-mite $\OML/cmm/m/it/12 t \OMS/cmsy/m/n/12 ! 1$\OT1/cmr/
 m/n/12 , o termo tran-si-ente se anula e a solu^^Xc~ao sa-tis-faz
  []
@@ -1065,20 +1065,20 @@ m/n/12 , o termo tran-si-ente se anula e a solu^^Xc~ao sa-tis-faz
 
 
 [55]
-
-[56]
-<Imagens/prints/fig_val_calor_transiente1d_evolucao.png, id=1641, 1003.75pt x 6
+<Imagens/prints/fig_val_calor_transiente1d_evolucao.png, id=1633, 1003.75pt x 6
 02.25pt>
 File: Imagens/prints/fig_val_calor_transiente1d_evolucao.png Graphic file (type
  png)
 <use Imagens/prints/fig_val_calor_transiente1d_evolucao.png>
 Package pdftex.def Info: Imagens/prints/fig_val_calor_transiente1d_evolucao.png
-  used on input line 217.
+  used on input line 215.
 (pdftex.def)             Requested size: 384.1096pt x 230.46555pt.
 
 
+[56]
+
 [57 <./Imagens/prints/fig_val_calor_transiente1d_evolucao.png>]
-Underfull \hbox (badness 4328) in paragraph at lines 232--232
+Underfull \hbox (badness 4328) in paragraph at lines 228--228
 []\OT1/cmr/bx/n/17.28 Convec^^Xc~ao-Difus~ao 1D com Es-ta-bi-liza^^Xc~ao
  []
 
@@ -1087,18 +1087,18 @@ Underfull \hbox (badness 4328) in paragraph at lines 232--232
 [58]
 
 [59]
-<Imagens/prints/fig_val_convdif1d_supg.png, id=1664, 1505.625pt x 1204.5pt>
+<Imagens/prints/fig_val_convdif1d_supg.png, id=1665, 1505.625pt x 1204.5pt>
 File: Imagens/prints/fig_val_convdif1d_supg.png Graphic file (type png)
 <use Imagens/prints/fig_val_convdif1d_supg.png>
 Package pdftex.def Info: Imagens/prints/fig_val_convdif1d_supg.png  used on inp
-ut line 301.
+ut line 297.
 (pdftex.def)             Requested size: 362.77525pt x 290.22542pt.
-<Imagens/prints/fig_val_convdif1d_galerkin.png, id=1665, 1505.625pt x 1204.5pt>
+<Imagens/prints/fig_val_convdif1d_galerkin.png, id=1666, 1505.625pt x 1204.5pt>
 
 File: Imagens/prints/fig_val_convdif1d_galerkin.png Graphic file (type png)
 <use Imagens/prints/fig_val_convdif1d_galerkin.png>
 Package pdftex.def Info: Imagens/prints/fig_val_convdif1d_galerkin.png  used on
- input line 308.
+ input line 304.
 (pdftex.def)             Requested size: 362.77525pt x 290.22542pt.
 
 
@@ -1109,12 +1109,12 @@ Package pdftex.def Info: Imagens/prints/fig_val_convdif1d_galerkin.png  used on
 [62]
 
 [63]
-<Imagens/prints/fig_val_viga1d_resultado.png, id=1699, 1790.69pt x 2693.06125pt
+<Imagens/prints/fig_val_viga1d_resultado.png, id=1701, 1790.69pt x 2693.06125pt
 >
 File: Imagens/prints/fig_val_viga1d_resultado.png Graphic file (type png)
 <use Imagens/prints/fig_val_viga1d_resultado.png>
 Package pdftex.def Info: Imagens/prints/fig_val_viga1d_resultado.png  used on i
-nput line 385.
+nput line 379.
 (pdftex.def)             Requested size: 320.0935pt x 481.4016pt.
 
 
@@ -1123,36 +1123,36 @@ nput line 385.
 [65 <./Imagens/prints/fig_val_viga1d_resultado.png>]
 
 [66]
-
-[67]
-<Imagens/prints/fig_val_vibracao1d_modos.png, id=1729, 1890.06125pt x 2787.4137
+<Imagens/prints/fig_val_vibracao1d_modos.png, id=1724, 1890.06125pt x 2787.4137
 6pt>
 File: Imagens/prints/fig_val_vibracao1d_modos.png Graphic file (type png)
 <use Imagens/prints/fig_val_vibracao1d_modos.png>
 Package pdftex.def Info: Imagens/prints/fig_val_vibracao1d_modos.png  used on i
-nput line 466.
+nput line 458.
 (pdftex.def)             Requested size: 298.75264pt x 440.59369pt.
 
 
-[68]
+[67]
 
-[69 <./Imagens/prints/fig_val_vibracao1d_modos.png>]
+[68 <./Imagens/prints/fig_val_vibracao1d_modos.png>]
+
+[69]
 
 [70]
-
-[71]
-<Imagens/prints/fig_val_transcalor2d_campo.png, id=1756, 602.25pt x 501.875pt>
+<Imagens/prints/fig_val_transcalor2d_campo.png, id=1755, 602.25pt x 501.875pt>
 File: Imagens/prints/fig_val_transcalor2d_campo.png Graphic file (type png)
 <use Imagens/prints/fig_val_transcalor2d_campo.png>
 Package pdftex.def Info: Imagens/prints/fig_val_transcalor2d_campo.png  used on
- input line 574.
+ input line 564.
 (pdftex.def)             Requested size: 320.0935pt x 266.75061pt.
 
+
+[71]
 
 [72 <./Imagens/prints/fig_val_transcalor2d_campo.png>]
 
 [73]
-Underfull \hbox (badness 1515) in paragraph at lines 609--610
+Underfull \hbox (badness 1515) in paragraph at lines 597--598
 []\OT1/cmr/bx/n/12 superf^^S^^Pcie do ci-lin-dro\OT1/cmr/m/n/12 : $\OML/cmm/m/i
 t/12  $ \OT1/cmr/m/n/12 cons-tante (pa-rede des-li-zante, corpo n~ao-
  []
@@ -1160,54 +1160,48 @@ t/12  $ \OT1/cmr/m/n/12 cons-tante (pa-rede des-li-zante, corpo n~ao-
 
 
 [74]
-<Imagens/prints/fig_val_potencial2d_linhas.png, id=1777, 714.7503pt x 860.013pt
+<Imagens/prints/fig_val_potencial2d_linhas.png, id=1783, 714.7503pt x 860.013pt
 >
 File: Imagens/prints/fig_val_potencial2d_linhas.png Graphic file (type png)
 <use Imagens/prints/fig_val_potencial2d_linhas.png>
 Package pdftex.def Info: Imagens/prints/fig_val_potencial2d_linhas.png  used on
- input line 651.
+ input line 639.
 (pdftex.def)             Requested size: 298.75264pt x 359.48392pt.
 
 
 [75]
 
 [76 <./Imagens/prints/fig_val_potencial2d_linhas.png>]
-Underfull \hbox (badness 3407) in paragraph at lines 686--687
- []\OT1/cmr/bx/n/12 Nota so-bre o pa-ra-doxo de d'Alembert.[] \OT1/cmr/m/n/12 A
- in-te-gra^^Xc~ao num^^Serica de
- []
-
-
 
 [77]
 
 [78]
-
-[79]
-<Imagens/prints/fig_val_ns2d_cavity_re100.png, id=1818, 360.6273pt x 860.013pt>
+<Imagens/prints/fig_val_ns2d_cavity_re100.png, id=1819, 360.6273pt x 860.013pt>
 
 File: Imagens/prints/fig_val_ns2d_cavity_re100.png Graphic file (type png)
 <use Imagens/prints/fig_val_ns2d_cavity_re100.png>
 Package pdftex.def Info: Imagens/prints/fig_val_ns2d_cavity_re100.png  used on 
-input line 746.
+input line 734.
 (pdftex.def)             Requested size: 229.86522pt x 548.16994pt.
 
 
-LaTeX Warning: Float too large for page by 29.38684pt on input line 749.
+LaTeX Warning: Float too large for page by 29.38684pt on input line 737.
 
-<Imagens/prints/fig_val_ns_ghia_uy.png, id=1821, 498.1812pt x 426.393pt>
+<Imagens/prints/fig_val_ns_ghia_uy.png, id=1822, 498.1812pt x 426.393pt>
 File: Imagens/prints/fig_val_ns_ghia_uy.png Graphic file (type png)
 <use Imagens/prints/fig_val_ns_ghia_uy.png>
 Package pdftex.def Info: Imagens/prints/fig_val_ns_ghia_uy.png  used on input l
-ine 753.
+ine 741.
 (pdftex.def)             Requested size: 320.0935pt x 273.97713pt.
-)
 
-[80]
 
-[81 <./Imagens/prints/fig_val_ns2d_cavity_re100.png>]
+[79]
 
-[82 <./Imagens/prints/fig_val_ns_ghia_uy.png>]
+[80 <./Imagens/prints/fig_val_ns2d_cavity_re100.png>]
+
+[81 <./Imagens/prints/fig_val_ns_ghia_uy.png>])
+
+[82]
 \openout2 = `Textual/conclusao.aux'.
 
  (./Textual/conclusao.tex
@@ -1354,49 +1348,123 @@ L3 programming layer <2025-01-18>
 
 LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
-Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: 20E23042DEEC8DB68F4DDD60E622DF7F;24948.
+
+Package rerunfilecheck Warning: File `thesis.out' has changed.
+(rerunfilecheck)                Rerun to get outlines right
+(rerunfilecheck)                or use package `bookmark'.
+
+Package rerunfilecheck Info: Checksums for `thesis.out':
+(rerunfilecheck)             Before: 20E23042DEEC8DB68F4DDD60E622DF7F;24948
+(rerunfilecheck)             After:  30EA1B4A3CB381EEADC559354C027FF7;24947.
  ) 
 Here is how much of TeX's memory you used:
- 18883 strings out of 473190
- 307108 string characters out of 5715799
+ 18892 strings out of 473190
+ 307288 string characters out of 5715799
  1191787 words of memory out of 5000000
  40365 multiletter control sequences out of 15000+600000
  581114 words of font info for 119 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  90i,14n,93p,2250b,2163s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
-></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></
-usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><
-/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
-usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></
-usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
-sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></us
-r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/
-local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
-l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
-texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/te
-xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texli
-ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
-2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/202
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2025/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2025/texmf-dis
-t/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on thesis.pdf (138 pages, 10027060 bytes).
+
+pdfTeX warning (dest): name{table.caption.106} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.caption.95} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.caption.93} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.caption.91} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.caption.86} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.caption.84} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.caption.81} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.caption.77} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{table.caption.74} has been referenced but does not 
+exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.caption.97} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.caption.96} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.caption.92} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.caption.85} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.caption.82} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.caption.78} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{figure.caption.75} has been referenced but does not
+ exist, replaced by a fixed one
+
+
+pdfTeX warning (dest): name{chapter*.104} has been referenced but does not exis
+t, replaced by a fixed one
+
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb><
+/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></
+usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></u
+sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr
+/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/
+local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/lo
+cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loca
+l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/loca
+l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/
+texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/te
+xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texl
+ive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive
+/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/20
+25/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2025/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2025/texmf-dist/
+fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on thesis.pdf (138 pages, 10024292 bytes).
 PDF statistics:
- 3275 PDF objects out of 3580 (max. 8388607)
- 2957 compressed objects within 30 object streams
- 1390 named destinations out of 1440 (max. 500000)
+ 3285 PDF objects out of 3580 (max. 8388607)
+ 2967 compressed objects within 30 object streams
+ 1399 named destinations out of 1440 (max. 500000)
  1087 words of extra memory for PDF output out of 10000 (max. 10000000)
 

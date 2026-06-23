@@ -12,16 +12,16 @@
 \addvspace {10\p@ }
 \contentsline {table}{\numberline {6.1}{\ignorespaces Visão geral dos casos de validação apresentados neste capítulo.}}{51}{table.caption.69}%
 \contentsline {table}{\numberline {6.2}{\ignorespaces Parâmetros da simulação de condução permanente 1D.}}{52}{table.caption.71}%
-\contentsline {table}{\numberline {6.3}{\ignorespaces Parâmetros da simulação de condução transiente 1D com $k(x)$ variável.}}{56}{table.caption.74}%
-\contentsline {table}{\numberline {6.4}{\ignorespaces Parâmetros da simulação de convecção-difusão 1D.}}{59}{table.caption.77}%
-\contentsline {table}{\numberline {6.5}{\ignorespaces Parâmetros da simulação de flexão de viga 1D.}}{63}{table.caption.81}%
-\contentsline {table}{\numberline {6.6}{\ignorespaces Parâmetros da simulação de vibração axial 1D (barra de aço bi-engastada).}}{67}{table.caption.84}%
-\contentsline {table}{\numberline {6.7}{\ignorespaces Frequências naturais: MEF vs.\ analítica para barra livre-livre.}}{68}{table.caption.86}%
-\contentsline {table}{\numberline {6.8}{\ignorespaces Parâmetros da simulação de transferência de calor transiente 2D.}}{71}{table.caption.88}%
-\contentsline {table}{\numberline {6.9}{\ignorespaces Parâmetros da simulação de escoamento potencial 2D em torno de cilindro.}}{74}{table.caption.91}%
-\contentsline {table}{\numberline {6.10}{\ignorespaces Coeficiente de pressão $C_p$ na superfície do cilindro: MEF vs.\ teoria potencial.}}{77}{table.caption.93}%
-\contentsline {table}{\numberline {6.11}{\ignorespaces Parâmetros da simulação de Navier-Stokes 2D --- cavidade com tampa móvel.}}{79}{table.caption.95}%
+\contentsline {table}{\numberline {6.3}{\ignorespaces Parâmetros da simulação de condução transiente 1D com $k(x)$ variável.}}{55}{table.caption.73}%
+\contentsline {table}{\numberline {6.4}{\ignorespaces Parâmetros da simulação de convecção-difusão 1D.}}{59}{table.caption.75}%
+\contentsline {table}{\numberline {6.5}{\ignorespaces Parâmetros da simulação de flexão de viga 1D.}}{63}{table.caption.78}%
+\contentsline {table}{\numberline {6.6}{\ignorespaces Parâmetros da simulação de vibração axial 1D (barra de aço bi-engastada).}}{67}{table.caption.80}%
+\contentsline {table}{\numberline {6.7}{\ignorespaces Frequências naturais: MEF vs.\ analítica para barra livre-livre.}}{69}{table.caption.82}%
+\contentsline {table}{\numberline {6.8}{\ignorespaces Parâmetros da simulação de transferência de calor transiente 2D.}}{71}{table.caption.83}%
+\contentsline {table}{\numberline {6.9}{\ignorespaces Parâmetros da simulação de escoamento potencial 2D em torno de cilindro.}}{74}{table.caption.85}%
+\contentsline {table}{\numberline {6.10}{\ignorespaces Coeficiente de pressão $C_p$ na superfície do cilindro: MEF vs.\ teoria potencial.}}{75}{table.caption.87}%
+\contentsline {table}{\numberline {6.11}{\ignorespaces Parâmetros da simulação de Navier-Stokes 2D --- cavidade com tampa móvel.}}{78}{table.caption.88}%
 \addvspace {10\p@ }
 \addvspace {10\p@ }
-\contentsline {table}{\numberline {A.1}{\ignorespaces Localização de cada módulo de simulação no repositório do \textit {MinervaMesh}. Caminhos relativos ao diretório \texttt {simulations/} na raiz do repositório.}}{94}{table.caption.106}%
+\contentsline {table}{\numberline {A.1}{\ignorespaces Localização de cada módulo de simulação no repositório do \textit {MinervaMesh}. Caminhos relativos ao diretório \texttt {simulations/} na raiz do repositório.}}{94}{table.caption.98}%
 \addvspace {10\p@ }
