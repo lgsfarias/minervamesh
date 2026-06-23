@@ -183,7 +183,7 @@
 \contentsline {paragraph}{}{94}{section*.107}%
 \contentsline {section}{\numberline {A.2}Núcleo Numérico dos Módulos 2D}{98}{section.A.2}%
 \contentsline {paragraph}{}{98}{section*.108}%
-\contentsline {paragraph}{}{102}{section*.109}%
+\contentsline {paragraph}{}{101}{section*.109}%
 \contentsline {chapter}{\numberline {B}Scripts de Benchmark Computacional}{104}{appendix.B}%
 \contentsline {paragraph}{}{104}{section*.110}%
 \contentsline {section}{\numberline {B.1}Solver de Condução Permanente 1D Adaptado}{104}{section.B.1}%

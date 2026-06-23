@@ -49,13 +49,12 @@ Equação da onda 1D (MDF)         & \texttt{mdf/equacao-onda/} \\
 
 \paragraph{}Do solver de Navier-Stokes 2D, reproduz-se o trecho central: o laço de avanço temporal da formulação Vorticidade-Corrente, com a solução da equação de Poisson para $\psi$, a imposição da condição de contorno de Thom nas paredes, a recuperação do campo de velocidades e o transporte semi-implícito da vorticidade.
 % Trecho extraído de simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py,
-% função solve_navier_stokes, laço "while current_step < total_steps" (linhas 225-276).
-% Os simulation.py não devem ser editados (geraram as figuras do Cap. de Resultados),
-% portanto o linerange abaixo é estável.
+% função solve_navier_stokes, laço "while current_step < total_steps" (linhas 209-260).
+% Ao editar os comentários do simulation.py, conferir e reajustar o linerange abaixo.
 
 \lstinputlisting[
   caption={Navier-Stokes 2D --- laço temporal da formulação Vorticidade-Corrente (trecho de \texttt{simulation.py})},
   label={lst:ns2d_loop},
-  linerange={225-276},
-  firstnumber=225
+  linerange={209-260},
+  firstnumber=209
 ]{../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py}
