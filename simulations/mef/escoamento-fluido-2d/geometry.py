@@ -49,34 +49,34 @@ def get_rectangle(params):
     return boundary_pts, mask_func
 
 def get_step(params):
-    # Backward facing step
-    # Step is at bottom left corner.
-    # Dimensions: step_h, step_l
+    # Degrau de face posterior (backward-facing step)
+    # O degrau fica no canto inferior esquerdo.
+    # Dimensões: step_h, step_l
     step_h = params["step_h"]
     step_l = params["step_l"]
-    
-    # Boundary points for the step (L-shape)
-    # 1. Top of step (0, step_h) -> (step_l, step_h)
-    # 2. Back of step (step_l, step_h) -> (step_l, 0)
-    
+
+    # Pontos da fronteira do degrau (formato em L)
+    # 1. Topo do degrau (0, step_h) -> (step_l, step_h)
+    # 2. Face posterior do degrau (step_l, step_h) -> (step_l, 0)
+
     n_pts = 50
     x_top = np.linspace(0, step_l, n_pts)
     y_top = np.full_like(x_top, step_h)
     
     y_back = np.linspace(step_h, 0, n_pts)
     x_back = np.full_like(y_back, step_l)
-    
-    # Concatenate
+
+    # Concatena
     x_bound = np.concatenate([x_top, x_back])
     y_bound = np.concatenate([y_top, y_back])
     boundary_pts = np.column_stack([x_bound, y_bound])
     
     def mask_func(x, y):
-        # Remove if x < step_l AND y < step_h
-        # Keep if x >= step_l OR y >= step_h
-        # Add small buffer to avoid removing boundary nodes
-        # We want to remove the block (0,0) to (step_l, step_h)
-        # So keep if NOT (x < step_l-eps AND y < step_h-eps)
+        # Remove se x < step_l E y < step_h
+        # Mantém se x >= step_l OU y >= step_h
+        # Pequeno buffer para não remover os nós da fronteira
+        # Queremos remover o bloco (0,0) até (step_l, step_h),
+        # logo mantemos se NÃO (x < step_l-eps E y < step_h-eps)
         eps = 1e-3
         return ~((x < step_l - eps) & (y < step_h - eps))
         
@@ -85,7 +85,7 @@ def get_step(params):
 
 
 def get_none(params):
-    # Empty (for Cavity or pure channel)
+    # Sem obstáculo (cavidade ou canal puro)
     return np.empty((0, 2)), lambda x, y: np.ones_like(x, dtype=bool)
 
 def get_geometry(geo_type, params):

@@ -74,16 +74,16 @@
 \newblock 7th ed.
 \newblock Butterworth-Heinemann: Oxford, 2013.
 
-\bibitem{Lewis2004}
-\MakeUppercase{ Lewis, R.~W., Nithiarasu, P., Seetharamu, K.~N.}, {\em
-  Fundamentals of the Finite Element Method for Heat and Fluid Flow\/}.
-\newblock John Wiley \& Sons: Chichester, 2004.
-
 \bibitem{Reddy2005}
 \MakeUppercase{ Reddy, J.~N.}, {\em An Introduction to the Finite Element
   Method\/}.
 \newblock 3rd ed.
 \newblock McGraw-Hill: New York, 2005.
+
+\bibitem{Lewis2004}
+\MakeUppercase{ Lewis, R.~W., Nithiarasu, P., Seetharamu, K.~N.}, {\em
+  Fundamentals of the Finite Element Method for Heat and Fluid Flow\/}.
+\newblock John Wiley \& Sons: Chichester, 2004.
 
 \bibitem{Galerkin1915}
 \MakeUppercase{ Galerkin, B.~G.}, \enquote{Series in some questions of elastic
@@ -163,6 +163,12 @@
   element mesh generator with built-in pre- and post-processing facilities},
   {\em International Journal for Numerical Methods in Engineering\/}, v.~79,
   n.~11, pp.~1309--1331, 2009.
+
+\bibitem{TriangleWasm}
+\MakeUppercase{ Imbrizi, B.}, \enquote{{triangle-wasm}: {J}avascript wrapper
+  around {T}riangle compiled to {WebAssembly}}, Reposit\'orio GitHub.
+  Dispon\'{i}vel em: https://github.com/brunoimbrizi/triangle-wasm, Acesso em:
+  09 maio 2026.
 
 \bibitem{Aguiar2020}
 \MakeUppercase{ da~S. O. N.~de Aguiar, G.}, {\em Simula\c{c}\~ao Num\'{e}rica
@@ -263,11 +269,5 @@
 \MakeUppercase{ Thom, A.}, \enquote{The Flow Past Circular Cylinders at Low
   Speeds}, {\em Proceedings of the Royal Society A\/}, v.~141, n. 845,
   pp.~651--669, 1933.
-
-\bibitem{TriangleWasm}
-\MakeUppercase{ Imbrizi, B.}, \enquote{{triangle-wasm}: {J}avascript wrapper
-  around {T}riangle compiled to {WebAssembly}}, Reposit\'orio GitHub.
-  Dispon\'{i}vel em: https://github.com/brunoimbrizi/triangle-wasm, Acesso em:
-  09 maio 2026.
 
 \end{thebibliography}

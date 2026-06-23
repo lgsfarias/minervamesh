@@ -1,0 +1,198 @@
+\chapter{A Plataforma MinervaMesh}
+\label{cap:plataforma}
+
+\paragraph{}Este capítulo apresenta o produto central deste trabalho: o \textit{MinervaMesh}, plataforma web de código aberto para simulação numérica em Engenharia Mecânica. O foco aqui é a plataforma enquanto \emph{software de entrega}: a motivação e a visão geral, a justificativa das tecnologias adotadas --- \textit{PyScript}, \textit{WebAssembly} e a arquitetura \textit{client-side} ---, a análise quantitativa do custo computacional da execução no navegador, a organização do código e as limitações do paradigma. A implementação numérica de cada módulo de simulação, isto é, a tradução das equações diferenciais discretizadas em código, é tratada separadamente no Capítulo~\ref{cap:implementacao}.
+
+\section{Visão Geral da Plataforma}
+\label{sec:visao_geral}
+
+O \textit{MinervaMesh} é uma plataforma de simulação numérica projetada para operar integralmente no navegador web, sem dependência de servidores de processamento remoto nem instalação de software por parte do usuário. A plataforma reúne implementações dos métodos numéricos apresentados no Capítulo~\ref{cap3} em uma interface interativa que permite a parametrização do problema, a execução da simulação e a visualização dos resultados em uma única página. Todo o código é distribuído como software livre, sob licença MIT, em repositório público\footnote{\url{https://github.com/lgsfarias/minervamesh}} --- o que permite a qualquer instituição de ensino hospedar, estudar, modificar e estender a plataforma.
+
+\paragraph{}A motivação central do projeto reside na eliminação das barreiras de acesso associadas às ferramentas de simulação tradicionais. Ambientes como ANSYS, COMSOL Multiphysics ou mesmo distribuições locais de Python científico exigem licenciamento, infraestrutura computacional dedicada e configuração de ambiente --- requisitos que frequentemente inviabilizam o uso autônomo em disciplinas de graduação, monitorias e estudos independentes \cite{Anjos2024}. O \textit{MinervaMesh} contorna essas limitações ao executar todo o processamento no dispositivo do próprio usuário, utilizando o navegador como ambiente de execução.
+
+\paragraph{}A plataforma abrange três domínios da Engenharia Mecânica:
+\begin{itemize}
+    \item \textbf{Transferência de Calor:} condução estacionária e transiente, convecção-difusão com estabilização SUPG, transferência de calor 2D;
+    \item \textbf{Mecânica dos Fluidos:} escoamento potencial, Navier-Stokes 2D via formulação Vorticidade-Corrente;
+    \item \textbf{Mecânica Estrutural:} flexão de vigas (Euler-Bernoulli) e análise modal de vibração.
+\end{itemize}
+
+\paragraph{}A Figura~\ref{fig:minervamesh_home} apresenta a tela inicial da plataforma, cujo menu organiza as simulações disponíveis por método numérico.
+
+% Figura: Tela inicial do MinervaMesh
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.9\textwidth]{fig_minervamesh_home.png}
+    \caption{Tela inicial do \textit{MinervaMesh} com o menu de simulações disponíveis.}
+    \label{fig:minervamesh_home}
+\end{figure}
+
+\section{Justificativa Tecnológica}
+\label{sec:justificativa_tecnologica}
+
+\subsection{PyScript e WebAssembly}
+\label{sec:pyscript}
+
+A escolha do PyScript como runtime da plataforma fundamenta-se em três critérios: portabilidade, familiaridade da linguagem e manutenibilidade.
+
+\paragraph{}O PyScript é um \textit{framework} de código aberto que permite a execução de programas Python diretamente no navegador, apoiando-se no Pyodide --- uma compilação do interpretador CPython para WebAssembly (Wasm) \cite{PyScript2023}. O WebAssembly é um formato binário padronizado pelo W3C que executa código de baixo nível em velocidade próxima à nativa, dentro da \textit{sandbox} de segurança do navegador. A cadeia de execução é:
+
+\begin{enumerate}
+    \item O navegador carrega a página HTML contendo a tag \texttt{<script type="py">}.
+    \item O \textit{runtime} do PyScript inicializa o Pyodide, que instancia uma máquina virtual CPython compilada para WebAssembly.
+    \item As dependências declaradas em \texttt{config.toml} (NumPy, SciPy, Matplotlib) são carregadas como pacotes pré-compilados para Wasm.
+    \item O código Python da simulação é interpretado pelo Pyodide, com acesso direto ao DOM do navegador para leitura de parâmetros e renderização de resultados.
+\end{enumerate}
+
+\paragraph{}A escolha de Python como linguagem de implementação é estratégica para o contexto educacional: a linguagem apresenta sintaxe próxima à notação matemática e dispõe de um ecossistema científico consolidado --- NumPy para álgebra linear, SciPy para solvers esparsos, Matplotlib para visualização \cite{Harris2020}. Ao manter a implementação em Python puro, o \textit{MinervaMesh} permite que alunos inspecionem, compreendam e modifiquem o código das simulações, exibido com realce de sintaxe na própria página de cada módulo.
+
+\subsection{Computação \textit{Client-Side}}
+\label{sec:client_side}
+
+A arquitetura \textit{client-side} implica que todo o processamento numérico ocorre no dispositivo do usuário. Esta decisão tem impactos diretos em quatro dimensões:
+
+\begin{enumerate}
+    \item \textbf{Custo de infraestrutura:} o \textit{MinervaMesh} é um site estático. Pode ser hospedado gratuitamente em plataformas como GitHub Pages ou Netlify, sem necessidade de servidor \textit{backend}, banco de dados ou infraestrutura de \textit{cloud computing}. O custo operacional é efetivamente zero.
+    \item \textbf{Escalabilidade:} não existe gargalo de servidor central. Cada usuário utiliza o poder computacional de sua própria máquina, eliminando filas de processamento e limites de usuários simultâneos.
+    \item \textbf{Privacidade:} nenhum dado de simulação transita pela rede. Parâmetros, malhas e resultados permanecem integralmente no dispositivo do usuário.
+    \item \textbf{Disponibilidade:} após o carregamento inicial dos \textit{assets}, a plataforma pode operar sem conexão com a internet, viabilizando o uso em ambientes com conectividade limitada.
+\end{enumerate}
+
+\subsection{Comparação com Alternativas}
+\label{sec:comparacao_alternativas}
+
+A Tabela \ref{tab:comparacao_plataformas} posiciona o \textit{MinervaMesh} frente às alternativas mais comuns no contexto de ensino de simulação numérica.
+
+\begin{table}[H]
+\centering
+\caption{Comparação entre plataformas de simulação numérica para ensino.}
+\label{tab:comparacao_plataformas}
+\begin{tabular}{lcccc}
+\hline
+\textbf{Critério} & \textbf{MinervaMesh} & \textbf{MATLAB} & \textbf{Jupyter} & \textbf{COMSOL} \\
+\hline
+Custo de licença           & Gratuito & Pago       & Gratuito   & Pago \\
+Instalação necessária      & Não      & Sim        & Sim        & Sim \\
+Execução no navegador      & Sim      & Não        & Parcial    & Não \\
+Código-fonte acessível     & Sim      & Parcial    & Sim        & Não \\
+Infraestrutura de servidor & Não      & Não        & Sim        & Sim \\
+\hline
+\end{tabular}
+\end{table}
+
+A principal limitação da abordagem \textit{client-side} reside na capacidade computacional: problemas com malhas muito refinadas (dezenas de milhares de nós) podem apresentar tempo de execução elevado, uma vez que o desempenho do WebAssembly, embora próximo ao nativo, ainda é inferior ao de implementações compiladas em C/Fortran. Para os casos de interesse deste trabalho, envolvendo malhas de centenas a poucos milhares de nós, essa limitação não se mostrou restritiva. Uma análise quantitativa desse custo é apresentada na Seção~\ref{sec:analise_computacional}, e a Seção~\ref{sec:limitacoes} sistematiza as limitações da plataforma.
+
+\subsection{Análise Computacional}
+\label{sec:analise_computacional}
+
+Para quantificar o custo computacional da execução em ambiente \textit{client-side} e o impacto da camada \textit{WebAssembly}, foi conduzido um \textit{benchmark} cruzado entre dois ambientes: \textit{Pyodide} no navegador (mesmo cenário em que a plataforma opera para o usuário final) e \textit{CPython} nativo, ambos rodando na mesma máquina (Apple M1 Max, 64\,GB de RAM, macOS), com idênticas versões de NumPy e SciPy. Foram instrumentados dois solvers MEF representativos do espectro de complexidade da plataforma: a condução permanente 1D (sistema denso resolvido por \texttt{np.linalg.solve}) e a transferência de calor 2D transiente (sistema esparso CSR com 50 passos de \texttt{spsolve}). As medições reportam mediana e MAD (\textit{median absolute deviation}) de cinco rodadas (três para os tamanhos maiores), descartando uma rodada de \textit{warm-up}. As fases de montagem da matriz e resolução do sistema são cronometradas separadamente, com toda a etapa de pós-processamento (geração de gráficos, escrita no DOM) excluída da medição. As listagens completas dos \textit{scripts} de \textit{benchmark} constam no Apêndice~\ref{apend:benchmark}.
+
+\begin{table}[H]
+\centering
+\caption{Tempo total do solver (mediana, com MAD reportado abaixo de 1\% em todas as células) em CPython nativo e Pyodide (navegador), na mesma máquina (Apple M1 Max). $t_{\text{mont}}$ é o tempo de montagem (incluindo geração de malha quando aplicável) e $t_{\text{slv}}$ é o tempo da resolução linear (\texttt{np.linalg.solve} no caso 1D denso, ou o total dos passos de \texttt{spsolve} nos casos 2D esparsos). ``CP'' = CPython nativo; ``Py'' = Pyodide.}
+\label{tab:benchmark_runtimes}
+\small
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{lrrrrrr}
+\hline
+\textbf{Caso} & \textbf{$N$} & \textbf{$t_{\text{mont}}$ CP} & \textbf{$t_{\text{slv}}$ CP} & \textbf{$t_{\text{tot}}$ CP} & \textbf{$t_{\text{tot}}$ Py} & \textbf{Py/CP} \\
+\hline
+Cond.~1D MEF        & 101     & 0,15\,ms    & 0,06\,ms    & 0,21\,ms    & 1,6\,ms      & 7,1$\times$ \\
+Cond.~1D MEF        & 1\,001  & 1,56\,ms    & 9,89\,ms    & 11,5\,ms    & 16,0\,ms     & 1,4$\times$ \\
+Cond.~1D MEF        & 10\,001 & 23,8\,ms    & 4\,887\,ms  & 4\,911\,ms  & 1\,394\,ms   & 0,3$\times$ \\
+\hline
+Transcalor 2D MEF   & 400     & 56,8\,ms    & 25,1\,ms    & 81,9\,ms    & 244\,ms      & 3,0$\times$ \\
+Transcalor 2D MEF   & 1\,600  & 236\,ms     & 143\,ms     & 379\,ms     & 1\,138\,ms   & 3,0$\times$ \\
+Transcalor 2D MEF   & 6\,400  & 994\,ms     & 849\,ms     & 1\,843\,ms  & 5\,814\,ms   & 3,2$\times$ \\
+\hline
+\end{tabular}
+\end{table}
+
+A Figura~\ref{fig:benchmark_scaling} ilustra a escalabilidade dos dois solvers em escala logarítmica. No caso 1D, o crescimento aproximadamente cúbico do tempo de \texttt{solve} (de 0,06\,ms para 4,89\,s ao multiplicar $N$ por cem) reflete a complexidade $\mathcal{O}(N^3)$ do solver direto denso adotado, que se torna proibitivo já em torno de $N = 10\,000$ nós --- precisamente o regime em que se justificaria a migração para um solver iterativo esparso. No caso transcalor 2D, a inclinação observada é substancialmente mais branda: o tempo total cresce aproximadamente com $N^{1{,}2}$, comportamento típico de fatorações esparsas em malhas estruturais 2D, e mantém-se em poucos segundos mesmo com $N \approx 6\,400$ nós e 50 passos temporais. Os dois casos cobrem, portanto, os dois caminhos de código distintos da plataforma: solver denso em problemas 1D e solver esparso com avanço temporal nos problemas 2D. A simulação de Navier-Stokes 2D, embora mais pesada por exigir remontagem da matriz de convecção a cada passo, segue qualitativamente o mesmo padrão da transcalor; a validação do caso de cavidade contra Ghia~\textit{et al.}~\cite{Ghia1982}, apresentada no Capítulo~\ref{cap5}, é executada na própria plataforma com tempos compatíveis com uso interativo (poucos minutos no navegador para malha $41 \times 41$).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{benchmark_scaling.pdf}
+\caption{Escalabilidade do tempo total do solver com o número de nós, em escala log-log, comparando CPython nativo (linha sólida) e Pyodide no navegador (linha tracejada). À esquerda, condução 1D MEF (denso) com inclinação compatível com $\mathcal{O}(N^3)$; à direita, transcalor 2D MEF (esparso, 50 passos) com inclinação próxima de $\mathcal{O}(N^{1{,}2})$.}
+\label{fig:benchmark_scaling}
+\end{figure}
+
+A leitura da Tabela~\ref{tab:benchmark_runtimes} revela três regimes. Quando o tempo total é dominado por loops Python sobre elementos --- caso da transcalor 2D em todos os tamanhos --- a razão Pyodide/CPython mantém-se aproximadamente constante em torno de $3{,}0\text{--}3{,}2\times$, refletindo o fato de que o \textit{WebAssembly} executa o interpretador CPython compilado para Wasm com penalidade modesta, mas \emph{não} acelera o \textit{bytecode} interpretado em si. Em problemas muito pequenos --- como a condução 1D com $N = 101$ --- a razão sobe para cerca de $7\times$, refletindo o sobrecusto fixo de inicialização das chamadas Python que se torna dominante quando o tempo absoluto é da ordem de milissegundos. Já no caso grande, em que o tempo migra para a fatoração linear --- a condução 1D em $N = 10\,001$, com a etapa de \texttt{np.linalg.solve} respondendo por cerca de $99\%$ do total ---, a Tabela~\ref{tab:benchmark_runtimes} registra o Pyodide mais rápido que o CPython nativo (razão $0{,}3\times$). Esse ponto, contudo, não indica uma vantagem de desempenho do navegador: trata-se de um solver denso aplicado a uma matriz tridiagonal armazenada de forma densa (quase toda nula), fora do regime representativo de uso. O Apple Accelerate, biblioteca BLAS empregada pelo NumPy nativo, executa a fatoração LU densa completa, de custo $\mathcal{O}(N^3)$, independentemente do preenchimento, ao passo que o OpenBLAS portado para Wasm realiza muito menos operações sobre os blocos nulos; a aparente inversão mede, portanto, o volume de trabalho de cada biblioteca sobre uma matriz degenerada, e não a velocidade relativa dos ambientes. Em síntese, enquanto o gargalo está em \emph{loops} Python ou na montagem das matrizes --- situação das cargas representativas da plataforma ---, a penalidade de execução no navegador é um pequeno fator multiplicativo (entre $1{,}4$ e $3{,}2\times$), compatível com a interatividade esperada em uso didático; em álgebra densa de grande porte a execução em Wasm é substancialmente mais lenta, mas esse é precisamente o regime em que a formulação densa cederia lugar a um solver esparso.
+
+\section{Arquitetura de Software}
+\label{sec:arquitetura_software}
+
+\subsection{Organização de Diretórios}
+\label{sec:organizacao_diretorios}
+
+O repositório público do \textit{MinervaMesh} (\url{https://github.com/lgsfarias/minervamesh}) segue uma estrutura modular, onde cada simulação é autocontida em seu próprio diretório. A organização geral é apresentada a seguir:
+
+\begin{lstlisting}[style=dirstyle,numbers=none]
+minervamesh/
+|-- index.html                    # Menu principal
+|-- assets/                       # Logos e imagens globais
+|-- simulations/
+|   |-- mef/                     # Elementos Finitos
+|   |   |-- <nome-do-modulo>/
+|   |   |   |-- index.html       # Interface do usuario
+|   |   |   |-- simulation.py    # Logica numerica
+|   |   |   +-- config.toml      # Dependencias Python
+|   |   |-- ...                  # (8 modulos MEF)
+|   |   +-- escoamento-fluido-2d/
+|   |       |-- common.py        # Matrizes MEF 2D
+|   |       +-- geometry.py      # Geometrias de obstaculo
+|   |-- mdf/                     # Diferencas Finitas
+|   +-- extra/                   # Ferramentas auxiliares
+\end{lstlisting}
+
+Cada módulo de simulação segue um padrão uniforme de três arquivos:
+\begin{itemize}
+    \item \texttt{index.html}: interface do usuário, contendo o formulário de parâmetros, o contêiner de resultados e a carga do PyScript;
+    \item \texttt{simulation.py}: implementação da lógica numérica em Python, incluindo montagem de matrizes, solução do sistema e geração de gráficos;
+    \item \texttt{config.toml}: declaração das dependências Python necessárias (por exemplo, \texttt{numpy}, \texttt{scipy}, \texttt{matplotlib}).
+\end{itemize}
+
+\subsection{Fluxo de Execução de uma Simulação}
+\label{sec:fluxo_execucao}
+
+O ciclo de vida de uma simulação no \textit{MinervaMesh} compreende cinco camadas funcionais, todas resolvidas no próprio navegador. No \emph{carregamento}, o navegador requisita o \texttt{index.html} de um servidor HTTP de arquivos estáticos, e a tag \texttt{<script type="py">} instrui o PyScript a inicializar o Pyodide e carregar as dependências declaradas em \texttt{config.toml}. A camada de \emph{parametrização} expõe os parâmetros físicos e numéricos do problema como campos de um formulário HTML, lidos pelo código Python diretamente do DOM. Na \emph{execução}, o Pyodide monta as matrizes do MEF, impõe as condições de contorno e resolve o sistema algébrico, sem qualquer comunicação com servidor. A \emph{visualização} converte os gráficos gerados pelo Matplotlib em imagens codificadas em Base64, inseridas dinamicamente no DOM da página. Por fim, a camada de \emph{inspeção} disponibiliza, na própria página, o código-fonte Python da simulação com realce de sintaxe --- o elo entre a ferramenta de simulação e o seu uso como objeto de estudo em métodos numéricos.
+
+\section{Limitações da Plataforma}
+\label{sec:limitacoes}
+
+A análise computacional apresentada na Seção~\ref{sec:analise_computacional} torna explícitas as restrições impostas pela arquitetura \textit{client-side}. Esta seção sistematiza tais restrições, distinguindo-as em dois grupos: limitações \textit{intrínsecas} ao modelo de execução em \textit{WebAssembly} (que motivariam, em uma plataforma de produção em larga escala, uma migração para arquitetura híbrida) e limitações \textit{contornáveis}, mitigáveis dentro do próprio paradigma \textit{client-side} via extensões já viáveis tecnicamente.
+
+\paragraph{Limitações intrínsecas.}
+
+\begin{itemize}
+    \item \textbf{Memória disponível:} o processo \textit{Pyodide} executa em \textit{sandbox} com \textit{heap} \textit{WebAssembly} tipicamente limitado a poucos gigabytes (4\,GB no padrão Wasm32, ampliável apenas via Wasm64 com suporte parcial nos navegadores), e a pressão prática da coleta de lixo (\textit{garbage collection}, mecanismo de liberação automática de memória do \textit{runtime}) torna-se relevante a partir de algumas centenas de MB.
+
+    \item \textbf{Escalabilidade do problema:} a combinação entre o limite de memória da \textit{sandbox} e a complexidade dos solvers diretos adotados estabelece um teto efetivo de tamanho de problema. Considerando o benchmark da Seção~\ref{sec:analise_computacional}, este teto é da ordem de $10^4$ nós para formulações com matriz densa (acima desse valor, o tempo de \texttt{np.linalg.solve} ultrapassa cinco segundos e o consumo de memória aproxima-se da fronteira da \textit{sandbox}) e da ordem de $10^5$ nós para formulações esparsas com \texttt{spsolve}. A extensão para problemas tridimensionais com malhas refinadas, comum em engenharia profissional, encontra-se fora desta faixa.
+
+    \item \textbf{Execução em \textit{thread} única:} o \textit{Pyodide} ocupa apenas a \textit{thread} principal de JavaScript, o que impede o uso direto de \texttt{multiprocessing}, \texttt{joblib} ou de bibliotecas científicas em modo \textit{multithread}. Operações longas bloqueiam a renderização da página até concluírem, e o ganho potencial de paralelismo de domínio (decomposição da malha entre múltiplos núcleos) não é acessível dentro do paradigma atual.
+
+    \item \textbf{Latência de inicialização (\textit{cold start}):} o carregamento do \textit{runtime} \textit{WebAssembly} e dos pacotes científicos (\texttt{numpy}, \texttt{scipy}, \texttt{matplotlib}) demanda tipicamente entre cinco e quinze segundos no primeiro acesso, dependendo da banda do usuário. Esse custo é amortizado pelo cache do navegador em visitas subsequentes, mas não é eliminado.
+
+    \item \textbf{Geração de malha:} esta é, na prática, a mais sensível das limitações da plataforma para fins de engenharia. O \texttt{Gmsh} --- gerador de malhas não estruturadas adotado como referência \textit{de facto} em pré-processamento de MEF --- não está disponível no \textit{Pyodide}, pois depende de extensões em C++ ainda não portadas para \textit{WebAssembly}. O mesmo se aplica a \texttt{Triangle}, \texttt{TetGen}, \texttt{MeshPy} e demais ferramentas consagradas. Como substituto, o \textit{MinervaMesh} utiliza a triangulação de Delaunay nativa do \texttt{matplotlib.tri}, o que impõe três restrições importantes: (i) a malha resultante é sempre 2D --- não há geração de malha tetraédrica 3D nativamente disponível; (ii) o algoritmo de Delaunay opera sobre um conjunto de pontos pré-determinado, sem refinamento adaptativo a posteriori, sem refinamento dirigido por gradiente da solução, e sem geração de \textit{boundary layer mesh} (camada limite refinada próxima a paredes), recursos centrais em escoamentos de alto Reynolds; (iii) geometrias com obstáculos ou contornos curvilíneos exigem que os pontos da fronteira sejam definidos manualmente em coordenadas cartesianas, como ilustram os módulos de escoamento 2D do MinervaMesh, em que cilindros e degraus são parametrizados ponto a ponto. Esta restrição limita o repertório prático da plataforma a geometrias simples.
+
+    \item \textbf{Suporte parcial à pilha científica:} de modo análogo ao \texttt{Gmsh}, outros pacotes que dependem de extensões nativas ainda não portadas para \textit{WebAssembly} --- como \texttt{petsc4py} (solvers iterativos de larga escala) e diversos pacotes de aprendizado de máquina --- não estão disponíveis no \textit{Pyodide}, embora a cobertura da pilha numérica fundamental (NumPy, SciPy, Matplotlib) seja completa.
+\end{itemize}
+
+\paragraph{Limitações contornáveis.}
+
+\begin{itemize}
+    \item \textbf{Bloqueio da \textit{thread} principal:} mitigável por meio de \textit{Web Workers}, que permitem mover a execução do \textit{Pyodide} para uma \textit{thread} paralela ao DOM, preservando a responsividade da interface durante simulações longas. A reorganização exigida é localizada à camada de orquestração.
+
+    \item \textbf{Solvers diretos esparsos:} o uso atual de \texttt{spsolve} no caso transiente 2D refatora a matriz $\mathbf{A}$ a cada chamada e, embora robusto, é mais custoso do que o necessário para sistemas simétricos definidos positivos. A substituição por solvers iterativos (\texttt{scipy.sparse.linalg.cg}, \texttt{gmres}) com pré-condicionamento adequado --- ou o reuso explícito da fatoração via \texttt{splu} --- viabilizaria malhas substancialmente maiores dentro da mesma fronteira de memória.
+
+    \item \textbf{Geração de malha avançada:} a integração com geradores externos consagrados é viável à medida que esses geradores recebam \textit{ports} para \textit{WebAssembly}. O projeto \texttt{triangle-wasm} \cite{TriangleWasm} comprova essa viabilidade ao distribuir o gerador \textit{Triangle}, de J. Shewchuk, compilado via \textit{Emscripten} e executável diretamente no navegador --- amplia substancialmente o repertório 2D em relação à triangulação simples do \texttt{matplotlib.tri}, ao oferecer triangulação de Delaunay com restrições de contorno e refinamento controlado por qualidade. A portabilização do \texttt{Gmsh} para \textit{WebAssembly}, ainda inexistente em forma oficial mas tecnicamente factível pelo mesmo caminho, eliminaria simultaneamente as três restrições atuais de pré-processamento (geometrias complexas, refinamento adaptativo e extensão tridimensional), preservando integralmente o paradigma \textit{client-side}.
+
+    \item \textbf{Eficiência da montagem:} os \textit{loops} Python sobre elementos --- predominantes na fase de montagem dos casos 2D --- constituem o gargalo mais sensível à execução em Wasm, conforme indica a Tabela~\ref{tab:benchmark_runtimes}. Vetorização adicional via operações \texttt{numpy.add.at} ou refatoração para \texttt{Cython}/\texttt{Numba} (não disponíveis em Wasm no momento) reduziriam parte significativa dessa diferença.
+\end{itemize}
+
+Para os módulos didáticos e os tamanhos de malha tipicamente empregados em ensino de Engenharia Mecânica (centenas a poucos milhares de nós), nenhuma dessas limitações se mostrou restritiva ao longo das validações apresentadas no Capítulo~\ref{cap5}. As restrições enumeradas acima são, portanto, fronteiras de ampliação futura, e não barreiras à utilização atual.
+
+\section{Síntese do Capítulo}
+\label{sec:sintese_plataforma}
+
+\paragraph{}Este capítulo apresentou a plataforma \textit{MinervaMesh} sob a ótica do software de entrega. A escolha do PyScript e da computação \textit{client-side} viabiliza uma plataforma de simulação numérica com custo de infraestrutura zero, portabilidade total e código aberto para inspeção acadêmica, com penalidade de desempenho quantificada em um pequeno fator multiplicativo frente à execução nativa. A organização modular do repositório --- com cada simulação autocontida em três arquivos (HTML, Python, TOML) --- permite a extensão da plataforma com novos casos sem impacto nos módulos existentes. Os capítulos seguintes completam o quadro: o Capítulo~\ref{cap:implementacao} detalha a implementação numérica de cada módulo de simulação, e o Capítulo~\ref{cap5} apresenta sua validação frente a soluções analíticas e \textit{benchmarks} da literatura.

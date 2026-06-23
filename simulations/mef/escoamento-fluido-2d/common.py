@@ -30,9 +30,6 @@ def generate_mesh_generic(L, H, boundary_points, mask_function, cx, cy, nx, ny):
     y_bound = boundary_points[:, 1]
     
     # 3. Filtrar nós do grid usando a função de máscara
-    # Buffer para evitar triângulos muito finos (slivers)
-    # A função de máscara deve ser conservadora (remover apenas o que está garantidamente dentro)
-    # Mas aqui vamos aplicar diretamente
     mask_keep = mask_function(X_flat, Y_flat)
     
     X_grid_valid = X_flat[mask_keep]
@@ -45,17 +42,11 @@ def generate_mesh_generic(L, H, boundary_points, mask_function, cx, cy, nx, ny):
     # 5. Triangulação
     triang = tri.Triangulation(X, Y)
     
-    # 6. Mascarar triângulos espúrios (dentro do obstáculo)
+    # 6. Mascarar triângulos espúrios (dentro do obstáculo):
+    # remove-se o triângulo cujo centróide não passa na máscara de "manter".
     x_tri = X[triang.triangles].mean(axis=1)
     y_tri = Y[triang.triangles].mean(axis=1)
-    
-    # Se o centróide não passa na máscara de "manter", então removemos
-    # Mas cuidado: a máscara de manter pode ser "dist > r + buffer".
-    # Para triângulos, queremos remover se estiver DENTRO do obstáculo exato.
-    # Vamos assumir que mask_function(x, y, strict=True) remove o interior.
-    # Por simplicidade, vamos passar uma segunda função ou usar a mesma com lógica interna.
-    # Vamos usar a mesma mask_function. Se retornar False (remover), mascaramos.
-    
+
     triang.set_mask(~mask_function(x_tri, y_tri))
     
     return X, Y, triang

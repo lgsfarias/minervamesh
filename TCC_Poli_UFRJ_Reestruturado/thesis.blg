@@ -8,18 +8,18 @@ A level-1 auxiliary file: Pre-textual/abstract.aux
 A level-1 auxiliary file: Textual/introducao.aux
 A level-1 auxiliary file: Textual/revisao_bibliografica.aux
 A level-1 auxiliary file: Textual/fundamentacao_teorica.aux
+A level-1 auxiliary file: Textual/plataforma.aux
+A level-1 auxiliary file: Textual/implementacao.aux
 A level-1 auxiliary file: Textual/resultados.aux
-A level-1 auxiliary file: Textual/arquitetura.aux
 A level-1 auxiliary file: Textual/conclusao.aux
 The style file: poli-unsrt.bst
-A level-1 auxiliary file: Pos-textual/apendice_modulos_1d.aux
-A level-1 auxiliary file: Pos-textual/apendice_modulos_2d.aux
+A level-1 auxiliary file: Pos-textual/apendice_listagens.aux
 A level-1 auxiliary file: Pos-textual/apendice_benchmark.aux
 Database file #1: thesis.bib
 Warning--empty pages in Clough1960
 You've used 46 entries,
             2438 wiz_defined-function locations,
-            904 strings with 12729 characters,
+            904 strings with 12717 characters,
 and the built_in function-call counts, 8994 in all, are:
 = -- 720
 > -- 276

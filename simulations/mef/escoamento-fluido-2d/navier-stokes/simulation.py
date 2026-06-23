@@ -8,7 +8,7 @@ import asyncio
 from common import generate_mesh_generic, assemble_matrices, plot_to_base64
 import geometry
 
-# Global control flag
+# Sinalizador global de controle
 STOP_SIMULATION = False
 
 @when("click", "#stop-btn")
@@ -21,7 +21,7 @@ def stop_simulation_handler(event=None):
     document.getElementById("run-btn").classList.add("flex")
 
 # ==============================
-# NS Helpers
+# Funções auxiliares do solver NS
 # ==============================
 def assemble_convection(X, Y, triang, u_el, v_el):
     n_nodes = len(X)
@@ -85,16 +85,16 @@ def get_boundary_normals(X, Y, boundary_nodes, triang):
 async def solve_navier_stokes(params, plot_div):
     # 1. Malha
     cx, cy = params["cx"], params["cy"]
-    
-    # Helper for inlet profile
+
+    # Perfil de entrada (inlet)
     def get_psi_inlet(y_val):
-        # Default: u=1, psi=y
+        # Padrão: u=1, psi=y
         return y_val
 
     scenario = params.get("scenario", "channel")
-    
+
     if scenario == "cavity":
-        # Force no geometry/obstruction for cavity
+        # Cavidade: sem geometria/obstáculo
         boundary_pts = np.empty((0, 2))
         def mask_func(x, y): return np.ones_like(x, dtype=bool)
     else:
@@ -115,85 +115,69 @@ async def solve_navier_stokes(params, plot_div):
     wall_bottom = np.where(Y < eps)[0]
     wall_top = np.where(Y > params["H"] - eps)[0]
     
-    # Obstacle nodes (last N points)
+    # Nós do obstáculo (últimos N pontos)
     n_bound = len(boundary_pts)
     obstacle_nodes = np.arange(n_nodes - n_bound, n_nodes)
-    
+
     solid_walls = np.concatenate([wall_bottom, wall_top, obstacle_nodes])
     solid_walls = np.unique(solid_walls)
-    
+
     wall_neighbors, wall_h_sq = get_boundary_normals(X, Y, solid_walls, triang)
-    
-    # 4. Inicialização
-    # 4. Inicialização e Condições de Contorno
+
+    # 4. Inicialização e condições de contorno
     psi = np.zeros(n_nodes)
     omega = np.zeros(n_nodes)
     
     scenario = params.get("scenario", "channel")
     
     if scenario == "cavity":
-        # Lid-Driven Cavity
-        # Walls: Bottom, Left, Right, Top
-        # Psi = 0 on all walls (closed box)
-        # Omega BC drives the flow.
-        
-        # Identify walls
+        # Cavidade quadrada com tampa deslizante (lid-driven cavity):
+        # psi = 0 em todas as paredes (caixa fechada); o escoamento é
+        # induzido pela condição de contorno de vorticidade na tampa.
         eps = 1e-5
         wall_bottom = np.where(Y < eps)[0]
         wall_top = np.where(Y > params["H"] - eps)[0]
         wall_left = np.where(X < eps)[0]
         wall_right = np.where(X > params["L"] - eps)[0]
-        
-        # All boundary nodes
+
+        # Todos os nós da fronteira
         all_walls = np.concatenate([wall_bottom, wall_top, wall_left, wall_right])
         all_walls = np.unique(all_walls)
-        
-        # Psi BC: 0 everywhere on boundary
+
+        # Contorno de psi: 0 em toda a fronteira
         psi[all_walls] = 0.0
-        
         dirichlet_psi = all_walls
-        
-        # Omega BC nodes (same as Psi for now, updated in loop)
+
+        # Contorno de omega (mesmos nós; atualizado a cada passo no laço)
         dirichlet_omega = all_walls
-        
-        # For Thom's formula, we need neighbors for ALL walls
+
+        # Vizinhos de todas as paredes (necessários para a fórmula de Thom)
         wall_neighbors, wall_h_sq = get_boundary_normals(X, Y, all_walls, triang)
-        
-        # Store wall types for specific BC application
-        # Top wall moves: u = 1 -> dPsi/dy = 1
-        # Thom's formula with moving wall:
-        # omega_w = -2(psi_nb - psi_w - h*u_wall) / h^2
-        # Here u_wall = 1 for top, 0 for others.
-        
-        # We need to map each wall node to its velocity (u_tan)
+
+        # Velocidade tangencial de cada parede: a tampa superior se move (u = 1),
+        # as demais são estacionárias (u = 0).
         wall_u_tan = np.zeros(len(all_walls))
-        
-        # Find indices of top wall nodes within all_walls
-        # This is O(N^2) worst case but N_bound is small.
-        # Better: Create a map.
-        
-        # Let's just iterate
         for i, node_idx in enumerate(all_walls):
             if Y[node_idx] > params["H"] - eps:
-                wall_u_tan[i] = 1.0 # Moving lid
+                wall_u_tan[i] = 1.0 # tampa móvel
             else:
                 wall_u_tan[i] = 0.0
-                
-        solid_walls = all_walls # For consistency with loop
-        
+
+        solid_walls = all_walls
+
     else:
-        # Channel Flow (Original Logic)
+        # Escoamento em canal
         psi[inlet_nodes] = get_psi_inlet(Y[inlet_nodes])
         psi[wall_bottom] = 0.0
-        
-        # Top Wall BC
+
+        # Parede superior
         psi[wall_top] = params["H"]
-        
-        # Obstacle BC
+
+        # Obstáculo
         if params.get("geo_type") == "step":
              psi[obstacle_nodes] = 0.0
         else:
-            # Cylinder/Rectangle/etc
+            # Cilindro, retângulo, etc.
             psi[obstacle_nodes] = get_psi_inlet(cy)
 
         dirichlet_psi = np.concatenate([inlet_nodes, wall_bottom, wall_top, obstacle_nodes])
@@ -206,8 +190,8 @@ async def solve_navier_stokes(params, plot_div):
         dirichlet_omega = np.unique(dirichlet_omega)
         
         wall_neighbors, wall_h_sq = get_boundary_normals(X, Y, solid_walls, triang)
-        
-        # Stationary walls
+
+        # Paredes estacionárias
         wall_u_tan = np.zeros(len(solid_walls))
 
     free_psi = np.setdiff1d(np.arange(n_nodes), dirichlet_psi)
@@ -224,25 +208,25 @@ async def solve_navier_stokes(params, plot_div):
     
     while current_step < total_steps and not STOP_SIMULATION:
         for _ in range(steps_per_frame):
-            # A. Poisson Psi
+            # A. Poisson para a função corrente psi
             rhs_psi = M @ omega
             b_psi = rhs_psi[free_psi] - K[free_psi, :][:, dirichlet_psi] @ psi[dirichlet_psi]
             psi[free_psi] = spsolve(K_free_psi, b_psi)
             
-            # B. Thom's Formula (Generalized for moving walls)
-            # Canonical form: omega_w = -2 (psi_nb - psi_w)/h^2 - 2 u_tan/h
-            # Derivation (top lid, n inward = -y): Taylor at the wall with step -h gives
+            # B. Fórmula de Thom (generalizada para paredes móveis)
+            # Dedução (tampa superior, normal interna = -y): a expansão de Taylor
+            # na parede com passo -h fornece
             #   psi_nb = psi_w - h (dpsi/dy)_w + (h^2/2) (d2psi/dy2)_w
-            # Since u = dpsi/dy, (dpsi/dy)_w = u_tan. With psi constant along the wall,
-            # d2psi/dx2 = 0 there, so d2psi/dy2 = -omega_w. Solving:
+            # Como u = dpsi/dy, tem-se (dpsi/dy)_w = u_tan. Com psi constante ao
+            # longo da parede, d2psi/dx2 = 0, logo d2psi/dy2 = -omega_w. Isolando:
             #   omega_w = -2 (psi_nb - psi_w + h u_tan) / h^2
-            # Validated against Ghia et al. (1982) at Re=100.
+            # Validada contra Ghia et al. (1982) em Re=100.
             psi_nb = psi[wall_neighbors]
             psi_w = psi[solid_walls]
             h_vals = np.sqrt(wall_h_sq)
             omega[solid_walls] = -2.0 * (psi_nb - psi_w + h_vals * wall_u_tan) / wall_h_sq
             
-            # C. Velocities
+            # C. Velocidades
             elements = triang.triangles
             mask = triang.mask if triang.mask is not None else np.zeros(len(elements), dtype=bool)
             el_nodes = elements[~mask]
@@ -262,10 +246,10 @@ async def solve_navier_stokes(params, plot_div):
             u_el_full[~mask] = u_vals
             v_el_full[~mask] = v_vals
             
-            # D. Convection
+            # D. Convecção
             C = assemble_convection(X, Y, triang, u_el_full, v_el_full)
-            
-            # E. Vorticity Transport
+
+            # E. Transporte de vorticidade
             A = M + (dt / Re) * K
             rhs = M @ omega - dt * (C @ omega)
             
@@ -288,18 +272,16 @@ async def solve_navier_stokes(params, plot_div):
         ax2 = fig.add_subplot(gs[1])
         ax3 = fig.add_subplot(gs[2])
         
-        # Smooth gradient for Psi using tripcolor with Gouraud shading
-        # User requested "Blue to Red" (Jet)
+        # Campo de psi com sombreamento Gouraud e mapa de cores Jet
         contour_psi = ax1.tripcolor(triang, psi, shading='gouraud', cmap='jet')
-        # Removed discrete contour lines for cleaner look
-        ax1.triplot(triang, color='k', alpha=0.2, linewidth=0.5) # Visible mesh
+        ax1.triplot(triang, color='k', alpha=0.2, linewidth=0.5) # malha visível
         ax1.set_title(f"Navier-Stokes (Step {current_step}) - $\\psi$")
         ax1.set_aspect('equal')
         ax1.set_xlabel("x [m]")
         ax1.set_ylabel("y [m]")
         fig.colorbar(contour_psi, ax=ax1)
         
-        # Smooth gradient for Omega
+        # Campo de omega com sombreamento Gouraud
         contour_omega = ax2.tripcolor(triang, omega, shading='gouraud', cmap='jet')
         ax2.triplot(triang, color='k', alpha=0.2, linewidth=0.5)
         ax2.set_title(f"Navier-Stokes (Step {current_step}) - $\\omega$")
@@ -316,7 +298,7 @@ async def solve_navier_stokes(params, plot_div):
         v_grid = -dpsi_dx_grid
         vel_mag_grid = np.sqrt(u_grid**2 + v_grid**2)
         
-        # Streamlines with 'jet'
+        # Linhas de corrente (mapa de cores Jet)
         strm = ax3.streamplot(Xi, Yi, u_grid, v_grid, color=vel_mag_grid, cmap='jet', density=1.5, linewidth=1, arrowsize=1.5)
         ax3.set_title("Linhas de Corrente")
         ax3.set_aspect('equal')
@@ -388,8 +370,8 @@ async def run_handler(event=None):
     plot_div = document.getElementById("plot-output")
     plot_div.innerHTML = "Iniciando..."
     await asyncio.sleep(0.1)
-    
-    # Show stop button
+
+    # Exibe o botão de parar
     document.getElementById("run-btn").classList.add("hidden")
     document.getElementById("run-btn").classList.remove("flex")
     document.getElementById("stop-btn").classList.remove("hidden")

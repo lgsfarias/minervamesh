@@ -1,44 +1,25 @@
 \chapter{Scripts de Benchmark Computacional}
 \label{apend:benchmark}
 
-\paragraph{}Este apêndice reúne as listagens dos \textit{scripts} utilizados para gerar os tempos reportados na Seção~\ref{sec:analise_computacional} (Tabela~\ref{tab:benchmark_runtimes} e Figura~\ref{fig:benchmark_scaling}). Os \textit{solvers} numéricos em \texttt{benchmark/core/} são cópias diretas das implementações dos módulos \texttt{simulation.py} apresentadas nos Apêndices~\ref{ApendiceA} e~\ref{ApendiceB}, com a única alteração da remoção das chamadas ao DOM (\texttt{document.getElementById}) e à camada de visualização (\texttt{matplotlib}, \texttt{imageio}). Os algoritmos numéricos --- montagem das matrizes elementares e globais, imposição das condições de contorno, resolução do sistema linear e avanço temporal --- são preservados \emph{linha a linha}, de modo a garantir que o tempo medido corresponde de fato ao núcleo numérico executado pelo usuário no navegador. Os mesmos \textit{scripts} são invocados em ambos os ambientes do \textit{benchmark} (CPython local e Pyodide no navegador), assegurando a comparabilidade dos resultados.
+\paragraph{}Este apêndice descreve os \textit{scripts} utilizados para gerar os tempos reportados na Seção~\ref{sec:analise_computacional} (Tabela~\ref{tab:benchmark_runtimes} e Figura~\ref{fig:benchmark_scaling}). Os \textit{solvers} numéricos em \texttt{benchmark/core/} são cópias diretas das implementações dos módulos \texttt{simulation.py} disponíveis no repositório da plataforma --- das quais o Apêndice~\ref{ap:listagens} reproduz listagens representativas ---, com a única alteração da remoção das chamadas ao DOM (\texttt{document.getElementById}) e à camada de visualização (\texttt{matplotlib}, \texttt{imageio}). Os algoritmos numéricos --- montagem das matrizes elementares e globais, imposição das condições de contorno, resolução do sistema linear e avanço temporal --- são preservados \emph{linha a linha}, de modo a garantir que o tempo medido corresponde de fato ao núcleo numérico executado pelo usuário no navegador. Os mesmos \textit{scripts} são invocados em ambos os ambientes do \textit{benchmark} (CPython local e Pyodide no navegador), assegurando a comparabilidade dos resultados.
 
-\section{Solver de Condução Permanente 1D Adaptado}
-\label{ap:bench_cond_1d}
+\paragraph{}Em vez de reproduzir o código integral --- já disponível, sob licença MIT, no diretório \texttt{benchmark/} do repositório público do projeto (\url{https://github.com/lgsfarias/minervamesh}) ---, descrevem-se a seguir o papel de cada arquivo no experimento e as relações entre eles. Os \textit{scripts} organizam-se em três camadas: os \textit{solvers} de referência, que executam o núcleo numérico a ser cronometrado; a biblioteca de infraestrutura de medição, que cronometra e agrega os tempos; e os executores, que coordenam a varredura de tamanhos em cada ambiente.
 
-\lstinputlisting[
-  caption={\texttt{benchmark/core/cond\_1d.py} --- cópia adaptada do solver MEF de condução permanente 1D},
-  label={lst:bench_cond_1d}
-]{../benchmark/core/cond_1d.py}
+\section{Solvers de Referência}
+\label{ap:bench_solvers}
 
-\section{Solver de Transcalor 2D Adaptado}
-\label{ap:bench_transcalor_2d}
+\paragraph{}O arquivo \texttt{benchmark/core/cond\_1d.py} (cerca de 70 linhas) implementa o \textit{solver} de elementos finitos para o problema de condução permanente unidimensional, replicando o módulo homônimo da plataforma com a camada de interface gráfica removida. Ele monta a matriz de rigidez global a partir das contribuições elementares lineares, impõe as condições de contorno de Dirichlet e resolve o sistema linear resultante, retornando o campo de temperaturas nodal. Por expor apenas a função de cálculo --- sem dependências de DOM ou de \textit{plotting} ---, presta-se a ser invocado diretamente pelos executores de \textit{benchmark} e cronometrado de forma isolada.
 
-\lstinputlisting[
-  caption={\texttt{benchmark/core/transcalor\_2d.py} --- cópia adaptada do solver MEF de transferência de calor 2D},
-  label={lst:bench_transcalor_2d}
-]{../benchmark/core/transcalor_2d.py}
+\paragraph{}O arquivo \texttt{benchmark/core/transcalor\_2d.py} (cerca de 118 linhas) cumpre o papel análogo para o problema bidimensional de transferência de calor, sendo o \textit{solver} mais custoso dos dois e, portanto, o mais sensível à variação de tamanho da malha. Ele gera a malha triangular, monta as matrizes elementares e globais, aplica as condições de contorno e resolve o sistema esparso correspondente. Ambos os \textit{solvers} compartilham a mesma assinatura de entrada (parâmetros de malha e de material) e de saída (vetor solução), o que permite que os executores os tratem de modo uniforme na varredura de tamanhos.
 
-\section{Biblioteca Auxiliar de Cronometragem}
+\section{Infraestrutura de Medição}
 \label{ap:bench_lib}
 
-\lstinputlisting[
-  caption={\texttt{benchmark/bench\_lib.py} --- \textit{context manager} para medição de fases, função de rodadas repetidas com mediana e MAD, e escrita CSV},
-  label={lst:bench_lib}
-]{../benchmark/bench_lib.py}
+\paragraph{}O arquivo \texttt{benchmark/bench\_lib.py} (cerca de 90 linhas) concentra a infraestrutura de cronometragem compartilhada pelos dois executores. Ele provê um \textit{context manager} para medir o tempo de fases individuais da execução, uma função que repete cada medição em múltiplas rodadas e agrega os resultados pela mediana e pelo desvio absoluto mediano (MAD) --- estatísticas robustas a \textit{outliers} causados por flutuações do ambiente de execução ---, além de rotinas para a escrita dos tempos em arquivos CSV. Por ser agnóstica ao \textit{solver} e ao ambiente, esta biblioteca é importada tanto pelo executor local quanto pelo executor no navegador, garantindo que ambos apliquem exatamente o mesmo protocolo de medição e o mesmo formato de saída.
 
-\section{Runner Local (CPython)}
-\label{ap:bench_local}
+\section{Executores}
+\label{ap:bench_runners}
 
-\lstinputlisting[
-  caption={\texttt{benchmark/run\_benchmark\_local.py} --- executa a varredura de tamanhos em CPython nativo e grava \texttt{results\_local.csv}},
-  label={lst:bench_local}
-]{../benchmark/run_benchmark_local.py}
+\paragraph{}O arquivo \texttt{benchmark/run\_benchmark\_local.py} (cerca de 106 linhas) é o executor de referência em CPython nativo: percorre a varredura de tamanhos de malha, invoca os \textit{solvers} de \texttt{benchmark/core/} para cada tamanho por meio das rotinas de cronometragem de \texttt{bench\_lib.py} e grava os tempos agregados em \texttt{results\_local.csv}. Ele estabelece a linha de base de desempenho contra a qual os tempos do navegador são comparados.
 
-\section{Runner no Navegador (PyScript)}
-\label{ap:bench_browser}
-
-\lstinputlisting[
-  caption={\texttt{benchmark/run\_benchmark\_browser.py} --- mesmo \textit{benchmark} executado sob Pyodide; o usuário inicia a execução por um botão na página \texttt{run\_benchmark\_browser.html} e obtém \texttt{results\_browser.csv} via \textit{download} no navegador},
-  label={lst:bench_browser}
-]{../benchmark/run_benchmark_browser.py}
+\paragraph{}O arquivo \texttt{benchmark/run\_benchmark\_browser.py} (cerca de 147 linhas) reproduz a mesma varredura sob Pyodide, no navegador. A execução é iniciada pelo usuário através de um botão na página \texttt{run\_benchmark\_browser.html}, e os tempos agregados são disponibilizados como \texttt{results\_browser.csv} via \textit{download}. Por reutilizar os mesmos \textit{solvers} de \texttt{benchmark/core/} e a mesma biblioteca \texttt{bench\_lib.py} do executor local, diferindo apenas na camada de inicialização e de obtenção do resultado, este \textit{script} assegura que as diferenças de tempo medidas reflitam o ambiente de execução, e não variações na implementação numérica.

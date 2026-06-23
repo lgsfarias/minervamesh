@@ -155,7 +155,7 @@ Robin     & $\alpha\,u + \beta\,\partial u/\partial n = \gamma$ & Natural mista 
 \end{tabular}
 \end{table}
 
-Os módulos da plataforma documentados no Capítulo~\ref{cap4} fazem uso predominante de condições de Dirichlet (temperaturas e velocidades prescritas) e, de forma implícita, de Neumann homogêneas em paredes adiabáticas e fronteiras livres ($\bar{q} = 0$). Condições de Robin não são empregadas nos módulos atuais; sua incorporação --- particularmente no módulo de transferência de calor 2D, para representar troca convectiva com o meio externo --- configura-se como extensão natural prevista nas considerações finais do Capítulo~\ref{cap6}.
+Os módulos da plataforma documentados no Capítulo~\ref{cap:implementacao} fazem uso predominante de condições de Dirichlet (temperaturas e velocidades prescritas) e, de forma implícita, de Neumann homogêneas em paredes adiabáticas e fronteiras livres ($\bar{q} = 0$). Condições de Robin não são empregadas nos módulos atuais; sua incorporação --- particularmente no módulo de transferência de calor 2D, para representar troca convectiva com o meio externo --- configura-se como extensão natural prevista nas considerações finais do Capítulo~\ref{cap6}.
 
 \subsection{O Método de Galerkin}
 \label{sec:galerkin}
@@ -357,7 +357,7 @@ Na formulação SUPG, a função-teste é modificada para $w_i = N_i + \tau_{\te
 \tau_{\text{SUPG}} = \frac{h_e}{2 \|\mathbf{v}\|} \left( \coth \text{Pe}_e - \frac{1}{\text{Pe}_e} \right)
 \label{eq:tau_supg}
 \end{equation}
-onde $\text{Pe}_e = \|\mathbf{v}\| h_e / (2\alpha)$ é o número de Péclet elementar.
+onde $\text{Pe}_e = \|\mathbf{v}\| h_e / (2\alpha)$ é o número de Péclet elementar e $\alpha = k/(\rho c_p)$ é a difusividade térmica do material. Em termos das propriedades físicas, essa definição equivale a $\text{Pe}_e = \rho c_p \|\mathbf{v}\| h_e / (2k)$, forma adotada na validação numérica (Capítulo~\ref{cap5}) e na implementação (Capítulo~\ref{cap:implementacao}).
 
 No \textit{MinervaMesh}, a estabilização SUPG é empregada no caso unidimensional de convecção-difusão, onde o efeito do número de Péclet é mais crítico. No solver bidimensional de Navier-Stokes, a convecção da vorticidade utiliza a formulação de Galerkin padrão (Eq.~\ref{eq:conveccao_galerkin}), sendo a estabilidade controlada pela escolha adequada do passo de tempo e do número de Reynolds.
 

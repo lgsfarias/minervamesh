@@ -114,7 +114,7 @@ class MeshGenerator:
         else:
             filtered_triangles = tri.simplices
         
-        # --- NOVO: Gerar elementos de linha (bordas) ---
+        # Geração dos elementos de linha (bordas) do contorno
         border_lines = []
         border_lines_furo = []
         # Bordas externas do retângulo
@@ -175,8 +175,7 @@ class MeshGenerator:
                     idx1 = np.where(np.all(np.abs(points - p1) < tol, axis=1))[0][0]
                     idx2 = np.where(np.all(np.abs(points - p2) < tol, axis=1))[0][0]
                     border_lines_furo.append((idx1, idx2))
-        # --- FIM NOVO ---
-        
+
         # Criar arquivo temporário
         temp_file = tempfile.NamedTemporaryFile(suffix='.msh', delete=False)
         temp_filename = temp_file.name

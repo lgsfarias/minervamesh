@@ -25,67 +25,67 @@ def get_geometry(geo_type, params):
         return np.column_stack([x_bound, y_bound]), mask_func
         
     elif geo_type == "airfoil" or geo_type == "naca4412":
-        # General NACA 4-Digit Series Generator
-        # M: Max camber (1st digit)
-        # P: Max camber pos (2nd digit)
-        # T: Max thickness (3rd, 4th digits)
-        
+        # Gerador da série NACA de 4 dígitos
+        # M: curvatura máxima (1º dígito)
+        # P: posição da curvatura máxima (2º dígito)
+        # T: espessura máxima (3º e 4º dígitos)
+
         if geo_type == "naca4412":
             M = 0.04
             P = 0.40
             T = 0.12
-        else: # Default 0012
+        else: # padrão 0012
             M = 0.00
             P = 0.00
             T = 0.12
-            
+
         chord = params["chord"]
         angle = np.radians(params["angle"])
-        
+
         n_pts = 100
         beta = np.linspace(0, np.pi, n_pts)
-        xc = 0.5 * (1 - np.cos(beta)) # Cosine spacing [0, 1]
-        
-        # Thickness distribution (yt)
+        xc = 0.5 * (1 - np.cos(beta)) # distribuição cossenoidal [0, 1]
+
+        # Distribuição de espessura (yt)
         yt = 5 * T * (0.2969*np.sqrt(xc) - 0.1260*xc - 0.3516*xc**2 + 0.2843*xc**3 - 0.1015*xc**4)
-        
-        # Camber line (yc) and gradient (dyc_dx)
+
+        # Linha de curvatura média (yc) e gradiente (dyc_dx)
         yc = np.zeros_like(xc)
         dyc_dx = np.zeros_like(xc)
-        
+
         if M > 0:
-            # Forward of max camber (0 <= x <= P)
+            # Antes da curvatura máxima (0 <= x <= P)
             idx1 = xc <= P
             yc[idx1] = (M / P**2) * (2*P*xc[idx1] - xc[idx1]**2)
             dyc_dx[idx1] = (2*M / P**2) * (P - xc[idx1])
-            
-            # Aft of max camber (P < x <= 1)
+
+            # Após a curvatura máxima (P < x <= 1)
             idx2 = xc > P
             yc[idx2] = (M / (1-P)**2) * ((1-2*P) + 2*P*xc[idx2] - xc[idx2]**2)
             dyc_dx[idx2] = (2*M / (1-P)**2) * (P - xc[idx2])
-            
+
         theta_c = np.arctan(dyc_dx)
-        
-        # Upper and Lower surface coordinates
+
+        # Coordenadas das superfícies superior e inferior
         x_upper = xc - yt * np.sin(theta_c)
         y_upper = yc + yt * np.cos(theta_c)
         x_lower = xc + yt * np.sin(theta_c)
         y_lower = yc - yt * np.cos(theta_c)
-        
-        # Scale by chord
+
+        # Escala pela corda
         x_upper *= chord
         y_upper *= chord
         x_lower *= chord
         y_lower *= chord
-        
-        # Combine (trailing edge to leading edge to trailing edge)
+
+        # Combina (bordo de fuga -> bordo de ataque -> bordo de fuga)
         x_local = np.concatenate([x_upper[::-1], x_lower[1:]])
         y_local = np.concatenate([y_upper[::-1], y_lower[1:]])
-        
-        # Center at cx, cy (approximate center of chord)
+
+        # Centraliza em cx, cy (centro aproximado da corda)
         x_local -= chord / 2
-        
-        # Rotate and Translate
+
+        # Rotaciona e translada
         c, s = np.cos(angle), np.sin(angle)
         x_rot = c * x_local - s * y_local + cx
         y_rot = s * x_local + c * y_local + cy
@@ -124,7 +124,7 @@ async def solve_potential(params, plot_div):
     wall_bottom = np.where(Y < eps)[0]
     wall_top = np.where(Y > params["H"] - eps)[0]
     
-    # Obstacle nodes: são os últimos N pontos em X, Y (pois concatenamos)
+    # Nós do obstáculo: são os últimos N pontos em X, Y (pois concatenamos)
     n_bound = len(boundary_pts)
     obstacle_nodes = np.arange(n_nodes - n_bound, n_nodes)
     
@@ -139,10 +139,9 @@ async def solve_potential(params, plot_div):
     psi[wall_bottom] = 0.0
     psi[wall_top] = params["v_inf"] * params["H"]
     
-    # Obstacle: Psi constante + Gamma
-    # Qual valor base? Psi no centro do obstáculo (aproximado)
+    # Obstáculo: Psi constante + Gamma (valor base = Psi no centro do obstáculo)
     psi_base = get_psi_inlet(params["cy"])
-    # Hardcode Gamma = 0.0 (Pure Potential Flow)
+    # Escoamento potencial puro: Gamma = 0.0
     params["Gamma"] = 0.0
     psi[obstacle_nodes] = psi_base + params["Gamma"]
     
@@ -157,8 +156,7 @@ async def solve_potential(params, plot_div):
     psi[free_psi] = spsolve(K_free, b_free)
     
     # --- CÁLCULO AERODINÂMICO ---
-    # 1. Velocidade nos nós
-    # Interpolador linear para gradientes (velocidade) nos elementos
+    # 1. Velocidade nos nós (interpolador linear para os gradientes)
     tci = tri.LinearTriInterpolator(triang, psi)
     (dpsi_dx, dpsi_dy) = tci.gradient(X, Y)
     u_nodes = dpsi_dy
@@ -170,8 +168,7 @@ async def solve_potential(params, plot_div):
     Cp = 1.0 - V_sq / (U_inf**2)
     
     # 2. Extrair dados na superfície do obstáculo
-    # obstacle_nodes já temos. Precisamos ordenar para plotar e integrar.
-    # Ordenar pelo ângulo em relação ao centro (cx, cy) funciona para todos (convexos)
+    # Ordena pelo ângulo em relação ao centro (cx, cy) — válido para geometrias convexas
     obs_idx = obstacle_nodes
     x_obs = X[obs_idx]
     y_obs = Y[obs_idx]
@@ -201,27 +198,24 @@ async def solve_potential(params, plot_div):
         dy = y_loop[i+1] - y_loop[i]
         ds = np.sqrt(dx*dx + dy*dy)
         
-        # Normal (rotacionar tangente 90 graus para fora)
-        # Tangente: (dx, dy). Normal: (dy, -dx) (Verificar sentido horário/anti-horário)
-        # Pontos ordenados por ângulo (-pi a pi) -> Sentido Anti-Horário
-        # Tangente aponta no sentido anti-horário.
-        # Normal para fora deve ser (dy, -dx).
+        # Normal externa (tangente rotacionada 90°)
+        # Pontos ordenados por ângulo (-pi a pi) -> sentido anti-horário,
+        # logo a tangente é (dx, dy) e a normal externa é (dy, -dx).
         nx = dy / ds
         ny = -dx / ds
         
         cp_avg = 0.5 * (cp_loop[i] + cp_loop[i+1])
-        
+
         # Força = -Cp * n * ds
         CD_num += -cp_avg * nx * ds
         CL_num += -cp_avg * ny * ds
-        
-    # Normalizar pela corda/diâmetro?
-    # Cp já é adimensional. A integral dá Força/ (0.5 rho U^2).
-    # Para obter CL, dividimos pela corda (ou diâmetro).
+
+    # Cp é adimensional e a integral fornece Força / (0.5 rho U^2);
+    # para obter CL/CD, normalizamos pelo comprimento de referência (corda ou diâmetro).
     if params["geo_type"] == "cylinder":
         ref_len = 2 * params["r"]
     elif params["geo_type"] == "square":
-        ref_len = params["side"] # Aproximado
+        ref_len = params["side"] # aproximado
     elif params["geo_type"] == "airfoil" or params["geo_type"] == "naca4412":
         ref_len = params["chord"]
     else:
@@ -231,19 +225,18 @@ async def solve_potential(params, plot_div):
     CD_num /= ref_len
 
     # --- CÁLCULO DIMENSIONAL ---
-    # Lift (L) = 0.5 * rho * V^2 * CL * chord
-    # Circulation (Gamma) = L / (rho * V)
-    
+    # Sustentação (L) = 0.5 * rho * V^2 * CL * corda
+    # Circulação (Gamma) = L / (rho * V)
+
     rho = params["rho"]
     v_inf = params["v_inf"]
     q_inf = 0.5 * rho * v_inf**2
-    
-    # Dimensional Force (N) per unit span
+
+    # Força dimensional (N) por unidade de envergadura
     Lift_dim = q_inf * CL_num * ref_len
     Drag_dim = q_inf * CD_num * ref_len
-    
-    # Dimensional Circulation (m^2/s)
-    # L = rho * V * Gamma => Gamma = L / (rho * V)
+
+    # Circulação dimensional (m^2/s): L = rho * V * Gamma => Gamma = L / (rho * V)
     if abs(v_inf) > 1e-6:
         Gamma_dim = Lift_dim / (rho * v_inf)
     else:
@@ -257,10 +250,8 @@ async def solve_potential(params, plot_div):
     ax2 = fig.add_subplot(gs[1])
     ax3 = fig.add_subplot(gs[2])
     
-    # 1. Função Corrente + Malha
-    # Smooth gradient with Gouraud shading and Jet colormap
+    # 1. Função corrente + malha (sombreamento Gouraud, mapa de cores Jet)
     contour = ax1.tripcolor(triang, psi, shading='gouraud', cmap='jet')
-    # Stronger mesh visibility
     ax1.triplot(triang, color='k', alpha=0.2, linewidth=0.5)
     ax1.set_title(f"Função Corrente ($\\psi$) - {params['geo_type'].capitalize()}")
     ax1.set_aspect('equal')
@@ -297,13 +288,9 @@ async def solve_potential(params, plot_div):
         theta_ana = np.linspace(-np.pi, np.pi, 200)
         cp_ana = 1 - 4 * np.sin(theta_ana)**2
         ax3.plot(np.degrees(theta_ana), cp_ana, 'r--', label='Analítico (Teórico)', alpha=0.7)
-            
+
     elif params["geo_type"] == "airfoil" or params["geo_type"] == "naca4412":
-        # Plotar vs x/c
-        # Separar extradorso (upper) e intradorso (lower)
-        # Upper: y > cy (aprox, ou usar ângulo)
-        # Rotacionar de volta para achar x ao longo da corda?
-        # Simplificação: usar x_sorted
+        # Distribuição de Cp ao longo de x (usando os nós ordenados da superfície)
         ax3.plot(x_sorted, cp_sorted, 'b.-', label='Cp Numérico')
         ax3.set_xlabel('x [m]')
         
@@ -382,7 +369,6 @@ async def run_handler(event=None):
             "cy": float(document.getElementById("cy").value),
             "nx": int(document.getElementById("nx").value),
             "ny": int(document.getElementById("ny").value),
-            # "Gamma": float(document.getElementById("Gamma").value), # Removed
             "geo_type": document.getElementById("geo_type").value,
             "rho": float(document.getElementById("rho").value),
             "v_inf": float(document.getElementById("v_inf").value)
