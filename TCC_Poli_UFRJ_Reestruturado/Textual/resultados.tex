@@ -330,7 +330,7 @@ Os erros nodais máximos observados nas duas configurações da mesma malha são
 \section{Viga 1D --- Flexão de Euler-Bernoulli}
 \label{sec:val_viga}
 
-Este caso valida o módulo de flexão de vigas pela teoria de Euler-Bernoulli, baseado em elementos de Hermite com funções de forma cúbicas e quatro graus de liberdade por elemento (deslocamento transversal e rotação em cada nó). A validação é particularmente rigorosa porque a solução analítica da flexão sob carga uniforme é um polinômio de grau~$4$, que coincide exatamente com o espaço de aproximação do elemento Hermite --- espera-se, portanto, concordância nodal à precisão de máquina, caracterizando a chamada \emph{superconvergência nodal}.
+Este caso valida o módulo de flexão de vigas pela teoria de Euler-Bernoulli, baseado em elementos de Hermite com funções de forma cúbicas e quatro graus de liberdade por elemento (deslocamento transversal e rotação em cada nó). A solução analítica da flexão sob carga uniforme é um polinômio de grau~$4$, ao passo que o espaço de aproximação do elemento de Hermite é cúbico (grau~$\leq 3$) por elemento; a solução exata, portanto, \emph{não} pertence ao espaço de elementos finitos. Ainda assim, espera-se concordância nodal à precisão de máquina: trata-se da \emph{exatidão nodal} do método de Galerkin em uma dimensão, em que a ortogonalidade do erro ao espaço de teste força o erro a se anular exatamente nos nós, embora permaneça não-nulo entre eles.
 
 \subsection{Formulação do Problema}
 
@@ -378,7 +378,7 @@ Para $E I$ constante, carga uniforme $q$ e condições de apoio simples ($w(0) =
 
 \subsection{Solução MEF e Comparação}
 
-A discretização adota $n_e = 20$ elementos de Hermite cúbicos, totalizando $42$ graus de liberdade globais antes da imposição das condições de contorno. Como as funções de forma de Hermite incluem o polinômio $x^4$ em sua base (quando montadas elemento-a-elemento), e como a solução analítica da Equação~\eqref{eq:val_viga_w} é precisamente um polinômio de grau~$4$, o espaço de aproximação do MEF contém a solução exata. A Figura~\ref{fig:val_viga} apresenta as três quantidades de interesse: deflexão $w(x)$, momento fletor $M(x)$ e esforço cortante $V(x)$, comparados às respectivas soluções analíticas.
+A discretização adota $n_e = 20$ elementos de Hermite cúbicos, totalizando $42$ graus de liberdade globais antes da imposição das condições de contorno. A solução analítica da Equação~\eqref{eq:val_viga_w} é um polinômio de grau~$4$ e, como o espaço de aproximação é cúbico por elemento, ela não é representada exatamente pelo campo MEF em todo o domínio; a concordância perfeita ocorre apenas nos nós, por exatidão nodal, e não por o espaço conter a solução exata. A Figura~\ref{fig:val_viga} apresenta as três quantidades de interesse: deflexão $w(x)$, momento fletor $M(x)$ e esforço cortante $V(x)$, comparados às respectivas soluções analíticas.
 
 \begin{figure}[htbp]
     \centering
@@ -396,7 +396,7 @@ O erro máximo absoluto na deflexão nodal é
     \label{eq:val_viga_erro}
 \end{equation}
 
-\noindent isto é, da ordem da precisão de máquina. A deflexão no centro da viga, $w(L/2) = 1{,}0417 \times 10^{-3}$~m, é reproduzida em todos os $16$ dígitos significativos. Esta concordância exemplar é consequência direta da propriedade de \emph{reprodução polinomial} dos elementos de Hermite cúbicos: como a base do elemento inclui monômios até o grau~$3$ e como a combinação das bases de dois elementos adjacentes gera a reconstrução exata de polinômios até grau~$4$ sob integração, a solução MEF é matematicamente idêntica à analítica nos nós. A mesma propriedade se mantém para as condições de contorno de viga em balanço ($w_{\max} = qL^4/(8EI) = 10{,}0$~mm) e biengastada ($w_{\max} = qL^4/(384EI) = 0{,}208$~mm), ambas com erro nodal da ordem de $10^{-13}$~m ou inferior.
+\noindent isto é, da ordem da precisão de máquina. A deflexão no centro da viga, $w(L/2) = 1{,}0417 \times 10^{-3}$~m, é reproduzida em todos os $16$ dígitos significativos. Esta concordância exemplar é consequência da \emph{exatidão nodal} do método de Galerkin para o operador unidimensional de Euler-Bernoulli: como o erro da aproximação de Galerkin é ortogonal ao espaço de teste ($a(e_h, v_h) = 0$ para todo $v_h$ do espaço de elementos finitos) e o problema é unidimensional, o erro se anula exatamente nos nós --- embora a solução exata, de grau~$4$, não pertença ao espaço de aproximação cúbico e o erro seja não-nulo no interior dos elementos. A mesma propriedade se mantém para as condições de contorno de viga em balanço ($w_{\max} = qL^4/(8EI) = 10{,}0$~mm) e biengastada ($w_{\max} = qL^4/(384EI) = 0{,}208$~mm), ambas com erro nodal da ordem de $10^{-13}$~m ou inferior.
 
 \paragraph{Nota sobre momento e cortante.} As curvas de $M(x)$ e $V(x)$ exibidas na Figura~\ref{fig:val_viga} são obtidas por pós-processamento: $M$ via segunda derivada por diferenças finitas centradas da deflexão nodal, $V$ via primeira derivada de $M$. Os pontos próximos aos apoios são omitidos porque o estêncil assimétrico nas bordas amplifica o ruído de arredondamento; o miolo da viga reproduz as distribuições parabólica ($M$) e linear ($V$) com concordância visual perfeita. Uma reconstrução mais robusta dessas quantidades exigiria derivação analítica a partir da interpolação de Hermite, o que constitui uma possível extensão futura.
 

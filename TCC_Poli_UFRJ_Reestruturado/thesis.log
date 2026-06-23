@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  23 JUN 2026 14:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  23 JUN 2026 14:40
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1109,7 +1109,7 @@ Package pdftex.def Info: Imagens/prints/fig_val_convdif1d_galerkin.png  used on
 [62]
 
 [63]
-<Imagens/prints/fig_val_viga1d_resultado.png, id=1702, 1790.69pt x 2693.06125pt
+<Imagens/prints/fig_val_viga1d_resultado.png, id=1699, 1790.69pt x 2693.06125pt
 >
 File: Imagens/prints/fig_val_viga1d_resultado.png Graphic file (type png)
 <use Imagens/prints/fig_val_viga1d_resultado.png>
@@ -1123,7 +1123,9 @@ nput line 385.
 [65 <./Imagens/prints/fig_val_viga1d_resultado.png>]
 
 [66]
-<Imagens/prints/fig_val_vibracao1d_modos.png, id=1723, 1890.06125pt x 2787.4137
+
+[67]
+<Imagens/prints/fig_val_vibracao1d_modos.png, id=1729, 1890.06125pt x 2787.4137
 6pt>
 File: Imagens/prints/fig_val_vibracao1d_modos.png Graphic file (type png)
 <use Imagens/prints/fig_val_vibracao1d_modos.png>
@@ -1132,22 +1134,20 @@ nput line 466.
 (pdftex.def)             Requested size: 298.75264pt x 440.59369pt.
 
 
-[67]
+[68]
 
-[68 <./Imagens/prints/fig_val_vibracao1d_modos.png>]
-
-[69]
+[69 <./Imagens/prints/fig_val_vibracao1d_modos.png>]
 
 [70]
-<Imagens/prints/fig_val_transcalor2d_campo.png, id=1752, 602.25pt x 501.875pt>
+
+[71]
+<Imagens/prints/fig_val_transcalor2d_campo.png, id=1756, 602.25pt x 501.875pt>
 File: Imagens/prints/fig_val_transcalor2d_campo.png Graphic file (type png)
 <use Imagens/prints/fig_val_transcalor2d_campo.png>
 Package pdftex.def Info: Imagens/prints/fig_val_transcalor2d_campo.png  used on
  input line 574.
 (pdftex.def)             Requested size: 320.0935pt x 266.75061pt.
 
-
-[71]
 
 [72 <./Imagens/prints/fig_val_transcalor2d_campo.png>]
 
@@ -1393,7 +1393,7 @@ st/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2025/texmf-dis
 t/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texmf
 -dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/t
 exmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on thesis.pdf (138 pages, 10026413 bytes).
+Output written on thesis.pdf (138 pages, 10027060 bytes).
 PDF statistics:
  3275 PDF objects out of 3580 (max. 8388607)
  2957 compressed objects within 30 object streams

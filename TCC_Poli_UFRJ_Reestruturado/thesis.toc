@@ -143,17 +143,17 @@
 \contentsline {subsection}{\numberline {6.5.2}Solução Analítica}{63}{subsection.6.5.2}%
 \contentsline {subsection}{\numberline {6.5.3}Solução MEF e Comparação}{64}{subsection.6.5.3}%
 \contentsline {subsection}{\numberline {6.5.4}Análise de Erro}{64}{subsection.6.5.4}%
-\contentsline {paragraph}{Nota sobre momento e cortante.}{64}{section*.83}%
+\contentsline {paragraph}{Nota sobre momento e cortante.}{66}{section*.83}%
 \contentsline {section}{\numberline {6.6}Vibração 1D --- Problema de Autovalor}{66}{section.6.6}%
 \contentsline {subsection}{\numberline {6.6.1}Formulação do Problema}{66}{subsection.6.6.1}%
 \contentsline {subsection}{\numberline {6.6.2}Solução Analítica}{67}{subsection.6.6.2}%
-\contentsline {subsection}{\numberline {6.6.3}Solução MEF e Comparação}{67}{subsection.6.6.3}%
-\contentsline {subsection}{\numberline {6.6.4}Análise de Erro}{69}{subsection.6.6.4}%
-\contentsline {paragraph}{Nota sobre a matriz de massa consistente.}{69}{section*.87}%
+\contentsline {subsection}{\numberline {6.6.3}Solução MEF e Comparação}{68}{subsection.6.6.3}%
+\contentsline {subsection}{\numberline {6.6.4}Análise de Erro}{68}{subsection.6.6.4}%
+\contentsline {paragraph}{Nota sobre a matriz de massa consistente.}{70}{section*.87}%
 \contentsline {section}{\numberline {6.7}Transferência de Calor Transiente 2D}{70}{section.6.7}%
 \contentsline {subsection}{\numberline {6.7.1}Formulação do Problema}{70}{subsection.6.7.1}%
-\contentsline {subsection}{\numberline {6.7.2}Solução Analítica de Regime Permanente}{70}{subsection.6.7.2}%
-\contentsline {subsection}{\numberline {6.7.3}Solução MEF e Comparação}{71}{subsection.6.7.3}%
+\contentsline {subsection}{\numberline {6.7.2}Solução Analítica de Regime Permanente}{71}{subsection.6.7.2}%
+\contentsline {subsection}{\numberline {6.7.3}Solução MEF e Comparação}{72}{subsection.6.7.3}%
 \contentsline {subsection}{\numberline {6.7.4}Análise de Erro}{73}{subsection.6.7.4}%
 \contentsline {paragraph}{Nota sobre o tempo de convergência.}{73}{section*.90}%
 \contentsline {section}{\numberline {6.8}Escoamento Potencial 2D em Torno de Cilindro}{73}{section.6.8}%
