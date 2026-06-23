@@ -10,7 +10,22 @@
 
 Este capítulo apresenta a validação numérica dos oito módulos de simulação por Elementos Finitos do \textit{MinervaMesh}, cuja plataforma de execução e implementação são detalhadas, respectivamente, nos Capítulos~\ref{cap:plataforma} e~\ref{cap:implementacao}. Cada caso simulado é comparado com soluções analíticas conhecidas ou \textit{benchmarks} consagrados da literatura, de modo a verificar a corretude da discretização e quantificar os erros numéricos associados.
 
-A estratégia de validação segue um critério de complexidade crescente. Os primeiros casos — condução de calor em regime permanente e transiente — envolvem problemas unidimensionais com solução analítica fechada, permitindo o cálculo direto de métricas de erro como o erro máximo absoluto e o erro relativo na norma~$L^2$. Na sequência, os problemas de convecção-difusão testam a estabilização SUPG, comparando a solução estabilizada com a solução Galerkin padrão em regime de alto número de Péclet. Os módulos estruturais — flexão e vibração de barras — são validados contra soluções clássicas da Resistência dos Materiais e da Dinâmica Estrutural. Finalmente, os casos bidimensionais de transferência de calor, escoamento potencial e escoamento viscoso (Navier-Stokes) completam a validação com problemas de geometria e condições de contorno mais complexas. A Tabela~\ref{tab:visao_casos} resume os oito casos apresentados neste capítulo, com a respectiva referência de validação.
+A estratégia de validação segue um critério de complexidade crescente. Os primeiros casos — condução de calor em regime permanente e transiente — envolvem problemas unidimensionais com solução analítica fechada, permitindo o cálculo direto de métricas de erro como o erro máximo absoluto e o erro relativo na norma~$L^2$. Na sequência, os problemas de convecção-difusão testam a estabilização SUPG, comparando a solução estabilizada com a solução Galerkin padrão em regime de alto número de Péclet. Os módulos estruturais — flexão e vibração de barras — são validados contra soluções clássicas da Resistência dos Materiais e da Dinâmica Estrutural. Finalmente, os casos bidimensionais de transferência de calor, escoamento potencial e escoamento viscoso (Navier-Stokes) completam a validação com problemas de geometria e condições de contorno mais complexas.
+
+Os oito casos apresentados neste capítulo, na ordem em que são expostos, são:
+
+\begin{enumerate}
+    \item Condução Permanente 1D;
+    \item Condução Transiente 1D com condutividade variável $k(x)$;
+    \item Convecção-Difusão 1D com estabilização SUPG;
+    \item Viga 1D --- Flexão de Euler-Bernoulli;
+    \item Vibração 1D --- Problema de Autovalor;
+    \item Transferência de Calor Transiente 2D;
+    \item Escoamento Potencial 2D em torno de cilindro;
+    \item Navier-Stokes 2D --- Cavidade com Tampa Móvel.
+\end{enumerate}
+
+A Tabela~\ref{tab:visao_casos} resume esses oito casos, com a respectiva referência de validação.
 
 \begin{table}[H]
 \centering
@@ -159,7 +174,7 @@ O balanço de energia em regime transiente sem geração interna é descrito pel
     \label{eq:val_calor_transiente_k}
 \end{equation}
 
-A Tabela~\ref{tab:val_calor_transiente_params} resume os parâmetros adotados, todos correspondentes aos valores \emph{default} da interface HTML do módulo.
+A Tabela~\ref{tab:val_calor_transiente_params} resume os parâmetros adotados na simulação.
 
 \begin{table}[htbp]
     \centering
@@ -246,7 +261,7 @@ A forma forte do problema estacionário unidimensional é
     \label{eq:val_convdif_pe}
 \end{equation}
 
-\noindent onde $h_e$ é o tamanho do elemento. A Tabela~\ref{tab:val_convdif_params} lista os parâmetros adotados, correspondentes aos \emph{defaults} da interface do módulo.
+\noindent onde $h_e$ é o tamanho do elemento. A Tabela~\ref{tab:val_convdif_params} lista os parâmetros adotados na simulação.
 
 \begin{table}[htbp]
     \centering
@@ -279,7 +294,7 @@ Para $Q = 0$, a equação admite a solução exponencial clássica; com fonte co
     \label{eq:val_convdif_analitica}
 \end{equation}
 
-Para $\alpha L \gg 1$, a exponencial domina no intervalo próximo a~$x = L$, concentrando toda a variação do campo em uma camada-limite de espessura $\sim 1/\alpha$. Com os \emph{defaults} da interface, $\alpha L = 50$ e a camada-limite é estreita porém bem resolvida pela malha uniforme de~$50$ elementos. Em regimes de $\mathrm{Pe}_e > 1$ a camada-limite ocupa apenas uma fração do elemento, situação em que a formulação Galerkin clássica apresenta oscilações espúrias e a estabilização SUPG se torna indispensável.
+Para $\alpha L \gg 1$, a exponencial domina no intervalo próximo a~$x = L$, concentrando toda a variação do campo em uma camada-limite de espessura $\sim 1/\alpha$. Com os parâmetros da Tabela~\ref{tab:val_convdif_params}, $\alpha L = 50$ e a camada-limite é estreita porém bem resolvida pela malha uniforme de~$50$ elementos. Em regimes de $\mathrm{Pe}_e > 1$ a camada-limite ocupa apenas uma fração do elemento, situação em que a formulação Galerkin clássica apresenta oscilações espúrias e a estabilização SUPG se torna indispensável.
 
 \subsection{Solução MEF com SUPG}
 
@@ -290,7 +305,7 @@ A formulação Petrov-Galerkin introduz funções-peso modificadas $\tilde{w}_i 
     \label{eq:val_convdif_tau}
 \end{equation}
 
-\noindent derivado por Christie et al.\ \cite{Christie1976} a partir da exigência de anular o erro nodal no problema homogêneo. As Figuras~\ref{fig:val_convdif_supg} e~\ref{fig:val_convdif_galerkin} comparam, em $\mathrm{Pe}_e = 0{,}5$, a solução MEF com e sem a estabilização SUPG sobreposta à solução analítica, ambas rodadas diretamente a partir da interface do módulo.
+\noindent derivado por Christie et al.\ \cite{Christie1976} a partir da exigência de anular o erro nodal no problema homogêneo. As Figuras~\ref{fig:val_convdif_supg} e~\ref{fig:val_convdif_galerkin} comparam, em $\mathrm{Pe}_e = 0{,}5$, a solução MEF com e sem a estabilização SUPG sobreposta à solução analítica.
 
 \begin{figure}[htbp]
     \centering
@@ -335,7 +350,7 @@ A equação diferencial de quarta ordem da teoria clássica de Euler-Bernoulli �
     \label{eq:val_viga_edp}
 \end{equation}
 
-\noindent onde $w(x)$ é a deflexão transversal, $E$ é o módulo de Young, $I$ o momento de inércia da seção e $q(x)$ a carga distribuída. Para validação, adota-se o caso clássico de viga simplesmente apoiada sob carga uniforme, com propriedades constantes ao longo do comprimento. A Tabela~\ref{tab:val_viga_params} lista os parâmetros, correspondentes aos \emph{defaults} da interface do módulo.
+\noindent onde $w(x)$ é a deflexão transversal, $E$ é o módulo de Young, $I$ o momento de inércia da seção e $q(x)$ a carga distribuída. Para validação, adota-se o caso clássico de viga simplesmente apoiada sob carga uniforme, com propriedades constantes ao longo do comprimento. A Tabela~\ref{tab:val_viga_params} lista os parâmetros adotados na simulação.
 
 \begin{table}[htbp]
     \centering
@@ -417,7 +432,7 @@ A equação de onda axial em barra de seção constante é
     \label{eq:val_vibracao_autovalor}
 \end{equation}
 
-\noindent com $K$ a matriz de rigidez, $M$ a matriz de massa concentrada e $\boldsymbol{\phi}_n$ o $n$-ésimo autovetor (forma modal). A Tabela~\ref{tab:val_vibracao_params} lista os parâmetros da simulação, correspondentes ao preset de aço dos \emph{defaults} da interface.
+\noindent com $K$ a matriz de rigidez, $M$ a matriz de massa concentrada e $\boldsymbol{\phi}_n$ o $n$-ésimo autovetor (forma modal). A Tabela~\ref{tab:val_vibracao_params} lista os parâmetros adotados na simulação, com propriedades de aço.
 
 \begin{table}[htbp]
     \centering
@@ -557,20 +572,20 @@ A malha é gerada por triangulação de Delaunay sobre um reticulado de $40 \tim
     \label{eq:val_transcalor_cn}
 \end{equation}
 
-\noindent com $M$ a matriz de massa consistente e $K$ a matriz de rigidez 2D. Com os \emph{defaults} do módulo ($n_{\mathrm{passos}} = 50$, $t_{\max} = 0{,}05$~s --- apenas $5\%$ da escala de difusão $\tau_{\mathrm{dif}} = L^2 \rho c_p / k = 1{,}0$~s), a simulação exibe a propagação inicial da frente térmica, não o regime permanente. A Figura~\ref{fig:val_transcalor} mostra o campo $T(x,y)$ no instante final $t = 0{,}049$~s.
+\noindent com $M$ a matriz de massa consistente e $K$ a matriz de rigidez 2D. Com os parâmetros da Tabela~\ref{tab:val_transcalor_params} ($n_{\mathrm{passos}} = 50$, $t_{\max} = 0{,}05$~s --- apenas $5\%$ da escala de difusão $\tau_{\mathrm{dif}} = L^2 \rho c_p / k = 1{,}0$~s), a simulação exibe a propagação inicial da frente térmica, não o regime permanente. A Figura~\ref{fig:val_transcalor} mostra o campo $T(x,y)$ no instante final $t = 0{,}049$~s.
 
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.75\textwidth]{fig_val_transcalor2d_campo.png}
-    \caption{Transferência de calor transiente 2D com os \emph{defaults} do módulo, em $t = 0{,}049$~s: o campo $T(x,y)$ mostra a perturbação térmica propagando-se a partir da parede aquecida (topo, $T_{\mathrm{top}} = 100$°C) e da parede morna (base, $T_{\mathrm{bot}} = 30$°C) para o interior da placa, ainda inicialmente em $T = 0$°C. O \emph{colormap} jet varre a faixa de temperatura instantânea e exibe a natureza bidimensional da difusão: a frente de calor do topo penetra mais rapidamente que a da base devido ao maior gradiente $\Delta T$.}
+    \caption{Transferência de calor transiente 2D com os parâmetros da Tabela~\ref{tab:val_transcalor_params}, em $t = 0{,}049$~s: o campo $T(x,y)$ mostra a perturbação térmica propagando-se a partir da parede aquecida (topo, $T_{\mathrm{top}} = 100$°C) e da parede morna (base, $T_{\mathrm{bot}} = 30$°C) para o interior da placa, ainda inicialmente em $T = 0$°C. O \emph{colormap} jet varre a faixa de temperatura instantânea e exibe a natureza bidimensional da difusão: a frente de calor do topo penetra mais rapidamente que a da base devido ao maior gradiente $\Delta T$.}
     \label{fig:val_transcalor}
 \end{figure}
 
 \subsection{Análise de Erro}
 
-A solução analítica de regime permanente da Equação~\eqref{eq:val_transcalor_analitica} não é diretamente comparável ao campo em $t = 0{,}049$~s, pois o sistema está a apenas $\approx 5\%$ de $\tau_{\mathrm{dif}}$. Uma validação quantitativa pode ser obtida interativamente prolongando-se a simulação: para $t \gtrsim 2\tau_{\mathrm{dif}}$, o campo MEF converge ao perfil linear analítico $T_{\infty}(x, y) = 30 + 70\,y$ com erro nodal da ordem da precisão de máquina --- comportamento esperado porque o perfil analítico é um polinômio de grau~$1$ em $y$, pertencente ao espaço de aproximação dos elementos lineares.
+A solução analítica de regime permanente da Equação~\eqref{eq:val_transcalor_analitica} não é diretamente comparável ao campo em $t = 0{,}049$~s, pois o sistema está a apenas $\approx 5\%$ de $\tau_{\mathrm{dif}}$. Uma validação quantitativa pode ser obtida prolongando-se a simulação: para $t \gtrsim 2\tau_{\mathrm{dif}}$, a solução MEF converge ao perfil linear analítico $T_{\infty}(x, y) = 30 + 70\,y$ com erro nodal da ordem da precisão de máquina --- comportamento esperado porque o perfil analítico é um polinômio de grau~$1$ em $y$, pertencente ao espaço de aproximação dos elementos lineares.
 
-A validação qualitativa no regime transiente é, por sua vez, satisfatória: (i) as isotermas instantâneas são aproximadamente horizontais na região central, consistentes com a simetria em $x$ das condições de contorno; (ii) as frentes de difusão avançam com velocidade $\sim \sqrt{\kappa t}$ (onde $\kappa = k / \rho c_p$), comportamento escalar característico da equação do calor; (iii) os valores nas paredes permanecem fixos em $30$°C na base e $100$°C no topo ao longo de toda a simulação, confirmando a aplicação correta das condições de contorno de Dirichlet. O \emph{default} $t_{\max} = 0{,}05$~s é pedagógico --- expõe o transiente em poucos segundos no navegador; aumentando $n_{\mathrm{passos}}$, o campo converge ao perfil linear analítico em precisão de máquina.
+A validação qualitativa no regime transiente é, por sua vez, satisfatória: (i) as isotermas instantâneas são aproximadamente horizontais na região central, consistentes com a simetria em $x$ das condições de contorno; (ii) as frentes de difusão avançam com velocidade $\sim \sqrt{\kappa t}$ (onde $\kappa = k / \rho c_p$), comportamento escalar característico da equação do calor; (iii) os valores nas paredes permanecem fixos em $30$°C na base e $100$°C no topo ao longo de toda a simulação, confirmando a aplicação correta das condições de contorno de Dirichlet. O tempo final adotado, $t_{\max} = 0{,}05$~s, captura o transiente inicial; para $n_{\mathrm{passos}}$ maiores, o campo converge ao perfil linear analítico em precisão de máquina.
 
 % ==============================================================
 % 5.7 — Escoamento Potencial 2D
@@ -597,7 +612,7 @@ Para escoamento bidimensional incompressível e irrotacional, a função de corr
     \item \textbf{superfície do cilindro}: $\psi$ constante (parede deslizante, corpo não-atravessável).
 \end{itemize}
 
-A Tabela~\ref{tab:val_potencial_params} lista os parâmetros adotados, conforme \emph{defaults} da interface HTML.
+A Tabela~\ref{tab:val_potencial_params} lista os parâmetros adotados na simulação.
 
 \begin{table}[htbp]
     \centering
@@ -725,9 +740,9 @@ Ghia et al.\ \cite{Ghia1982} apresentaram uma solução de alta resolução (mal
 
 \subsection{Solução MEF e Comparação}
 
-Os parâmetros da Tabela~\ref{tab:val_ns_params} correspondem ao cenário \texttt{cavidade} da interface com domínio e malha ajustados para $L = H = 1$ e $n_x = n_y = 41$, de modo a reproduzir a configuração quadrada utilizada no \emph{benchmark} de Ghia et al.\ (os \emph{defaults} da interface empregam $L = 2$, $H = 1$, $n_x = 60$, $n_y = 30$, que geram uma cavidade retangular destinada à exploração qualitativa). A discretização resultante tem $1681$ nós, aproximadamente $3$ vezes mais grosseira que a de Ghia et al. O esquema temporal é semi-implícito: o termo convectivo é avaliado explicitamente com o campo no passo anterior, enquanto o termo difusivo é tratado implicitamente, resultando em um sistema linear estacionário a cada passo de tempo. A condição de contorno de vorticidade na parede é aplicada a cada passo via expansão de Taylor local (Equação da Seção~\ref{sec:thom}). Após $2000$ passos ($t = 20{,}0$, suficiente para convergência ao regime estacionário em $\mathrm{Re} = 100$), os campos $\psi$, $\omega$ e de velocidade são extraídos para comparação.
+Os parâmetros da Tabela~\ref{tab:val_ns_params} adotam o domínio quadrado $L = H = 1$ discretizado por malha $n_x = n_y = 41$, de modo a reproduzir a configuração utilizada no \emph{benchmark} de Ghia et al. A discretização resultante tem $1681$ nós, aproximadamente $3$ vezes mais grosseira que a de Ghia et al. O esquema temporal é semi-implícito: o termo convectivo é avaliado explicitamente com o campo no passo anterior, enquanto o termo difusivo é tratado implicitamente, resultando em um sistema linear estacionário a cada passo de tempo. A condição de contorno de vorticidade na parede é aplicada a cada passo via expansão de Taylor local (Equação da Seção~\ref{sec:thom}). Após $2000$ passos ($t = 20{,}0$, suficiente para convergência ao regime estacionário em $\mathrm{Re} = 100$), os campos $\psi$, $\omega$ e de velocidade são extraídos para comparação.
 
-A Figura~\ref{fig:val_ns_cavity} apresenta os três campos resultantes em painéis empilhados, seguindo o mesmo \emph{layout} vertical exibido pela interface do MinervaMesh. A Figura~\ref{fig:val_ns_ghia_uy} sobrepõe o perfil $u(y)$ extraído da simulação aos valores tabulados por Ghia et al.
+A Figura~\ref{fig:val_ns_cavity} apresenta os três campos resultantes em painéis empilhados. A Figura~\ref{fig:val_ns_ghia_uy} sobrepõe o perfil $u(y)$ extraído da simulação aos valores tabulados por Ghia et al.
 
 \begin{figure}[htbp]
     \centering

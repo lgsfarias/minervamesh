@@ -1,7 +1,7 @@
 \chapter{Listagens Representativas dos Módulos de Simulação}
 \label{ap:listagens}
 
-\paragraph{}Este apêndice reproduz listagens \emph{representativas} da implementação dos módulos de simulação do \textit{MinervaMesh}. O código-fonte integral de todos os módulos --- incluindo as interfaces HTML e os arquivos de configuração de dependências --- está disponível no repositório público da plataforma, sob licença MIT, em \url{https://github.com/lgsfarias/minervamesh}. A Tabela~\ref{tab:repo_modulos} mapeia cada módulo ao seu diretório no repositório; em cada diretório, a lógica numérica reside no arquivo \texttt{simulation.py}. As listagens selecionadas a seguir cobrem os dois padrões de implementação da plataforma: um módulo 1D completo (condução permanente, o caso mais didático) e o núcleo numérico compartilhado dos módulos 2D, acompanhado do laço temporal do solver de Navier-Stokes (o caso mais complexo).
+\paragraph{}Este apêndice reproduz listagens \emph{representativas} da implementação dos módulos de simulação do \textit{MinervaMesh}. O código-fonte integral de todos os módulos --- incluindo as interfaces HTML e os arquivos de configuração de dependências --- está disponível no repositório público da plataforma, sob licença MIT, em \url{https://github.com/lgsfarias/minervamesh}. A Tabela~\ref{tab:repo_modulos} mapeia cada módulo ao seu diretório no repositório; em cada diretório, a lógica numérica reside no arquivo \texttt{simulation.py}. As listagens selecionadas a seguir cobrem os dois padrões de implementação da plataforma: um módulo 1D completo (condução permanente, o caso mais didático) e o laço temporal do solver de Navier-Stokes (o caso mais complexo), este último precedido de uma descrição do núcleo numérico compartilhado pelos módulos 2D.
 
 \begin{table}[H]
 \centering
@@ -40,14 +40,9 @@ Equação da onda 1D (MDF)         & \texttt{mdf/equacao-onda/} \\
 \section{Núcleo Numérico dos Módulos 2D}
 \label{ap:lst_nucleo2d}
 
-\paragraph{}O módulo \texttt{common.py}, compartilhado pelos solvers de escoamento 2D, concentra a geração da malha triangular e a montagem das matrizes globais de rigidez e massa do MEF --- o núcleo numérico reutilizado pelos módulos de escoamento potencial e de Navier-Stokes.
+\paragraph{}O núcleo numérico compartilhado pelos solvers de escoamento 2D concentra-se no módulo \texttt{common.py}, acompanhado de \texttt{geometry.py}. Esse núcleo é responsável pela geração da malha triangular por triangulação de Delaunay e pela montagem das matrizes globais do MEF --- rigidez, massa e advecção --- a partir das contribuições elementares. Por ser código de infraestrutura, ele é reutilizado integralmente tanto pelo módulo de escoamento potencial quanto pelo de Navier-Stokes, evitando duplicação da lógica de montagem entre os dois solvers. Optou-se por não reproduzir aqui a listagem completa desse núcleo, dada a sua extensão; o código integral está disponível no repositório público, na pasta \texttt{simulations/mef/escoamento-fluido-2d/}, em \url{https://github.com/lgsfarias/minervamesh}.
 
-\lstinputlisting[
-  caption={Núcleo MEF 2D compartilhado --- \texttt{common.py} (completo)},
-  label={lst:common2d}
-]{../simulations/mef/escoamento-fluido-2d/common.py}
-
-\paragraph{}Do solver de Navier-Stokes 2D, reproduz-se o trecho central: o laço de avanço temporal da formulação Vorticidade-Corrente, com a solução da equação de Poisson para $\psi$, a imposição da condição de contorno de Thom nas paredes, a recuperação do campo de velocidades e o transporte semi-implícito da vorticidade.
+\paragraph{}Do solver de Navier-Stokes 2D, por outro lado, reproduz-se o trecho central: o laço de avanço temporal da formulação Vorticidade-Corrente, com a solução da equação de Poisson para $\psi$, a imposição da condição de contorno de Thom nas paredes, a recuperação do campo de velocidades e o transporte semi-implícito da vorticidade.
 % Trecho extraído de simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py,
 % função solve_navier_stokes, laço "while current_step < total_steps" (linhas 209-260).
 % Ao editar os comentários do simulation.py, conferir e reajustar o linerange abaixo.
