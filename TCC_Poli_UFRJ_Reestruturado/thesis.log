@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  23 JUN 2026 14:32
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  23 JUN 2026 14:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1087,13 +1087,13 @@ Underfull \hbox (badness 4328) in paragraph at lines 232--232
 [58]
 
 [59]
-<Imagens/prints/fig_val_convdif1d_supg.png, id=1665, 1505.625pt x 1204.5pt>
+<Imagens/prints/fig_val_convdif1d_supg.png, id=1664, 1505.625pt x 1204.5pt>
 File: Imagens/prints/fig_val_convdif1d_supg.png Graphic file (type png)
 <use Imagens/prints/fig_val_convdif1d_supg.png>
 Package pdftex.def Info: Imagens/prints/fig_val_convdif1d_supg.png  used on inp
 ut line 301.
 (pdftex.def)             Requested size: 362.77525pt x 290.22542pt.
-<Imagens/prints/fig_val_convdif1d_galerkin.png, id=1666, 1505.625pt x 1204.5pt>
+<Imagens/prints/fig_val_convdif1d_galerkin.png, id=1665, 1505.625pt x 1204.5pt>
 
 File: Imagens/prints/fig_val_convdif1d_galerkin.png Graphic file (type png)
 <use Imagens/prints/fig_val_convdif1d_galerkin.png>
@@ -1109,7 +1109,7 @@ Package pdftex.def Info: Imagens/prints/fig_val_convdif1d_galerkin.png  used on
 [62]
 
 [63]
-<Imagens/prints/fig_val_viga1d_resultado.png, id=1701, 1790.69pt x 2693.06125pt
+<Imagens/prints/fig_val_viga1d_resultado.png, id=1702, 1790.69pt x 2693.06125pt
 >
 File: Imagens/prints/fig_val_viga1d_resultado.png Graphic file (type png)
 <use Imagens/prints/fig_val_viga1d_resultado.png>
@@ -1139,7 +1139,7 @@ nput line 466.
 [69]
 
 [70]
-<Imagens/prints/fig_val_transcalor2d_campo.png, id=1750, 602.25pt x 501.875pt>
+<Imagens/prints/fig_val_transcalor2d_campo.png, id=1752, 602.25pt x 501.875pt>
 File: Imagens/prints/fig_val_transcalor2d_campo.png Graphic file (type png)
 <use Imagens/prints/fig_val_transcalor2d_campo.png>
 Package pdftex.def Info: Imagens/prints/fig_val_transcalor2d_campo.png  used on
@@ -1160,7 +1160,7 @@ t/12  $ \OT1/cmr/m/n/12 cons-tante (pa-rede des-li-zante, corpo n~ao-
 
 
 [74]
-<Imagens/prints/fig_val_potencial2d_linhas.png, id=1776, 714.7503pt x 860.013pt
+<Imagens/prints/fig_val_potencial2d_linhas.png, id=1777, 714.7503pt x 860.013pt
 >
 File: Imagens/prints/fig_val_potencial2d_linhas.png Graphic file (type png)
 <use Imagens/prints/fig_val_potencial2d_linhas.png>
@@ -1184,7 +1184,7 @@ Underfull \hbox (badness 3407) in paragraph at lines 686--687
 [78]
 
 [79]
-<Imagens/prints/fig_val_ns2d_cavity_re100.png, id=1817, 360.6273pt x 860.013pt>
+<Imagens/prints/fig_val_ns2d_cavity_re100.png, id=1818, 360.6273pt x 860.013pt>
 
 File: Imagens/prints/fig_val_ns2d_cavity_re100.png Graphic file (type png)
 <use Imagens/prints/fig_val_ns2d_cavity_re100.png>
@@ -1195,7 +1195,7 @@ input line 746.
 
 LaTeX Warning: Float too large for page by 29.38684pt on input line 749.
 
-<Imagens/prints/fig_val_ns_ghia_uy.png, id=1820, 498.1812pt x 426.393pt>
+<Imagens/prints/fig_val_ns_ghia_uy.png, id=1821, 498.1812pt x 426.393pt>
 File: Imagens/prints/fig_val_ns_ghia_uy.png Graphic file (type png)
 <use Imagens/prints/fig_val_ns_ghia_uy.png>
 Package pdftex.def Info: Imagens/prints/fig_val_ns_ghia_uy.png  used on input l
@@ -1393,10 +1393,10 @@ st/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2025/texmf-dis
 t/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texmf
 -dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/t
 exmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on thesis.pdf (138 pages, 10025707 bytes).
+Output written on thesis.pdf (138 pages, 10026413 bytes).
 PDF statistics:
- 3274 PDF objects out of 3580 (max. 8388607)
- 2956 compressed objects within 30 object streams
+ 3275 PDF objects out of 3580 (max. 8388607)
+ 2957 compressed objects within 30 object streams
  1390 named destinations out of 1440 (max. 500000)
  1087 words of extra memory for PDF output out of 10000 (max. 10000000)
 
