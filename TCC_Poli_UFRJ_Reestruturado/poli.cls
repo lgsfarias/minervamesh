@@ -85,6 +85,7 @@ top=2.5cm,bottom=2.5cm,left=3.0cm,right=3.0cm]{geometry}
 	\newcommand\local@doctype{Projeto}
 	\newcommand\foreign@doctype{Undergraduate Project}
 	\setcounter{minexaminers}{2}
+	\setboolean{maledoc}{true}
 }
 \DeclareOption{draft}{%
 	\setboolean{isdraft}{true}
