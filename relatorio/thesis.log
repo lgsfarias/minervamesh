@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  29 JUN 2026 22:15
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.12.16)  22 SEP 2026 19:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -499,6 +499,43 @@ Package: longtable 2024-10-27 v4.22 Multi-page Table package (DPC)
 \c@LT@chunks=\count326
 \LT@p@ftn=\toks33
 )
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+Package: pdfpages 2025/01/30 v0.6e Insert pages of external PDF documents (AM)
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2023/07/08 v4.3 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count327
+\calc@Bcount=\count328
+\calc@Adimen=\dimen187
+\calc@Bdimen=\dimen188
+\calc@Askip=\skip65
+\calc@Bskip=\skip66
+LaTeX Info: Redefining \setlength on input line 80.
+LaTeX Info: Redefining \addtolength on input line 81.
+\calc@Ccount=\count329
+\calc@Cskip=\skip67
+)
+(/usr/local/texlive/2025/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+Package: eso-pic 2023/05/03 v3.0c eso-pic (RN)
+\ESO@tempdima=\dimen189
+\ESO@tempdimb=\dimen190
+)
+\AM@pagewidth=\dimen191
+\AM@pageheight=\dimen192
+\AM@fboxrule=\dimen193
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pdfpages/pppdftex.def
+File: pppdftex.def 2025/01/30 v0.6e Pdfpages driver for pdfTeX (AM)
+)
+\pdfpages@includegraphics@status=\count330
+\AM@pagebox=\box67
+\AM@global@opts=\toks34
+\AM@pagecnt=\count331
+\AM@toc@title=\toks35
+\AM@lof@heading=\toks36
+\c@AM@survey=\count332
+\AM@templatesizebox=\box68
+)
 (/usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2024/09/23 1.10c listings language file
 )
@@ -513,8 +550,8 @@ Writing index of symbols file thesis.syx
 Writing index of abbreviations file thesis.abx
 (/usr/local/texlive/2025/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count327
-\l__pdf_internal_box=\box67
+\l__color_backend_stack_int=\count333
+\l__pdf_internal_box=\box69
 )
 (./thesis.aux (./Pre-textual/dedic.aux) (./Pre-textual/thanks.aux)
 (./Pre-textual/resumo.aux) (./Pre-textual/abstract.aux)
@@ -525,25 +562,25 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 (./Pos-textual/apendice_benchmark.aux))
 \openout1 = `thesis.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 113.
-LaTeX Font Info:    ... okay on input line 113.
-Package hyperref Info: Link coloring OFF on input line 113.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 132.
+LaTeX Font Info:    ... okay on input line 132.
+Package hyperref Info: Link coloring OFF on input line 132.
  (./thesis.out) (./thesis.out)
 \@outlinefile=\write5
 \openout5 = `thesis.out'.
@@ -551,17 +588,17 @@ Package hyperref Info: Link coloring OFF on input line 113.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count328
-\scratchdimen=\dimen187
-\scratchbox=\box68
-\nofMPsegments=\count329
-\nofMParguments=\count330
-\everyMPshowfont=\toks34
-\MPscratchCnt=\count331
-\MPscratchDim=\dimen188
-\MPnumerator=\count332
-\makeMPintoPDFobject=\count333
-\everyMPtoPDFconversion=\toks35
+\scratchcounter=\count334
+\scratchdimen=\dimen194
+\scratchbox=\box70
+\nofMPsegments=\count335
+\nofMParguments=\count336
+\everyMPshowfont=\toks37
+\MPscratchCnt=\count337
+\MPscratchDim=\dimen195
+\MPnumerator=\count338
+\makeMPintoPDFobject=\count339
+\everyMPtoPDFconversion=\toks38
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -605,7 +642,7 @@ e
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@lstlisting=\count334
+\c@lstlisting=\count340
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: float package is loaded.
 Package caption Info: longtable package is loaded.
@@ -613,18 +650,29 @@ Package caption Info: longtable package is loaded.
 Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 )
 Package caption Info: End \AtBeginDocument code.
-<Logo_poli.jpg, id=486, 168.1482pt x 176.3388pt>
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
+
+(/usr/local/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.st
+y
+Package: pdflscape-nometadata 2022-10-28 v0.13 Display of landscape pages in PD
+F (HO)
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
+)))
+<Logo_poli.jpg, id=490, 168.1482pt x 176.3388pt>
 File: Logo_poli.jpg Graphic file (type jpg)
 <use Logo_poli.jpg>
-Package pdftex.def Info: Logo_poli.jpg  used on input line 127.
+Package pdftex.def Info: Logo_poli.jpg  used on input line 146.
 (pdftex.def)             Requested size: 168.14777pt x 176.33836pt.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 127
+LaTeX Font Info:    Trying to load font information for U+msa on input line 146
 .
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 127
+LaTeX Font Info:    Trying to load font information for U+msb on input line 146
 .
 
 (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
@@ -636,27 +684,27 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map} <./Logo_
 poli.jpg>]
-<Logo_mec.jpg, id=495, 127.97812pt x 115.93312pt>
+<Logo_mec.jpg, id=499, 127.97812pt x 115.93312pt>
 File: Logo_mec.jpg Graphic file (type jpg)
 <use Logo_mec.jpg>
-Package pdftex.def Info: Logo_mec.jpg  used on input line 129.
+Package pdftex.def Info: Logo_mec.jpg  used on input line 148.
 (pdftex.def)             Requested size: 55.48495pt x 50.26244pt.
 File: Logo_poli.jpg Graphic file (type jpg)
 <use Logo_poli.jpg>
-Package pdftex.def Info: Logo_poli.jpg  used on input line 129.
+Package pdftex.def Info: Logo_poli.jpg  used on input line 148.
 (pdftex.def)             Requested size: 55.48495pt x 58.1866pt.
 
-Overfull \hbox (25.61293pt too wide) in paragraph at lines 129--129
+Overfull \hbox (25.61293pt too wide) in paragraph at lines 148--148
  [][][] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--129
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \OT1/cmr/m/n/12 DE ENGENHARIA MEC[]ANICA DA ESCOLA POLIT[]ECNICA DA
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 129--129
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 \OT1/cmr/m/n/12 UNIVERSIDADE FEDERAL DO RIO DE JANEIRO COMO PARTE
  []
 
@@ -694,53 +742,49 @@ Underfull \hbox (badness 10000) in paragraph at lines 129--129
 
 
 ]
-
-[6]
 \openout2 = `Pre-textual/abstract.aux'.
 
- (./Pre-textual/abstract.tex
+ (./Pre-textual/abstract.tex)
+
+[6
+
+
+
+
+] (./thesis.toc
 
 [7
 
 
 
-
-])
-
-[8] (./thesis.toc
-
-[9
-
-
-
 ]
 
-[10]
+[8]
 
-[11]
+[9]
 
-[12])
+[10])
 \tf@toc=\write6
 \openout6 = `thesis.toc'.
 
 
 
-[13] (./thesis.lof
+[11] (./thesis.lof
 
-[14
+[12
 
 ]
 
-[15{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.en
+[13{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.en
 c}])
 \tf@lof=\write7
 \openout7 = `thesis.lof'.
 
 
 
-[16] (./thesis.lot
+[14] (./thesis.lot
 
-[17
+[15
 
 ])
 \tf@lot=\write8
@@ -748,9 +792,9 @@ c}])
 
  (./thesis.lab
 
-[18])
+[16])
 
-[19
+[17
 
 ]
 \openout2 = `Textual/introducao.aux'.
@@ -767,23 +811,23 @@ Cap\'{\i }tulo 1.
 
 [2]
 
-[3])
+[3]
 
-[4]
+[4])
+
+[5]
 \openout2 = `Textual/revisao_bibliografica.aux'.
 
  (./Textual/revisao_bibliografica.tex
 Cap\'{\i }tulo 2.
 
 
-[5
+[6
 
 
 
 
 ]
-
-[6]
 
 [7]
 
@@ -791,23 +835,23 @@ Cap\'{\i }tulo 2.
 
 [9]
 
-[10])
+[10]
 
-[11]
+[11])
+
+[12]
 \openout2 = `Textual/fundamentacao_teorica.aux'.
 
  (./Textual/fundamentacao_teorica.tex
 Cap\'{\i }tulo 3.
 
 
-[12
+[13
 
 
 
 
 ]
-
-[13]
 
 [14]
 
@@ -827,6 +871,8 @@ Cap\'{\i }tulo 3.
 
 [22]
 
+[23]
+
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 374.
 
@@ -840,24 +886,24 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 
 
 
-[23]
+[24]
 
-[24])
+[25])
 
-[25]
+[26]
 \openout2 = `Textual/plataforma.aux'.
 
  (./Textual/plataforma.tex
 Cap\'{\i }tulo 4.
 
 
-[26
+[27
 
 
 
 
 ]
-<Imagens/prints/fig_minervamesh_home.png, id=1218, 1630.09pt x 1064.97874pt>
+<Imagens/prints/fig_minervamesh_home.png, id=1239, 1630.09pt x 1064.97874pt>
 File: Imagens/prints/fig_minervamesh_home.png Graphic file (type png)
 <use Imagens/prints/fig_minervamesh_home.png>
 Package pdftex.def Info: Imagens/prints/fig_minervamesh_home.png  used on input
@@ -865,30 +911,27 @@ Package pdftex.def Info: Imagens/prints/fig_minervamesh_home.png  used on input
 (pdftex.def)             Requested size: 384.1096pt x 250.9363pt.
 
 
-[27]
+[28]
 
-[28 <./Imagens/prints/fig_minervamesh_home.png>]
-Overfull \hbox (9.23509pt too wide) in paragraph at lines 70--81
- [][] 
- []
-
-
-
-[29]
+[29 <./Imagens/prints/fig_minervamesh_home.png>]
 
 [30]
-<Imagens/benchmark_scaling.pdf, id=1260, 715.08139pt x 276.65408pt>
+
+[31]
+
+[32]
+
+[33]
+<Imagens/benchmark_scaling.pdf, id=1307, 715.08139pt x 276.65408pt>
 File: Imagens/benchmark_scaling.pdf Graphic file (type pdf)
 <use Imagens/benchmark_scaling.pdf>
-Package pdftex.def Info: Imagens/benchmark_scaling.pdf  used on input line 115.
+Package pdftex.def Info: Imagens/benchmark_scaling.pdf  used on input line 132.
 
 (pdftex.def)             Requested size: 426.79135pt x 165.11989pt.
 
 
-[31]
-
-[32 <./Imagens/benchmark_scaling.pdf>]
-Underfull \hbox (badness 1215) in paragraph at lines 128--129
+[34 <./Imagens/benchmark_scaling.pdf>]
+Underfull \hbox (badness 1215) in paragraph at lines 145--146
 []\OT1/cmr/m/n/12 O re-po-sit^^Sorio p^^Sublico do \OT1/cmr/m/it/12 Mi-ner-va-M
 esh \OT1/cmr/m/n/12 ([]$\OT1/cmtt/m/n/12 https : / / github . com / lgsfarias /
 
@@ -896,15 +939,17 @@ esh \OT1/cmr/m/n/12 ([]$\OT1/cmtt/m/n/12 https : / / github . com / lgsfarias /
 
 
 
-[33]
-
-[34]
-
 [35]
 
-[36])
+[36]
 
 [37]
+
+[38])
+
+[39]
+
+[40]
 \openout2 = `Textual/implementacao.aux'.
 
  (./Textual/implementacao.tex
@@ -917,13 +962,13 @@ ap^^S^^Ptulo cons-ti-tuem im-ple-
 
 
 
-[38
+[41
 
 
 
 
 ]
-<Imagens/prints/fig_conducao1d_resultado.png, id=1396, 1630.09pt x 1064.97874pt
+<Imagens/prints/fig_conducao1d_resultado.png, id=1441, 1630.09pt x 1064.97874pt
 >
 File: Imagens/prints/fig_conducao1d_resultado.png Graphic file (type png)
 <use Imagens/prints/fig_conducao1d_resultado.png>
@@ -932,7 +977,7 @@ nput line 28.
 (pdftex.def)             Requested size: 362.77525pt x 237.00984pt.
 
 
-[39]
+[42]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 33.
@@ -941,7 +986,7 @@ Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 33.
 
-<Imagens/prints/fig_calor_transiente1d_evolucao.png, id=1412, 1630.09pt x 1064.
+<Imagens/prints/fig_calor_transiente1d_evolucao.png, id=1457, 1630.09pt x 1064.
 97874pt>
 File: Imagens/prints/fig_calor_transiente1d_evolucao.png Graphic file (type png
 )
@@ -951,10 +996,10 @@ ed on input line 48.
 (pdftex.def)             Requested size: 362.77525pt x 237.00984pt.
 
 
-[40 <./Imagens/prints/fig_conducao1d_resultado.png>]
+[43 <./Imagens/prints/fig_conducao1d_resultado.png>]
 LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10> not available
 (Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 61.
-<Imagens/prints/fig_convdif1d_com_supg.png, id=1427, 1630.09pt x 1064.97874pt>
+<Imagens/prints/fig_convdif1d_com_supg.png, id=1471, 1630.09pt x 1064.97874pt>
 File: Imagens/prints/fig_convdif1d_com_supg.png Graphic file (type png)
 <use Imagens/prints/fig_convdif1d_com_supg.png>
 Package pdftex.def Info: Imagens/prints/fig_convdif1d_com_supg.png  used on inp
@@ -962,8 +1007,8 @@ ut line 69.
 (pdftex.def)             Requested size: 362.77525pt x 237.00984pt.
 
 
-[41 <./Imagens/prints/fig_calor_transiente1d_evolucao.png>]
-<Imagens/prints/fig_viga1d_resultado.png, id=1441, 1042.89626pt x 1064.97874pt>
+[44 <./Imagens/prints/fig_calor_transiente1d_evolucao.png>]
+<Imagens/prints/fig_viga1d_resultado.png, id=1486, 1042.89626pt x 1064.97874pt>
 
 File: Imagens/prints/fig_viga1d_resultado.png Graphic file (type png)
 <use Imagens/prints/fig_viga1d_resultado.png>
@@ -972,10 +1017,10 @@ Package pdftex.def Info: Imagens/prints/fig_viga1d_resultado.png  used on input
 (pdftex.def)             Requested size: 362.77525pt x 370.45686pt.
 
 
-[42 <./Imagens/prints/fig_convdif1d_com_supg.png>]
+[45 <./Imagens/prints/fig_convdif1d_com_supg.png>]
 
-[43 <./Imagens/prints/fig_viga1d_resultado.png>]
-<Imagens/prints/fig_vibracao1d_modos.png, id=1469, 1213.53375pt x 1064.97874pt>
+[46 <./Imagens/prints/fig_viga1d_resultado.png>]
+<Imagens/prints/fig_vibracao1d_modos.png, id=1513, 1213.53375pt x 1064.97874pt>
 
 File: Imagens/prints/fig_vibracao1d_modos.png Graphic file (type png)
 <use Imagens/prints/fig_vibracao1d_modos.png>
@@ -984,8 +1029,8 @@ Package pdftex.def Info: Imagens/prints/fig_vibracao1d_modos.png  used on input
 (pdftex.def)             Requested size: 362.77525pt x 318.35857pt.
 
 
-[44 <./Imagens/prints/fig_vibracao1d_modos.png>]
-<Imagens/prints/fig_transcalor2d_campo.png, id=1485, 1630.09pt x 1064.97874pt>
+[47 <./Imagens/prints/fig_vibracao1d_modos.png>]
+<Imagens/prints/fig_transcalor2d_campo.png, id=1529, 1630.09pt x 1064.97874pt>
 File: Imagens/prints/fig_transcalor2d_campo.png Graphic file (type png)
 <use Imagens/prints/fig_transcalor2d_campo.png>
 Package pdftex.def Info: Imagens/prints/fig_transcalor2d_campo.png  used on inp
@@ -993,8 +1038,8 @@ ut line 139.
 (pdftex.def)             Requested size: 320.0935pt x 209.12442pt.
 
 
-[45 <./Imagens/prints/fig_transcalor2d_campo.png>]
-<Imagens/prints/fig_potencial2d_linhas.png, id=1503, 1630.09pt x 1064.97874pt>
+[48 <./Imagens/prints/fig_transcalor2d_campo.png>]
+<Imagens/prints/fig_potencial2d_linhas.png, id=1548, 1630.09pt x 1064.97874pt>
 File: Imagens/prints/fig_potencial2d_linhas.png Graphic file (type png)
 <use Imagens/prints/fig_potencial2d_linhas.png>
 Package pdftex.def Info: Imagens/prints/fig_potencial2d_linhas.png  used on inp
@@ -1002,8 +1047,8 @@ ut line 160.
 (pdftex.def)             Requested size: 362.77525pt x 237.00984pt.
 
 
-[46 <./Imagens/prints/fig_potencial2d_linhas.png>]
-<Imagens/prints/fig_ns2d_cavity_re100.png, id=1521, 587.5551pt x 860.013pt>
+[49 <./Imagens/prints/fig_potencial2d_linhas.png>]
+<Imagens/prints/fig_ns2d_cavity_re100.png, id=1566, 587.5551pt x 860.013pt>
 File: Imagens/prints/fig_ns2d_cavity_re100.png Graphic file (type png)
 <use Imagens/prints/fig_ns2d_cavity_re100.png>
 Package pdftex.def Info: Imagens/prints/fig_ns2d_cavity_re100.png  used on inpu
@@ -1011,30 +1056,30 @@ t line 182.
 (pdftex.def)             Requested size: 362.77525pt x 531.01105pt.
 
 
-[47]
+[50]
 
-[48 <./Imagens/prints/fig_ns2d_cavity_re100.png>])
+[51 <./Imagens/prints/fig_ns2d_cavity_re100.png>])
 
-[49]
+[52]
 \openout2 = `Textual/resultados.aux'.
 
  (./Textual/resultados.tex
 Cap\'{\i }tulo 6.
 
 
-[50
+[53
 
 
 
 
 ]
 
-[51]
+[54]
 
-[52]
+[55]
 
-[53]
-<Imagens/prints/fig_val_conducao1d_resultado.png, id=1607, 570.933pt x 354.123p
+[56]
+<Imagens/prints/fig_val_conducao1d_resultado.png, id=1653, 570.933pt x 354.123p
 t>
 File: Imagens/prints/fig_val_conducao1d_resultado.png Graphic file (type png)
 <use Imagens/prints/fig_val_conducao1d_resultado.png>
@@ -1043,7 +1088,7 @@ on input line 128.
 (pdftex.def)             Requested size: 405.45047pt x 251.48851pt.
 
 
-[54 <./Imagens/prints/fig_val_conducao1d_resultado.png>]
+[57 <./Imagens/prints/fig_val_conducao1d_resultado.png>]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
 (hyperref)                removing `math shift' on input line 149.
@@ -1060,10 +1105,10 @@ m/n/12 , o termo tran-si-ente se anula e a solu^^Xc~ao sa-tis-faz
 
 
 
-[55]
+[58]
 
-[56]
-<Imagens/prints/fig_val_calor_transiente1d_evolucao.png, id=1633, 1003.75pt x 6
+[59]
+<Imagens/prints/fig_val_calor_transiente1d_evolucao.png, id=1677, 1003.75pt x 6
 02.25pt>
 File: Imagens/prints/fig_val_calor_transiente1d_evolucao.png Graphic file (type
  png)
@@ -1073,21 +1118,21 @@ Package pdftex.def Info: Imagens/prints/fig_val_calor_transiente1d_evolucao.png
 (pdftex.def)             Requested size: 384.1096pt x 230.46555pt.
 
 
-[57 <./Imagens/prints/fig_val_calor_transiente1d_evolucao.png>]
+[60 <./Imagens/prints/fig_val_calor_transiente1d_evolucao.png>]
 Underfull \hbox (badness 4328) in paragraph at lines 243--243
 []\OT1/cmr/bx/n/17.28 Convec^^Xc~ao-Difus~ao 1D com Es-ta-bi-liza^^Xc~ao
  []
 
 
 
-[58]
-<Imagens/prints/fig_val_convdif1d_supg.png, id=1651, 1505.625pt x 1204.5pt>
+[61]
+<Imagens/prints/fig_val_convdif1d_supg.png, id=1695, 1505.625pt x 1204.5pt>
 File: Imagens/prints/fig_val_convdif1d_supg.png Graphic file (type png)
 <use Imagens/prints/fig_val_convdif1d_supg.png>
 Package pdftex.def Info: Imagens/prints/fig_val_convdif1d_supg.png  used on inp
 ut line 312.
 (pdftex.def)             Requested size: 362.77525pt x 290.22542pt.
-<Imagens/prints/fig_val_convdif1d_galerkin.png, id=1652, 1505.625pt x 1204.5pt>
+<Imagens/prints/fig_val_convdif1d_galerkin.png, id=1696, 1505.625pt x 1204.5pt>
 
 File: Imagens/prints/fig_val_convdif1d_galerkin.png Graphic file (type png)
 <use Imagens/prints/fig_val_convdif1d_galerkin.png>
@@ -1096,16 +1141,16 @@ Package pdftex.def Info: Imagens/prints/fig_val_convdif1d_galerkin.png  used on
 (pdftex.def)             Requested size: 362.77525pt x 290.22542pt.
 
 
-[59]
-
-[60 <./Imagens/prints/fig_val_convdif1d_supg.png>]
-
-[61 <./Imagens/prints/fig_val_convdif1d_galerkin.png>]
-
 [62]
 
-[63]
-<Imagens/prints/fig_val_viga1d_resultado.png, id=1689, 1790.69pt x 2693.06125pt
+[63 <./Imagens/prints/fig_val_convdif1d_supg.png>]
+
+[64 <./Imagens/prints/fig_val_convdif1d_galerkin.png>]
+
+[65]
+
+[66]
+<Imagens/prints/fig_val_viga1d_resultado.png, id=1733, 1790.69pt x 2693.06125pt
 >
 File: Imagens/prints/fig_val_viga1d_resultado.png Graphic file (type png)
 <use Imagens/prints/fig_val_viga1d_resultado.png>
@@ -1114,12 +1159,12 @@ nput line 394.
 (pdftex.def)             Requested size: 320.0935pt x 481.4016pt.
 
 
-[64]
+[67]
 
-[65 <./Imagens/prints/fig_val_viga1d_resultado.png>]
+[68 <./Imagens/prints/fig_val_viga1d_resultado.png>]
 
-[66]
-<Imagens/prints/fig_val_vibracao1d_modos.png, id=1713, 1890.06125pt x 2787.4137
+[69]
+<Imagens/prints/fig_val_vibracao1d_modos.png, id=1758, 1890.06125pt x 2787.4137
 6pt>
 File: Imagens/prints/fig_val_vibracao1d_modos.png Graphic file (type png)
 <use Imagens/prints/fig_val_vibracao1d_modos.png>
@@ -1128,14 +1173,14 @@ nput line 473.
 (pdftex.def)             Requested size: 298.75264pt x 440.59369pt.
 
 
-[67]
-
-[68 <./Imagens/prints/fig_val_vibracao1d_modos.png>]
-
-[69]
-
 [70]
-<Imagens/prints/fig_val_transcalor2d_campo.png, id=1741, 602.25pt x 501.875pt>
+
+[71 <./Imagens/prints/fig_val_vibracao1d_modos.png>]
+
+[72]
+
+[73]
+<Imagens/prints/fig_val_transcalor2d_campo.png, id=1785, 602.25pt x 501.875pt>
 File: Imagens/prints/fig_val_transcalor2d_campo.png Graphic file (type png)
 <use Imagens/prints/fig_val_transcalor2d_campo.png>
 Package pdftex.def Info: Imagens/prints/fig_val_transcalor2d_campo.png  used on
@@ -1143,11 +1188,11 @@ Package pdftex.def Info: Imagens/prints/fig_val_transcalor2d_campo.png  used on
 (pdftex.def)             Requested size: 320.0935pt x 266.75061pt.
 
 
-[71]
+[74]
 
-[72 <./Imagens/prints/fig_val_transcalor2d_campo.png>]
+[75 <./Imagens/prints/fig_val_transcalor2d_campo.png>]
 
-[73]
+[76]
 Underfull \hbox (badness 1515) in paragraph at lines 612--613
 []\OT1/cmr/bx/n/12 superf^^S^^Pcie do ci-lin-dro\OT1/cmr/m/n/12 : $\OML/cmm/m/i
 t/12  $ \OT1/cmr/m/n/12 cons-tante (pa-rede des-li-zante, corpo n~ao-
@@ -1155,8 +1200,8 @@ t/12  $ \OT1/cmr/m/n/12 cons-tante (pa-rede des-li-zante, corpo n~ao-
 
 
 
-[74]
-<Imagens/prints/fig_val_potencial2d_linhas.png, id=1768, 714.7503pt x 860.013pt
+[77]
+<Imagens/prints/fig_val_potencial2d_linhas.png, id=1812, 714.7503pt x 860.013pt
 >
 File: Imagens/prints/fig_val_potencial2d_linhas.png Graphic file (type png)
 <use Imagens/prints/fig_val_potencial2d_linhas.png>
@@ -1165,14 +1210,14 @@ Package pdftex.def Info: Imagens/prints/fig_val_potencial2d_linhas.png  used on
 (pdftex.def)             Requested size: 298.75264pt x 359.48392pt.
 
 
-[75]
-
-[76 <./Imagens/prints/fig_val_potencial2d_linhas.png>]
-
-[77]
-
 [78]
-<Imagens/prints/fig_val_ns2d_cavity_re100.png, id=1803, 360.6273pt x 860.013pt>
+
+[79 <./Imagens/prints/fig_val_potencial2d_linhas.png>]
+
+[80]
+
+[81]
+<Imagens/prints/fig_val_ns2d_cavity_re100.png, id=1848, 360.6273pt x 860.013pt>
 
 File: Imagens/prints/fig_val_ns2d_cavity_re100.png Graphic file (type png)
 <use Imagens/prints/fig_val_ns2d_cavity_re100.png>
@@ -1183,7 +1228,7 @@ input line 749.
 
 LaTeX Warning: Float too large for page by 29.38684pt on input line 752.
 
-<Imagens/prints/fig_val_ns_ghia_uy.png, id=1806, 498.1812pt x 426.393pt>
+<Imagens/prints/fig_val_ns_ghia_uy.png, id=1851, 498.1812pt x 426.393pt>
 File: Imagens/prints/fig_val_ns_ghia_uy.png Graphic file (type png)
 <use Imagens/prints/fig_val_ns_ghia_uy.png>
 Package pdftex.def Info: Imagens/prints/fig_val_ns_ghia_uy.png  used on input l
@@ -1191,67 +1236,82 @@ ine 756.
 (pdftex.def)             Requested size: 320.0935pt x 273.97713pt.
 
 
-[79]
-
-[80 <./Imagens/prints/fig_val_ns2d_cavity_re100.png>])
-
-[81 <./Imagens/prints/fig_val_ns_ghia_uy.png>]
-
 [82]
+
+[83 <./Imagens/prints/fig_val_ns2d_cavity_re100.png>])
+
+[84 <./Imagens/prints/fig_val_ns_ghia_uy.png>]
+
+[85]
 \openout2 = `Textual/conclusao.aux'.
 
  (./Textual/conclusao.tex
 Cap\'{\i }tulo 7.
 
 
-[83
+[86
 
 
 
 
 ]
 
-[84]
+[87]
 
-[85])
+[88])
 
-[86] (./thesis.bbl
+[89] (./thesis.bbl
+Underfull \hbox (badness 10000) in paragraph at lines 52--56
+[]\OT1/cmr/m/n/12 THE MATHWORKS, INC., ``MA-TLAB'', Na-tick, Mas-
+ []
 
-[87
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--56
+\OT1/cmr/m/n/12 sa-chu-setts, Es-ta-dos Uni-dos. Dis-pon^^S^^Pvel em:
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 52--56
+\OT1/cmr/m/n/12 https://www.mathworks.com/products/matlab.html, 2026, Acesso
+ []
+
+
+
+[90
 
 
 
 
 ]
 
-[88]
+[91]
 
-[89]
-Underfull \hbox (badness 7344) in paragraph at lines 168--172
+[92]
+Underfull \hbox (badness 7344) in paragraph at lines 206--210
 []\OT1/cmr/m/n/12 IMBRIZI, B., ``triangle-wasm: Ja-vas-cript wrap-per around Tr
 i-an-gle
  []
 
 
-Underfull \hbox (badness 3803) in paragraph at lines 168--172
+Underfull \hbox (badness 3803) in paragraph at lines 206--210
 \OT1/cmr/m/n/12 com-pi-led to We-bAs-sem-bly'', Re-po-sit^^Sorio GitHub. Dis-po
 n^^S^^Pvel em:
  []
 
 
 
-[90]
+[93]
 
-[91])
+[94])
 
-[92]
+[95]
 \openout2 = `Pos-textual/apendice_listagens.aux'.
 
  (./Pos-textual/apendice_listagens.tex
 Ap\^endice A.
 
 
-[93
+[96
 
 
 ]
@@ -1259,35 +1319,35 @@ Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on i
 nput line 38.
  (../simulations/mef/conducao-permanente-barra1d-mef/simulation.py
 
-[94]
+[97]
 
-[95]
+[98]
 
-[96]
+[99]
 
-[97])
+[100])
 
-[98] (../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py
+[101] (../simulations/mef/escoamento-fluido-2d/navier-stokes/simulation.py
 
-[99]))
+[102]))
 
-[100]
+[103]
 \openout2 = `Pos-textual/apendice_benchmark.aux'.
 
  (./Pos-textual/apendice_benchmark.tex
 Ap\^endice B.
 
 
-[101
+[104
 
 
 
 
 ]
 
-[102])
+[105])
 
-[103] 
+[106] 
 enddocument/afterlastpage (AED): lastpage setting LastPage.
 (./thesis.aux (./Pre-textual/dedic.aux) (./Pre-textual/thanks.aux)
 (./Pre-textual/resumo.aux) (./Pre-textual/abstract.aux)
@@ -1301,48 +1361,49 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `thesis.out' has not changed.
-(rerunfilecheck)             Checksum: DBDD81126423FA0379711B60FB4D8C39;24260.
+(rerunfilecheck)             Checksum: 4BA36D0AA3A9521446DF27EF209CF755;24606.
  ) 
 Here is how much of TeX's memory you used:
- 18013 strings out of 473190
- 293235 string characters out of 5715799
- 1192787 words of memory out of 5000000
- 40166 multiletter control sequences out of 15000+600000
+ 18858 strings out of 473190
+ 308037 string characters out of 5715799
+ 1206486 words of memory out of 5000000
+ 40969 multiletter control sequences out of 15000+600000
  581114 words of font info for 119 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 90i,14n,93p,2250b,2127s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,15n,93p,2250b,2235s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></
-usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb><
-/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
-usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></
-usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></u
-sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></us
-r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/
-local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/lo
-cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
-l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
-texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/te
-xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texli
-ve/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/
-2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/202
-5/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2025/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2025/texmf-dis
-t/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texmf
--dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/t
-exmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
-Output written on thesis.pdf (122 pages, 9939655 bytes).
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
+usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb></u
+sr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmitt10.pfb></us
+r/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr
+/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/
+local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/lo
+cal/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/loca
+l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmmib10.pfb></usr/loca
+l/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/
+texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/te
+xlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/local/texl
+ive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive
+/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texlive/20
+25/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2025/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2025/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2025/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2025/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2025/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2025/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2025/texmf-dist/
+fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2025/texmf-d
+ist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/tex
+mf-dist/fonts/type1/public/cm-super/sfrm1200.pfb>
+Output written on thesis.pdf (123 pages, 9956329 bytes).
 PDF statistics:
- 2429 PDF objects out of 2487 (max. 8388607)
- 2134 compressed objects within 22 object streams
- 740 named destinations out of 1000 (max. 500000)
- 1071 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 2481 PDF objects out of 2487 (max. 8388607)
+ 2183 compressed objects within 22 object streams
+ 758 named destinations out of 1000 (max. 500000)
+ 1079 words of extra memory for PDF output out of 10000 (max. 10000000)
 

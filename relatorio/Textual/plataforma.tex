@@ -61,24 +61,41 @@ A arquitetura \textit{client-side} implica que todo o processamento numérico oc
 \subsection{Comparação com Alternativas}
 \label{sec:comparacao_alternativas}
 
-A Tabela \ref{tab:comparacao_plataformas} posiciona o \textit{MinervaMesh} frente às alternativas mais comuns no contexto de ensino de simulação numérica.
+\paragraph{}A Tabela~\ref{tab:comparacao_plataformas} posiciona o \textit{MinervaMesh} frente a quatro classes de ferramentas empregadas no ensino e na prototipagem de métodos numéricos. A comparação organiza-se por classe porque as alternativas não são equivalentes entre si: cada uma resolve um problema distinto e impõe um tipo distinto de barreira ao usuário iniciante.
 
 \begin{table}[H]
 \centering
-\caption{Comparação entre plataformas de simulação numérica para ensino.}
+\caption{Posicionamento do \textit{MinervaMesh} frente às classes de ferramentas de simulação numérica empregadas no ensino.}
 \label{tab:comparacao_plataformas}
-\begin{tabular}{lcccc}
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{>{\raggedright\arraybackslash}p{3.0cm} >{\raggedright\arraybackslash}p{1.8cm} >{\raggedright\arraybackslash}p{2.3cm} >{\raggedright\arraybackslash}p{2.2cm} >{\raggedright\arraybackslash}p{2.1cm} >{\raggedright\arraybackslash}p{1.8cm}}
 \hline
-\textbf{Critério} & \textbf{MinervaMesh} & \textbf{MATLAB} & \textbf{Jupyter} & \textbf{COMSOL} \\
+\textbf{Classe de ferramenta} & \textbf{Instalação} & \textbf{Licença} & \textbf{Código do método} & \textbf{Formulação} & \textbf{1\textsuperscript{a} simulação} \\
 \hline
-Custo de licença           & Gratuito & Pago       & Gratuito   & Pago \\
-Instalação necessária      & Não      & Sim        & Sim        & Sim \\
-Execução no navegador      & Sim      & Não        & Parcial    & Não \\
-Código-fonte acessível     & Sim      & Parcial    & Sim        & Não \\
-Infraestrutura de servidor & Não      & Não        & Sim        & Sim \\
+\textbf{MinervaMesh}     & Nenhuma    & Gratuita         & Na página      & Sim & Segundos \\
+\hline
+Ambientes de computação  & Necessária & Gratuita/paga   & Pelo usuário   & Não & Horas \\
+\hline
+Suítes comerciais        & Necessária & Paga             & Não exposto    & Não & Laboratório \\
+\hline
+Bibliotecas Python       & Necessária & Gratuita         & No repositório & Não & Horas \\
+\hline
+Demos web                & Nenhuma    & Gratuita         & Raramente      & Não & Segundos \\
 \hline
 \end{tabular}
 \end{table}
+
+\paragraph{}Os \textbf{ambientes de computação numérica}, categoria que abrange o uso direto de Python científico, o MATLAB \cite{MATLAB} e o Jupyter \cite{Kluyver2016}, constituem a via mais frequente pela qual o estudante resolve numericamente uma EDP pela primeira vez. Não são, entretanto, pacotes de elementos finitos: o método deve ser implementado integralmente pelo usuário, e o ambiente científico precisa estar previamente configurado na máquina local. O \textit{MinervaMesh} não substitui esse exercício de implementação, que possui valor formativo próprio, mas oferece um ponto de partida imediato para a observação do método em funcionamento, com o código correspondente exposto.
+
+\paragraph{}As \textbf{suítes comerciais}, como o ANSYS \cite{ANSYS} e o COMSOL Multiphysics \cite{COMSOL}, constituem a referência industrial em simulação numérica e oferecem capacidade de análise superior à deste trabalho, incluindo geometria tridimensional e acoplamento multifísico. Operam, contudo, como caixa-preta do ponto de vista didático: o usuário observa o campo de saída sem acesso à formulação discretizada nem ao código do \textit{solver}. A isso somam-se o custo de licenciamento e a dependência de laboratório equipado.
+
+\paragraph{}As \textbf{bibliotecas de código aberto em Python}, representadas pelo FEniCS \cite{Alnaes2015} e pelo Dedalus \cite{Burns2020}, oferecem rigor e flexibilidade equivalentes aos de ferramentas de pesquisa, com código-fonte integralmente disponível. Sua adoção pressupõe, no entanto, a instalação de um ambiente científico local e o domínio prévio de uma linguagem de domínio específica, o que desloca o esforço inicial do estudante da física do problema para a configuração da ferramenta.
+
+\paragraph{}As \textbf{demonstrações web} implementadas em JavaScript, a exemplo das construídas com a biblioteca \textit{p5.js} \cite{P5js}, compartilham com o \textit{MinervaMesh} a ausência de atrito de acesso, uma vez que executam diretamente no navegador. Limitam-se, em geral, a um único caso fixo, sem exposição da formulação matemática nem do código que a implementa, o que restringe seu uso ao caráter ilustrativo.
+
+\paragraph{}A leitura conjunta das quatro classes evidencia que os atributos reunidos pelo \textit{MinervaMesh} ocorrem, nas alternativas examinadas, de forma isolada: cada ferramenta atende bem a um subconjunto dos critérios da Tabela~\ref{tab:comparacao_plataformas}, e nenhuma os atende simultaneamente no contexto de uso didático autônomo. É essa combinação, e não o desempenho computacional, que define o nicho da plataforma.
 
 A principal limitação da abordagem \textit{client-side} reside na capacidade computacional: problemas com malhas muito refinadas (dezenas de milhares de nós) podem apresentar tempo de execução elevado, uma vez que o desempenho do WebAssembly, embora próximo ao nativo, ainda é inferior ao de implementações compiladas em C/Fortran. Para os casos de interesse deste trabalho, envolvendo malhas de centenas a poucos milhares de nós, essa limitação não se mostrou restritiva. Uma análise quantitativa desse custo é apresentada na Seção~\ref{sec:analise_computacional}, e a Seção~\ref{sec:limitacoes} sistematiza as limitações da plataforma.
 

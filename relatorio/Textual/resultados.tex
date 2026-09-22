@@ -219,11 +219,11 @@ O perfil permanente é portanto uma linha poligonal com \emph{kink} em~$x = L/2$
 A discretização emprega $n_e = 40$ elementos lineares com $h = 0{,}025$~m, o que resolve bem a descontinuidade de condutividade alinhando um nó exatamente com $x = L/2$. A cada passo de tempo, o sistema linear
 
 \begin{equation}
-    \left( \frac{M}{\Delta t} + \theta \, K \right) \mathbf{T}^{n+1} = \left( \frac{M}{\Delta t} - (1-\theta) K \right) \mathbf{T}^n
+    \left( \frac{\mathbf{M}}{\Delta t} + \theta \, \mathbf{K} \right) \mathbf{T}^{n+1} = \left( \frac{\mathbf{M}}{\Delta t} - (1-\theta) \mathbf{K} \right) \mathbf{T}^n
     \label{eq:val_calor_transiente_scheme}
 \end{equation}
 
-\noindent é resolvido pelo solver direto, onde $M$ e $K$ são as matrizes globais consistentes de massa e de rigidez montadas com $k(x)$ avaliado no baricentro de cada elemento. A Figura~\ref{fig:val_calor_transiente} apresenta o campo $T(x)$ no instante final $t = 0{,}2$~s (correspondente a $\sim 20\%$ da escala difusiva) sobreposto ao perfil analítico de regime permanente, evidenciando a convergência rápida do método ao regime linear por partes.
+\noindent é resolvido pelo solver direto, onde $\mathbf{M}$ e $\mathbf{K}$ são as matrizes globais consistentes de massa e de rigidez montadas com $k(x)$ avaliado no baricentro de cada elemento. A Figura~\ref{fig:val_calor_transiente} apresenta o campo $T(x)$ no instante final $t = 0{,}2$~s (correspondente a $\sim 20\%$ da escala difusiva) sobreposto ao perfil analítico de regime permanente, evidenciando a convergência rápida do método ao regime linear por partes.
 
 \begin{figure}[htbp]
     \centering
@@ -428,11 +428,11 @@ A equação de onda axial em barra de seção constante é
 \noindent onde $u(x,t)$ é o deslocamento axial, $E$ o módulo de Young, $\rho$ a densidade e $A$ a área da seção transversal. A separação de variáveis $u(x,t) = \phi(x) e^{i \omega t}$ conduz ao problema espectral generalizado, cuja discretização por MEF é
 
 \begin{equation}
-    K \boldsymbol{\phi}_n = \omega_n^2 \, M \boldsymbol{\phi}_n, \qquad f_n = \frac{\omega_n}{2\pi}
+    \mathbf{K} \boldsymbol{\phi}_n = \omega_n^2 \, \mathbf{M} \boldsymbol{\phi}_n, \qquad f_n = \frac{\omega_n}{2\pi}
     \label{eq:val_vibracao_autovalor}
 \end{equation}
 
-\noindent com $K$ a matriz de rigidez, $M$ a matriz de massa concentrada e $\boldsymbol{\phi}_n$ o $n$-ésimo autovetor (forma modal). A Tabela~\ref{tab:val_vibracao_params} lista os parâmetros adotados na simulação, com propriedades de aço.
+\noindent com $\mathbf{K}$ a matriz de rigidez, $\mathbf{M}$ a matriz de massa concentrada e $\boldsymbol{\phi}_n$ o $n$-ésimo autovetor (forma modal). A Tabela~\ref{tab:val_vibracao_params} lista os parâmetros adotados na simulação, com propriedades de aço.
 
 \begin{table}[htbp]
     \centering
@@ -466,7 +466,7 @@ Para barra livre-livre (ambas as extremidades com $du/dx = 0$), as formas modais
 
 \subsection{Solução MEF e Comparação}
 
-A discretização emprega $n_e = 20$ elementos lineares com malha uniforme. A matriz de massa é montada na forma \emph{lumped}, redistribuindo a massa elementar igualmente entre os dois nós do elemento --- estratégia que torna $M$ diagonal e acelera a solução do problema de autovalor, ao custo de introduzir um erro sistemático de subestimação das frequências. A Figura~\ref{fig:val_vibracao} apresenta as cinco primeiras formas modais normalizadas e a tabela de frequências obtidas pela solução do problema generalizado.
+A discretização emprega $n_e = 20$ elementos lineares com malha uniforme. A matriz de massa é montada na forma \emph{lumped}, redistribuindo a massa elementar igualmente entre os dois nós do elemento --- estratégia que torna $\mathbf{M}$ diagonal e acelera a solução do problema de autovalor, ao custo de introduzir um erro sistemático de subestimação das frequências. A Figura~\ref{fig:val_vibracao} apresenta as cinco primeiras formas modais normalizadas e a tabela de frequências obtidas pela solução do problema generalizado.
 
 \begin{figure}[htbp]
     \centering
@@ -496,7 +496,7 @@ A Tabela~\ref{tab:val_vibracao_erros} compara as frequências MEF com as analít
     \end{tabular}
 \end{table}
 
-O modo de corpo rígido ($n = 1$) é reproduzido exatamente pelo MEF, com $f_1 = 0$ --- consequência direta da formulação da matriz de rigidez, que possui exatamente um modo nulo para esta configuração de apoios. Para os modos deformáveis subsequentes, todas as frequências MEF subestimam as analíticas, com erro relativo crescendo monotonicamente de $0{,}1\%$ ($n = 2$) a $1{,}6\%$ ($n = 5$). Esta subestimação é o comportamento canônico da aproximação por massa concentrada: a distribuição discreta da massa nos nós equivale, no limite contínuo, a uma barra levemente mais flexível do que a original, o que reduz as frequências. O erro cresce com a ordem do modo porque modos de alta frequência têm comprimento de onda comparável ao tamanho do elemento, saindo do regime de resolução confiável da malha. Para o módulo ora implementado, o critério prático é que os modos até $n_{\max} \approx n_e / 4$ podem ser considerados quantitativamente confiáveis. A opção pelo \emph{lumping} em vez da massa consistente é deliberada: mantém $M$ diagonal, simplifica a solução do autovalor e oferece convergência adequada para os primeiros modos --- a faixa de interesse do módulo.
+O modo de corpo rígido ($n = 1$) é reproduzido exatamente pelo MEF, com $f_1 = 0$ --- consequência direta da formulação da matriz de rigidez, que possui exatamente um modo nulo para esta configuração de apoios. Para os modos deformáveis subsequentes, todas as frequências MEF subestimam as analíticas, com erro relativo crescendo monotonicamente de $0{,}1\%$ ($n = 2$) a $1{,}6\%$ ($n = 5$). Esta subestimação é o comportamento canônico da aproximação por massa concentrada: a distribuição discreta da massa nos nós equivale, no limite contínuo, a uma barra levemente mais flexível do que a original, o que reduz as frequências. O erro cresce com a ordem do modo porque modos de alta frequência têm comprimento de onda comparável ao tamanho do elemento, saindo do regime de resolução confiável da malha. Para o módulo ora implementado, o critério prático é que os modos até $n_{\max} \approx n_e / 4$ podem ser considerados quantitativamente confiáveis. A opção pelo \emph{lumping} em vez da massa consistente é deliberada: mantém $\mathbf{M}$ diagonal, simplifica a solução do autovalor e oferece convergência adequada para os primeiros modos --- a faixa de interesse do módulo.
 
 % ==============================================================
 % 5.6 — Transferência de Calor 2D
@@ -568,11 +568,11 @@ Em regime permanente, a Equação~\eqref{eq:val_transcalor_edp} se reduz a $\nab
 A malha é gerada por triangulação de Delaunay sobre um reticulado de $40 \times 40$ nós ($1600$ nós, $\approx 3120$ elementos triangulares). Cada passo de tempo resolve o sistema linear global
 
 \begin{equation}
-    \left( M + \theta \Delta t \, K \right) \mathbf{T}^{n+1} = \left( M - (1-\theta) \Delta t \, K \right) \mathbf{T}^n
+    \left( \mathbf{M} + \theta \Delta t \, \mathbf{K} \right) \mathbf{T}^{n+1} = \left( \mathbf{M} - (1-\theta) \Delta t \, \mathbf{K} \right) \mathbf{T}^n
     \label{eq:val_transcalor_cn}
 \end{equation}
 
-\noindent com $M$ a matriz de massa consistente e $K$ a matriz de rigidez 2D. Com os parâmetros da Tabela~\ref{tab:val_transcalor_params} ($n_{\mathrm{passos}} = 50$, $t_{\max} = 0{,}05$~s --- apenas $5\%$ da escala de difusão $\tau_{\mathrm{dif}} = L^2 \rho c_p / k = 1{,}0$~s), a simulação exibe a propagação inicial da frente térmica, não o regime permanente. A Figura~\ref{fig:val_transcalor} mostra o campo $T(x,y)$ no instante final $t = 0{,}049$~s.
+\noindent com $\mathbf{M}$ a matriz de massa consistente e $\mathbf{K}$ a matriz de rigidez 2D. Com os parâmetros da Tabela~\ref{tab:val_transcalor_params} ($n_{\mathrm{passos}} = 50$, $t_{\max} = 0{,}05$~s --- apenas $5\%$ da escala de difusão $\tau_{\mathrm{dif}} = L^2 \rho c_p / k = 1{,}0$~s), a simulação exibe a propagação inicial da frente térmica, não o regime permanente. A Figura~\ref{fig:val_transcalor} mostra o campo $T(x,y)$ no instante final $t = 0{,}049$~s.
 
 \begin{figure}[htbp]
     \centering
@@ -647,7 +647,7 @@ Para cilindro imerso em fluxo uniforme em domínio infinito, a solução clássi
 
 \subsection{Solução MEF e Comparação}
 
-A malha triangular é gerada por algoritmo de Delaunay sobre uma grade regular, com posterior remoção dos triângulos internos ao cilindro. O sistema global $K \boldsymbol{\psi} = \mathbf{b}$ é resolvido uma única vez (problema estacionário). As velocidades são recuperadas por interpolação do gradiente de $\psi$ em cada elemento e o coeficiente de pressão sobre a superfície do cilindro é calculado por Bernoulli: $C_p = 1 - (u^2 + v^2)/U_{\infty}^2$. A Figura~\ref{fig:val_potencial} apresenta as linhas de corrente ao redor do cilindro e a distribuição de $C_p(\theta)$ obtida.
+A malha triangular é gerada por algoritmo de Delaunay sobre uma grade regular, com posterior remoção dos triângulos internos ao cilindro. O sistema global $\mathbf{K} \boldsymbol{\psi} = \mathbf{b}$ é resolvido uma única vez (problema estacionário). As velocidades são recuperadas por interpolação do gradiente de $\psi$ em cada elemento e o coeficiente de pressão sobre a superfície do cilindro é calculado por Bernoulli: $C_p = 1 - (u^2 + v^2)/U_{\infty}^2$. A Figura~\ref{fig:val_potencial} apresenta as linhas de corrente ao redor do cilindro e a distribuição de $C_p(\theta)$ obtida.
 
 \begin{figure}[htbp]
     \centering

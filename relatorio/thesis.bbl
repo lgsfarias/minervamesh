@@ -27,6 +27,44 @@
   Elements\/}.
 \newblock John Wiley \& Sons: West Sussex, 2007.
 
+\bibitem{Alnaes2015}
+\MakeUppercase{ Aln{\ae}s, M.~S., Blechta, J., Hake, J.,
+  \MakeLowercase{et~al.}}, \enquote{The {FEniCS} Project Version 1.5}, {\em
+  Archive of Numerical Software\/}, v.~3, n. 100, pp.~9--23, 2015.
+
+\bibitem{Burns2020}
+\MakeUppercase{ Burns, K.~J., Vasil, G.~M., Oishi, J.~S.,
+  \MakeLowercase{et~al.}}, \enquote{Dedalus: a flexible framework for numerical
+  simulations with spectral methods}, {\em Physical Review Research\/}, v.~2,
+  pp.~023068, 2020.
+
+\bibitem{COMSOL}
+\MakeUppercase{ {COMSOL AB}}, \enquote{{COMSOL} {M}ultiphysics}, Estocolmo,
+  Su\'{e}cia. Dispon\'{i}vel em: https://www.comsol.com, 2026, Acesso em: 22
+  set. 2026.
+
+\bibitem{ANSYS}
+\MakeUppercase{ {ANSYS, Inc.}}, \enquote{{ANSYS}}, Canonsburg, Pensilv\^{a}nia,
+  Estados Unidos. Dispon\'{i}vel em: https://www.ansys.com, 2026, Acesso em: 22
+  set. 2026.
+
+\bibitem{MATLAB}
+\MakeUppercase{ {The MathWorks, Inc.}}, \enquote{{MATLAB}}, Natick,
+  Massachusetts, Estados Unidos. Dispon\'{i}vel em:
+  https://www.mathworks.com/products/matlab.html, 2026, Acesso em: 22 set.
+  2026.
+
+\bibitem{Kluyver2016}
+\MakeUppercase{ Kluyver, T., Ragan-Kelley, B., P{\'e}rez, F.,
+  \MakeLowercase{et~al.}}, \enquote{{J}upyter {N}otebooks: a publishing format
+  for reproducible computational workflows}.
+\newblock In: {\em Positioning and Power in Academic Publishing: Players,
+  Agents and Agendas\/}, pp. 87--90, IOS Press, 2016.
+
+\bibitem{P5js}
+\MakeUppercase{ {Processing Foundation}}, \enquote{{p5.js}}, Dispon\'{i}vel em:
+  https://p5js.org, 2026, Acesso em: 22 set. 2026.
+
 \bibitem{Incropera2006}
 \MakeUppercase{ Incropera, F.~P., DeWitt, D.~P., Bergman, T.~L.,
   \MakeLowercase{et~al.}}, {\em Fundamentals of Heat and Mass Transfer\/}.

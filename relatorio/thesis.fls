@@ -173,6 +173,15 @@ INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/float/float.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tools/longtable.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tools/longtable.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/pdfpages/pdfpages.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tools/calc.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/tools/calc.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/eso-pic/eso-pic.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/pdfpages/pppdftex.def
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/pdfpages/pppdftex.def
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/pdfpages/pppdftex.def
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -241,6 +250,12 @@ INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/caption/ltcaption.sty
 INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/caption/ltcaption.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/pdflscape/pdflscape-nometadata.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/graphics/lscape.sty
+INPUT /usr/local/texlive/2025/texmf-dist/tex/latex/graphics/lscape.sty
 INPUT ./Logo_poli.jpg
 INPUT ./Logo_poli.jpg
 INPUT ./Logo_poli.jpg
@@ -571,6 +586,7 @@ INPUT ./thesis.out
 INPUT ./thesis.out
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx8.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmbxti10.pfb
 INPUT /usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb

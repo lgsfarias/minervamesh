@@ -3,6 +3,7 @@
 \usepackage{amsmath,amssymb}
 \usepackage{indentfirst}
 \usepackage{graphicx}
+\usepackage{array}
 \usepackage{appendix}
 \usepackage{listings}
 \usepackage[table]{xcolor}
@@ -10,6 +11,7 @@
 \usepackage{float}
 \usepackage{longtable}
 \usepackage{hyperref}
+\usepackage{pdfpages}
 
 % Caminhos das imagens (figuras copiadas para Imagens/ e Imagens/prints/)
 \graphicspath{{Imagens/}{Imagens/prints/}}
@@ -110,15 +112,32 @@
 \makelosymbols
 \makeloabbreviations
 
+% ---------------------------------------------------------------------------
+% Folha de aprovação assinada pela banca (defesa em 21/09/2026): quando o PDF
+% digitalizado está presente localmente, ele substitui a página gerada pela
+% classe (\makefrontpage, chamada dentro de \frontmatter). O arquivo NÃO é
+% versionado (contém as assinaturas da banca; ver .gitignore), portanto em um
+% clone do repositório a compilação cai na folha gerada em LaTeX e não quebra.
+% ---------------------------------------------------------------------------
+% O build PADRÃO gera a folha em LaTeX (segura para versionar). Para produzir o
+% exemplar oficial com a folha assinada, compile explicitamente com:
+%   latexmk -pdf -usepretex='\def\ComFolhaAssinada{}' thesis.tex
+\ifdefined\ComFolhaAssinada
+  \IfFileExists{Pre-textual/folha-aprovacao-assinada.pdf}{%
+    \renewcommand\makefrontpage{%
+      \includepdf[pages=1]{Pre-textual/folha-aprovacao-assinada.pdf}}%
+  }{}
+\fi
+
 \begin{document}
   \title{MinervaMesh: uma plataforma web de código aberto para simulações numéricas no ensino de Engenharia Mecânica}
   \foreigntitle{MinervaMesh: an open-source web platform for numerical simulations in Mechanical Engineering education}
   \author{Luiz Gustavo Santos}{Farias}
   \advisor{Prof.}{Gustavo Rabello dos}{Anjos}{Ph.D.}
-  \examiner{Prof.}{Examinador Um}{D.Sc.}
-  \examiner{Prof.}{Examinador Dois}{D.Sc.}
+  \examiner{Prof.}{Silvio Carlos Anibal de Almeida}{D.Sc.}
+  \examiner{Prof.}{Luã Guedes Costa}{D.Sc.}
   \department{DEM}
-  \date{6}{2026}
+  \date{9}{2026}
   \keyword{Método dos Elementos Finitos}
   \keyword{Método das Diferenças Finitas}
   \keyword{Simulação Web}

@@ -19,3 +19,8 @@
 
 # Apresentação de defesa (artefato local; inclui demo.mp4 e PDF compilado)
 /relatorio/apresentacao/
+
+# Folha de aprovação assinada (assinaturas da banca; documento administrativo,
+# não publicar no repositório público). O thesis.tex referencia este caminho, mas
+# só o inclui quando compilado com -usepretex='\def\ComFolhaAssinada{}'.
+/relatorio/Pre-textual/folha-aprovacao-assinada.pdf
