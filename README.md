@@ -26,7 +26,7 @@ Plataforma educacional para simulações numéricas de transferência de calor, 
 | Navier-Stokes 2D | Fluidos | Vorticidade-Corrente, Thom BC |
 
 ### Ferramentas Extras
-- Gerador de Malha Triangular
+- Gerador de Malha Triangular (utilitário de apoio, fora do menu principal; acessível em `simulations/extra/gerador-malha/`)
 
 ---
 
