@@ -5,3 +5,6 @@
 
 # Instruções locais do Claude Code
 CLAUDE.md
+
+# Dependências do build do Tailwind
+node_modules/

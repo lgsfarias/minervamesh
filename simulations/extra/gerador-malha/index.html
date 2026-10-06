@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="../../../favicon.ico" />
     <title>MinervaMesh - Gerador de Malhas</title>
-    <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js"></script>
-    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css" integrity="sha384-C7Vo5fjeYiyN27fdJgeiteaUwrLVW0+I9EbpT1kBxsxac8+kxV5zYrLayugNSu1q" crossorigin="anonymous" />
+    <link rel="stylesheet" href="../../../assets/tailwind.css" />
+    <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js" integrity="sha384-3iTboEo+2h87xDhKzYs49FbFFhi1sOZV/X7TQG7Bf9A0Lo1ZO98j9P0LBbu8GrW4" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js" integrity="sha384-Hl48Kq2HifOWdXEjMsKo6qxqvRLTYqIGbvlENBmkHAxZKIGCXv43H6W1jA671RzC" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-100 min-h-screen p-4 md:p-8">
     <div class="max-w-6xl mx-auto relative">
@@ -84,5 +84,10 @@
         </div>
     </div>
     <script type="py" src="simulation.py" config="config.toml"></script>
+  <footer class="mt-8 text-center text-gray-500 text-sm opacity-80 w-full pb-6">
+    MinervaMesh &middot; Desenvolvido por Luiz Gustavo Santos Farias &middot;
+    <a href="https://github.com/lgsfarias/minervamesh" class="underline hover:text-gray-700">Código-fonte no GitHub</a>
+    &middot; Licença MIT
+  </footer>
 </body>
 </html>

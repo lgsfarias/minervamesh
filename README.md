@@ -97,6 +97,13 @@ python3 -m http.server 8000
 # http://localhost:8000/index.html
 ```
 
+O CSS do Tailwind já vem compilado em `assets/tailwind.css`. Só é preciso recompilar se alterar classes nas páginas:
+
+```bash
+npm install
+npm run build:css
+```
+
 ---
 
 ## 🛠️ Tecnologias
@@ -106,7 +113,7 @@ python3 -m http.server 8000
 | Runtime | PyScript 2025.8.1 / Pyodide | Execução de Python no navegador via WebAssembly |
 | Cálculo | NumPy, SciPy | Álgebra linear, solvers esparsos |
 | Visualização | Matplotlib | Gráficos e campos 2D |
-| Interface | TailwindCSS | Estilização responsiva |
+| Interface | TailwindCSS 3 (CSS compilado pelo CLI, versionado em `assets/`) | Estilização responsiva |
 | Código | Prism.js | Syntax highlighting do código-fonte |
 
 ---

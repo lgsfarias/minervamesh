@@ -1,0 +1,4 @@
+/* Fonte do CSS compilado (assets/tailwind.css). Gerar com: npm run build:css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

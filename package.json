@@ -1,0 +1,14 @@
+{
+  "name": "minervamesh",
+  "version": "1.0.0",
+  "description": "Plataforma educacional de simulações numéricas (MDF/MEF) executadas no navegador via PyScript",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "build:css": "tailwindcss -i assets/tailwind.src.css -o assets/tailwind.css --minify",
+    "watch:css": "tailwindcss -i assets/tailwind.src.css -o assets/tailwind.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
+  }
+}
