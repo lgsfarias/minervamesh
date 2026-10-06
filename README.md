@@ -36,31 +36,26 @@ Plataforma educacional para simulações numéricas de transferência de calor, 
 minervamesh/
 ├── index.html                              # Menu principal
 ├── favicon.ico
+├── LICENSE
 ├── assets/                                 # Logos e imagens globais
-│   ├── logo_poli_ufrj.png
-│   └── conducao_esquema.png
-├── simulations/                            # Simulações organizadas
-│   ├── mdf/                               # Método das Diferenças Finitas
-│   │   ├── conducao-permanente-barra1d-geracao/
-│   │   └── equacao-onda/
-│   ├── mef/                               # Método dos Elementos Finitos
-│   │   ├── conducao-permanente-barra1d-mef/
-│   │   ├── calor-transiente-1d/
-│   │   ├── conveccao-difusao-1d/
-│   │   ├── viga-1d-mef/
-│   │   ├── vibracao-1d-mef/
-│   │   ├── transcalor/
-│   │   └── escoamento-fluido-2d/
-│   │       ├── common.py                  # Matrizes MEF compartilhadas
-│   │       ├── geometry.py                # Geração de geometrias
-│   │       ├── escoamento-potencial/
-│   │       └── navier-stokes/
-│   └── extra/
-│       └── gerador-malha/
-├── examples/                               # Exemplos e referências
-├── refs/                                   # Material de referência
-├── tcc_minervamesh/                        # Documento LaTeX do TCC
-└── docs/                                   # Artefatos de controle do projeto
+└── simulations/                            # Simulações organizadas por método
+    ├── mdf/                               # Método das Diferenças Finitas
+    │   ├── conducao-permanente-barra1d-geracao/
+    │   └── equacao-onda/
+    ├── mef/                               # Método dos Elementos Finitos
+    │   ├── conducao-permanente-barra1d-mef/
+    │   ├── calor-transiente-1d/
+    │   ├── conveccao-difusao-1d/
+    │   ├── viga-1d-mef/
+    │   ├── vibracao-1d-mef/
+    │   ├── transcalor/
+    │   └── escoamento-fluido-2d/
+    │       ├── common.py                  # Matrizes MEF compartilhadas
+    │       ├── geometry.py                # Geração de geometrias
+    │       ├── escoamento-potencial/
+    │       └── navier-stokes/
+    └── extra/
+        └── gerador-malha/
 ```
 
 Cada simulação segue o padrão:
@@ -123,6 +118,14 @@ python3 -m http.server 8000
 3. Clique em **Rodar** e visualize os resultados
 4. Use **Ver Código** para inspecionar a implementação Python
 5. Compare com soluções analíticas (quando disponível)
+
+---
+
+## 🎓 Trabalho de Conclusão de Curso
+
+Esta plataforma foi desenvolvida como Projeto de Graduação em Engenharia Mecânica (Escola Politécnica, UFRJ), sob orientação do Prof. Gustavo Rabello dos Anjos, e aprovada em setembro de 2026. O relatório em LaTeX, com a fundamentação teórica e a validação de cada módulo contra soluções analíticas e casos de referência, está em repositório próprio: [lgsfarias/tcc-minervamesh](https://github.com/lgsfarias/tcc-minervamesh).
+
+A tag [`v1.0-tcc`](https://github.com/lgsfarias/minervamesh/releases/tag/v1.0-tcc) marca o estado da plataforma usado para gerar as figuras do relatório.
 
 ---
 
