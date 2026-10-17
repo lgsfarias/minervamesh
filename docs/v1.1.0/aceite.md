@@ -77,9 +77,36 @@ demais para o campo ficar legível. Com `steps_per_frame = 10` em vez de 15, o
 C passa a atualizar a cada ~1,8 s e dura ~55 s. Arquivos:
 `docs/v1.1.0/baseline/ns-cavity-*.json`.
 
-### Depois (v1.1.0)
+### Depois (v1.1.0, 17/10/2026, após a etapa 9)
 
-Pendente; preenchido ao final da etapa 10.
+Rodada final com o gancho ainda presente, `--lang pt`, defaults da v1.1.0 (o
+Navier-Stokes abre na cavidade; a linha extra é a rodada com os parâmetros
+antigos do canal, comparável à referência). Arquivos:
+`docs/v1.1.0/baseline/v1.1.0.json` e `v1.1.0-ns-canal.json` (guardados como
+registro final, ao contrário das rodadas intermediárias).
+
+| Módulo | Execução (s) | Métricas exibidas | Imagem (sha256, 16 hex) | Resultado (sha256/16) |
+|---|---|---|---|---|
+| mdf-conducao | 1.8 | (gráfico em canvas; comparar pelo hash) | e09710f3ad8b5685<br>aaeb8c3558e1780d | `f4bec9c0ec3bf719` |
+| mdf-onda | 4.9 | (só imagem) | fe2bcc08555a7ee3 | `f9ee818ac6205a34` |
+| mef-conducao | 0.3 | Validação Malha: 10 elementos lineares, h = 0.1000 m T_max (MEF): 1.120000 °C em x = 0.700 m T_max (analítica): 1.125000 °C em x = 0.750 m Erro máximo nodal: 8.88e-16 °C | 0a8de685dc811c44<br>7533c140e510d08a | `37b2c108a97899e2` |
+| calor-transiente-1d | 7.7 | Validação Tempo final: 0.200 s (100.0% de τ_dif = 0.20 s) T(L/2) MEF: 0.163656 °C T(L/2) analítica (regime permanente, k2/(k1+k2)): 0.166667 °C Desvio em x = L/2: 3.01e-0… | 498cf6d45b0deb8d | `60e236980bf88b4a` |
+| conveccao-difusao | 0.6 | Informações da Simulação Número de Péclet: 0.500 Estabilização SUPG: Sim Parâmetro τ: 0.032791 Velocidade: 0.050 m/s Tamanho elemento: 0.0200 m Erro máximo: 4.44e-16 °C | 4d93b5c782e910a2<br>6009fbf76e89fb69 | `da38aa9b91d42295` |
+| viga | 0.7 | ValidaçãoCaso: Simplesmente Apoiada com carga uniforme, propriedades constanteDeflexão máxima: 1.0417 mm (analítica 1.0417 mm, erro relativo 8.60e-13) em x = 1.000 m\|M\|… | 65beeaf24afe5f5c<br>c52e64254874e332 | `0cb54a229a4859de` |
+| vibracao | 0.9 | ValidaçãoFrequências naturais: Livre-Livre, propriedades constanteModoMEF [Hz]Analítica [Hz]Erro [%]Modo 10.00--Modo 21260.591261.890.1%Modo 32513.412523.770.4%Modo 43750… | 2ff56abf1f1f15ba<br>aa466b90c6af2d39 | `c85c2f02e695cf19` |
+| transcalor | 6.5 | ValidaçãoTempo final: 0.050 s (5.0% da escala difusiva τ_dif = 1.00 s)T(0,5; 0,5) MEF: 27.0799 °CT(0,5; 0,5) regime permanente (T_bot + (T_top − T_bot)·y): 65.8974 °CDesv… | 7c3f213f15483e9a | `a21b6afac4adabb1` |
+| potencial | 1.5 | Resultados Aerodinâmicos Sustentação (L): -0.0013 N/m Arrasto (D): 0.0158 N/m Circulação (Γ): -0.0013 m²/s Validação: C_p na superfície do cilindro (teoria: C_p = 1 − 4 s… | 6a09c09e114a272e<br>0b11f1b6c94d2d19 | `231d13de637773a3` |
+| navier-stokes | 54.5 | ValidaçãoPasso: 300 / 300, Re = 100.0, malha 31×31ψ_min: -0.10090 em (0.633, 0.733)Referência Ghia et al. (1982) Re=100: ψ_min ≈ -0.1034, centro em (0.6172, 0.7344)Simula… | 8248b46ea45d57d6 | `d7d7f4a596fd3c2f` |
+| navier-stokes (canal antigo, `--set`) | 132.3 | ValidaçãoPasso: 500 / 500, Re = 100.0, malha 60×30ψ_min: +0.00000 em (0.000, 0.000)Simulação Concluída! | a0286f6ead411156 | `908c0a7730520e05` |
+
+Veredito contra `v1.0.0-hook`: **resultado numérico idêntico em 10/10**
+(Navier-Stokes pela rodada do canal antigo). Texto exibido idêntico fora as
+duas mudanças pretendidas (tabela da vibração em HTML, 2b; "propriedades
+constante" na viga e na vibração, 6b). Imagens idênticas nos 4 módulos que
+continuam em `<img>` (onda, transiente 1D, transiente 2D, Navier-Stokes) e na
+condução MDF; os 5 módulos que passaram ao gráfico interativo têm hash novo
+desde a 2b (título e rótulos traduzíveis no canvas). O default novo da cavidade
+dá ψ_min = −0,10090 em (0,633; 0,733), igual ao candidato C.
 
 ## Gancho de exportação validado (17/10/2026)
 
@@ -125,6 +152,7 @@ Os JSONs intermediários não são guardados; só o veredito.
 | 7 — esquemas SVG: 13 `<figure class="mm-scheme">` inline nas seções "Domínio" das 10 páginas, CSS compartilhado, toggles por seletor nos de escoamento, `<img>` da condução MDF e dois PNGs removidos. Nenhum `.py` tocado; Navier-Stokes de novo nas duas configurações (cavidade default: ψ_min = −0,10090 em (0,633; 0,733), 54,5 s) | 17/10/2026 | idênticas à referência em 5 (condução MDF, onda, transiente 1D, transiente 2D e Navier-Stokes com o canal antigo); diferem nos 5 interativos restantes (condução MEF, convecção-difusão, viga, vibração, potencial) como desde a 2b | idêntico (10/10) fora a tabela da vibração (2b) e "propriedades constante" na viga e na vibração (6b) | idêntico (10/10) |
 | 8 — rótulos dos inputs: 76 chaves `input.*` no padrão `Nome símbolo [unidade]` (JSON PT/EN e fallback dos `<label>`), subscritos em `<sub>` fora do `data-i18n`. Nenhum `.py` tocado; Navier-Stokes de novo nas duas configurações (cavidade default: ψ_min = −0,10090 em (0,633; 0,733), 54,5 s) | 17/10/2026 | idênticas às da 7: iguais em 5 (condução MDF, onda, transiente 1D, transiente 2D, Navier-Stokes com o canal antigo), diferem nos 5 interativos como desde a 2b | idêntico (10/10) fora a tabela da vibração (2b) e "propriedades constante" na viga e na vibração (6b) | idêntico (10/10) |
 | 9 — limpezas: `plotly` fora do `config.toml` do transiente 2D (auditoria dos demais: nada a remover), README com resumo EN. Nenhum `.py` tocado; rodada só do transiente 2D (`--only transcalor`): carga 8,2 s sem cache (44 MB → 34 MB de pacotes, tabela da etapa 5), execução 6,7 s | 17/10/2026 | idêntica à da 8 | idêntico | idêntico |
+| 10 — fechamento: gancho `_export_result` removido dos 10 `.py` (186 linhas); `baseline.mjs` detecta o fim pela barra verde de "Tempo total" (`#mm-status`), `compare-baseline.mjs` em modo "sem gancho". Rodada final comparada à "depois" (`v1.1.0.json` e `v1.1.0-ns-canal.json`), nas duas configurações do Navier-Stokes | 17/10/2026 | idênticas à "depois" (10/10 e canal antigo) | idêntico (10/10 e canal antigo) | (sem gancho; a referência numérica final é a rodada "depois") |
 
 ## Etapa 5: yield ao browser e tempo do transiente 2D (17/10/2026)
 

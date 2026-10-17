@@ -113,8 +113,11 @@ async function main() {
         const changed = JSON.stringify(imgs) !== beforeJson && imgs.length > 0;
         const dialogOpen = [...document.querySelectorAll("dialog")].some((d) => d.open);
         const txt = root.textContent || "";
-        // Sinal neutro de idioma: o gancho _export_result define window.__minervamesh_result ao final do run
+        // Sinais neutros de idioma: o gancho _export_result (etapas 1b a 9) ou, desde o fechamento
+        // da v1.1.0, a barra verde de "Tempo total" que mmProgress.done() acende em #mm-status
         if (window.__minervamesh_result !== undefined && !dialogOpen) return true;
+        const st = document.getElementById("mm-status");
+        if (st && !st.classList.contains("hidden") && st.querySelector("#mm-status-bar")?.classList.contains("bg-green-600")) return true;
         const busy = /Iniciando|Calculando|Executando|Carregando|Running|Starting/.test(txt) && !/Conclu|Finished|Complete/.test(txt);
         const done = doneSrc ? new RegExp(doneSrc).test(txt) : true;
         return changed && !dialogOpen && !busy && done;
@@ -132,7 +135,7 @@ async function main() {
       }, outSel, m.extraText || null);
       r.text = m.canvas ? "(gráfico em canvas; comparar pelo hash)" : snap.text; if (snap.extraText) r.extra_text = snap.extraText;
       r.images = snap.imgs.map((s) => ({ kind: s.slice(5, s.indexOf(";")), bytes: s.length, sha256_16: sha(s) }));
-      // Resultado numérico exportado pelo gancho _export_result (spec 2, passo 0)
+      // Resultado numérico exportado pelo gancho _export_result (spec 2, passo 0); null desde que o gancho saiu
       r.result = await page.evaluate(() => window.__minervamesh_result ?? null);
       r.result_sha256_16 = r.result ? sha(JSON.stringify(r.result)) : null;
       } catch (e) {
