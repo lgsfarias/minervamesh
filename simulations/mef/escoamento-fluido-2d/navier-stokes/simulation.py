@@ -436,6 +436,7 @@ async def run_handler(event=None):
         await solve_navier_stokes(params, plot_div)
         
     except Exception as e:
+        progress("fail")
         plot_div.innerHTML = i18n_t("py.error").format(e=e)
         print(e)
     finally:
