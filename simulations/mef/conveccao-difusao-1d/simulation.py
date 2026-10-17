@@ -15,6 +15,15 @@ import asyncio
 
 from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
+# --- Idioma da interface (v1.1.0) ---------------------------------------------
+# Rótulos de gráfico e mensagens vêm de i18n.<lang>.json via window.i18n
+# (assets/app.js). Sem o app.js, a simulação roda mostrando as chaves no lugar dos textos.
+import js
+_i18n = getattr(js, "i18n", None)
+def i18n_t(key):
+    return str(_i18n.t(key)) if _i18n else key
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -165,11 +174,11 @@ async def run_conveccao_difusao_1d(event=None):
     fig, (ax1, ax2) = plt.subplots(2, 1, **plot_fig(10, 8))
     
     # Gráfico principal
-    ax1.plot(x, T, 'o-', label='MEF 1D', color='#3B82F6', markersize=6)
-    ax1.plot(x_dense, T_ana_dense, '--', label='Analítica', color='#EF4444', linewidth=2)
+    ax1.plot(x, T, 'o-', label=i18n_t("py.legend.fem"), color='#3B82F6', markersize=6)
+    ax1.plot(x_dense, T_ana_dense, '--', label=i18n_t("py.legend.analytical"), color='#EF4444', linewidth=2)
     ax1.set_xlabel('x [m]')
-    ax1.set_ylabel('Temperatura [°C]')
-    ax1.set_title('Convecção-Difusão 1D Permanente (MEF)')
+    ax1.set_ylabel(i18n_t("py.plot.ylabel"))
+    ax1.set_title(i18n_t("py.plot.title"))
     ax1.grid(True, linestyle='--', alpha=0.5)
     ax1.legend()
     
@@ -179,30 +188,30 @@ async def run_conveccao_difusao_1d(event=None):
     erro = np.maximum(erro, 1e-18)
     ax2.semilogy(x, erro, 'o-', color='#10B981', markersize=6)
     ax2.set_xlabel('x [m]')
-    ax2.set_ylabel('Erro Absoluto [°C]')
-    ax2.set_title('Erro entre Solução Numérica e Analítica (Escala Logarítmica)')
+    ax2.set_ylabel(i18n_t("py.plot.err_ylabel"))
+    ax2.set_title(i18n_t("py.plot.err_title"))
     ax2.grid(True, linestyle='--', alpha=0.5)
     # Adicionar texto explicativo
-    ax2.text(0.5, 0.5, f'Erro máximo: {np.max(erro):.2e} °C\n(Precisão de máquina)', 
+    ax2.text(0.5, 0.5, i18n_t("py.plot.err_text").format(err=np.max(erro)), 
              transform=ax2.transAxes, ha='center', va='center', 
              bbox=dict(boxstyle='round', facecolor='white', alpha=0.8),
              fontsize=10)
     
     plt.tight_layout()
 
-    plot_show("Convecção-difusão 1D (MEF)")
+    plot_show(i18n_t("title"))
 
     # Atualizar informações sobre Péclet
     pe_info = document.getElementById("pe-info")
     pe_info.innerHTML = f"""
     <div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded">
-        <h4 class="font-semibold text-blue-800 mb-1">Informações da Simulação</h4>
-        <p class="text-sm text-gray-700"><strong>Número de Péclet:</strong> {Pe_local:.3f}</p>
-        <p class="text-sm text-gray-700"><strong>Estabilização SUPG:</strong> {'Sim' if use_supg else 'Não'}</p>
-        <p class="text-sm text-gray-700"><strong>Parâmetro τ:</strong> {tau:.6f}</p>
-        <p class="text-sm text-gray-700"><strong>Velocidade:</strong> {u:.3f} m/s</p>
-        <p class="text-sm text-gray-700"><strong>Tamanho elemento:</strong> {h:.4f} m</p>
-        <p class="text-sm text-gray-700"><strong>Erro máximo:</strong> {np.max(erro):.2e} °C</p>
+        <h4 class="font-semibold text-blue-800 mb-1">{i18n_t("py.info.title")}</h4>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.info.peclet")}</strong> {Pe_local:.3f}</p>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.info.supg")}</strong> {i18n_t("py.yes") if use_supg else i18n_t("py.no")}</p>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.info.tau")}</strong> {tau:.6f}</p>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.info.u")}</strong> {u:.3f} m/s</p>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.info.h")}</strong> {h:.4f} m</p>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.info.err")}</strong> {np.max(erro):.2e} °C</p>
     </div>
     """
     _export_result(x=x, T=T, T_ana_mesh=T_ana_mesh, erro_max=float(np.max(erro)), Pe_local=Pe_local, tau=tau, use_supg=bool(use_supg))

@@ -17,6 +17,15 @@ from pyodide.ffi import create_proxy
 
 from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
+# --- Idioma da interface (v1.1.0) ---------------------------------------------
+# Rótulos de gráfico e mensagens vêm de i18n.<lang>.json via window.i18n
+# (assets/app.js). Sem o app.js, a simulação roda mostrando as chaves no lugar dos textos.
+import js
+_i18n = getattr(js, "i18n", None)
+def i18n_t(key):
+    return str(_i18n.t(key)) if _i18n else key
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -112,21 +121,21 @@ def runSimulation(event):
     plot_begin()
     plt.figure(**plot_fig(10, 6))
     x = np.linspace(0, L, nx + 2)
-    plt.plot(x, T, 'o-', label="Solução Numérica", color='#3B82F6', linewidth=2, markersize=8)
-    plt.plot(x_analytical, T_analytical, '--', label="Solução Analítica", color='#EF4444', linewidth=2)
+    plt.plot(x, T, 'o-', label=i18n_t("py.legend.numeric"), color='#3B82F6', linewidth=2, markersize=8)
+    plt.plot(x_analytical, T_analytical, '--', label=i18n_t("py.legend.analytical"), color='#EF4444', linewidth=2)
     
     # Adição dos parâmetros na legenda
-    param_label = f"Parâmetros:\nNº Nós (nx): {nx} | Alpha: {alpha} | Q: {Q}"
+    param_label = i18n_t("py.legend.params").format(nx=nx, alpha=alpha, Q=Q)
     plt.plot([], [], ' ', label=param_label)
     
     # Configuração do gráfico
-    plt.title("Comparação: Solução Numérica vs Analítica", fontsize=14, pad=15)
-    plt.xlabel("Posição (x)", fontsize=12)
-    plt.ylabel("Temperatura (T)", fontsize=12)
+    plt.title(i18n_t("py.plot.title"), fontsize=14, pad=15)
+    plt.xlabel(i18n_t("py.plot.xlabel"), fontsize=12)
+    plt.ylabel(i18n_t("py.plot.ylabel"), fontsize=12)
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(fontsize=10, framealpha=0.9)
     plt.tight_layout()
-    plot_show("Condução permanente 1D (MDF)")
+    plot_show(i18n_t("title"))
     _export_result(x=x, T=T, T_analytical=T_analytical, nx=nx, alpha=alpha, Q=Q)
 
 # ==============================

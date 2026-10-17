@@ -19,6 +19,15 @@ import io
 import base64
 import asyncio
 
+# --- Idioma da interface (v1.1.0) ---------------------------------------------
+# Rótulos de gráfico e mensagens vêm de i18n.<lang>.json via window.i18n
+# (assets/app.js). Sem o app.js, a simulação roda mostrando as chaves no lugar dos textos.
+import js
+_i18n = getattr(js, "i18n", None)
+def i18n_t(key):
+    return str(_i18n.t(key)) if _i18n else key
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -89,7 +98,7 @@ async def run_simulation(event=None):
     document.getElementById("plot-output").innerHTML = """
       <div class="flex flex-col items-center justify-center py-6">
         <div class="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
-        <p class="mt-4 text-blue-700 font-medium">Calculando simulação...</p>
+        <p class="mt-4 text-blue-700 font-medium">""" + i18n_t("sim.running") + """</p>
       </div>
     """
 
@@ -168,16 +177,15 @@ async def run_simulation(event=None):
 
     metrics_html = (
         "<div class=\"bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full\">"
-        "<h4 class=\"font-semibold text-blue-800 mb-1\">Validação</h4>"
-        f"<p class=\"text-sm text-gray-700\"><strong>Tempo final:</strong> "
-        f"{t_final:.3f} s ({frac_tau*100:.1f}% da escala difusiva "
-        f"τ_dif = {tau_dif:.2f} s)</p>"
-        f"<p class=\"text-sm text-gray-700\"><strong>T(0,5; 0,5) MEF:</strong> "
+        f"<h4 class=\"font-semibold text-blue-800 mb-1\">{i18n_t('py.validation')}</h4>"
+        f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.t_final_label')}</strong> "
+        f"{i18n_t('py.val.t_final').format(t_final=t_final, frac=frac_tau*100, tau_dif=tau_dif)}</p>"
+        f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.t_center_fem_label')}</strong> "
         f"{T_centro_mef:.4f} °C</p>"
-        f"<p class=\"text-sm text-gray-700\"><strong>T(0,5; 0,5) regime permanente "
-        f"(T_bot + (T_top − T_bot)·y):</strong> {T_centro_ss:.4f} °C</p>"
-        f"<p class=\"text-sm text-gray-700\"><strong>Desvio do regime permanente:</strong> "
-        f"{erro_centro:.4f} °C (aumentar n_steps para convergir)</p>"
+        f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.t_center_ss_label')}</strong> "
+        f"{T_centro_ss:.4f} °C</p>"
+        f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.dev_label')}</strong> "
+        f"{i18n_t('py.val.dev').format(err=erro_centro)}</p>"
         "</div>"
     )
 

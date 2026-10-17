@@ -8,6 +8,15 @@ from common import generate_mesh_generic, assemble_matrices
 
 from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
+# --- Idioma da interface (v1.1.0) ---------------------------------------------
+# Rótulos de gráfico e mensagens vêm de i18n.<lang>.json via window.i18n
+# (assets/app.js). Sem o app.js, a simulação roda mostrando as chaves no lugar dos textos.
+import js
+_i18n = getattr(js, "i18n", None)
+def i18n_t(key):
+    return str(_i18n.t(key)) if _i18n else key
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -274,7 +283,7 @@ async def solve_potential(params, plot_div):
     # 1. Função corrente + malha (sombreamento Gouraud, mapa de cores Jet)
     contour = ax1.tripcolor(triang, psi, shading='gouraud', cmap='jet')
     ax1.triplot(triang, color='k', alpha=0.2, linewidth=0.5)
-    ax1.set_title(f"Função Corrente ($\\psi$) - {params['geo_type'].capitalize()}")
+    ax1.set_title(i18n_t("py.plot.psi_title").format(geo=params['geo_type'].capitalize()))
     ax1.set_aspect('equal')
     ax1.set_xlabel("x [m]")
     ax1.set_ylabel("y [m]")
@@ -289,45 +298,45 @@ async def solve_potential(params, plot_div):
     v_grid = -dpsi_dx_grid
     vel_mag_grid = np.sqrt(u_grid**2 + v_grid**2)
     strm = ax2.streamplot(Xi, Yi, u_grid, v_grid, color=vel_mag_grid, cmap='jet', density=1.5, linewidth=1, arrowsize=1.5)
-    ax2.set_title("Linhas de Corrente")
+    ax2.set_title(i18n_t("py.plot.streamlines"))
     ax2.set_aspect('equal')
     ax2.set_xlim(0, params["L"])
     ax2.set_ylim(0, params["H"])
     ax2.set_xlabel("x [m]")
     ax2.set_ylabel("y [m]")
-    fig.colorbar(strm.lines, ax=ax2, label='Velocidade')
+    fig.colorbar(strm.lines, ax=ax2, label=i18n_t("py.plot.velocity"))
     
     # 3. Distribuição de Cp
     if params["geo_type"] == "cylinder":
         # Plotar vs Theta (graus)
         theta_deg = np.degrees(angles_sorted)
-        ax3.plot(theta_deg, cp_sorted, 'b-', label='Numérico', linewidth=2)
-        ax3.set_xlabel(r'$\theta$ (graus)')
+        ax3.plot(theta_deg, cp_sorted, 'b-', label=i18n_t("py.legend.numeric"), linewidth=2)
+        ax3.set_xlabel(i18n_t("py.plot.theta_xlabel"))
         ax3.set_xlim(-180, 180)
         
         # Analítico (Potencial sem circulação): Cp = 1 - 4sin^2(theta)
         theta_ana = np.linspace(-np.pi, np.pi, 200)
         cp_ana = 1 - 4 * np.sin(theta_ana)**2
-        ax3.plot(np.degrees(theta_ana), cp_ana, 'r--', label='Analítico (Teórico)', alpha=0.7)
+        ax3.plot(np.degrees(theta_ana), cp_ana, 'r--', label=i18n_t("py.legend.analytical"), alpha=0.7)
 
     elif params["geo_type"] == "airfoil" or params["geo_type"] == "naca4412":
         # Distribuição de Cp ao longo de x (usando os nós ordenados da superfície)
-        ax3.plot(x_sorted, cp_sorted, 'b.-', label='Cp Numérico')
+        ax3.plot(x_sorted, cp_sorted, 'b.-', label=i18n_t("py.legend.cp_numeric"))
         ax3.set_xlabel('x [m]')
         
     else:
         ax3.plot(angles_sorted, cp_sorted, 'b.-')
-        ax3.set_xlabel('Ângulo (rad)')
+        ax3.set_xlabel(i18n_t("py.plot.angle_xlabel"))
 
-    ax3.set_ylabel(r'$C_p$ (adimensional)')
-    ax3.set_title(r'Distribuição de Coeficiente de Pressão ($C_p$)')
+    ax3.set_ylabel(i18n_t("py.plot.cp_ylabel"))
+    ax3.set_title(i18n_t("py.plot.cp_title"))
     ax3.grid(True, alpha=0.3)
     ax3.invert_yaxis() # Convenção aerodinâmica: Cp negativo para cima
     ax3.legend()
     
     plt.tight_layout()
     
-    plot_show("Escoamento potencial 2D")
+    plot_show(i18n_t("title"))
     
     # Validacao: Cp em angulos canonicos vs Cp teorico 1 - 4 sin^2(theta)
     # Apenas faz sentido para o cilindro (geometria com Cp teorico conhecido).
@@ -344,13 +353,11 @@ async def solve_potential(params, plot_div):
             theta_j = float(np.degrees(angles_sorted[j]))
             rows_html.append(
                 f"<p><span class=\"font-semibold\">θ = {td}°:</span> "
-                f"C_p MEF = {cp_n:.3f} | teórico = {cp_t:.3f} "
-                f"(Δ = {cp_n - cp_t:+.3f})</p>"
+                + i18n_t("py.val.cp_row").format(cp_n=cp_n, cp_t=cp_t, d=cp_n - cp_t) + "</p>"
             )
         cp_validation_rows = (
             "<div class=\"bg-blue-50 p-3 rounded shadow-sm\">"
-            "<p class=\"font-bold text-indigo-700 mb-2\">Validação: C_p na superfície do cilindro "
-            "(teoria: C_p = 1 − 4 sen²θ)</p>"
+            f"<p class=\"font-bold text-indigo-700 mb-2\">{i18n_t('py.val.cp_title')}</p>"
             "<div class=\"grid grid-cols-1 gap-1 text-sm\">"
             + "".join(rows_html)
             + "</div></div>"
@@ -360,11 +367,11 @@ async def solve_potential(params, plot_div):
     res_html = f"""
     <div class="grid grid-cols-1 gap-4 text-sm">
         <div class="bg-blue-50 p-3 rounded text-center shadow-sm">
-            <p class="font-bold text-indigo-700 mb-2">Resultados Aerodinâmicos</p>
+            <p class="font-bold text-indigo-700 mb-2">{i18n_t("py.res.title")}</p>
             <div class="grid grid-cols-1 gap-1">
-                <p><span class="font-semibold">Sustentação (L):</span> {Lift_dim:.4f} N/m</p>
-                <p><span class="font-semibold">Arrasto (D):</span> {Drag_dim:.4f} N/m</p>
-                <p><span class="font-semibold">Circulação (&Gamma;):</span> {Gamma_dim:.4f} m²/s</p>
+                <p><span class="font-semibold">{i18n_t("py.res.lift")}</span> {Lift_dim:.4f} N/m</p>
+                <p><span class="font-semibold">{i18n_t("py.res.drag")}</span> {Drag_dim:.4f} N/m</p>
+                <p><span class="font-semibold">{i18n_t("py.res.circulation")}</span> {Gamma_dim:.4f} m²/s</p>
             </div>
         </div>
         {cp_validation_rows}
@@ -379,7 +386,7 @@ async def solve_potential(params, plot_div):
 @when("click", "#run-btn")
 async def run_handler(event=None):
     plot_div = document.getElementById("plot-output")
-    plot_div.innerHTML = "Calculando..."
+    plot_div.innerHTML = i18n_t("py.computing")
     await asyncio.sleep(0.1)
     
     try:
@@ -404,5 +411,5 @@ async def run_handler(event=None):
         await solve_potential(params, plot_div)
         
     except Exception as e:
-        plot_div.innerHTML = f"Erro: {e}"
+        plot_div.innerHTML = i18n_t("py.error").format(e=e)
         print(e)

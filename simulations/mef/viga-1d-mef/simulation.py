@@ -14,6 +14,15 @@ import asyncio
 
 from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
+# --- Idioma da interface (v1.1.0) ---------------------------------------------
+# Rótulos de gráfico e mensagens vêm de i18n.<lang>.json via window.i18n
+# (assets/app.js). Sem o app.js, a simulação roda mostrando as chaves no lugar dos textos.
+import js
+_i18n = getattr(js, "i18n", None)
+def i18n_t(key):
+    return str(_i18n.t(key)) if _i18n else key
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -278,23 +287,12 @@ async def run_viga_1d(event=None):
             w_ana_dense = (q_ana / (24 * E_base * I_base)) * (L**2 * x_dense**2 - 2 * L * x_dense**3 + x_dense**4)
 
     # Determinar título da condição de contorno
-    bc_titles = {
-        "simply_supported": "Simplesmente Apoiada",
-        "cantilever": "Em Balanço", 
-        "fixed_fixed": "Engastada-Engastada",
-        "fixed_supported": "Engastada-Apoiada"
-    }
-    bc_title = bc_titles.get(bc_type, "Desconhecida")
+    bc_titles = {k: i18n_t("py.bc." + k) for k in ("simply_supported", "cantilever", "fixed_fixed", "fixed_supported")}
+    bc_title = bc_titles.get(bc_type, i18n_t("py.bc.unknown"))
 
     # Determinar título do carregamento
-    load_titles = {
-        "uniform": "Uniforme",
-        "linear": "Linear",
-        "triangular": "Triangular",
-        "sinusoidal": "Senoidal",
-        "point": "Pontual"
-    }
-    load_title = load_titles.get(load_type, "Desconhecido")
+    load_titles = {k: i18n_t("py.load." + k) for k in ("uniform", "linear", "triangular", "sinusoidal", "point")}
+    load_title = load_titles.get(load_type, i18n_t("py.load.unknown"))
 
     # Plot avançado com múltiplos gráficos
     plot_begin()
@@ -305,12 +303,12 @@ async def run_viga_1d(event=None):
     
     # 1. Deslocamentos
     ax1 = fig.add_subplot(gs[0, :])
-    ax1.plot(x, w*1000, 'o-', label='MEF', color='#3B82F6', markersize=6, linewidth=3)
+    ax1.plot(x, w*1000, 'o-', label=i18n_t("py.legend.fem"), color='#3B82F6', markersize=6, linewidth=3)
     if show_analytical and np.any(w_ana_dense):
-        ax1.plot(x_dense, w_ana_dense*1000, '--', label='Analítica', color='#EF4444', linewidth=3)
+        ax1.plot(x_dense, w_ana_dense*1000, '--', label=i18n_t("py.legend.analytical"), color='#EF4444', linewidth=3)
     ax1.set_xlabel('x [m]', fontsize=14, fontweight='bold')
-    ax1.set_ylabel('Deslocamento [mm]', fontsize=14, fontweight='bold')
-    ax1.set_title(f'Deslocamentos Verticais - {bc_title} ({load_title})', fontsize=16, fontweight='bold')
+    ax1.set_ylabel(i18n_t("py.plot.w_ylabel"), fontsize=14, fontweight='bold')
+    ax1.set_title(i18n_t("py.plot.w_title").format(bc=bc_title, load=load_title), fontsize=16, fontweight='bold')
     ax1.grid(True, linestyle='--', alpha=0.5)
     ax1.legend(fontsize=12)
     ax1.invert_yaxis()
@@ -318,11 +316,11 @@ async def run_viga_1d(event=None):
 
     # 2. Carregamento
     ax2 = fig.add_subplot(gs[1, :])
-    ax2.plot(x, q/1000, 'g-', linewidth=3, label='Carregamento')
+    ax2.plot(x, q/1000, 'g-', linewidth=3, label=i18n_t("py.legend.load"))
     ax2.fill_between(x, 0, q/1000, alpha=0.3, color='green')
     ax2.set_xlabel('x [m]', fontsize=14, fontweight='bold')
-    ax2.set_ylabel('Carregamento [kN/m]', fontsize=14, fontweight='bold')
-    ax2.set_title('Carregamento Distribuído', fontsize=16, fontweight='bold')
+    ax2.set_ylabel(i18n_t("py.plot.q_ylabel"), fontsize=14, fontweight='bold')
+    ax2.set_title(i18n_t("py.plot.q_title"), fontsize=16, fontweight='bold')
     ax2.grid(True, linestyle='--', alpha=0.5)
     ax2.legend(fontsize=12)
     ax2.tick_params(labelsize=12)
@@ -339,9 +337,9 @@ async def run_viga_1d(event=None):
     
     # Configurar eixos e labels
     ax3.set_xlabel('x [m]', fontsize=14, fontweight='bold')
-    ax3.set_ylabel('Módulo de Elasticidade [GPa]', color='r', fontweight='bold', fontsize=14)
-    ax3_twin.set_ylabel('Momento de Inércia [cm⁴]', color='b', fontweight='bold', fontsize=14)
-    ax3.set_title('Propriedades Materiais', fontweight='bold', fontsize=16)
+    ax3.set_ylabel(i18n_t("py.plot.E_ylabel"), color='r', fontweight='bold', fontsize=14)
+    ax3_twin.set_ylabel(i18n_t("py.plot.I_ylabel"), color='b', fontweight='bold', fontsize=14)
+    ax3.set_title(i18n_t("py.plot.props_title"), fontweight='bold', fontsize=16)
     
     # Configurar cores dos ticks
     ax3.tick_params(axis='y', labelcolor='r', labelsize=12)
@@ -366,8 +364,8 @@ async def run_viga_1d(event=None):
     ax4 = fig.add_subplot(gs[3, :])
     ax4.plot(x, M/1000, 'o-', color='#10B981', markersize=6, linewidth=3)
     ax4.set_xlabel('x [m]', fontsize=14, fontweight='bold')
-    ax4.set_ylabel('Momento Fletor [kN·m]', fontsize=14, fontweight='bold')
-    ax4.set_title('Momento Fletor', fontsize=16, fontweight='bold')
+    ax4.set_ylabel(i18n_t("py.plot.M_ylabel"), fontsize=14, fontweight='bold')
+    ax4.set_title(i18n_t("py.plot.M_title"), fontsize=16, fontweight='bold')
     ax4.grid(True, linestyle='--', alpha=0.5)
     ax4.tick_params(labelsize=12)
 
@@ -375,14 +373,14 @@ async def run_viga_1d(event=None):
     ax5 = fig.add_subplot(gs[4, :])
     ax5.plot(x, V/1000, 'o-', color='#F59E0B', markersize=6, linewidth=3)
     ax5.set_xlabel('x [m]', fontsize=14, fontweight='bold')
-    ax5.set_ylabel('Esforço Cortante [kN]', fontsize=14, fontweight='bold')
-    ax5.set_title('Esforço Cortante', fontsize=16, fontweight='bold')
+    ax5.set_ylabel(i18n_t("py.plot.V_ylabel"), fontsize=14, fontweight='bold')
+    ax5.set_title(i18n_t("py.plot.V_title"), fontsize=16, fontweight='bold')
     ax5.grid(True, linestyle='--', alpha=0.5)
     ax5.tick_params(labelsize=12)
 
     plt.tight_layout()
 
-    plot_show("Viga 1D (MEF)")
+    plot_show(i18n_t("title"))
 
     # Metricas de validacao
     w_abs = np.abs(w)
@@ -416,20 +414,17 @@ async def run_viga_1d(event=None):
         if ana is None:
             return f"{mef*scale:.4f} {unit}"
         err_rel = abs(mef - ana) / abs(ana) if abs(ana) > 1e-12 else abs(mef - ana)
-        return (
-            f"{mef*scale:.4f} {unit} "
-            f"(analítica {ana*scale:.4f} {unit}, erro relativo {err_rel:.2e})"
-        )
+        return i18n_t("py.val.cmp").format(mef=mef*scale, ana=ana*scale, unit=unit, err=err_rel)
 
     rows = [
-        f"<p class=\"text-sm text-gray-700\"><strong>Deflexão máxima:</strong> {fmt_cmp(w_max_mef, w_max_ana, 'mm', 1000)} em x = {x_wmax:.3f} m</p>",
-        f"<p class=\"text-sm text-gray-700\"><strong>|M| máximo:</strong> {fmt_cmp(M_abs_max, M_max_ana, 'kN·m', 1/1000)}</p>",
-        f"<p class=\"text-sm text-gray-700\"><strong>|V| máximo:</strong> {fmt_cmp(V_abs_max, V_max_ana, 'kN', 1/1000)}</p>",
+        f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.wmax_label')}</strong> {fmt_cmp(w_max_mef, w_max_ana, 'mm', 1000)} {i18n_t('py.val.at_x').format(x=x_wmax)}</p>",
+        f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.Mmax_label')}</strong> {fmt_cmp(M_abs_max, M_max_ana, 'kN·m', 1/1000)}</p>",
+        f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.Vmax_label')}</strong> {fmt_cmp(V_abs_max, V_max_ana, 'kN', 1/1000)}</p>",
     ]
     metrics_html = (
         "<div class=\"bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full\">"
-        "<h4 class=\"font-semibold text-blue-800 mb-1\">Validação</h4>"
-        f"<p class=\"text-sm text-gray-700\"><strong>Caso:</strong> {bc_title} com carga {load_title.lower()}, propriedades {prop_type}</p>"
+        f"<h4 class=\"font-semibold text-blue-800 mb-1\">{i18n_t('py.validation')}</h4>"
+        f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.case_label')}</strong> {i18n_t('py.val.case').format(bc=bc_title, load=load_title.lower(), prop=prop_type)}</p>"
         + "".join(rows)
         + "</div>"
     )

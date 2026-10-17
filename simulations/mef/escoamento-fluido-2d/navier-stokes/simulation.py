@@ -8,6 +8,15 @@ import asyncio
 from common import generate_mesh_generic, assemble_matrices, plot_to_base64
 import geometry
 
+# --- Idioma da interface (v1.1.0) ---------------------------------------------
+# Rótulos de gráfico e mensagens vêm de i18n.<lang>.json via window.i18n
+# (assets/app.js). Sem o app.js, a simulação roda mostrando as chaves no lugar dos textos.
+import js
+_i18n = getattr(js, "i18n", None)
+def i18n_t(key):
+    return str(_i18n.t(key)) if _i18n else key
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -293,7 +302,7 @@ async def solve_navier_stokes(params, plot_div):
         # Campo de psi com sombreamento Gouraud e mapa de cores Jet
         contour_psi = ax1.tripcolor(triang, psi, shading='gouraud', cmap='jet')
         ax1.triplot(triang, color='k', alpha=0.2, linewidth=0.5) # malha visível
-        ax1.set_title(f"Navier-Stokes (Step {current_step}) - $\\psi$")
+        ax1.set_title(i18n_t("py.plot.psi_title").format(step=current_step))
         ax1.set_aspect('equal')
         ax1.set_xlabel("x [m]")
         ax1.set_ylabel("y [m]")
@@ -302,7 +311,7 @@ async def solve_navier_stokes(params, plot_div):
         # Campo de omega com sombreamento Gouraud
         contour_omega = ax2.tripcolor(triang, omega, shading='gouraud', cmap='jet')
         ax2.triplot(triang, color='k', alpha=0.2, linewidth=0.5)
-        ax2.set_title(f"Navier-Stokes (Step {current_step}) - $\\omega$")
+        ax2.set_title(i18n_t("py.plot.omega_title").format(step=current_step))
         ax2.set_aspect('equal')
         ax2.set_xlabel("x [m]")
         ax2.set_ylabel("y [m]")
@@ -318,7 +327,7 @@ async def solve_navier_stokes(params, plot_div):
         
         # Linhas de corrente (mapa de cores Jet)
         strm = ax3.streamplot(Xi, Yi, u_grid, v_grid, color=vel_mag_grid, cmap='jet', density=1.5, linewidth=1, arrowsize=1.5)
-        ax3.set_title("Linhas de Corrente")
+        ax3.set_title(i18n_t("py.plot.streamlines"))
         ax3.set_aspect('equal')
         ax3.set_xlim(0, params["L"])
         ax3.set_ylim(0, params["H"])
@@ -348,21 +357,19 @@ async def solve_navier_stokes(params, plot_div):
             ghia_psi_min = -0.1034
             ghia_center = (0.6172, 0.7344)
             ghia_row = (
-                "<p class=\"text-sm text-gray-700\"><strong>Referência Ghia et al. (1982) "
-                "Re=100:</strong> "
-                f"ψ_min ≈ {ghia_psi_min}, centro em ({ghia_center[0]}, {ghia_center[1]})</p>"
+                f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.ghia_label')}</strong> "
+                f"{i18n_t('py.val.ghia').format(psi=ghia_psi_min, x=ghia_center[0], y=ghia_center[1])}</p>"
             )
         else:
             ghia_row = ""
 
         metrics_html = (
             "<div class=\"bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full\">"
-            "<h4 class=\"font-semibold text-blue-800 mb-1\">Validação</h4>"
-            f"<p class=\"text-sm text-gray-700\"><strong>Passo:</strong> "
-            f"{current_step} / {total_steps}, Re = {params['Re']:.1f}, "
-            f"malha {params['nx']}×{params['ny']}</p>"
-            f"<p class=\"text-sm text-gray-700\"><strong>ψ_min:</strong> "
-            f"{psi_min:+.5f} em ({x_vort:.3f}, {y_vort:.3f})</p>"
+            f"<h4 class=\"font-semibold text-blue-800 mb-1\">{i18n_t('py.validation')}</h4>"
+            f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.step_label')}</strong> "
+            f"{i18n_t('py.val.step').format(step=current_step, total=total_steps, Re=params['Re'], nx=params['nx'], ny=params['ny'])}</p>"
+            f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.psi_min_label')}</strong> "
+            f"{i18n_t('py.val.psi_min').format(psi=psi_min, x=x_vort, y=y_vort)}</p>"
             f"{ghia_row}"
             "</div>"
         )
@@ -377,9 +384,9 @@ async def solve_navier_stokes(params, plot_div):
 
     _export_result(psi=psi, omega=omega, current_step=current_step, total_steps=total_steps, stopped=bool(STOP_SIMULATION))
     if not STOP_SIMULATION:
-        plot_div.innerHTML += '<p class="text-center text-green-600 font-bold mt-2">Simulação Concluída!</p>'
+        plot_div.innerHTML += '<p class="text-center text-green-600 font-bold mt-2">' + i18n_t("py.done") + '</p>'
     else:
-        plot_div.innerHTML += '<p class="text-center text-red-600 font-bold mt-2">Simulação Parada pelo Usuário.</p>'
+        plot_div.innerHTML += '<p class="text-center text-red-600 font-bold mt-2">' + i18n_t("py.stopped") + '</p>'
 
 @when("click", "#run-btn")
 async def run_handler(event=None):
@@ -387,7 +394,7 @@ async def run_handler(event=None):
     STOP_SIMULATION = False
     
     plot_div = document.getElementById("plot-output")
-    plot_div.innerHTML = "Iniciando..."
+    plot_div.innerHTML = i18n_t("py.starting")
     await asyncio.sleep(0.1)
 
     # Exibe o botão de parar
@@ -420,7 +427,7 @@ async def run_handler(event=None):
         await solve_navier_stokes(params, plot_div)
         
     except Exception as e:
-        plot_div.innerHTML = f"Erro: {e}"
+        plot_div.innerHTML = i18n_t("py.error").format(e=e)
         print(e)
     finally:
         document.getElementById("stop-btn").classList.add("hidden")

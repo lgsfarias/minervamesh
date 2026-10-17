@@ -22,6 +22,15 @@ import imageio.v2 as imageio
 import io
 import base64
 
+# --- Idioma da interface (v1.1.0) ---------------------------------------------
+# Rótulos de gráfico e mensagens vêm de i18n.<lang>.json via window.i18n
+# (assets/app.js). Sem o app.js, a simulação roda mostrando as chaves no lugar dos textos.
+import js
+_i18n = getattr(js, "i18n", None)
+def i18n_t(key):
+    return str(_i18n.t(key)) if _i18n else key
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -118,22 +127,22 @@ async def run_simulation(event=None):
     def render_frame(u_frame, t):
         """Desenha um frame e retorna a imagem como array para o GIF."""
         fig, ax = plt.subplots(figsize=(8, 4))
-        ax.plot(x, u_frame, label="Numérico", color="#3B82F6")
+        ax.plot(x, u_frame, label=i18n_t("py.legend.numeric"), color="#3B82F6")
         if mode == "senoide":
             u_ana_dense = np.sin(np.pi * x_dense / L) * np.cos(c * np.pi * t / L)
-            ax.plot(x_dense, u_ana_dense, '--', label="Analítico", color="#EF4444")
+            ax.plot(x_dense, u_ana_dense, '--', label=i18n_t("py.legend.analytical"), color="#EF4444")
         elif mode == "pulso":
             # Solução analítica por d'Alembert com extensão ímpar 2L-periódica (u_t(x,0)=0):
             u_ana_dense = 0.5 * (
                 odd_periodic_extension(x_dense - c * t, L) +
                 odd_periodic_extension(x_dense + c * t, L)
             )
-            ax.plot(x_dense, u_ana_dense, '--', label="Analítico (d'Alembert)", color="#EF4444")
+            ax.plot(x_dense, u_ana_dense, '--', label=i18n_t("py.legend.dalembert"), color="#EF4444")
         ax.set_ylim(-1.2, 1.2)
         ax.set_xlim(0, L)
         ax.set_xlabel("x")
         ax.set_ylabel("u")
-        ax.set_title(f"Equação da Onda 1D - Leapfrog | t = {t:.3f}s")
+        ax.set_title(i18n_t("py.plot.title").format(t=t))
         ax.grid(True, linestyle='--', alpha=0.5)
         ax.legend()
         plt.tight_layout()

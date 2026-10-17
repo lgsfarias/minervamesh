@@ -17,6 +17,15 @@ from scipy.linalg import eigh
 
 from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
+# --- Idioma da interface (v1.1.0) ---------------------------------------------
+# Rótulos de gráfico e mensagens vêm de i18n.<lang>.json via window.i18n
+# (assets/app.js). Sem o app.js, a simulação roda mostrando as chaves no lugar dos textos.
+import js
+_i18n = getattr(js, "i18n", None)
+def i18n_t(key):
+    return str(_i18n.t(key)) if _i18n else key
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -216,30 +225,25 @@ async def run_vibracao_1d(event=None):
             freq_analytical = analytical_frequencies_fixed_free(L, E_base, rho_base, n_modes)
 
     # Determinar título da condição de contorno
-    bc_titles = {
-        "free_free": "Livre-Livre",
-        "fixed_fixed": "Engastada-Engastada", 
-        "fixed_free": "Engastada-Livre",
-        "fixed_supported": "Engastada-Apoiada"
-    }
-    bc_title = bc_titles.get(bc_type, "Desconhecida")
+    bc_titles = {k: i18n_t("py.bc." + k) for k in ("free_free", "fixed_fixed", "fixed_free", "fixed_supported")}
+    bc_title = bc_titles.get(bc_type, i18n_t("py.bc.unknown"))
 
     # Tabela de frequências naturais (em HTML, abaixo da figura; ver plot_append_html)
     show_analytical_table = show_analytical and prop_type == "constant"
     rows_html = []
     for i in range(min(5, n_modes)):
-        cells = [f"Modo {i+1}", f"{frequencies[i]:.2f}"]
+        cells = [i18n_t("py.table.mode_n").format(n=i+1), f"{frequencies[i]:.2f}"]
         if show_analytical_table and i < len(freq_analytical) and freq_analytical[i] > 0:
             error = abs(frequencies[i] - freq_analytical[i]) / freq_analytical[i] * 100
             cells += [f"{freq_analytical[i]:.2f}", f"{error:.1f}%"]
         elif show_analytical_table:
             cells += ["-", "-"]
         rows_html.append("<tr>" + "".join(f"<td class='px-3 py-1 text-center'>{c}</td>" for c in cells) + "</tr>")
-    headers = ["Modo", "MEF [Hz]", "Analítica [Hz]", "Erro [%]"] if show_analytical_table else ["Modo", "MEF [Hz]"]
+    headers = [i18n_t("py.table.mode"), i18n_t("py.table.fem"), i18n_t("py.table.analytical"), i18n_t("py.table.error")] if show_analytical_table else [i18n_t("py.table.mode"), i18n_t("py.table.fem")]
     metrics_html = (
         "<div class=\"bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full\">"
-        "<h4 class=\"font-semibold text-blue-800 mb-2\">Validação</h4>"
-        f"<p class=\"text-sm text-gray-700 mb-2\"><strong>Frequências naturais:</strong> {bc_title}, propriedades {prop_type}</p>"
+        f"<h4 class=\"font-semibold text-blue-800 mb-2\">{i18n_t('py.validation')}</h4>"
+        f"<p class=\"text-sm text-gray-700 mb-2\"><strong>{i18n_t('py.val.freq_label')}</strong> {i18n_t('py.val.case').format(bc=bc_title, prop=prop_type)}</p>"
         "<table class=\"text-sm text-gray-700 border-collapse\"><thead><tr>"
         + "".join(f"<th class='px-3 py-1 text-center font-semibold text-blue-800 border-b border-blue-200'>{h}</th>" for h in headers)
         + "</tr></thead><tbody>" + "".join(rows_html) + "</tbody></table></div>"
@@ -259,14 +263,14 @@ async def run_vibracao_1d(event=None):
 
         # Plotar modo de vibração
         ax.plot(x, eigenvectors[:, i], 'o-', color=colors[i], markersize=6, linewidth=3, 
-                label=f'Modo {i+1}: {frequencies[i]:.2f} Hz')
+                label=i18n_t("py.plot.mode_legend").format(n=i+1, f=frequencies[i]))
 
         # Adicionar linha de referência em zero
         ax.axhline(y=0, color='black', linestyle='--', alpha=0.3)
 
         ax.set_xlabel('x [m]', fontsize=14, fontweight='bold')
-        ax.set_ylabel('Amplitude Normalizada', fontsize=14, fontweight='bold')
-        ax.set_title(f'Modo de Vibração {i+1}', fontsize=16, fontweight='bold')
+        ax.set_ylabel(i18n_t("py.plot.amp_ylabel"), fontsize=14, fontweight='bold')
+        ax.set_title(i18n_t("py.plot.mode_title").format(n=i+1), fontsize=16, fontweight='bold')
         ax.grid(True, linestyle='--', alpha=0.5)
         ax.legend(fontsize=12)
         ax.tick_params(labelsize=12)
@@ -286,9 +290,9 @@ async def run_vibracao_1d(event=None):
 
     # Configurar eixos e labels
     ax_props.set_xlabel('x [m]', fontsize=14, fontweight='bold')
-    ax_props.set_ylabel('Módulo de Elasticidade [GPa]', color='r', fontweight='bold', fontsize=14)
-    ax_props_twin.set_ylabel('Densidade [kg/m³]', color='b', fontweight='bold', fontsize=14)
-    ax_props.set_title('Propriedades Materiais', fontweight='bold', fontsize=16)
+    ax_props.set_ylabel(i18n_t("py.plot.E_ylabel"), color='r', fontweight='bold', fontsize=14)
+    ax_props_twin.set_ylabel(i18n_t("py.plot.rho_ylabel"), color='b', fontweight='bold', fontsize=14)
+    ax_props.set_title(i18n_t("py.plot.props_title"), fontweight='bold', fontsize=16)
 
     # Configurar cores dos ticks
     ax_props.tick_params(axis='y', labelcolor='r', labelsize=12)
@@ -311,7 +315,7 @@ async def run_vibracao_1d(event=None):
 
     # Sem bbox_inches='tight' (figura ao vivo), reduz as margens externas da figura
     fig.subplots_adjust(top=0.98, bottom=0.03)
-    plot_show("Vibração 1D (MEF)")
+    plot_show(i18n_t("title"))
     plot_append_html(metrics_html)
     _export_result(x=x, frequencies=frequencies, freq_analytical=freq_analytical, eigenvectors=eigenvectors)
 

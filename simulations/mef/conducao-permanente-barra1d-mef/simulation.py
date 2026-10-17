@@ -14,6 +14,15 @@ import asyncio
 
 from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
+# --- Idioma da interface (v1.1.0) ---------------------------------------------
+# Rótulos de gráfico e mensagens vêm de i18n.<lang>.json via window.i18n
+# (assets/app.js). Sem o app.js, a simulação roda mostrando as chaves no lugar dos textos.
+import js
+_i18n = getattr(js, "i18n", None)
+def i18n_t(key):
+    return str(_i18n.t(key)) if _i18n else key
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -112,24 +121,24 @@ async def run_mef_1d(event=None):
     # Plot
     plot_begin()
     fig, ax = plt.subplots(**plot_fig(8, 4))
-    ax.plot(x, T, 'o-', label='MEF 1D', color='#3B82F6')
-    ax.plot(x_dense, T_ana_dense, '--', label='Analítica', color='#EF4444')
+    ax.plot(x, T, 'o-', label=i18n_t("py.legend.fem"), color='#3B82F6')
+    ax.plot(x_dense, T_ana_dense, '--', label=i18n_t("py.legend.analytical"), color='#EF4444')
     ax.set_xlabel('x [m]')
-    ax.set_ylabel('Temperatura [°C]')
-    ax.set_title('Condução Permanente 1D (MEF)')
+    ax.set_ylabel(i18n_t("py.plot.ylabel"))
+    ax.set_title(i18n_t("py.plot.title"))
     ax.grid(True, linestyle='--', alpha=0.5)
     ax.legend()
     plt.tight_layout()
 
-    plot_show("Condução permanente 1D (MEF)")
+    plot_show(i18n_t("title"))
 
     metrics_html = f"""
     <div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full">
-        <h4 class="font-semibold text-blue-800 mb-1">Validação</h4>
-        <p class="text-sm text-gray-700"><strong>Malha:</strong> {nel} elementos lineares, h = {h:.4f} m</p>
-        <p class="text-sm text-gray-700"><strong>T_max (MEF):</strong> {T_max_mef:.6f} °C em x = {x_max_mef:.3f} m</p>
-        <p class="text-sm text-gray-700"><strong>T_max (analítica):</strong> {T_max_ana:.6f} °C em x = {x_max_ana:.3f} m</p>
-        <p class="text-sm text-gray-700"><strong>Erro máximo nodal:</strong> {e_max:.2e} °C</p>
+        <h4 class="font-semibold text-blue-800 mb-1">{i18n_t("py.validation")}</h4>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.val.mesh_label")}</strong> {i18n_t("py.val.mesh").format(nel=nel, h=h)}</p>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.val.tmax_fem_label")}</strong> {i18n_t("py.val.at_x").format(T=T_max_mef, x=x_max_mef)}</p>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.val.tmax_ana_label")}</strong> {i18n_t("py.val.at_x").format(T=T_max_ana, x=x_max_ana)}</p>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.val.err_label")}</strong> {e_max:.2e} °C</p>
     </div>
     """
     plot_append_html(metrics_html)

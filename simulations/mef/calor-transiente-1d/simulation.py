@@ -22,6 +22,15 @@ import imageio.v2 as imageio
 import io
 import base64
 
+# --- Idioma da interface (v1.1.0) ---------------------------------------------
+# Rótulos de gráfico e mensagens vêm de i18n.<lang>.json via window.i18n
+# (assets/app.js). Sem o app.js, a simulação roda mostrando as chaves no lugar dos textos.
+import js
+_i18n = getattr(js, "i18n", None)
+def i18n_t(key):
+    return str(_i18n.t(key)) if _i18n else key
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -145,12 +154,12 @@ def render_frame(T, x_nodes, t, n_elements, k1=1.0, k2=5.0):
     fig, ax = plt.subplots(figsize=(10, 6))
 
     # Plotar temperatura numérica
-    ax.plot(x_nodes, T, 'o-', label="MEF", color="#3B82F6", linewidth=2, markersize=4)
+    ax.plot(x_nodes, T, 'o-', label=i18n_t("py.legend.fem"), color="#3B82F6", linewidth=2, markersize=4)
 
     # Plotar solução analítica de regime permanente (referência)
     x_dense = np.linspace(0, x_nodes[-1], 200)
     T_analytical = analytical_steady_state(x_dense, x_nodes[-1], k1, k2)
-    ax.plot(x_dense, T_analytical, '--', label="Regime permanente (analítico)", color="#EF4444", linewidth=2)
+    ax.plot(x_dense, T_analytical, '--', label=i18n_t("py.legend.steady"), color="#EF4444", linewidth=2)
 
     # Plotar condutividade térmica como fundo
     k_values = thermal_conductivity(x_dense, x_nodes[-1], k1, k2)
@@ -158,15 +167,15 @@ def render_frame(T, x_nodes, t, n_elements, k1=1.0, k2=5.0):
     # Criar segundo eixo para k(x)
     ax2 = ax.twinx()
     ax2.plot(x_dense, k_values, ':', color='green', alpha=0.7, linewidth=1)
-    ax2.set_ylabel('Condutividade k(x)', color='green', fontsize=12)
+    ax2.set_ylabel(i18n_t("py.plot.k_ylabel"), color='green', fontsize=12)
     ax2.tick_params(axis='y', labelcolor='green')
     ax2.set_ylim(0, max(k1, k2) + 1)
 
     ax.set_ylim(-0.1, 1.1)
     ax.set_xlim(0, x_nodes[-1])
-    ax.set_xlabel("Posição x", fontsize=12)
-    ax.set_ylabel("Temperatura T", fontsize=12)
-    ax.set_title(f"Condução Transiente 1D - MEF (n={n_elements}) | t = {t:.3f}s", fontsize=14)
+    ax.set_xlabel(i18n_t("py.plot.xlabel"), fontsize=12)
+    ax.set_ylabel(i18n_t("py.plot.ylabel"), fontsize=12)
+    ax.set_title(i18n_t("py.plot.title").format(n=n_elements, t=t), fontsize=14)
     ax.grid(True, linestyle='--', alpha=0.5)
     ax.legend(fontsize=12)
 
@@ -295,11 +304,11 @@ async def run_simulation(event=None):
 
     metrics_html = f"""
     <div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full">
-        <h4 class="font-semibold text-blue-800 mb-1">Validação</h4>
-        <p class="text-sm text-gray-700"><strong>Tempo final:</strong> {t_final:.3f} s ({frac_tau*100:.1f}% de τ_dif = {tau_dif:.2f} s)</p>
-        <p class="text-sm text-gray-700"><strong>T(L/2) MEF:</strong> {T_meio_mef:.6f} °C</p>
-        <p class="text-sm text-gray-700"><strong>T(L/2) analítica (regime permanente, k2/(k1+k2)):</strong> {T_meio_ana:.6f} °C</p>
-        <p class="text-sm text-gray-700"><strong>Desvio em x = L/2:</strong> {erro_meio:.2e} °C</p>
+        <h4 class="font-semibold text-blue-800 mb-1">{i18n_t("py.validation")}</h4>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.val.t_final_label")}</strong> {i18n_t("py.val.t_final").format(t_final=t_final, frac=frac_tau*100, tau_dif=tau_dif)}</p>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.val.t_mid_fem_label")}</strong> {T_meio_mef:.6f} °C</p>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.val.t_mid_ana_label")}</strong> {T_meio_ana:.6f} °C</p>
+        <p class="text-sm text-gray-700"><strong>{i18n_t("py.val.dev_label")}</strong> {erro_meio:.2e} °C</p>
     </div>
     """
     container.innerHTML = (
