@@ -5,18 +5,24 @@
 
 /* Componentes compartilhados injetados por assets/app.js (prefixo mm- = MinervaMesh) */
 @layer components {
-  .mm-dialog {
-    @apply border-0 bg-transparent p-0 outline-none;
+  /* Botão Executar ocupado (carga do PyScript ou simulação em andamento) */
+  .mm-busy {
+    @apply cursor-wait opacity-70;
   }
-  .mm-dialog::backdrop {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(4px);
+  .mm-btn-spinner {
+    @apply mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent align-[-2px];
   }
-  .mm-box {
-    @apply flex w-[300px] flex-col items-center justify-center gap-4 rounded-lg bg-white p-6 shadow-xl;
+  /* Painel de execução (#mm-run, acima de #plot-output) */
+  .mm-run-spinner {
+    @apply h-8 w-8 shrink-0 animate-spin rounded-full border-4 border-blue-600 border-t-transparent;
   }
-  .mm-spinner {
-    @apply h-10 w-10 animate-spin rounded-full border-4 border-blue-500 border-t-transparent;
+  /* Resultado anterior esmaecido enquanto a simulação roda */
+  .mm-dim {
+    @apply opacity-40 transition-opacity;
+  }
+  /* Barra de progresso indeterminada (carga, solução única, codificação do GIF) */
+  .mm-bar-indeterminate {
+    animation: mm-slide 1.2s ease-in-out infinite;
   }
   .mm-lang button {
     @apply px-1 text-sm font-medium text-gray-400 hover:text-gray-700;
@@ -28,6 +34,11 @@
   .mm-menu-link {
     @apply block w-full rounded-md bg-indigo-600 px-4 py-3 text-left text-white transition hover:bg-indigo-700;
   }
+}
+
+@keyframes mm-slide {
+  from { margin-left: -40%; }
+  to { margin-left: 100%; }
 }
 
 /* Figura interativa do Matplotlib (backend webagg do Pyodide) dentro de #plot-output.

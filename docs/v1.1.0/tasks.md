@@ -56,15 +56,17 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] Conferir métricas contra a baseline (17/10/2026: `__minervamesh_result` e texto idênticos nos 10 módulos)
 - [ ] Decisão do autor, fora do commit mecânico: traduzir `prop_type` cru em "propriedades constant" (viga, vibração) e o `geo_type.capitalize()` ("Naca4412") no título do potencial; muda texto exibido em PT
 
-## Etapa 5 — Progresso (spec 6)
+## Etapa 5 — Progresso (spec 6) (concluída em 17/10/2026)
 
-- [ ] Carga inicial: cronômetro e texto sobre download e cache (medir tamanho dos pacotes)
-- [ ] Componente de progresso no `app.js` com modos `spinner`, `counter`, `inline`
-- [ ] Contador e yield em `calor-transiente-1d`, `transcalor`, `equacao-onda` (commits separados)
-- [ ] Verificar se `asyncio.sleep(0)` repinta; senão usar `0.01`
-- [ ] Navier-Stokes: contador e cronômetro inline
-- [ ] Escoamento potencial: passa a abrir o `sim-loading`
-- [ ] Conferir métricas e tempo do transiente 2D contra a baseline
+- [x] Carga inicial: tamanho dos pacotes medido (18 a 44 MB na rede, tabela em `docs/v1.1.0/aceite.md`). Decisão do autor em 17/10/2026: **sem dialog**; botão Executar desabilitado com spinner e "Preparando...", linha discreta com barra indeterminada e cronômetro abaixo dos botões. O texto sobre download e cache foi descartado (poluía)
+- [x] Componente de progresso no `app.js` (`window.mmProgress`) com modos `spinner`, `counter`, `inline`; durante a execução o painel chamativo fica acima de `#plot-output` (onde o resultado vai aparecer) e o resultado anterior esmaece; ao terminar, "Tempo total" sob o botão
+- [x] Contador e yield em `calor-transiente-1d`, `transcalor`, `equacao-onda` (commits separados); transiente 2D abandona o spinner próprio
+- [x] `asyncio.sleep(0)` repinta no Pyodide (teste em `docs/v1.1.0/aceite.md`); adotado
+- [x] Navier-Stokes: contador `min(passo, total)` e cronômetro (modo `inline`)
+- [x] Escoamento potencial e os outros 5 módulos de solução única no modo `spinner` (pedido do autor em 17/10/2026: padronizar o "carregando" de todas; a condução MDF passa de `create_proxy` síncrono a `@when` assíncrono para o estado do botão pintar). Os dialogs `#loading` e `#sim-loading` saem do `app.js`
+- [x] Conferir métricas e tempo do transiente 2D contra a baseline (17/10/2026: `__minervamesh_result` e texto idênticos nos 10 módulos; transiente 2D 6,4 s → 6,7–7,0 s)
+- [x] EN das 7 chaves novas (`btn.preparing`, `btn.running`, `loading.status`, `sim.running`, `sim.progress.step`, `sim.encoding`, `sim.total_time`) revisado pelo agente revisor terminológico (17/10/2026): sem correção
+- [x] Invólucro `*_guarded` com `try/finally` nos 8 handlers que não tinham: o botão Executar volta ao normal se a simulação lançar exceção
 
 ## Etapa 6 — Descrições padronizadas (spec 7)
 
@@ -90,7 +92,7 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 
 ## Etapa 9 — Limpezas (spec 10)
 
-- [ ] Remover `plotly` do transiente 2D; auditar os demais `config.toml`
+- [ ] Remover `plotly` do transiente 2D (9,7 MB do PyPI na carga, medição da etapa 5); auditar os demais `config.toml`
 - [ ] Recompilar Tailwind
 - [ ] README: parágrafo de resumo em inglês no topo
 

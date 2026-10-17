@@ -159,9 +159,9 @@ que a camada compartilhada impõe:
 
 | Item | Hoje | Padrão v1.1.0 |
 |---|---|---|
-| Dialog de carga inicial `#loading` | igual em 9 páginas, copiado 9×; a condução MDF não tem nenhum indicador de carga | markup e CSS injetados pelo `app.js` em todas |
+| Dialog de carga inicial `#loading` | igual em 9 páginas, copiado 9×; a condução MDF não tem nenhum indicador de carga | markup e CSS injetados pelo `app.js` em todas (etapa 2); na etapa 5 o dialog sai e vira estado do botão Executar (seção 6.1) |
 | Mecanismo de saída do gráfico | condução MDF usa `plt.show()` do backend interativo do Matplotlib (desenha em `<canvas>` anexado ao body, acumulando figuras); 5 módulos estáticos geram **GIF de 1 frame** via imageio; potencial e Navier-Stokes geram PNG base64 | **Gráfico interativo** nos 6 módulos estáticos (seção 4.2); GIF nos 3 animados; Navier-Stokes avaliado à parte. `imageio` sai do `config.toml` dos estáticos |
-| Dialog `#sim-loading` | existe em 7 páginas; transiente 2D tem e não usa; potencial e Navier-Stokes não têm | existe e é controlado pelo `app.js` em todas as 10; conteúdo conforme seção 6.2 |
+| Dialog `#sim-loading` | existe em 7 páginas; transiente 2D tem e não usa; potencial e Navier-Stokes não têm | controlado pelo `app.js` em todas as 10 (etapa 2); na etapa 5 o dialog sai e vira painel acima do resultado (seção 6.2) |
 | Ícones Font Awesome (`<i class="fas …">`) | usados em todas, mas só 3 páginas carregam a biblioteca; nas outras 7 o ícone nunca aparece | remover Font Awesome; ícones via SVG inline (seta de voltar, código, fechar) no `app.js` |
 | `<title>` | formatos variados ("Condução Permanente (Barra 1D com Geração Interna)", "Transiente 2D") | `MinervaMesh · <título do módulo>`, traduzível |
 | Largura do container e grade | `max-w-4xl`, `5xl`, `6xl`, `7xl`; grade parâmetros/resultado 1/3 + 2/3 | `max-w-7xl` em todas e grade 1/4 + 3/4 a partir de `lg` (decisão do autor em 17/10/2026: o gráfico interativo precisa de largura; a condução MDF mantém parâmetros em linha e resultado em largura total) |
@@ -284,46 +284,53 @@ resultado e o `<script type="py">`. Tudo o mais vem do `app.js`.
 
 ## 6. Indicador de progresso
 
+Revisado na implementação (decisão do autor em 17/10/2026): **nenhum dialog**.
+Os dialogs `#loading` e `#sim-loading` saíram do `app.js`. A carga inicial é
+discreta, junto ao botão; a execução é chamativa, na área do resultado, para
+levar o olhar ao lugar onde a figura vai aparecer.
+
 ### 6.1 Carga inicial do PyScript
 
-No dialog `#loading`, em todas as páginas:
+Em todas as páginas, enquanto o `py:ready` não chega:
 
-- cronômetro de tempo decorrido (atualizado a cada segundo);
-- texto explicando que a primeira visita baixa o ambiente Python científico
-  (NumPy, SciPy, Matplotlib; tamanho medido na implementação e escrito no
-  texto) e que as visitas seguintes usam o cache do browser;
-- sem barra de porcentagem (não há evento para isso).
+- o botão Executar fica desabilitado, com spinner e o rótulo "Preparando...";
+- logo abaixo do grupo de botões, uma linha discreta (`#mm-status`) com barra
+  fina indeterminada, o texto "Preparando o ambiente de simulação..." e o
+  cronômetro desde o início da navegação, atualizado a cada segundo;
+- sem barra de porcentagem (não há evento para isso) e **sem texto** sobre o
+  tamanho do download (descartado por poluir; a medição fica em
+  `docs/v1.1.0/aceite.md`).
 
 ### 6.2 Durante a simulação
 
-Módulos de **marcha no tempo** (`calor-transiente-1d`, `transcalor`,
-`equacao-onda`, `navier-stokes`):
+Um componente (`window.mmProgress`, chamado pelo Python via
+`progress("start"|"step"|"encoding"|"done")`) com três modos. Em todos, o
+botão Executar fica desabilitado com spinner e "Executando...", e um painel
+chamativo (`#mm-run`: spinner, texto, número à direita e barra) é inserido
+logo **acima de `#plot-output`**, fora dele porque o Python reescreve o
+`innerHTML` da área. Ao terminar, o painel some e a linha discreta sob o botão
+mostra "Tempo total | … s" com a barra cheia em verde.
 
-- Transiente 1D e equação da onda já abrem o dialog `sim-loading`; o
-  transiente 2D passa a abri-lo também (abandona o spinner próprio). Os três
-  mostram `Step i / N · t s` (chave `common`), com `N` = número total de
-  passos.
-- Dentro do loop, na mesma cadência em que os frames são amostrados (e não a
-  cada passo), o Python atualiza o texto e cede o controle ao browser com
-  `await asyncio.sleep(...)`. Usar o mesmo atraso que o Navier-Stokes já usa
-  (`0.01`), ou verificar empiricamente que `sleep(0)` repinta no Pyodide
-  antes de adotá-lo. Alvo: no máximo ~10 atualizações por segundo.
-- Terminados os passos, a mensagem muda para `Encoding animation…` até o
-  `imageio.mimsave` terminar e o `<img>` ser inserido.
-- Navier-Stokes: já mostra frames ao vivo e tem botão Parar; ganha só o
-  contador de passos e o cronômetro abaixo do gráfico. O contador atual pode
-  passar do total ("402 / 400") porque o loop avança `steps_per_frame` passos
-  por quadro; o texto passa a mostrar `min(passo, total)`, sem mudar o loop.
-  O botão Parar **não** é generalizado para os outros módulos nesta versão.
-
-Módulos de **solução única** (os seis restantes): o mesmo dialog
-`sim-loading` do `app.js`, com spinner e a mensagem "Running simulation…",
-sem contador. O escoamento potencial, que hoje não tem dialog, passa a abrir
-o mesmo.
-
-Em resumo, o `app.js` expõe um único componente de progresso com três modos,
-e cada módulo usa um: `spinner` (solução única), `counter` (marcha com GIF) e
-`inline` (Navier-Stokes, frames ao vivo, contador abaixo do gráfico).
+- `counter` (`calor-transiente-1d`, `transcalor`, `equacao-onda`): "Passo i /
+  N | t = … s" e barra proporcional; o resultado anterior esmaece. Dentro do
+  loop, na mesma cadência em que os frames são amostrados (e não a cada
+  passo), o Python atualiza o contador e cede o controle ao browser com
+  `await asyncio.sleep(0)`, verificado empiricamente (tabela em
+  `docs/v1.1.0/aceite.md`: repinta e não custa tempo). Terminados os passos, a
+  mensagem muda para "Codificando animação..." até o `imageio.mimsave`
+  terminar e o `<img>` ser inserido. O transiente 2D abandona o spinner
+  próprio.
+- `inline` (`navier-stokes`): frames ao vivo continuam visíveis (sem esmaecer)
+  e com o botão Parar; o painel mostra "Passo min(i, N) / N" e o cronômetro.
+  O contador podia passar do total ("402 / 400") porque o loop avança
+  `steps_per_frame` passos por quadro; o texto da validação também passa a
+  mostrar `min(passo, total)`, sem mudar o loop. O botão Parar **não** é
+  generalizado para os outros módulos nesta versão.
+- `spinner` (os seis de solução única, inclusive o escoamento potencial e a
+  condução MDF, que não tinham indicador): "Executando simulação..." com barra
+  indeterminada; resultado anterior esmaece. Pedido do autor em 17/10/2026:
+  padronizar o "carregando" de todas as simulações, então nenhum módulo abre
+  dialog por conta própria.
 
 ## 7. Descrição padronizada do problema
 

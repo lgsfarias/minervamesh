@@ -1,10 +1,10 @@
 /**
  * MinervaMesh — camada compartilhada das páginas de simulação.
  *
- * Injeta o que antes era copiado em cada index.html: dialog de carga do
- * PyScript, dialog de execução (#sim-loading), cabeçalho (voltar ao menu,
- * seletor de idioma, logo), modal de código-fonte e rodapé. Também aplica as
- * strings traduzíveis (data-i18n) e expõe window.i18n para o Python.
+ * Injeta o que antes era copiado em cada index.html: cabeçalho (voltar ao menu,
+ * seletor de idioma, logo), modal de código-fonte, rodapé e o bloco de status
+ * (barra de progresso + texto) abaixo do botão Executar. Também aplica as
+ * strings traduzíveis (data-i18n) e expõe window.i18n e window.mmProgress para o Python.
  *
  * Contrato com a página:
  *   <script type="module" src="…/assets/app.js"></script>  (antes do core.js do PyScript)
@@ -15,11 +15,12 @@
  *   (chaves do módulo têm precedência sobre as de assets/i18n/common.<lang>.json).
  *
  * Menu (index.html da raiz): página sem <script type="py">. Recebe só strings,
- * seletor de idioma (em #mm-lang-slot) e rodapé; sem dialogs nem cabeçalho de módulo.
+ * seletor de idioma (em #mm-lang-slot) e rodapé; sem status nem cabeçalho de módulo.
  *
  * Contrato com o Python (simulation.py):
- *   document.getElementById("sim-loading").showModal() / .close()
  *   js.i18n.t("py.…") para rótulos de gráfico e mensagens (etapa 4 da v1.1.0)
+ *   js.mmProgress.start(modo, total) / .step(i, t) / .encoding() / .done()
+ *     modo "spinner" (solução única), "counter" (marcha com GIF) ou "inline" (frames ao vivo)
  */
 
 const ROOT = new URL("../", import.meta.url); // app.js vive em assets/
@@ -66,6 +67,12 @@ function t(key) {
   if (key in strings.module) return strings.module[key];
   if (key in strings.common) return strings.common[key];
   return `[${key}]`;
+}
+
+function fmt(key, params) {
+  let out = t(key);
+  for (const [k, v] of Object.entries(params || {})) out = out.replaceAll(`{${k}}`, String(v));
+  return out;
 }
 
 function applyStrings() {
@@ -130,30 +137,6 @@ function el(html) {
   const tpl = document.createElement("template");
   tpl.innerHTML = html.trim();
   return tpl.content.firstElementChild;
-}
-
-function injectDialogs() {
-  if (!document.getElementById("loading")) {
-    document.body.prepend(
-      el(`<dialog id="loading" class="mm-dialog">
-            <div class="mm-box">
-              <div class="mm-spinner"></div>
-              <p class="text-gray-700 font-medium text-center" data-i18n="loading.pyscript"></p>
-            </div>
-          </dialog>`)
-    );
-  }
-  if (!document.getElementById("sim-loading")) {
-    document.body.prepend(
-      el(`<dialog id="sim-loading" class="mm-dialog">
-            <div class="mm-box">
-              <div class="mm-spinner"></div>
-              <p class="text-gray-700 font-medium text-center" data-i18n="sim.running"></p>
-              <p id="mm-progress" class="text-sm text-gray-500 text-center hidden"></p>
-            </div>
-          </dialog>`)
-    );
-  }
 }
 
 function langSwitcher() {
@@ -261,12 +244,169 @@ function decorateButtons() {
 }
 
 // ---------------------------------------------------------------------------
+// Progresso (spec 6): #mm-status, discreto, abaixo dos botões (carga inicial e
+// tempo total); #mm-run, chamativo, acima de #plot-output durante a simulação.
+// #mm-run fica fora de #plot-output porque o Python reescreve o innerHTML da área.
+// ---------------------------------------------------------------------------
+const progress = { mode: null, total: 0, t0: 0, last: 0, timer: null };
+
+function setRunBusy(busy, labelKey) {
+  const btn = document.getElementById("run-btn");
+  if (!btn) return;
+  btn.disabled = busy;
+  btn.setAttribute("aria-busy", String(busy));
+  btn.classList.toggle("mm-busy", busy);
+  let spin = btn.querySelector(".mm-btn-spinner");
+  if (busy && !spin) btn.prepend(el('<span class="mm-btn-spinner" aria-hidden="true"></span>'));
+  if (!busy && spin) spin.remove();
+  const label = btn.querySelector("[data-i18n]");
+  if (label) {
+    label.dataset.i18n = busy ? labelKey : "btn.run";
+    label.textContent = t(label.dataset.i18n);
+  }
+}
+
+function statusEl() {
+  let box = document.getElementById("mm-status");
+  if (!box) {
+    const btn = document.getElementById("run-btn");
+    if (!btn) return null;
+    box = el(`<div id="mm-status" class="mt-3 hidden" aria-live="polite">
+        <div class="h-1.5 w-full overflow-hidden rounded bg-gray-200"><div id="mm-status-bar" class="h-full w-0 rounded bg-blue-600 transition-[width] duration-300"></div></div>
+        <div class="mt-1 flex justify-between gap-2 text-xs text-gray-600"><span id="mm-status-text"></span><span id="mm-status-time" class="shrink-0 font-mono tabular-nums"></span></div>
+      </div>`);
+    const group = btn.parentElement;
+    const anchor = [...group.children].every((c) => c.tagName === "BUTTON") ? group : btn;
+    anchor.after(box);
+  }
+  return box;
+}
+
+// frac: fração concluída (0–1) ou null para barra indeterminada
+function statusShow(text, frac, time = "", done = false) {
+  const box = statusEl();
+  if (!box) return;
+  box.classList.remove("hidden");
+  const bar = box.querySelector("#mm-status-bar");
+  bar.classList.toggle("mm-bar-indeterminate", frac == null);
+  bar.classList.toggle("bg-green-600", done);
+  bar.classList.toggle("bg-blue-600", !done);
+  bar.style.width = frac == null ? "40%" : `${Math.round(Math.min(1, Math.max(0, frac)) * 100)}%`;
+  box.querySelector("#mm-status-text").textContent = text;
+  box.querySelector("#mm-status-time").textContent = time;
+}
+
+function statusHide() {
+  document.getElementById("mm-status")?.classList.add("hidden");
+}
+
+function runEl() {
+  let box = document.getElementById("mm-run");
+  if (!box) {
+    const out = document.getElementById("plot-output");
+    if (!out) return null;
+    box = el(`<div id="mm-run" class="mb-4 hidden rounded-lg border border-blue-200 bg-blue-50 p-4 text-left" aria-live="polite">
+        <div class="flex items-center gap-4">
+          <span class="mm-run-spinner" aria-hidden="true"></span>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-baseline justify-between gap-3 font-medium text-blue-800"><span id="mm-run-text"></span><span id="mm-run-time" class="shrink-0 font-mono tabular-nums text-sm"></span></div>
+            <div class="mt-2 h-2 w-full overflow-hidden rounded bg-blue-100"><div id="mm-run-bar" class="h-full w-0 rounded bg-blue-600 transition-[width] duration-300"></div></div>
+          </div>
+        </div>
+      </div>`);
+    out.before(box);
+  }
+  return box;
+}
+
+function runShow(text, frac, time = "") {
+  const box = runEl();
+  if (!box) return;
+  box.classList.remove("hidden");
+  const bar = box.querySelector("#mm-run-bar");
+  bar.classList.toggle("mm-bar-indeterminate", frac == null);
+  bar.style.width = frac == null ? "40%" : `${Math.round(Math.min(1, Math.max(0, frac)) * 100)}%`;
+  box.querySelector("#mm-run-text").textContent = text;
+  box.querySelector("#mm-run-time").textContent = time;
+}
+
+function runHide() {
+  document.getElementById("mm-run")?.classList.add("hidden");
+  document.getElementById("plot-output")?.classList.remove("mm-dim");
+}
+
+const elapsed = () => ((performance.now() - progress.t0) / 1000).toFixed(1);
+
+function progressReset() {
+  if (progress.timer) clearInterval(progress.timer);
+  progress.timer = null;
+  progress.mode = null;
+}
+
+function progressRenderInline() {
+  runShow(fmt("sim.progress.step", { i: progress.last, n: progress.total }), progress.total ? progress.last / progress.total : null, `${elapsed()} s`);
+}
+
+window.mmProgress = {
+  start(mode = "spinner", total = 0) {
+    progressReset();
+    progress.mode = mode;
+    progress.total = Number(total) || 0;
+    progress.t0 = performance.now();
+    progress.last = 0;
+    setRunBusy(true, "btn.running");
+    statusHide();
+    if (mode === "inline") {
+      progressRenderInline();
+      progress.timer = setInterval(progressRenderInline, 1000);
+      return;
+    }
+    document.getElementById("plot-output")?.classList.add("mm-dim");
+    if (mode === "counter") runShow(fmt("sim.progress.step", { i: 0, n: progress.total }), 0, "t = 0.000 s");
+    else runShow(t("sim.running"), null);
+  },
+  step(i, tsim = 0) {
+    if (progress.mode === "counter") {
+      runShow(fmt("sim.progress.step", { i, n: progress.total }), progress.total ? Number(i) / progress.total : null, `t = ${Number(tsim).toFixed(3)} s`);
+    } else if (progress.mode === "inline") {
+      progress.last = Math.min(Number(i), progress.total);
+      progressRenderInline();
+    }
+  },
+  encoding() {
+    if (progress.mode === "counter") runShow(t("sim.encoding"), null);
+  },
+  done() {
+    if (!progress.mode) return;
+    progressReset();
+    setRunBusy(false);
+    runHide();
+    statusShow(t("sim.total_time"), 1, `${elapsed()} s`, true);
+  },
+};
+
+// Cronômetro desde o início da navegação (performance.now()): inclui o download
+// iniciado antes de este módulo rodar. Sem porcentagem: o PyScript não expõe progresso.
+let loadingTimer = null;
+function loadingStart() {
+  setRunBusy(true, "btn.preparing");
+  const tick = () => statusShow(t("loading.status"), null, `${Math.floor(performance.now() / 1000)} s`);
+  tick();
+  loadingTimer = setInterval(tick, 1000);
+}
+function loadingStop() {
+  if (loadingTimer) clearInterval(loadingTimer);
+  loadingTimer = null;
+  setRunBusy(false);
+  statusHide();
+}
+
+// ---------------------------------------------------------------------------
 // Ciclo de vida
 // ---------------------------------------------------------------------------
 async function boot() {
   const app = document.getElementById("mm-app");
   if (!document.querySelector('script[type="py"]')) return bootMenu();
-  injectDialogs();
   // Backend interativo do Matplotlib (plt.show()) desenha dentro deste elemento em vez do body
   const out = document.getElementById("plot-output");
   if (out) {
@@ -290,9 +430,8 @@ async function boot() {
   await loadStrings(lang);
   applyStrings();
 
-  const loading = document.getElementById("loading");
   const onReady = () => {
-    if (loading.open) loading.close();
+    loadingStop();
     const out = document.getElementById("plot-output");
     if (out && out.textContent.trim() === "" && out.children.length === 0) {
       const ph = document.createElement("span");
@@ -302,8 +441,10 @@ async function boot() {
     }
   };
   if (window.__pyReadyFired) onReady();
-  else addEventListener("py:ready", onReady, { once: true });
-  if (!window.__pyReadyFired && !loading.open) loading.showModal();
+  else {
+    loadingStart();
+    addEventListener("py:ready", onReady, { once: true });
+  }
 }
 
 // Menu: sem PyScript, logo sem dialog de carga nem cabeçalho de módulo.

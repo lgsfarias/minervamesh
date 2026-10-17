@@ -117,6 +117,46 @@ Os JSONs intermediários não são guardados; só o veredito.
 | 2b — gráfico interativo (6 estáticos), layout largo, tabela da vibração em HTML | 17/10/2026 | mudaram nos 6 interativos (esperado); idênticas nos 4 demais | mudou onde a figura virou canvas (título/toolbar entram no texto) | idêntico (10/10) |
 | 3 — i18n dos HTML (data-i18n, JSON por módulo, menu bilíngue); nenhum `.py` tocado | 17/10/2026 | idênticas às da 2b (10/10) | idêntico fora o prefixo título/toolbar dos 6 interativos e a tabela da vibração em HTML (mudanças da 2b); Python ainda escreve em PT | idêntico (10/10) |
 | 4 — i18n dos `.py`: literais de gráfico e de validação viram `i18n_t("py.…")`, PT byte a byte igual aos literais anteriores; baseline em `--lang pt` | 17/10/2026 | idênticas às da 3 (10/10) | idêntico (10/10) fora a tabela da vibração em HTML (2b), conferido com `scripts/compare-baseline.mjs` | idêntico (10/10) |
+| 5 — progresso: `progress("start"/"step"/"encoding"/"done")` nos 10 `.py`, `await asyncio.sleep(0)` na cadência dos quadros nos 3 módulos de GIF, `min(passo, total)` no texto do Navier-Stokes, condução MDF em `@when` assíncrono, invólucro `*_guarded` com `try/finally` nos 8 handlers que não tinham (reabilita o botão se a simulação lançar exceção; testado com a vibração e 0 elementos) | 17/10/2026 | idênticas às da 4 (10/10) | idêntico (10/10) fora a tabela da vibração em HTML (2b) | idêntico (10/10) |
+
+## Etapa 5: yield ao browser e tempo do transiente 2D (17/10/2026)
+
+Teste do `asyncio.sleep(0)` no PyScript 2025.8.1 (Pyodide 0.28.1), thread
+principal, Chrome headless: página descartável com um loop de 30 iterações de
+100 ms de trabalho NumPy, escrevendo o índice no DOM e cedendo o controle ao
+final de cada iteração. Medidos os quadros pintados (`requestAnimationFrame`)
+e os valores intermediários lidos de fora durante o loop:
+
+| Yield | Tempo do loop | Quadros pintados | Valores intermediários vistos |
+|---|---|---|---|
+| nenhum (bloqueante) | 3,02 s | 4 | 1 |
+| `await asyncio.sleep(0)` | 3,02 s | 35 | 31 |
+| `await asyncio.sleep(0.01)` | 3,35 s | 82 | 30 |
+
+`sleep(0)` repinta e não custa tempo; `sleep(0.01)` custa 11 ms por yield.
+Adotado `sleep(0)` nos três módulos de GIF (o Navier-Stokes mantém o `0.01`
+que já tinha, por não ser uma edição necessária).
+
+Tempo do transiente 2D (defaults, Chrome headless, 50 passos e 50 yields):
+6,4 s antes da etapa, 6,7 a 7,0 s depois em quatro rodadas. Diferença dentro
+da variação entre rodadas (a referência `v1.0.0-hook` marcou 6,4 s e a
+`v1.0.0-defaults` 6,2 s).
+
+### Tamanho da carga inicial (17/10/2026, sem cache)
+
+Bytes baixados até `py:ready`, medidos com Puppeteer (CDP `Network`), por
+conjunto de pacotes do `config.toml`:
+
+| Pacotes | Na rede | Descomprimido | Maiores itens |
+|---|---|---|---|
+| numpy, matplotlib (condução MDF e MEF, viga, convecção) | 18,2 MB | 25,7 MB | matplotlib 6,6; numpy 3,1; pyodide.asm.wasm 2,7; stdlib 2,4 |
+| numpy, matplotlib, imageio (onda, transiente 1D) | 18,5 MB | 26,0 MB | idem |
+| numpy, matplotlib, scipy (vibração, potencial, Navier-Stokes) | 33,7 MB | 42,1 MB | scipy 13,2; libopenblas 1,9 |
+| numpy, matplotlib, scipy, plotly, imageio (transiente 2D) | 43,8 MB | 51,4 MB | plotly 9,7 (vem do PyPI, sai na etapa 9) |
+
+Decisão do autor em 17/10/2026: o texto sobre o download não entra na interface
+(poluía); a carga mostra só "Preparando o ambiente de simulação..." com
+cronômetro, discreto, junto ao botão Executar.
 
 ## Armadilha: cache do browser
 

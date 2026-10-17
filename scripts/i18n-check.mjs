@@ -39,7 +39,8 @@ function keysInHtml(html) {
 // Chaves usadas pelo app.js (markup injetado)
 const appJs = readFileSync(join(ROOT, "assets/app.js"), "utf8");
 const appKeys = keysInHtml(appJs);
-for (const m of appJs.matchAll(/t\("([^"]+)"\)/g)) appKeys.add(m[1]);
+for (const m of appJs.matchAll(/\b(?:t|fmt)\("([^"]+)"/g)) appKeys.add(m[1]);
+for (const m of appJs.matchAll(/setRunBusy\(true, "([^"]+)"/g)) appKeys.add(m[1]);
 for (const m of appJs.matchAll(/dataset\.i18n = "([^"]+)"/g)) appKeys.add(m[1]);
 
 let errors = 0;
