@@ -12,6 +12,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" integrity="sha384-wFjoQjtV1y5jVHbt0p35Ui8aV8GVpEZkyF99OXWqP/eNJDU93D3Ugxkoyh6Y2I4A" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m" crossorigin="anonymous"></script>
+    <script>
+      window.MathJax = { tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true } };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"></script>
   </head>
   <body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="vibracao-1d-mef" data-mm-i18n data-mm-title="title">
 
@@ -19,26 +23,47 @@
 
       <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" data-i18n="title">Problema de Autovalor 1D - Vibração em Corpo Sólido (MEF)</h2>
 
-      <!-- Descrição. Itens "Rótulo: texto": rótulo e texto em <span> separados; equações fora dos <span> traduzíveis. -->
-      <div class="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
-        <h3 class="font-semibold text-lg text-blue-800 mb-2" data-i18n="section.about">Sobre o problema</h3>
-        <p class="text-gray-700 mb-2" data-i18n="desc.intro">Problema 5.2.6: Solução de problema de autovalor 1D - vibração em um corpo sólido. Este código resolve o problema de vibração livre de uma barra 1D usando MEF, calculando frequências naturais e modos de vibração através da solução do problema de autovalor.</p>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="desc.features.title">Funcionalidades</h4>
-        <ul class="text-gray-700 list-disc list-inside space-y-1">
-          <li><strong><span data-i18n="desc.features.bc.label">Condições de contorno</span>:</strong> <span data-i18n="desc.features.bc">Livre-livre, engastada-engastada, engastada-livre, engastada-apoiada</span></li>
-          <li><strong><span data-i18n="desc.features.props.label">Propriedades variáveis</span>:</strong> <span data-i18n="desc.features.props">Constante, linear, parabólica, exponencial</span></li>
-          <li><strong><span data-i18n="desc.features.analyses.label">Análises</span>:</strong> <span data-i18n="desc.features.analyses">Frequências naturais, modos de vibração, propriedades materiais</span></li>
-          <li><strong><span data-i18n="desc.features.presets.label">Casos pré-definidos</span>:</strong> <span data-i18n="desc.features.presets">Barra de aço, barra de alumínio, coluna de concreto, barra composta</span></li>
-          <li><strong><span data-i18n="desc.features.analytical.label">Solução analítica</span>:</strong> <span data-i18n="desc.features.analytical">Comparação com resultados analíticos para propriedades constantes</span></li>
-        </ul>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="desc.eq.title">Equação diferencial</h4>
-        <p class="text-gray-700"><span class="font-mono text-sm">ρ(x)A(x) ∂²u/∂t² = ∂/∂x[E(x)A(x) ∂u/∂x]</span>, <span data-i18n="desc.eq.text">onde u é o deslocamento axial, ρ(x) é a densidade variável, A(x) é a área da seção transversal variável e E(x) é o módulo de elasticidade variável.</span></p>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="desc.eig.title">Problema de autovalor</h4>
-        <p class="text-gray-700"><span class="font-mono text-sm">K φ = λ M φ</span>, <span data-i18n="desc.eig.text">onde K é a matriz de rigidez, M é a matriz de massa, φ são os modos de vibração e λ = ω² são os autovalores (ω é a frequência angular).</span></p>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="desc.ana.title">Solução analítica</h4>
-        <p class="text-gray-700" data-i18n="desc.ana.text">Disponível apenas para propriedades constantes (E, ρ e A constantes). Para propriedades variáveis, apenas o MEF fornece a solução numérica.</p>
-      </div>
-
+      <details class="mm-desc mb-6 rounded border-l-4 border-blue-400 bg-blue-50" data-mm-desc open>
+        <summary class="cursor-pointer select-none px-4 py-3 text-lg font-semibold text-blue-800" data-i18n="section.about">Sobre o problema</summary>
+        <div class="space-y-4 px-4 pb-4 text-gray-700">
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.equation">Equação governante</h4>
+            <p data-i18n="desc.equation">Vibração axial livre de uma barra: u(x, t) é o deslocamento axial, E(x) o módulo de elasticidade, ρ(x) a densidade e A(x) a área da seção:</p>
+            <div class="overflow-x-auto py-1">$$ \rho(x)\,A(x)\,\frac{\partial^2 u}{\partial t^2} = \frac{\partial}{\partial x}\!\left(E(x)\,A(x)\,\frac{\partial u}{\partial x}\right), \qquad 0 \le x \le L $$</div>
+            <p data-i18n="desc.eig">Com u(x, t) = φ(x)·e^{iωt}, a discretização leva ao problema generalizado de autovalor, cujos autovalores dão as frequências naturais:</p>
+            <div class="overflow-x-auto py-1">$$ \mathbf{K}\,\boldsymbol{\phi}_n = \omega_n^2\,\mathbf{M}\,\boldsymbol{\phi}_n, \qquad f_n = \frac{\omega_n}{2\pi} $$</div>
+            <p data-i18n="desc.props">E, ρ e A são constantes ou variam ao longo de x (linear, parabólica ou exponencial) conforme o seletor de propriedades.</p>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.domain">Domínio</h4>
+            <p><span data-i18n="desc.domain">Barra de comprimento L dividida em nₑ elementos lineares de tamanho uniforme:</span> $h = L/n_e$.</p>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.bc">Condições de contorno</h4>
+            <p data-i18n="desc.bc.intro">Conforme o seletor:</p>
+            <ul class="list-disc space-y-1 pl-5">
+              <li><span data-i18n="desc.bc.ff">Livre-livre (sem restrição; o primeiro modo é de corpo rígido, com f = 0):</span> $\dfrac{\partial u}{\partial x}(0) = \dfrac{\partial u}{\partial x}(L) = 0$</li>
+              <li><span data-i18n="desc.bc.fixfix">Engastada-engastada:</span> $u(0) = u(L) = 0$</li>
+              <li><span data-i18n="desc.bc.fixfree">Engastada-livre:</span> $u(0) = 0$, $\dfrac{\partial u}{\partial x}(L) = 0$</li>
+              <li><span data-i18n="desc.bc.fixsup">Engastada-apoiada (no modelo axial, cujo único grau de liberdade é u, coincide com a engastada-engastada):</span> $u(0) = u(L) = 0$</li>
+            </ul>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="section.method">Método numérico</h4>
+            <p data-i18n="desc.method">Método dos Elementos Finitos com elementos de barra lineares: matriz de rigidez e matriz de massa concentrada (lumped). Deslocamentos prescritos impostos pelo método da penalidade. Problema generalizado de autovalor resolvido por decomposição simétrica (scipy.linalg.eigh); os 5 primeiros modos são normalizados pela amplitude máxima.</p>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.reference">Solução de referência</h4>
+            <p><span data-i18n="desc.reference">Frequências naturais analíticas para propriedades constantes, com a velocidade da onda axial</span> $c = \sqrt{E/\rho}$:</p>
+            <ul class="list-disc space-y-1 pl-5">
+              <li><span data-i18n="desc.ref.ff">Livre-livre:</span> $f_n = \dfrac{(n - 1)\,c}{2L}$, $n = 1, 2, \ldots$</li>
+              <li><span data-i18n="desc.ref.fixfix">Engastada-engastada:</span> $f_n = \dfrac{n\,c}{2L}$</li>
+              <li><span data-i18n="desc.ref.fixfree">Engastada-livre:</span> $f_n = \dfrac{(2n - 1)\,c}{4L}$</li>
+            </ul>
+            <p class="mt-2" data-i18n="desc.reference.note">Para propriedades variáveis ou para o caso engastada-apoiada a simulação mostra só o resultado numérico.</p>
+          </section>
+        </div>
+      </details>
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div class="bg-white rounded-lg shadow p-5">
           <h3 class="text-lg font-semibold text-blue-700 mb-4" data-i18n="section.params">Parâmetros</h3>
@@ -114,7 +139,7 @@
             <p><strong><span data-i18n="result.note.full.label">Análise completa</span>:</strong> <span data-i18n="result.note.full">Frequências naturais, modos de vibração (5 modos) e propriedades materiais</span></p>
             <p><strong><span data-i18n="result.note.rigid.label">Nota</span>:</strong> <span data-i18n="result.note.rigid">O primeiro modo da barra livre-livre representa movimento de corpo rígido (frequência = 0 Hz)</span></p>
             <p><strong><span data-i18n="result.note.modes.label">Modos</span>:</strong> <span data-i18n="result.note.modes">Cada modo mostra uma forma característica de vibração com sua frequência natural</span></p>
-            <p><strong><span data-i18n="result.note.penalty.label">Precisão melhorada</span>:</strong> <span data-i18n="result.note.penalty">Condições engastadas usam método de penalidade e malha refinada</span></p>
+            <p><strong><span data-i18n="result.note.penalty.label">Precisão melhorada</span>:</strong> <span data-i18n="result.note.penalty">Condições engastadas são impostas pelo método da penalidade</span></p>
           </div>
           <div id="plot-output" class="w-full min-h-[900px] bg-gray-50 rounded flex items-center justify-center text-gray-500"></div>
         </div>
