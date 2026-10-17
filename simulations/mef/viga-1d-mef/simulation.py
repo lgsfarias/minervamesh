@@ -11,9 +11,8 @@ import matplotlib.pyplot as plt
 from js import document
 from pyscript import when
 import asyncio
-import io
-import imageio.v2 as imageio
-import base64
+
+from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
@@ -298,7 +297,8 @@ async def run_viga_1d(event=None):
     load_title = load_titles.get(load_type, "Desconhecido")
 
     # Plot avançado com múltiplos gráficos
-    fig = plt.figure(figsize=(12, 18))
+    plot_begin()
+    fig = plt.figure(figsize=plot_size(12, 18))
     
     # Layout: 5x1 grid
     gs = fig.add_gridspec(5, 1, height_ratios=[2, 1.5, 1.5, 1.5, 1.5])
@@ -382,16 +382,7 @@ async def run_viga_1d(event=None):
 
     plt.tight_layout()
 
-    # Converter para GIF
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png', dpi=150, bbox_inches='tight')
-    plt.close(fig)
-    buf.seek(0)
-    img = imageio.imread(buf)
-    gif_buffer = io.BytesIO()
-    imageio.mimsave(gif_buffer, [img], format='GIF', duration=1.0)
-    gif_buffer.seek(0)
-    gif_base64 = base64.b64encode(gif_buffer.read()).decode('utf-8')
+    plot_show("Viga 1D (MEF)")
 
     # Metricas de validacao
     w_abs = np.abs(w)
@@ -443,13 +434,7 @@ async def run_viga_1d(event=None):
         + "</div>"
     )
 
-    container = document.getElementById("plot-output")
-    container.innerHTML = (
-        f"<div class='flex flex-col gap-3 w-full'>"
-        f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
-        f"{metrics_html}"
-        f"</div>"
-    )
+    plot_append_html(metrics_html)
     _export_result(x=x, w=w, M=M, V=V, w_max_mef=w_max_mef, x_wmax=x_wmax, M_abs_max=M_abs_max, V_abs_max=V_abs_max)
 
     try:

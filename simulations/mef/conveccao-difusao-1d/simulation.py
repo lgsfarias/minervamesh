@@ -12,9 +12,8 @@ import matplotlib.pyplot as plt
 from js import document
 from pyscript import when
 import asyncio
-import io
-import imageio.v2 as imageio
-import base64
+
+from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
@@ -162,7 +161,8 @@ async def run_conveccao_difusao_1d(event=None):
     T_ana_mesh = analytical_solution(x, Q, k, rho_cp, u, L, T0, TL)
 
     # Plot
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8))
+    plot_begin()
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=plot_size(10, 8))
     
     # Gráfico principal
     ax1.plot(x, T, 'o-', label='MEF 1D', color='#3B82F6', markersize=6)
@@ -190,18 +190,7 @@ async def run_conveccao_difusao_1d(event=None):
     
     plt.tight_layout()
 
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png', dpi=150)
-    plt.close(fig)
-    buf.seek(0)
-    img = imageio.imread(buf)
-    gif_buffer = io.BytesIO()
-    imageio.mimsave(gif_buffer, [img], format='GIF', duration=1.0)
-    gif_buffer.seek(0)
-    gif_base64 = base64.b64encode(gif_buffer.read()).decode('utf-8')
-
-    container = document.getElementById("plot-output")
-    container.innerHTML = f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
+    plot_show("Convecção-difusão 1D (MEF)")
 
     # Atualizar informações sobre Péclet
     pe_info = document.getElementById("pe-info")

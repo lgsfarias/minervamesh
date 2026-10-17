@@ -31,7 +31,8 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] Padronizar ids (`run-btn`, `show-code-btn`, `plot-output`) nos HTML e nos `getElementById` dos `.py` (commit separado)
 - [x] Atualizar `MODULES` em `scripts/baseline.mjs` para os ids novos
 - [x] Abrir e executar as 10 páginas após a renomeação de ids (baseline completa idêntica à referência, 17/10/2026)
-- [ ] Saída padronizada nos `.py` (spec 4.1): PNG base64 em `#plot-output` nos 6 módulos estáticos (hoje GIF de 1 frame ou canvas do `plt.show()`), `imageio` fora do `config.toml` deles (commit separado; verificação pelo `__minervamesh_result`)
+- [x] Gráfico interativo nos 6 módulos estáticos (spec 4.2) via `assets/mmplot.py` compartilhado; `imageio` fora do `config.toml` deles; resultado numérico idêntico nos 6 (17/10/2026)
+- [x] CSS da toolbar e título da figura; `png` pré-selecionado (app.js)
 
 ## Etapa 3 — i18n dos HTML (spec 5)
 

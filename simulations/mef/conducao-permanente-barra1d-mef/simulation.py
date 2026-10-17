@@ -11,9 +11,8 @@ import matplotlib.pyplot as plt
 from js import document
 from pyscript import when
 import asyncio
-import io
-import imageio.v2 as imageio
-import base64
+
+from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
@@ -111,7 +110,8 @@ async def run_mef_1d(event=None):
     x_max_ana = float(x_dense[int(np.argmax(T_ana_dense))])
 
     # Plot
-    fig, ax = plt.subplots(figsize=(8, 4))
+    plot_begin()
+    fig, ax = plt.subplots(figsize=plot_size(8, 4))
     ax.plot(x, T, 'o-', label='MEF 1D', color='#3B82F6')
     ax.plot(x_dense, T_ana_dense, '--', label='Analítica', color='#EF4444')
     ax.set_xlabel('x [m]')
@@ -121,17 +121,8 @@ async def run_mef_1d(event=None):
     ax.legend()
     plt.tight_layout()
 
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png')
-    plt.close(fig)
-    buf.seek(0)
-    img = imageio.imread(buf)
-    gif_buffer = io.BytesIO()
-    imageio.mimsave(gif_buffer, [img], format='GIF', duration=1.0)
-    gif_buffer.seek(0)
-    gif_base64 = base64.b64encode(gif_buffer.read()).decode('utf-8')
+    plot_show("Condução permanente 1D (MEF)")
 
-    container = document.getElementById("plot-output")
     metrics_html = f"""
     <div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full">
         <h4 class="font-semibold text-blue-800 mb-1">Validação</h4>
@@ -141,12 +132,7 @@ async def run_mef_1d(event=None):
         <p class="text-sm text-gray-700"><strong>Erro máximo nodal:</strong> {e_max:.2e} °C</p>
     </div>
     """
-    container.innerHTML = (
-        f"<div class='flex flex-col gap-3 w-full'>"
-        f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
-        f"{metrics_html}"
-        f"</div>"
-    )
+    plot_append_html(metrics_html)
     _export_result(x=x, T=T, T_ana_mesh=T_ana_mesh, e_max=e_max, T_max_mef=T_max_mef, x_max_mef=x_max_mef)
 
     try:

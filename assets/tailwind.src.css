@@ -25,3 +25,35 @@
     @apply text-blue-700;
   }
 }
+
+/* Figura interativa do Matplotlib (backend webagg do Pyodide) dentro de #plot-output.
+ Fora de @layer de propósito: seletores com #plot-output não aparecem no content e o Tailwind os podaria. */
+/* Quando hospeda uma figura, a área deixa de ser flex centralizado: figura em cima, métricas embaixo */
+#plot-output:has(.mpl-toolbar) {
+  @apply block;
+}
+#plot-output > div {
+  @apply mx-auto max-w-full;
+}
+#plot-output .mpl-toolbar ~ *,
+#plot-output > div + * {
+  @apply mt-3;
+}
+#plot-output .ui-dialog-titlebar {
+  @apply rounded-t-md bg-gray-100 text-sm font-medium text-gray-600;
+}
+#plot-output .mpl-toolbar {
+  @apply flex flex-wrap items-center gap-2 border border-t-0 border-gray-200 bg-gray-50 px-2 py-1.5 text-sm rounded-b-md;
+}
+#plot-output .mpl-toolbar div.mpl-button-group {
+  @apply flex;
+}
+#plot-output .mpl-widget {
+  @apply rounded-md border-gray-300 p-1.5;
+}
+#plot-output select.mpl-widget {
+  @apply rounded-md border border-gray-300 bg-white px-2 py-1 text-sm text-gray-700;
+}
+#plot-output .mpl-message {
+  @apply ml-auto min-w-0 flex-1 truncate text-right font-mono text-xs text-gray-500;
+}

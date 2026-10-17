@@ -13,10 +13,9 @@ import matplotlib.pyplot as plt
 from js import document
 from pyscript import when
 import asyncio
-import io
-import imageio.v2 as imageio
-import base64
 from scipy.linalg import eigh
+
+from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
@@ -226,7 +225,8 @@ async def run_vibracao_1d(event=None):
     bc_title = bc_titles.get(bc_type, "Desconhecida")
 
     # Plot avançado com múltiplos gráficos
-    fig = plt.figure(figsize=(14, 22))
+    plot_begin()
+    fig = plt.figure(figsize=plot_size(14, 22))
 
     # Layout: 7x1 grid (1 tabela + 5 modos + 1 propriedades)
     gs = fig.add_gridspec(7, 1, height_ratios=[1.2, 2.2, 2.2, 2.2, 2.2, 2.2, 1.5], hspace=0.5)
@@ -328,19 +328,7 @@ async def run_vibracao_1d(event=None):
     ax_props.legend(loc='upper left', fontsize=12, framealpha=0.9, edgecolor='r')
     ax_props_twin.legend(loc='upper right', fontsize=12, framealpha=0.9, edgecolor='b')
 
-    # Converter para GIF
-    buf = io.BytesIO()
-    plt.savefig(buf, format='png', dpi=150, bbox_inches='tight')
-    plt.close(fig)
-    buf.seek(0)
-    img = imageio.imread(buf)
-    gif_buffer = io.BytesIO()
-    imageio.mimsave(gif_buffer, [img], format='GIF', duration=1.0)
-    gif_buffer.seek(0)
-    gif_base64 = base64.b64encode(gif_buffer.read()).decode('utf-8')
-
-    container = document.getElementById("plot-output")
-    container.innerHTML = f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
+    plot_show("Vibração 1D (MEF)")
     _export_result(x=x, frequencies=frequencies, freq_analytical=freq_analytical, eigenvectors=eigenvectors)
 
     try:

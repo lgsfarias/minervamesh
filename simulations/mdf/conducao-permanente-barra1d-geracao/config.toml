@@ -1,1 +1,5 @@
 packages = ["numpy", "matplotlib"]
+
+[[fetch]]
+from = "../../../assets/"
+files = ["mmplot.py"]

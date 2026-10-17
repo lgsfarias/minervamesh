@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 from js import document
 from pyodide.ffi import create_proxy
 
+from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -107,7 +109,8 @@ def runSimulation(event):
     # ==============================
     # 6. Visualização dos Resultados
     # ==============================
-    plt.figure(figsize=(10, 6))
+    plot_begin()
+    plt.figure(figsize=plot_size(10, 6))
     x = np.linspace(0, L, nx + 2)
     plt.plot(x, T, 'o-', label="Solução Numérica", color='#3B82F6', linewidth=2, markersize=8)
     plt.plot(x_analytical, T_analytical, '--', label="Solução Analítica", color='#EF4444', linewidth=2)
@@ -123,7 +126,7 @@ def runSimulation(event):
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.legend(fontsize=10, framealpha=0.9)
     plt.tight_layout()
-    plt.show()
+    plot_show("Condução permanente 1D (MDF)")
     _export_result(x=x, T=T, T_analytical=T_analytical, nx=nx, alpha=alpha, Q=Q)
 
 # ==============================

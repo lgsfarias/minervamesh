@@ -4,7 +4,9 @@ import matplotlib.tri as tri
 from scipy.sparse.linalg import spsolve
 from pyscript import when, document
 import asyncio
-from common import generate_mesh_generic, assemble_matrices, plot_to_base64
+from common import generate_mesh_generic, assemble_matrices
+
+from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
@@ -261,7 +263,8 @@ async def solve_potential(params, plot_div):
         Gamma_dim = 0.0
 
     # --- VISUALIZAÇÃO ---
-    fig = plt.figure(figsize=(10, 12))
+    plot_begin()
+    fig = plt.figure(figsize=plot_size(10, 12))
     gs = fig.add_gridspec(3, 1, height_ratios=[1.5, 1.5, 1])
     
     ax1 = fig.add_subplot(gs[0])
@@ -324,8 +327,7 @@ async def solve_potential(params, plot_div):
     
     plt.tight_layout()
     
-    img_base64 = plot_to_base64(fig)
-    plot_div.innerHTML = f'<img src="data:image/png;base64,{img_base64}" class="max-w-full h-auto rounded shadow-lg" />'
+    plot_show("Escoamento potencial 2D")
     
     # Validacao: Cp em angulos canonicos vs Cp teorico 1 - 4 sin^2(theta)
     # Apenas faz sentido para o cilindro (geometria com Cp teorico conhecido).

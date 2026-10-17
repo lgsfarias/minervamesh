@@ -160,7 +160,7 @@ que a camada compartilhada impõe:
 | Item | Hoje | Padrão v1.1.0 |
 |---|---|---|
 | Dialog de carga inicial `#loading` | igual em 9 páginas, copiado 9×; a condução MDF não tem nenhum indicador de carga | markup e CSS injetados pelo `app.js` em todas |
-| Mecanismo de saída do gráfico | condução MDF usa `plt.show()` do backend wasm do Matplotlib (desenha em `<canvas>` anexado ao body, com barra de ferramentas); 5 módulos estáticos geram **GIF de 1 frame** via imageio; potencial e Navier-Stokes geram PNG base64 | PNG base64 em `#plot-output` para resultados estáticos, GIF só para animações. Edição não numérica (só a codificação da imagem); `imageio` sai do `config.toml` dos módulos estáticos |
+| Mecanismo de saída do gráfico | condução MDF usa `plt.show()` do backend interativo do Matplotlib (desenha em `<canvas>` anexado ao body, acumulando figuras); 5 módulos estáticos geram **GIF de 1 frame** via imageio; potencial e Navier-Stokes geram PNG base64 | **Gráfico interativo** nos 6 módulos estáticos (seção 4.2); GIF nos 3 animados; Navier-Stokes avaliado à parte. `imageio` sai do `config.toml` dos estáticos |
 | Dialog `#sim-loading` | existe em 7 páginas; transiente 2D tem e não usa; potencial e Navier-Stokes não têm | existe e é controlado pelo `app.js` em todas as 10; conteúdo conforme seção 6.2 |
 | Ícones Font Awesome (`<i class="fas …">`) | usados em todas, mas só 3 páginas carregam a biblioteca; nas outras 7 o ícone nunca aparece | remover Font Awesome; ícones via SVG inline (seta de voltar, código, fechar) no `app.js` |
 | `<title>` | formatos variados ("Condução Permanente (Barra 1D com Geração Interna)", "Transiente 2D") | `MinervaMesh · <título do módulo>`, traduzível |
@@ -173,6 +173,42 @@ que a camada compartilhada impõe:
 | MathJax | só nas 2 páginas de escoamento | em todas (seção 7.3) |
 | Rodapé | copiado 10× | injetado pelo `app.js` |
 | `<html lang>` | `pt-BR` fixo | definido pelo `app.js` conforme idioma |
+
+### 4.2 Gráfico interativo (decisão do autor em 17/10/2026)
+
+O backend do Matplotlib que o Pyodide traz (`plt.show()`) desenha a figura num
+`<canvas>` com toolbar: zoom por retângulo, pan, histórico de vistas,
+coordenadas sob o cursor, alça de redimensionar e exportação em png, svg, pdf,
+eps, jpeg, webp, tif, ps, pgf e raw. O autor considerou isso um diferencial
+grande para o aluno e decidiu adotá-lo nos **6 módulos estáticos** (condução
+MDF, condução MEF, convecção-difusão, viga, vibração, potencial), no lugar da
+imagem PNG/GIF. Não exige atualizar o PyScript: já funciona na 2025.8.1.
+
+A lógica comum fica em `assets/mmplot.py` (`plot_begin`, `plot_size`, `plot_show`,
+`plot_append_html`), buscado por cada módulo via `[[fetch]]` no `config.toml`,
+como já acontece com `common.py` nos módulos de escoamento. Cada `simulation.py`
+importa e chama; o contrato (edição não numérica):
+
+- `plt.close("all")` e limpeza de `#plot-output` antes de criar a figura: o
+  backend remove o `<div>` da figura anterior, então não acumula gráficos.
+- `figsize` calculado a partir de `clientWidth` da área de resultado (100 dpi),
+  mantendo a proporção original, porque o backend não é responsivo.
+- título do módulo como `Figure.set_label` **e** `set_window_title` antes do
+  `plt.show()`: o backend manda o rótulo da figura ao conectar o canvas e, se o
+  label estiver vazio, volta para "Figure N". A figura **não** é fechada depois
+  do `show`.
+- Métricas em HTML são anexadas abaixo da figura (`plot_append_html`), não
+  substituem o conteúdo da área; o CSS tira o `flex` de `#plot-output` quando há
+  figura (`:has(.mpl-toolbar)`), para figura e métricas empilharem.
+- `app.js` aponta `document.pyodideMplTarget` para `#plot-output` e pré-seleciona
+  `png` no seletor de formato; o CSS da camada compartilhada estiliza título e
+  toolbar.
+
+Fora desta versão, como experimento próprio: Navier-Stokes com figura
+persistente atualizada a cada quadro (`fig.canvas.draw()`), que tende a ser
+mais rápido que codificar PNG por quadro; recriar a figura a cada quadro foi
+testado e não serve (último quadro em branco). Os 3 módulos de GIF (onda,
+transiente 1D e 2D) continuam em GIF, que o aluno baixa pronto.
 
 O utilitário `simulations/extra/gerador-malha` está fora do menu e fora do escopo da
 v1.1.0: não recebe a camada compartilhada nem os ids novos.

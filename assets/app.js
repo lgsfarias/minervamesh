@@ -252,9 +252,20 @@ function decorateButtons() {
 async function boot() {
   const app = document.getElementById("mm-app");
   injectDialogs();
-  // Backend wasm do Matplotlib (plt.show()) desenha dentro deste elemento em vez do body
+  // Backend interativo do Matplotlib (plt.show()) desenha dentro deste elemento em vez do body
   const out = document.getElementById("plot-output");
-  if (out) document.pyodideMplTarget = out;
+  if (out) {
+    document.pyodideMplTarget = out;
+    // A toolbar nasce com "eps" selecionado (ordem alfabética); png é o que o aluno espera
+    new MutationObserver(() => {
+      out.querySelectorAll("select.mpl-widget").forEach((sel) => {
+        if (!sel.dataset.mmDefault) {
+          sel.dataset.mmDefault = "1";
+          if ([...sel.options].some((o) => o.value === "png")) sel.value = "png";
+        }
+      });
+    }).observe(out, { childList: true, subtree: true });
+  }
   if (app) {
     injectHeader(app);
     injectFooter(app);

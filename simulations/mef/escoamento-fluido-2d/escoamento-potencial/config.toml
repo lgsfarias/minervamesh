@@ -3,3 +3,7 @@ packages = ["numpy", "matplotlib", "scipy"]
 [[fetch]]
 from = "../"
 files = ["common.py", "geometry.py"]
+
+[[fetch]]
+from = "../../../../assets/"
+files = ["mmplot.py"]
