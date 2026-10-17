@@ -244,6 +244,22 @@
   .mm-plot {
     @apply flex w-full flex-col items-stretch gap-3 text-center text-mm-muted;
   }
+  /* Saída de exemplo antes do primeiro Run (insertExample em app.js) */
+  .mm-example {
+    @apply relative m-0 w-full;
+  }
+  .mm-example img {
+    @apply block h-auto max-h-[720px] w-full rounded-lg border border-mm-border bg-mm-plate object-contain p-1.5 opacity-30;
+  }
+  .mm-example-card {
+    @apply absolute left-1/2 top-1/2 flex w-[min(380px,calc(100%-32px))] -translate-x-1/2 -translate-y-1/2 flex-col gap-1.5 rounded-[10px] border border-mm-border bg-mm-surface px-5 py-4 text-center shadow-[0_8px_28px_rgba(21,24,29,0.12)];
+  }
+  .mm-example-card strong {
+    @apply text-[15px] font-semibold text-mm-text;
+  }
+  .mm-example-card span {
+    @apply text-[13.5px] leading-relaxed text-mm-muted;
+  }
 }
 
 /* Figura dentro de #plot-output (.mm-plot): placa clara, largura total, sem corte horizontal.

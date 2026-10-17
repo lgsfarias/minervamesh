@@ -12,6 +12,8 @@
   "sim.encoding": "Codificando animação...",
   "sim.total_time": "Tempo total",
   "output.placeholder": "Clique em \"Executar\" para ver o resultado.",
+  "result.example.title": "Saída de exemplo com os parâmetros padrão",
+  "result.example.body": "Clique em Executar para calcular com os seus parâmetros. O resultado substitui este exemplo.",
   "btn.run": "Executar",
   "btn.preparing": "Preparando...",
   "btn.running": "Executando...",

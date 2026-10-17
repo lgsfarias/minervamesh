@@ -55,11 +55,11 @@ Branch de trabalho: `feat/v1.2.0`. Nenhum commit sem autorização do autor.
 - [x] Baseline completa (`docs/v1.2.0/baseline/etapa4.json`, `scripts/baseline.mjs` agora grava em `docs/v1.2.0/baseline/`) comparada com `final-sem-gancho`: **texto idêntico nos 10 módulos**; hash de imagem diferente em 5 (condução MDF, convecção-difusão, viga, vibração, potencial), exatamente os módulos de `mmplot` cuja figura é mais larga que a coluna antiga: `plot_fig` calcula o dpi pelo `clientWidth` de `#plot-output`, que cresceu com o card largo (risco previsto na spec, seção 10). Condução MEF (figura de 800 px, dpi já no teto) e os cinco de GIF/PNG batem. Registrar em `aceite.md` no fechamento
 - [x] Overflow horizontal a 390 px: zerado no transiente 2D, no potencial e no NS (`shots --label etapa4`)
 
-## Etapa 5 — Estados da área de resultado (spec 5.4)
+## Etapa 5 — Estados da área de resultado (spec 5.4) (concluída em 17/10/2026)
 
-- [ ] `<figure id="mm-example">` com `assets/thumbs/<módulo>.png` inserida no `boot()`; removida em `mmProgress.start()`
-- [ ] Estilos de carregando, executando (`#mm-run`, `mm-dim`) e concluído (`#mm-status` verde)
-- [ ] `scrollIntoView` em `#plot-output` ao terminar, só quando fora da tela
+- [x] `insertExample()` no `app.js`: `<figure id="mm-example">` com `assets/thumbs/<id>.png` (figura inteira, opacidade 0,3, placa clara) e card central "Saída de exemplo com os parâmetros padrão / Clique em Executar…" (`result.example.*` PT/EN); entra no `boot()` depois do `menu.json`, antes do `applyStrings`; `mmProgress.start()` a remove. O `output.placeholder` continua como fallback para página sem miniatura
+- [x] Estilos de carregando (Run "Preparando…" + barra indeterminada), executando (`#mm-run` com spinner, passo, barra e tempo acima da figura; Stop ativo no NS) e concluído (`#mm-status` verde) já vinham da v1.1.0 e passaram pelos tokens na etapa 2; conferidos com `probe.mjs` (NS pronto, NS aos 6 s de execução, viga a 390 px no escuro)
+- [x] `mmProgress.done()`: `scrollIntoView` em `#plot-output` só quando o card está fora da tela (celular, parâmetros acima)
 
 ## Etapa 6 — Celular (spec 5.1)
 

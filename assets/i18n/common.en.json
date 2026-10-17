@@ -12,6 +12,8 @@
   "sim.encoding": "Encoding animation...",
   "sim.total_time": "Total time",
   "output.placeholder": "Click \"Run\" to see the result.",
+  "result.example.title": "Example output with the default parameters",
+  "result.example.body": "Press Run to compute with your parameters. The result replaces this example.",
   "btn.run": "Run",
   "btn.preparing": "Preparing...",
   "btn.running": "Running...",

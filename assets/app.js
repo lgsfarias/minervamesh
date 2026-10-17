@@ -526,6 +526,25 @@ function layoutModule(app) {
 // Definida por layoutModule: mmProgress.start() chama para o card voltar ao resultado quando uma simulação começa
 let showResultView = null;
 
+// Saída de exemplo (v1.2.0, spec 5.4): antes do primeiro Run a área mostra a figura gerada com
+// os parâmetros default (assets/thumbs/<id>.png, scripts/thumbs.mjs), esmaecida, com um card
+// explicando. mmProgress.start() a remove (os .py reescrevem #plot-output de todo modo).
+function insertExample(menu) {
+  const out = document.getElementById("plot-output");
+  const m = (menu?.modules || []).find((x) => x.module === document.body.dataset.mmModule);
+  if (!out || !m || out.children.length || out.textContent.trim()) return;
+  const src = new URL(`assets/thumbs/${m.id}.png`, ROOT);
+  out.append(
+    el(`<figure id="mm-example" class="mm-example">
+        <img src="${src}" alt="" />
+        <figcaption class="mm-example-card">
+          <strong data-i18n="result.example.title"></strong>
+          <span data-i18n="result.example.body"></span>
+        </figcaption>
+      </figure>`)
+  );
+}
+
 // Badges do título (método, dimensão, regime) a partir de assets/menu.json, pela pasta do módulo
 function fillBadges(menu) {
   const box = document.getElementById("mm-badges");
@@ -652,6 +671,7 @@ window.mmProgress = {
     setRunBusy(true, "btn.running");
     statusHide();
     showResultView?.(); // card volta ao resultado se o problema estava aberto
+    document.getElementById("mm-example")?.remove();
     if (mode === "inline") {
       progressRenderInline();
       progress.timer = setInterval(progressRenderInline, 1000);
@@ -678,6 +698,12 @@ window.mmProgress = {
     setRunBusy(false);
     runHide();
     statusShow(t("sim.total_time"), 1, `${elapsed()} s`, true);
+    // Resultado fora da tela (celular: parâmetros acima do card): rola até ele
+    const out = document.getElementById("plot-output");
+    if (out) {
+      const r = out.getBoundingClientRect();
+      if (r.top > innerHeight - 80 || r.bottom < 0) out.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   },
   // Simulação lançou exceção: volta ao estado de repouso sem "Tempo total".
   // Zera o modo, então o done() do finally em seguida é no-op. Sem guarda de modo:
@@ -739,6 +765,7 @@ async function boot() {
   injectMathJax();
   const [, menu] = await Promise.all([loadStrings(lang), fetchJson(new URL("assets/menu.json", ROOT))]);
   fillBadges(menu);
+  insertExample(menu);
   applyStrings();
 
   const onReady = () => {
