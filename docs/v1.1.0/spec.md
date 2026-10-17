@@ -164,7 +164,7 @@ que a camada compartilhada impõe:
 | Dialog `#sim-loading` | existe em 7 páginas; transiente 2D tem e não usa; potencial e Navier-Stokes não têm | existe e é controlado pelo `app.js` em todas as 10; conteúdo conforme seção 6.2 |
 | Ícones Font Awesome (`<i class="fas …">`) | usados em todas, mas só 3 páginas carregam a biblioteca; nas outras 7 o ícone nunca aparece | remover Font Awesome; ícones via SVG inline (seta de voltar, código, fechar) no `app.js` |
 | `<title>` | formatos variados ("Condução Permanente (Barra 1D com Geração Interna)", "Transiente 2D") | `MinervaMesh · <título do módulo>`, traduzível |
-| Largura do container | `max-w-4xl`, `5xl`, `6xl`, `7xl` | `max-w-5xl` nos 1D, `max-w-7xl` nos 2D (precisam de espaço para o gráfico) |
+| Largura do container e grade | `max-w-4xl`, `5xl`, `6xl`, `7xl`; grade parâmetros/resultado 1/3 + 2/3 | `max-w-7xl` em todas e grade 1/4 + 3/4 a partir de `lg` (decisão do autor em 17/10/2026: o gráfico interativo precisa de largura; a condução MDF mantém parâmetros em linha e resultado em largura total) |
 | Padding do `<body>` | `p-6`, `p-8`, `p-6 md:p-10` | `p-6 md:p-10` em todas |
 | Cabeçalho | link "Voltar para Menu" com e sem ícone; logo da Poli em posição absoluta; link cruzado só nos de escoamento | cabeçalho único: voltar ao menu, título, seletor PT/EN, logo; link cruzado potencial ⇄ Navier-Stokes mantido como item do cabeçalho |
 | Ids de botão e saída | `runBtn`, `runWaveBtn`, `runHeatBtn`, `run-btn`; `wave-output`, `heat-output`, `plot-output`, `conveccao-difusao-output` | `run-btn`, `show-code-btn`, `plot-output` em todas; os `.py` mudam só o `getElementById` correspondente (edição não numérica) |
@@ -191,8 +191,11 @@ importa e chama; o contrato (edição não numérica):
 
 - `plt.close("all")` e limpeza de `#plot-output` antes de criar a figura: o
   backend remove o `<div>` da figura anterior, então não acumula gráficos.
-- `figsize` calculado a partir de `clientWidth` da área de resultado (100 dpi),
-  mantendo a proporção original, porque o backend não é responsivo.
+- `figsize` original preservado e **dpi** reduzido a partir de `clientWidth` da
+  área de resultado (`plot_fig`), porque o backend não é responsivo. Encolher o
+  figsize deixava títulos e rótulos (em pontos) grandes demais e sobrepostos nas
+  figuras altas (viga, vibração); reduzir o dpi escala a figura inteira como uma
+  imagem.
 - título do módulo como `Figure.set_label` **e** `set_window_title` antes do
   `plt.show()`: o backend manda o rótulo da figura ao conectar o canvas e, se o
   label estiver vazio, volta para "Figure N". A figura **não** é fechada depois
@@ -203,6 +206,10 @@ importa e chama; o contrato (edição não numérica):
 - `app.js` aponta `document.pyodideMplTarget` para `#plot-output` e pré-seleciona
   `png` no seletor de formato; o CSS da camada compartilhada estiliza título e
   toolbar.
+
+Passe de design completo da interface (barra lateral de parâmetros, resultado em
+largura total, descrição em painel) fica para uma v1.2, depois da plataforma no
+ar; nesta versão o ajuste é o container largo e a grade 1/4 + 3/4 (seção 4.1).
 
 Fora desta versão, como experimento próprio: Navier-Stokes com figura
 persistente atualizada a cada quadro (`fig.canvas.draw()`), que tende a ser

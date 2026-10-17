@@ -112,6 +112,7 @@ intermediários não são guardados; só o veredito.
 | Etapa | Data | Imagens | Texto exibido | `__minervamesh_result` |
 |---|---|---|---|---|
 | 2 — camada compartilhada, ids novos, 10 páginas convertidas | 17/10/2026 | idênticas (10/10) | idêntico (10/10) | idêntico (10/10) |
+| 2b — gráfico interativo (6 estáticos), layout largo, tabela da vibração em HTML | 17/10/2026 | mudaram nos 6 interativos (esperado); idênticas nos 4 demais | mudou onde a figura virou canvas (título/toolbar entram no texto) | idêntico (10/10) |
 
 ## Armadilha: cache do browser
 

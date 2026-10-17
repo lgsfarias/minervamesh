@@ -21,13 +21,16 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] `scripts/baseline.mjs` lê e grava o objeto exportado
 - [x] Rodar baseline: hashes idênticos aos da `v1.0.0` (valida o gancho); gravar `v1.0.0-hook` como referência numérica
 
-## Etapa 2 — Camada compartilhada e homogeneização (spec 4, 4.1) (em andamento, 17/10/2026)
+## Etapa 2 — Camada compartilhada e homogeneização (spec 4, 4.1, 4.2) (concluída em 17/10/2026; menu fica para a etapa 3)
 
 - [x] `assets/app.js`: cabeçalho, dialog de carga, dialog `sim-loading`, modal de código, rodapé, ícones SVG
 - [x] `assets/i18n/common.pt.json` e `common.en.json`
 - [~] Incluir `app.js` nas 10 páginas e no menu; remover markup duplicado (10 páginas feitas; menu fica para a etapa 3)
 - [x] Remover Font Awesome de todas as páginas
 - [x] Padronizar `<title>`, largura do container e padding do `<body>`
+- [x] Layout largo: `max-w-7xl` em todas e grade parâmetros/resultado 1/4 + 3/4 a partir de `lg` (decisão de 17/10/2026; passe de design completo fica para uma v1.2)
+- [x] Figuras grandes (viga, vibração): ajuste por dpi no `mmplot.plot_fig`, preservando o layout original da figura
+- [x] Vibração: tabela de frequências sai da figura e vira bloco HTML de validação, como nos outros módulos (decisão de 17/10/2026). Anotado para depois: subplot de propriedades só quando forem variáveis
 - [x] Padronizar ids (`run-btn`, `show-code-btn`, `plot-output`) nos HTML e nos `getElementById` dos `.py` (commit separado)
 - [x] Atualizar `MODULES` em `scripts/baseline.mjs` para os ids novos
 - [x] Abrir e executar as 10 páginas após a renomeação de ids (baseline completa idêntica à referência, 17/10/2026)
