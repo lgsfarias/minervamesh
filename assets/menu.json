@@ -1,15 +1,15 @@
 {
-  "_comment": "Lista única dos módulos (v1.2.0). Usada pelo menu (app.js), por scripts/thumbs.mjs e por scripts/shots.mjs. Título e descrição vêm das chaves i18n menu.<id>.title / menu.<id>.desc. thumb = recorte da miniatura do card em frações da figura completa (x, y, w, h); a figura inteira vira a saída de exemplo.",
+  "_comment": "Lista única dos módulos (v1.2.0). Usada pelo menu (app.js), por scripts/thumbs.mjs e por scripts/shots.mjs. Título e descrição vêm das chaves i18n menu.<id>.title / menu.<id>.desc. thumb = recorte da miniatura do card em frações da figura completa (x, y, w, h); a figura inteira vira a saída de exemplo. module = valor de data-mm-module da página (badges do cabeçalho). Ordem = ordem dos cards no menu: do caso mais rico ao mais simples (decisão do autor, 17/10/2026).",
   "modules": [
-    {"id": "mdf-conducao", "path": "simulations/mdf/conducao-permanente-barra1d-geracao/index.html", "method": "fdm", "dim": "1d", "regime": "steady", "output": "canvas", "thumb": {"x": 0, "y": 0, "w": 1, "h": 1}},
-    {"id": "mdf-onda", "path": "simulations/mdf/equacao-onda/index.html", "method": "fdm", "dim": "1d", "regime": "transient", "output": "img", "thumb": {"x": 0, "y": 0, "w": 1, "h": 1}},
-    {"id": "mef-conducao", "path": "simulations/mef/conducao-permanente-barra1d-mef/index.html", "method": "fem", "dim": "1d", "regime": "steady", "output": "canvas", "thumb": {"x": 0, "y": 0, "w": 1, "h": 1}},
-    {"id": "calor-transiente-1d", "path": "simulations/mef/calor-transiente-1d/index.html", "method": "fem", "dim": "1d", "regime": "transient", "output": "img", "thumb": {"x": 0, "y": 0, "w": 1, "h": 1}},
-    {"id": "conveccao-difusao", "path": "simulations/mef/conveccao-difusao-1d/index.html", "method": "fem", "dim": "1d", "regime": "steady", "output": "canvas", "thumb": {"x": 0, "y": 0, "w": 1, "h": 0.5}},
-    {"id": "viga", "path": "simulations/mef/viga-1d-mef/index.html", "method": "fem", "dim": "1d", "regime": "static", "output": "canvas", "thumb": {"x": 0, "y": 0, "w": 1, "h": 0.236}},
-    {"id": "vibracao", "path": "simulations/mef/vibracao-1d-mef/index.html", "method": "fem", "dim": "1d", "regime": "eigenvalue", "output": "canvas", "thumb": {"x": 0, "y": 0.698, "w": 1, "h": 0.165}},
-    {"id": "transcalor", "path": "simulations/mef/transcalor/index.html", "method": "fem", "dim": "2d", "regime": "transient", "output": "img", "thumb": {"x": 0, "y": 0, "w": 1, "h": 1}},
-    {"id": "potencial", "path": "simulations/mef/escoamento-fluido-2d/escoamento-potencial/index.html", "method": "fem", "dim": "2d", "regime": "steady", "output": "canvas", "thumb": {"x": 0, "y": 0, "w": 1, "h": 0.37}},
-    {"id": "navier-stokes", "path": "simulations/mef/escoamento-fluido-2d/navier-stokes/index.html", "method": "fem", "dim": "2d", "regime": "transient", "output": "img", "doneText": "Conclu|Parada|finished|stopped", "thumb": {"x": 0, "y": 0.66, "w": 1, "h": 0.34}}
+    {"id": "navier-stokes", "path": "simulations/mef/escoamento-fluido-2d/navier-stokes/index.html", "module": "navier-stokes", "method": "fem", "dim": "2d", "regime": "transient", "output": "img", "doneText": "Conclu|Parada|finished|stopped", "thumb": {"x": 0, "y": 0.66, "w": 1, "h": 0.34}},
+    {"id": "potencial", "path": "simulations/mef/escoamento-fluido-2d/escoamento-potencial/index.html", "module": "escoamento-potencial", "method": "fem", "dim": "2d", "regime": "steady", "output": "canvas", "thumb": {"x": 0, "y": 0, "w": 1, "h": 0.37}},
+    {"id": "transcalor", "path": "simulations/mef/transcalor/index.html", "module": "transcalor", "method": "fem", "dim": "2d", "regime": "transient", "output": "img", "thumb": {"x": 0, "y": 0, "w": 1, "h": 1}},
+    {"id": "vibracao", "path": "simulations/mef/vibracao-1d-mef/index.html", "module": "vibracao-1d-mef", "method": "fem", "dim": "1d", "regime": "eigenvalue", "output": "canvas", "thumb": {"x": 0, "y": 0.698, "w": 1, "h": 0.165}},
+    {"id": "viga", "path": "simulations/mef/viga-1d-mef/index.html", "module": "viga-1d-mef", "method": "fem", "dim": "1d", "regime": "static", "output": "canvas", "thumb": {"x": 0, "y": 0, "w": 1, "h": 0.236}},
+    {"id": "conveccao-difusao", "path": "simulations/mef/conveccao-difusao-1d/index.html", "module": "conveccao-difusao-1d", "method": "fem", "dim": "1d", "regime": "steady", "output": "canvas", "thumb": {"x": 0, "y": 0, "w": 1, "h": 0.5}},
+    {"id": "calor-transiente-1d", "path": "simulations/mef/calor-transiente-1d/index.html", "module": "calor-transiente-1d", "method": "fem", "dim": "1d", "regime": "transient", "output": "img", "thumb": {"x": 0, "y": 0, "w": 1, "h": 1}},
+    {"id": "mef-conducao", "path": "simulations/mef/conducao-permanente-barra1d-mef/index.html", "module": "conducao-permanente-barra1d-mef", "method": "fem", "dim": "1d", "regime": "steady", "output": "canvas", "thumb": {"x": 0, "y": 0, "w": 1, "h": 1}},
+    {"id": "mdf-onda", "path": "simulations/mdf/equacao-onda/index.html", "module": "equacao-onda", "method": "fdm", "dim": "1d", "regime": "transient", "output": "img", "thumb": {"x": 0, "y": 0, "w": 1, "h": 1}},
+    {"id": "mdf-conducao", "path": "simulations/mdf/conducao-permanente-barra1d-geracao/index.html", "module": "conducao-permanente-barra1d-geracao", "method": "fdm", "dim": "1d", "regime": "steady", "output": "canvas", "thumb": {"x": 0, "y": 0, "w": 1, "h": 1}}
   ]
 }

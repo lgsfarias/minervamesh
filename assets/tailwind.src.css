@@ -58,6 +58,10 @@
   body {
     @apply bg-mm-bg text-mm-text;
   }
+  /* [hidden] vence qualquer display utilitário (flex, grid) aplicado ao mesmo elemento */
+  [hidden] {
+    display: none !important;
+  }
   /* Controles nativos (select, number) seguem o tema */
   input,
   select,
@@ -134,6 +138,154 @@
   .mm-tag-fdm {
     @apply border-transparent bg-mm-fdm-bg font-medium text-mm-fdm-fg;
   }
+
+  /* Página de simulação (v1.2.0, spec 5; montada por layoutModule em app.js) */
+  .mm-leg {
+    @apply font-mono text-[11px] uppercase tracking-[0.06em] text-mm-muted;
+  }
+  .mm-link {
+    @apply inline-flex min-h-[44px] items-center gap-1.5 text-sm font-medium text-mm-accent hover:text-mm-accent-strong;
+  }
+  .mm-actions {
+    @apply mt-4 flex flex-col gap-2;
+  }
+  .mm-btn-primary {
+    @apply inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-lg bg-mm-accent px-4 text-[15px] font-semibold text-mm-on-accent transition hover:bg-mm-accent-strong;
+  }
+  .mm-btn-danger {
+    @apply inline-flex min-h-[44px] w-full items-center justify-center gap-2 rounded-lg bg-mm-danger px-4 text-[15px] font-semibold text-mm-on-accent transition hover:bg-mm-danger-strong;
+  }
+  .mm-btn-ghost {
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg border border-mm-border bg-mm-surface px-3.5 text-sm font-medium text-mm-text hover:border-mm-accent hover:text-mm-accent;
+  }
+  /* Faixa de resumo: equação à esquerda, esquema à direita; empilha quando falta largura */
+  .mm-summary {
+    @apply mb-4 flex flex-wrap items-center gap-x-6 gap-y-3 rounded-[10px] border border-mm-border bg-mm-surface px-5 py-4;
+  }
+  .mm-summary-main {
+    @apply flex min-w-0 flex-[999_1_360px] flex-col gap-1.5;
+  }
+  .mm-summary-eq {
+    @apply overflow-x-auto py-0.5 text-[1.1em];
+  }
+  .mm-summary-scheme {
+    @apply w-full max-w-[260px] flex-[0_0_auto] sm:w-[220px] md:w-[260px];
+  }
+  /* Painel lateral + resultado: lado a lado a partir de ~790 px, empilhados abaixo */
+  .mm-main {
+    @apply flex flex-wrap items-start gap-6;
+  }
+  .mm-aside {
+    @apply min-w-0 flex-[1_1_280px] overflow-hidden rounded-[10px] border border-mm-border bg-mm-surface md:max-w-[320px];
+  }
+  .mm-aside-head {
+    @apply border-b border-mm-border px-4 py-3;
+  }
+  .mm-panel {
+    @apply p-4;
+  }
+  .mm-params {
+    @apply text-mm-text;
+  }
+  .mm-params label {
+    @apply text-mm-muted;
+  }
+  /* Inputs uniformes: as páginas trazem classes variadas (algumas sem borda); aqui vale para todas */
+  .mm-params input:not([type="checkbox"]),
+  .mm-params select {
+    @apply min-h-[40px] w-full rounded-md border border-mm-border bg-mm-surface px-2.5 font-mono text-[14px] text-mm-text shadow-none focus:border-mm-accent focus:ring-1 focus:ring-mm-accent;
+  }
+  .mm-params input[type="checkbox"] {
+    @apply h-4 w-4 rounded border-mm-border text-mm-accent;
+  }
+  /* Seletor Resultado | Problema no cabeçalho do card largo */
+  .mm-seg {
+    @apply flex gap-0.5 rounded-lg border border-mm-border bg-mm-surface2 p-[3px];
+  }
+  .mm-seg [role="tab"] {
+    @apply min-h-[36px] rounded-md px-3.5 text-sm font-medium text-mm-muted hover:text-mm-text;
+  }
+  .mm-seg [role="tab"][aria-selected="true"] {
+    @apply bg-mm-surface font-semibold text-mm-text shadow-sm;
+  }
+  /* Texto do problema (conteúdo do antigo <details>) */
+  .mm-prose {
+    @apply text-[14px] leading-relaxed text-mm-text;
+  }
+  .mm-prose h4 {
+    @apply mb-1 mt-4 font-mono text-[11px] font-medium uppercase tracking-[0.06em] text-mm-muted first:mt-0;
+  }
+  .mm-problem {
+    @apply px-6 pb-7 pt-5 text-[15px];
+  }
+  .mm-problem > section {
+    @apply max-w-[860px];
+  }
+  .mm-problem figure.mm-scheme {
+    @apply mt-3 md:mt-0 md:w-80 lg:w-96;
+  }
+  /* Código-fonte no popup (injectCodeModal): Prism com números de linha */
+  .mm-code pre {
+    @apply m-0 rounded-none p-4 pl-14 font-mono text-[13px] leading-relaxed;
+  }
+  /* Card de resultado: cabeçalho fino, corpo com a figura em placa clara e as métricas abaixo */
+  .mm-result {
+    @apply min-w-0 flex-[999_1_440px] rounded-[10px] border border-mm-border bg-mm-surface;
+  }
+  .mm-result-head {
+    @apply flex flex-wrap items-center justify-between gap-2 border-b border-mm-border px-3 py-2;
+  }
+  .mm-result-sub {
+    @apply text-[13px] font-medium text-mm-muted;
+  }
+  .mm-result-body {
+    @apply flex flex-col gap-3 p-4 text-mm-text;
+  }
+  .mm-plot {
+    @apply flex w-full flex-col items-stretch gap-3 text-center text-mm-muted;
+  }
+}
+
+/* Figura dentro de #plot-output (.mm-plot): placa clara, largura total, sem corte horizontal.
+   Fora de @layer: o Tailwind podaria seletores que não aparecem no content. */
+.mm-plot > img,
+.mm-plot > div:has(canvas) {
+  background: var(--mm-plate);
+  border: 1px solid var(--mm-border);
+  border-radius: 8px;
+  padding: 6px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.mm-plot > img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.mm-plot canvas {
+  max-width: 100%;
+  height: auto;
+}
+/* Blocos de validação montados pelos simulation.py com classes antigas (bg-blue-50 etc.): tokens por cima, sem tocar nos .py */
+.mm-result-body .bg-blue-50 { background: var(--mm-ok-soft); }
+.mm-result-body .border-blue-400 { border-color: var(--mm-ok); }
+.mm-result-body .text-blue-800, .mm-result-body .text-indigo-700, .mm-result-body .text-green-600 { color: var(--mm-ok); }
+.mm-result-body .text-gray-700 { color: var(--mm-text); }
+.mm-result-body .text-red-600 { color: var(--mm-danger); }
+.mm-result-body .shadow-sm { box-shadow: none; }
+/* Equações em display: rolagem própria em telas estreitas (spec 5.6); alinhada à esquerda na faixa de resumo */
+mjx-container[jax="CHTML"][display="true"] {
+  display: block;
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+  padding: 2px 0;
+}
+.mm-summary-eq mjx-container[jax="CHTML"][display="true"] {
+  text-align: left;
+  margin: 0;
 }
 
 @keyframes mm-slide {

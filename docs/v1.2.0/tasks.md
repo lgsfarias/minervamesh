@@ -39,17 +39,21 @@ Branch de trabalho: `feat/v1.2.0`. Nenhum commit sem autorização do autor.
 - [x] Botão de tema (lua/sol, `aria-pressed`, `aria-label` traduzido) ao lado de PT | EN nas simulações e no menu, via `window.mmTheme` de `assets/theme.js`. O `i18n-check` avisa `nav.theme.*` como órfãs porque as chaves são escolhidas em tempo de execução; é aviso, não erro
 - [x] Conferido em viga (claro/escuro, 1440 e 390), menu e Navier-Stokes PT (`docs/v1.2.0/shots/etapa3/`); a 390 px o cabeçalho quebra em duas linhas sem overflow. O menu em si só muda na etapa 7
 
-## Etapa 4 — Layout da página de simulação (spec 5.1 a 5.3, 5.5, 5.6)
+## Etapa 4 — Layout da página de simulação (spec 5.1 a 5.3, 5.5, 5.6) (17/10/2026)
 
-- [ ] `app.js`: faixa de resumo (clone da primeira `$$…$$` + esquema ativo; `data-mm-summary` explícito tem precedência)
-- [ ] `app.js`: abas Parameters | Problem | Code; `<details data-mm-desc>` vira painel Problem; modal de código vira painel Code; `localStorage` `minervamesh.desc.*` desativado
-- [ ] `data-mm-params` nas 10 páginas; `data-mm-summary` no Navier-Stokes
-- [ ] Card de resultado: cabeçalho "Result" + metadados; figura em placa branca, largura total; validação abaixo
-- [ ] CSS: `mjx-container[display="true"]` com rolagem; `#plot-output canvas/img` com `max-width: 100%`; toolbar do webagg com tokens
-- [ ] Inline math longa do NS movida para `$$…$$`
-- [ ] Esquema por cenário (potencial e NS) continua trocando na faixa de resumo
-- [ ] MathJax injetado depois da reorganização do DOM
-- [ ] Abrir e executar as 10 páginas (Stop e presets no NS)
+- [x] `layoutModule()` no `app.js`: linha de título + badges (de `assets/menu.json`, campo `module`), faixa de resumo (clone do primeiro `$$…$$` da seção da equação + clones dos esquemas; `[data-mm-summary]` explícito tem precedência), painel lateral com abas, card de resultado; contêineres antigos vazios removidos; scripts inline do módulo movidos para o fim do `body`
+- [x] ~~Abas Parameters | Problem | Code no painel lateral~~ **Revisão 2 (autor, 17/10/2026, após ver a aba Code "tripinha")**: o painel lateral fica só com Parâmetros (o h3 da página vira o cabeçalho); o problema vai para a **coluna larga**, num seletor Resultado | Problema no cabeçalho do card (`role=tab`, setas; `mmProgress.start()` volta ao resultado; o link da faixa abre o problema); o código volta a ser **popup** (`injectCodeModal`: até 1100 px, 88% da altura, X/Esc/clique fora, foco no X e de volta ao botão, Prism com plugin de números de linha de cdnjs com SRI). `#show-code-btn` fica abaixo do Executar como botão secundário. O link "Enunciado completo" da faixa seleciona Problema, rola o card até o topo e leva o foco ao seletor (pedido do autor). Subtítulo do card (h3 da página) só aparece quando difere de "Resultado". `[hidden] { display: none !important }` no CSS base, porque o `flex` utilitário vencia o atributo. Protótipo atualizado (pranchetas "Revision 2"). `initDescMemory` e a chave `minervamesh.desc.*` saem; chaves `tab.*`, `code.view_whole`, `code.collapse` trocadas por `view.result`, `view.problem`
+- [x] `data-mm-params` e `data-mm-result` nas 10 páginas (script Python, cards localizados por `#run-btn` e `#plot-output`)
+- [-] `data-mm-summary` no Navier-Stokes: o clone automático já mostra as duas equações principais; as definições de u, v, ω ficam na aba Problem
+- [x] Card de resultado: cabeçalho fino com o h3 da página; `#plot-output` vira `.mm-plot` (figura em placa clara, largura total, validação abaixo). Blocos de validação montados pelos `.py` (`bg-blue-50` etc.) recebem os tokens por CSS em `.mm-result-body`, sem tocar nos `.py`
+- [x] CSS: `mjx-container[display="true"]` com rolagem própria; `.mm-plot canvas/img` com `max-width: 100%`; inputs uniformes em `.mm-params` (as páginas tinham classes variadas, viga sem borda)
+- [x] Botões uniformes (achado do autor na condução MDF, 17/10/2026): `layoutModule` troca as classes de `#run-btn` e `#stop-btn` por `.mm-btn-primary` / `.mm-btn-danger` (largura total, 44 px) e o grupo por `.mm-actions`; as 10 páginas traziam quatro variantes (`flex-1` em linha, `w-full`, `justify-center` sem largura, botão solto). Conferido por folha de contato dos 10 painéis. A condução MDF ainda tinha os inputs em três colunas (resto do layout antigo de largura total): agora duas, como as demais
+- [-] Inline math longa do NS movida para `$$…$$`: a 320 px o MathJax já quebra a linha nas vírgulas; fica como está
+- [x] Esquema por cenário (potencial e NS) continua trocando na faixa de resumo: os clones mantêm `data-mm-scheme` e o `updateUI` da página alcança todos
+- [x] MathJax injetado depois da reorganização do DOM
+- [x] `scripts/probe.mjs` (novo): abre um módulo, executa ações (`run`, `tab:*`, `click:*`) e captura; usado para conferir viga (run, aba Code), NS (aba Problem a 820) e condução MEF (run no escuro)
+- [x] Baseline completa (`docs/v1.2.0/baseline/etapa4.json`, `scripts/baseline.mjs` agora grava em `docs/v1.2.0/baseline/`) comparada com `final-sem-gancho`: **texto idêntico nos 10 módulos**; hash de imagem diferente em 5 (condução MDF, convecção-difusão, viga, vibração, potencial), exatamente os módulos de `mmplot` cuja figura é mais larga que a coluna antiga: `plot_fig` calcula o dpi pelo `clientWidth` de `#plot-output`, que cresceu com o card largo (risco previsto na spec, seção 10). Condução MEF (figura de 800 px, dpi já no teto) e os cinco de GIF/PNG batem. Registrar em `aceite.md` no fechamento
+- [x] Overflow horizontal a 390 px: zerado no transiente 2D, no potencial e no NS (`shots --label etapa4`)
 
 ## Etapa 5 — Estados da área de resultado (spec 5.4)
 
@@ -72,6 +76,7 @@ Branch de trabalho: `feat/v1.2.0`. Nenhum commit sem autorização do autor.
 - [x] Filtro por método com `aria-pressed`
 - [x] Conferido a 1440 (5 colunas), 820 (3 colunas, último card sozinho) e 390 (cards horizontais), claro e escuro (`docs/v1.2.0/shots/etapa7/`)
 - [x] Ajustes do autor (17/10/2026): sem a frase "Cada caso compara…" ao lado dos chips (`menu.note` removida) e sem a marca no cabeçalho do menu, porque o hero já tem o lockup grande
+- [x] Ordem dos cards invertida (autor, 17/10/2026): do caso mais rico ao mais simples (Navier-Stokes, potencial, transiente 2D, vibração, viga, convecção-difusão, transiente 1D, condução MEF, onda, condução MDF); a ordem didática continua pelos chips e badges. É só a ordem do array em `assets/menu.json`
 
 ## Etapa 8 — i18n (spec 7)
 

@@ -14,3 +14,4 @@ docs/v1.1.0/baseline/*.partial.json
 
 # Capturas de conferência visual da v1.2.0 (scripts/shots.mjs)
 docs/v1.2.0/shots/
+docs/v1.2.0/baseline/*.partial.json

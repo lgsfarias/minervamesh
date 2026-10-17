@@ -12,7 +12,7 @@
  * --lang (default pt): idioma da interface (?lang= na URL). A referência v1.0.0-hook
  * tem o texto em português, então a comparação de texto só vale em pt.
  *
- * Saída: docs/v1.1.0/baseline/<label>.json (resumo humano em docs/v1.1.0/aceite.md)
+ * Saída: docs/v1.2.0/baseline/<label>.json (referência da v1.1.0 em docs/v1.1.0/baseline/)
  * Requer: puppeteer-core (devDependency), Google Chrome instalado, python3.
  * Cache do browser desabilitado: cada página baixa o Pyodide de novo (~5 s), mas nunca mede um .py antigo.
  */
@@ -26,7 +26,7 @@ import { fileURLToPath } from "node:url";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const CHROME = process.env.CHROME_PATH || "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const PORT = 8123;
-const OUT_DIR = resolve(ROOT, "docs/v1.1.0/baseline");
+const OUT_DIR = resolve(ROOT, "docs/v1.2.0/baseline"); // v1.2.0: rodadas novas aqui; a referência continua em docs/v1.1.0/baseline/
 
 const MODULES = [
   // run/out: ids padronizados da v1.1.0; legacy: ids da v1.0.0 (usados enquanto a página não foi convertida)

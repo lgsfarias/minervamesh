@@ -12,7 +12,7 @@
  *   <body data-mm-module="<nome da pasta>" [data-mm-sibling="<href>|<chave nav.goto.*>"]>
  *     <div id="mm-app" class="max-w-5xl mx-auto"> … conteúdo do módulo … </div>
  *   Ids esperados no conteúdo: #run-btn, #show-code-btn, #plot-output.
- *   Bloco de descrição: <details data-mm-desc> (estado lembrado em localStorage, minervamesh.desc.<módulo>).
+ *   Bloco de descrição: <details data-mm-desc>; cards [data-mm-params] e [data-mm-result] (layoutModule reorganiza tudo, v1.2.0).
  *   Strings do módulo: <body data-mm-i18n data-mm-title="title"> carrega ./i18n.<lang>.json
  *   (chaves do módulo têm precedência sobre as de assets/i18n/common.<lang>.json).
  *
@@ -114,6 +114,9 @@ function applyStrings() {
   document.querySelectorAll(".mm-lang button").forEach((b) => {
     b.setAttribute("aria-pressed", String(b.dataset.lang === lang));
   });
+  // Subtítulo do card de resultado (h3 da página) só aparece quando diz algo além de "Resultado"
+  const sub = document.querySelector(".mm-result-sub");
+  if (sub) sub.hidden = sub.textContent.trim() === t("view.result");
 }
 
 async function setLang(l) {
@@ -263,28 +266,38 @@ function injectFooter() {
   );
 }
 
+// Popup do código-fonte (v1.2.0, revisão 2 da etapa 4): abre em #show-code-btn; X, Esc e clique
+// fora fecham; o foco vai para o X ao abrir e volta ao botão ao fechar. Prism (com números de linha)
+// carrega na primeira abertura.
 function injectCodeModal() {
-  const modal = el(`<div id="codeModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50 p-4">
-      <div class="max-h-[85vh] w-full max-w-5xl overflow-y-auto rounded-lg bg-mm-surface p-6 shadow-2xl">
-        <div class="mb-4 flex items-center justify-between border-b pb-2">
-          <h3 class="text-xl font-bold text-mm-text" data-i18n="code.title"></h3>
-          <button id="closeModalBtn" type="button" class="text-mm-muted hover:text-mm-text" data-i18n-attr="aria-label:code.close">${ICONS.close}</button>
+  const modal = el(`<div id="codeModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 p-3 md:p-6">
+      <div role="dialog" aria-modal="true" aria-labelledby="mm-code-title" class="flex h-[88vh] w-full max-w-[1100px] flex-col overflow-hidden rounded-xl border border-mm-border bg-mm-surface text-mm-text shadow-2xl">
+        <div class="flex items-center justify-between gap-4 border-b border-mm-border py-3 pl-5 pr-3">
+          <div class="min-w-0">
+            <h3 id="mm-code-title" class="text-base font-semibold" data-i18n="code.title"></h3>
+            <p class="text-[13px] text-mm-muted"><span class="font-mono">simulation.py</span> &middot; <span data-i18n="code.comments_pt"></span></p>
+          </div>
+          <button id="closeModalBtn" type="button" class="mm-btn-ghost h-11 w-11 shrink-0 px-0" data-i18n-attr="aria-label:code.close">${ICONS.close}</button>
         </div>
-        <p class="mb-3 text-sm text-mm-muted" data-i18n="code.comments_pt"></p>
-        <pre class="text-sm"><code class="language-python" id="sourceCode"></code></pre>
+        <div class="mm-code min-h-0 flex-1 overflow-auto"><pre class="line-numbers"><code class="language-python" id="sourceCode"></code></pre></div>
       </div>
     </div>`);
   document.body.append(modal);
+  const btn = document.getElementById("show-code-btn");
   const show = () => {
     modal.classList.remove("hidden");
     modal.classList.add("flex");
+    document.body.classList.add("overflow-hidden");
+    modal.querySelector("#closeModalBtn").focus();
     loadSourceCode();
   };
   const hide = () => {
     modal.classList.add("hidden");
     modal.classList.remove("flex");
+    document.body.classList.remove("overflow-hidden");
+    btn?.focus();
   };
-  document.getElementById("show-code-btn")?.addEventListener("click", show);
+  btn?.addEventListener("click", show);
   modal.querySelector("#closeModalBtn").addEventListener("click", hide);
   modal.addEventListener("click", (e) => {
     if (e.target === modal) hide();
@@ -313,6 +326,8 @@ const CDN = {
   prismCss: ["https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css", "sha384-wFjoQjtV1y5jVHbt0p35Ui8aV8GVpEZkyF99OXWqP/eNJDU93D3Ugxkoyh6Y2I4A"],
   prismJs: ["https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js", "sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt"],
   prismPython: ["https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js", "sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m"],
+  prismLinesJs: ["https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js", "sha384-6QJu8apxMmB9TiPVWzYKF5pRgKcz7snO0/QU+MrWmgBLECQjoa6erxX2VQ5t41Jd"],
+  prismLinesCss: ["https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css", "sha384-nUkTNLI8COlMCRJ0FHIdX76If83145OTCLUx4gQyfnO0gGeO/sD9czGEUBxtkcUv"],
   mathjax: ["https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js", "sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei"],
 };
 
@@ -337,7 +352,8 @@ function loadStyle([href, integrity]) {
 let prismPromise = null;
 function loadPrism() {
   if (!prismPromise) {
-    prismPromise = Promise.all([loadStyle(CDN.prismCss), loadScript(CDN.prismJs).then(() => loadScript(CDN.prismPython))]).catch((e) => {
+    // Plugin de números de linha depois do núcleo e do componente python (v1.2.0)
+    prismPromise = Promise.all([loadStyle(CDN.prismCss), loadStyle(CDN.prismLinesCss), loadScript(CDN.prismJs).then(() => loadScript(CDN.prismPython)).then(() => loadScript(CDN.prismLinesJs))]).catch((e) => {
       console.warn(e); // sem realce, o código aparece em texto puro
     });
   }
@@ -352,18 +368,174 @@ function injectMathJax() {
   loadScript(CDN.mathjax, { id: "MathJax-script", async: true }).catch((e) => console.warn(e));
 }
 
-function decorateButtons() {
-  const showCode = document.getElementById("show-code-btn");
-  if (showCode && !showCode.querySelector("svg")) {
-    showCode.classList.add("inline-flex", "items-center", "justify-center", "gap-2");
-    showCode.insertAdjacentHTML("afterbegin", ICONS.code);
-    const label = showCode.querySelector("[data-i18n]");
-    if (!label) {
-      const span = document.createElement("span");
-      span.dataset.i18n = "btn.show_code";
-      showCode.append(span);
+// ---------------------------------------------------------------------------
+// Layout da página de simulação (v1.2.0, spec 5): o app.js reorganiza o DOM a
+// partir dos marcadores da página (h2 do título, <details data-mm-desc>,
+// [data-mm-params], [data-mm-result]) em: linha de título com badges, faixa de
+// resumo (equação governante + esquema), painel lateral com abas Parâmetros /
+// Problema / Código e card de resultado largo. Os ids que o Python usa
+// (#run-btn, #stop-btn, #show-code-btn, #plot-output, inputs) só mudam de lugar.
+// Página sem os marcadores fica com o layout antigo.
+// ---------------------------------------------------------------------------
+function layoutModule(app) {
+  const params = app.querySelector("[data-mm-params]");
+  const result = app.querySelector("[data-mm-result]");
+  if (!params || !result) return false;
+  const desc = app.querySelector("details[data-mm-desc]");
+  const title = app.querySelector('h2[data-i18n="title"]') || app.querySelector("h2");
+
+  // Scripts inline do módulo já rodaram; vão para o fim do body para não segurar contêineres vazios
+  app.querySelectorAll('script:not([type="py"])').forEach((s) => document.body.append(s));
+
+  // 1. Título + badges (preenchidas por fillBadges com assets/menu.json)
+  const titleRow = el(`<div class="mb-4 flex flex-wrap items-center gap-x-3 gap-y-2"><div id="mm-badges" class="flex flex-wrap gap-1.5"></div></div>`);
+  if (title) {
+    title.className = "text-[26px] font-semibold leading-tight tracking-tight text-mm-text";
+    titleRow.prepend(title);
+  }
+
+  // 2. Faixa de resumo: [data-mm-summary] explícito ou clone do primeiro $$…$$ da seção da equação, mais os esquemas
+  const summary = el(`<section class="mm-summary" aria-labelledby="mm-summary-title">
+        <div class="mm-summary-main">
+          <p id="mm-summary-title" class="mm-leg" data-i18n="desc.sec.equation"></p>
+          <div class="mm-summary-eq"></div>
+          <button type="button" id="mm-full-problem" class="mm-link"><span data-i18n="summary.full_problem"></span>${ICONS.arrowRight}</button>
+        </div>
+        <div class="mm-summary-scheme"></div>
+      </section>`);
+  const eqBox = summary.querySelector(".mm-summary-eq");
+  const explicit = app.querySelector("[data-mm-summary]");
+  if (explicit) eqBox.append(explicit);
+  else if (desc) {
+    const eqSection = [...desc.querySelectorAll("section")].find((s) => s.querySelector('[data-i18n="desc.sec.equation"]')) || desc;
+    const math = [...eqSection.querySelectorAll("div")].find((d) => /\$\$/.test(d.textContent));
+    if (math) eqBox.append(math.cloneNode(true));
+  }
+  const schemeBox = summary.querySelector(".mm-summary-scheme");
+  desc?.querySelectorAll("figure.mm-scheme").forEach((fig) => {
+    const c = fig.cloneNode(true); // mantém data-mm-scheme: a troca por cenário da página alcança o clone
+    c.className = "mm-scheme" + (fig.classList.contains("hidden") ? " hidden" : "");
+    schemeBox.append(c);
+  });
+  if (!schemeBox.children.length) schemeBox.remove();
+  if (!eqBox.children.length) summary.querySelector("#mm-summary-title").remove();
+
+  // 3. Painel lateral: só os parâmetros (decisão do autor em 17/10/2026: sem abas; o problema vai para
+  //    a coluna larga e o código para um popup). O h3 "Parâmetros" da página vira o cabeçalho do painel.
+  const aside = el(`<aside class="mm-aside" aria-labelledby="mm-params-title">
+        <div class="mm-aside-head"></div>
+        <div class="mm-panel"></div>
+      </aside>`);
+  const h3p = params.querySelector(":scope > h3");
+  if (h3p) {
+    h3p.className = "text-[15px] font-semibold text-mm-text";
+    h3p.id = "mm-params-title";
+    aside.querySelector(".mm-aside-head").append(h3p);
+  } else aside.querySelector(".mm-aside-head").append(el(`<h3 id="mm-params-title" class="text-[15px] font-semibold text-mm-text" data-i18n="section.params"></h3>`));
+  params.removeAttribute("class");
+  params.classList.add("mm-params");
+  aside.querySelector(".mm-panel").append(params);
+  // "Ver código-fonte" fica abaixo do Executar, como botão secundário; abre o popup (injectCodeModal)
+  const codeBtn = params.querySelector("#show-code-btn");
+  if (codeBtn) {
+    const group = codeBtn.parentElement;
+    codeBtn.className = "mm-btn-ghost w-full";
+    if (group && group !== params && [...group.children].every((c) => c.tagName === "BUTTON")) {
+      // Sai da linha de botões: Executar fica sozinho (largura total) e o status entra entre os dois
+      group.after(codeBtn);
+      codeBtn.classList.add("mt-3");
+      if (!group.children.length) group.remove();
     }
   }
+  // Executar (e Parar, no NS) com a mesma classe em todas as páginas: as 10 traziam variantes
+  // (flex-1, w-full, justify-center sem largura…). O "hidden"/"flex" do Parar é alternado pelo Python.
+  const runBtn = params.querySelector("#run-btn");
+  if (runBtn) {
+    runBtn.className = "mm-btn-primary";
+    const g = runBtn.parentElement;
+    if (g !== params && [...g.children].every((c) => c.tagName === "BUTTON")) g.className = "mm-actions";
+    else runBtn.classList.add("mt-4");
+  }
+  const stopBtn = params.querySelector("#stop-btn");
+  if (stopBtn) stopBtn.className = "mm-btn-danger" + (stopBtn.classList.contains("hidden") ? " hidden" : "");
+
+  // 4. Coluna larga: card com o seletor Resultado | Problema no cabeçalho. O conteúdo do antigo
+  //    <details> vira o painel Problema, com a largura que o texto e os esquemas pedem.
+  const resultCard = el(`<section class="mm-result">
+        <div class="mm-result-head">
+          <div class="mm-seg" role="tablist">
+            <button type="button" role="tab" id="mm-view-result" aria-controls="mm-panel-result" aria-selected="true"><span data-i18n="view.result"></span></button>
+            <button type="button" role="tab" id="mm-view-problem" aria-controls="mm-panel-problem" aria-selected="false" tabindex="-1"><span data-i18n="view.problem"></span></button>
+          </div>
+        </div>
+        <div class="mm-result-body" role="tabpanel" id="mm-panel-result" aria-labelledby="mm-view-result"></div>
+        <div class="mm-problem mm-prose" role="tabpanel" id="mm-panel-problem" aria-labelledby="mm-view-problem" hidden></div>
+      </section>`);
+  const body = resultCard.querySelector(".mm-result-body");
+  const h3 = result.querySelector(":scope > h3, :scope > h2");
+  if (h3) h3.className = "mm-result-sub";
+  [...result.childNodes].forEach((n) => body.append(n));
+  const out = body.querySelector("#plot-output");
+  if (out) out.className = "mm-plot";
+  const pProblem = resultCard.querySelector("#mm-panel-problem");
+  if (desc) {
+    const inner = desc.querySelector(":scope > div") || desc;
+    [...inner.childNodes].forEach((n) => pProblem.append(n));
+    desc.remove();
+  } else resultCard.querySelector(".mm-seg").remove();
+
+  // 5. Montagem; contêineres antigos que ficaram vazios saem
+  const main = el(`<div class="mm-main"></div>`);
+  main.append(aside, resultCard);
+  [...app.children].forEach((c) => {
+    if (c === title) return;
+    if (!c.textContent.trim() && !c.querySelector("input, select, button, canvas, img, svg, [id]")) c.remove();
+  });
+  app.append(titleRow, summary, main);
+
+  // Seletor Resultado | Problema: clique, setas; o link da faixa abre o problema; mmProgress.start volta ao resultado
+  const views = [...resultCard.querySelectorAll('[role="tab"]')];
+  const select = (name, focus = false) => {
+    for (const tab of views) {
+      const on = tab.id === `mm-view-${name}`;
+      tab.setAttribute("aria-selected", String(on));
+      tab.tabIndex = on ? 0 : -1;
+      document.getElementById(tab.getAttribute("aria-controls")).hidden = !on;
+      if (on && focus) tab.focus();
+    }
+  };
+  views.forEach((tab, i) => {
+    tab.addEventListener("click", () => select(tab.id.replace("mm-view-", "")));
+    tab.addEventListener("keydown", (e) => {
+      const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      select(views[(i + d + views.length) % views.length].id.replace("mm-view-", ""), true);
+    });
+  });
+  showResultView = () => select("result");
+  summary.querySelector("#mm-full-problem").addEventListener("click", () => {
+    if (!desc) return;
+    // Seleciona o problema, rola o card até o topo da janela e leva o foco ao seletor (pedido do autor, 17/10/2026)
+    select("problem", true);
+    resultCard.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+  return true;
+}
+
+// Definida por layoutModule: mmProgress.start() chama para o card voltar ao resultado quando uma simulação começa
+let showResultView = null;
+
+// Badges do título (método, dimensão, regime) a partir de assets/menu.json, pela pasta do módulo
+function fillBadges(menu) {
+  const box = document.getElementById("mm-badges");
+  const m = (menu?.modules || []).find((x) => x.module === document.body.dataset.mmModule);
+  if (!box || !m) return;
+  box.innerHTML = [
+    `<span class="mm-tag mm-tag-${m.method}" data-i18n="menu.tag.${m.method}"></span>`,
+    `<span class="mm-tag" data-i18n="menu.tag.${m.dim}"></span>`,
+    `<span class="mm-tag" data-i18n="menu.tag.${m.regime}"></span>`,
+  ].join("");
 }
 
 // ---------------------------------------------------------------------------
@@ -479,6 +651,7 @@ window.mmProgress = {
     progress.last = 0;
     setRunBusy(true, "btn.running");
     statusHide();
+    showResultView?.(); // card volta ao resultado se o problema estava aberto
     if (mode === "inline") {
       progressRenderInline();
       progress.timer = setInterval(progressRenderInline, 1000);
@@ -533,23 +706,6 @@ function loadingStop() {
   statusHide();
 }
 
-// Bloco "Sobre o problema" (<details data-mm-desc>, spec 7.1): aberto/fechado lembrado por módulo.
-const LS_DESC = "minervamesh.desc.";
-function initDescMemory() {
-  const d = document.querySelector("details[data-mm-desc]");
-  if (!d) return;
-  const key = LS_DESC + (document.body.dataset.mmModule || location.pathname);
-  try {
-    const saved = localStorage.getItem(key);
-    if (saved === "0" || saved === "1") d.open = saved === "1";
-  } catch {}
-  d.addEventListener("toggle", () => {
-    try {
-      localStorage.setItem(key, d.open ? "1" : "0");
-    } catch {}
-  });
-}
-
 // ---------------------------------------------------------------------------
 // Ciclo de vida
 // ---------------------------------------------------------------------------
@@ -570,7 +726,6 @@ async function boot() {
       });
     }).observe(out, { childList: true, subtree: true });
   }
-  injectMathJax();
   if (app) {
     // Cabeçalho e rodapé são barras de largura total no body; o conteúdo do módulo
     // fica em #mm-app com o padding que antes era do body (v1.2.0, etapa 3).
@@ -578,11 +733,12 @@ async function boot() {
     app.classList.add("w-full", "flex-1", "px-4", "py-6", "md:px-6", "md:py-8");
     injectHeader();
     injectFooter();
+    layoutModule(app); // antes do MathJax: a equação clonada para a faixa é tipografada uma vez só
     injectCodeModal();
-    decorateButtons();
   }
-  initDescMemory();
-  await loadStrings(lang);
+  injectMathJax();
+  const [, menu] = await Promise.all([loadStrings(lang), fetchJson(new URL("assets/menu.json", ROOT))]);
+  fillBadges(menu);
   applyStrings();
 
   const onReady = () => {
