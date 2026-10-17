@@ -13,7 +13,8 @@ Utiliza o método das diferenças finitas para a solução numérica.
 import numpy as np
 import matplotlib.pyplot as plt
 from js import document
-from pyodide.ffi import create_proxy
+from pyscript import when
+import asyncio
 
 from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
@@ -24,6 +25,13 @@ import js
 _i18n = getattr(js, "i18n", None)
 def i18n_t(key):
     return str(_i18n.t(key)) if _i18n else key
+# ------------------------------------------------------------------------------
+
+# --- Progresso (v1.1.0): window.mmProgress (assets/app.js); sem o app.js, no-op ---
+_progress = getattr(js, "mmProgress", None)
+def progress(method, *args):
+    if _progress:
+        getattr(_progress, method)(*args)
 # ------------------------------------------------------------------------------
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
@@ -73,10 +81,13 @@ def analytical_solution(x, Q, alpha, L):
 # ==============================
 # 2. Função Principal de Simulação
 # ==============================
-def runSimulation(event):
+async def runSimulation(event=None):
     """
     Executa a simulação de condução de calor e plota os resultados.
     """
+    progress("start", "spinner")
+    await asyncio.sleep(0.05)
+
     # Parâmetros do problema
     L = 1.0  # Comprimento da barra
     nx = int(document.getElementById("nx").value) - 2  # Número de pontos internos
@@ -137,11 +148,13 @@ def runSimulation(event):
     plt.tight_layout()
     plot_show(i18n_t("title"))
     _export_result(x=x, T=T, T_analytical=T_analytical, nx=nx, alpha=alpha, Q=Q)
+    progress("done")
 
-# ==============================
-# 7. Configuração do Evento
-# ==============================
-# Configuração do evento de clique no botão
-run_btn = document.getElementById("run-btn")
-run_btn.addEventListener("click", create_proxy(runSimulation))
 
+@when("click", "#run-btn")
+async def runSimulation_guarded(event=None):
+    """Reabilita o botão Executar mesmo se a simulação lançar exceção."""
+    try:
+        await runSimulation(event)
+    finally:
+        progress("done")
