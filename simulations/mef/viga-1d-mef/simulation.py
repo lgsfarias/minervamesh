@@ -30,24 +30,6 @@ def progress(method, *args):
         getattr(_progress, method)(*args)
 # ------------------------------------------------------------------------------
 
-# --- Gancho de verificação (v1.1.0) -------------------------------------------
-# Exporta o resultado numérico para window.__minervamesh_result, lido por
-# scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
-import js as _js
-from pyodide.ffi import to_js as _to_js
-
-def _export_result(**kw):
-    def _conv(v):
-        if isinstance(v, np.ndarray):
-            return v.tolist()
-        if isinstance(v, (np.floating, np.integer)):
-            return v.item()
-        return v
-    _js.window.__minervamesh_result = _to_js(
-        {k: _conv(v) for k, v in kw.items()}, dict_converter=_js.Object.fromEntries
-    )
-# ------------------------------------------------------------------------------
-
 
 # ==============================
 # 1. Funções de carregamento
@@ -431,7 +413,6 @@ async def run_viga_1d(event=None):
     )
 
     plot_append_html(metrics_html)
-    _export_result(x=x, w=w, M=M, V=V, w_max_mef=w_max_mef, x_wmax=x_wmax, M_abs_max=M_abs_max, V_abs_max=V_abs_max)
     progress("done")
 
 

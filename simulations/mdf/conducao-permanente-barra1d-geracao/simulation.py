@@ -34,23 +34,6 @@ def progress(method, *args):
         getattr(_progress, method)(*args)
 # ------------------------------------------------------------------------------
 
-# --- Gancho de verificação (v1.1.0) -------------------------------------------
-# Exporta o resultado numérico para window.__minervamesh_result, lido por
-# scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
-import js as _js
-from pyodide.ffi import to_js as _to_js
-
-def _export_result(**kw):
-    def _conv(v):
-        if isinstance(v, np.ndarray):
-            return v.tolist()
-        if isinstance(v, (np.floating, np.integer)):
-            return v.item()
-        return v
-    _js.window.__minervamesh_result = _to_js(
-        {k: _conv(v) for k, v in kw.items()}, dict_converter=_js.Object.fromEntries
-    )
-# ------------------------------------------------------------------------------
 
 # ==============================
 # 1. Solução Analítica
@@ -147,7 +130,6 @@ async def runSimulation(event=None):
     plt.legend(fontsize=10, framealpha=0.9)
     plt.tight_layout()
     plot_show(i18n_t("title"))
-    _export_result(x=x, T=T, T_analytical=T_analytical, nx=nx, alpha=alpha, Q=Q)
     progress("done")
 
 
