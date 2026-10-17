@@ -12,6 +12,10 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" integrity="sha384-wFjoQjtV1y5jVHbt0p35Ui8aV8GVpEZkyF99OXWqP/eNJDU93D3Ugxkoyh6Y2I4A" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m" crossorigin="anonymous"></script>
+    <script>
+      window.MathJax = { tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true } };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"></script>
   </head>
   <body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="viga-1d-mef" data-mm-i18n data-mm-title="title">
 
@@ -19,24 +23,53 @@
 
       <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" data-i18n="title">Viga 1D Avançada - Análise Completa (MEF)</h2>
 
-      <!-- Descrição. Itens "Rótulo: texto": rótulo e texto em <span> separados; equação fora do <span> traduzível. -->
-      <div class="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
-        <h3 class="font-semibold text-lg text-blue-800 mb-2" data-i18n="section.about">Sobre o problema</h3>
-        <p class="text-gray-700 mb-2" data-i18n="desc.intro">Versão expandida do problema 5.2.5 (apostila) com análise completa de flexão de vigas usando elementos finitos de viga de Euler-Bernoulli. Inclui múltiplos tipos de carregamento, condições de contorno, propriedades variáveis e análises completas.</p>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="desc.features.title">Funcionalidades</h4>
-        <ul class="text-gray-700 list-disc list-inside space-y-1">
-          <li><strong><span data-i18n="desc.features.loads.label">Carregamentos</span>:</strong> <span data-i18n="desc.features.loads">Uniforme, linear, triangular, senoidal, pontual</span></li>
-          <li><strong><span data-i18n="desc.features.bc.label">Condições de contorno</span>:</strong> <span data-i18n="desc.features.bc">Simplesmente apoiada, em balanço, engastada-engastada, engastada-apoiada</span></li>
-          <li><strong><span data-i18n="desc.features.props.label">Propriedades variáveis</span>:</strong> <span data-i18n="desc.features.props">Constante, linear, parabólica</span></li>
-          <li><strong><span data-i18n="desc.features.analyses.label">Análises</span>:</strong> <span data-i18n="desc.features.analyses">Deslocamentos, momentos fletores, esforços cortantes</span></li>
-          <li><strong><span data-i18n="desc.features.presets.label">Casos pré-definidos</span>:</strong> <span data-i18n="desc.features.presets">Viga de concreto, viga de aço, cobertura em balanço, viga de ponte</span></li>
-        </ul>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="desc.eq.title">Equação diferencial</h4>
-        <p class="text-gray-700"><span class="font-mono text-sm">EI(x) d⁴w/dx⁴ = q(x)</span>, <span data-i18n="desc.eq.text">onde w é o deslocamento vertical, E(x) é o módulo de elasticidade variável, I(x) é o momento de inércia variável e q(x) é o carregamento distribuído.</span></p>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="desc.ana.title">Solução analítica</h4>
-        <p class="text-gray-700" data-i18n="desc.ana.text">Disponível apenas para propriedades constantes (E e I constantes) e carregamento uniforme. Para propriedades variáveis, apenas o MEF fornece a solução numérica.</p>
-      </div>
-
+      <details class="mm-desc mb-6 rounded border-l-4 border-blue-400 bg-blue-50" data-mm-desc open>
+        <summary class="cursor-pointer select-none px-4 py-3 text-lg font-semibold text-blue-800" data-i18n="section.about">Sobre o problema</summary>
+        <div class="space-y-4 px-4 pb-4 text-gray-700">
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.equation">Equação governante</h4>
+            <p data-i18n="desc.equation">Flexão de viga pela teoria de Euler-Bernoulli: w(x) é a deflexão transversal, E(x) o módulo de elasticidade, I(x) o momento de inércia e q(x) a carga distribuída:</p>
+            <div class="overflow-x-auto py-1">$$ \frac{d^2}{dx^2}\!\left(E(x)\,I(x)\,\frac{d^2 w}{dx^2}\right) = q(x), \qquad 0 \le x \le L $$</div>
+            <p data-i18n="desc.props">E e I são constantes ou variam ao longo de x (linear ou parabólica) conforme o seletor de propriedades.</p>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.domain">Domínio</h4>
+            <p><span data-i18n="desc.domain">Viga de comprimento L dividida em nₑ elementos de viga de tamanho uniforme:</span> $h = L/n_e$.</p>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.bc">Condições de contorno</h4>
+            <p data-i18n="desc.bc.intro">Apoios conforme o seletor (θ = w' é a rotação); as condições sobre momento e cortante nos apoios são naturais na formulação:</p>
+            <ul class="list-disc space-y-1 pl-5">
+              <li><span data-i18n="desc.bc.ss">Simplesmente apoiada:</span> $w(0) = w(L) = 0$</li>
+              <li><span data-i18n="desc.bc.cantilever">Em balanço (engaste em x = 0, extremidade x = L livre):</span> $w(0) = \theta(0) = 0$</li>
+              <li><span data-i18n="desc.bc.ff">Engastada-engastada:</span> $w(0) = \theta(0) = w(L) = \theta(L) = 0$</li>
+              <li><span data-i18n="desc.bc.fs">Engastada-apoiada (engaste em x = 0, apoio em x = L):</span> $w(0) = \theta(0) = 0$, $w(L) = 0$</li>
+            </ul>
+            <p class="mt-2" data-i18n="desc.load.intro">Carregamentos disponíveis (q é a magnitude informada):</p>
+            <ul class="list-disc space-y-1 pl-5">
+              <li><span data-i18n="desc.load.uniform">Uniforme:</span> $q(x) = q$</li>
+              <li><span data-i18n="desc.load.linear">Linear, de q em x = 0 a q/2 em x = L:</span> $q(x) = q\,(1 - x/2L)$</li>
+              <li><span data-i18n="desc.load.triangular">Triangular, com pico q no centro e zero nas extremidades:</span> $q(x) = q\,(1 - 2|x - L/2|/L)$</li>
+              <li><span data-i18n="desc.load.sinusoidal">Senoidal:</span> $q(x) = q\,\sin(\pi x / L)$</li>
+              <li><span data-i18n="desc.load.point">Pontual, força P = qL no centro, aproximada por uma distribuição gaussiana estreita:</span> $P = qL$, $x = L/2$</li>
+            </ul>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="section.method">Método numérico</h4>
+            <p data-i18n="desc.method">Método dos Elementos Finitos com elementos de viga de Euler-Bernoulli (funções de forma cúbicas de Hermite, dois graus de liberdade por nó: w e θ). Propriedades e carga avaliadas pela média dos valores nodais em cada elemento. Momento fletor M = −EI w'' e esforço cortante V = −EI w''' obtidos das derivadas das funções de forma e promediados nos nós.</p>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.reference">Solução de referência</h4>
+            <p data-i18n="desc.reference">Para EI constante e carga uniforme q (Resistência dos Materiais):</p>
+            <ul class="list-disc space-y-1 pl-5">
+              <li><span data-i18n="desc.ref.ss">Simplesmente apoiada:</span> $w(x) = \dfrac{q}{24EI}\left(L^3 x - 2L x^3 + x^4\right)$, $w_{\max} = \dfrac{5 q L^4}{384 EI}$, $M_{\max} = \dfrac{q L^2}{8}$, $V_{\max} = \dfrac{q L}{2}$</li>
+              <li><span data-i18n="desc.ref.cantilever">Em balanço:</span> $w(x) = \dfrac{q}{24EI}\left(6L^2 x^2 - 4L x^3 + x^4\right)$, $w_{\max} = \dfrac{q L^4}{8 EI}$, $M_{\max} = \dfrac{q L^2}{2}$, $V_{\max} = qL$</li>
+              <li><span data-i18n="desc.ref.ff">Engastada-engastada:</span> $w(x) = \dfrac{q\,x^2 (L - x)^2}{24EI}$, $w_{\max} = \dfrac{q L^4}{384 EI}$, $M_{\max} = \dfrac{q L^2}{12}$, $V_{\max} = \dfrac{q L}{2}$</li>
+            </ul>
+            <p class="mt-2" data-i18n="desc.reference.note">Nos demais casos (engastada-apoiada, outros carregamentos ou propriedades variáveis) a simulação mostra só o resultado numérico.</p>
+          </section>
+        </div>
+      </details>
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div class="bg-white rounded-lg shadow p-5">
           <h3 class="text-lg font-semibold text-blue-700 mb-4" data-i18n="section.params">Parâmetros</h3>
