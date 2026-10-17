@@ -79,17 +79,21 @@ Branch de trabalho: `feat/v1.2.0`. Nenhum commit sem autorização do autor.
 - [x] Ajustes do autor (17/10/2026): sem a frase "Cada caso compara…" ao lado dos chips (`menu.note` removida) e sem a marca no cabeçalho do menu, porque o hero já tem o lockup grande
 - [x] Ordem dos cards invertida (autor, 17/10/2026): do caso mais rico ao mais simples (Navier-Stokes, potencial, transiente 2D, vibração, viga, convecção-difusão, transiente 1D, condução MEF, onda, condução MDF); a ordem didática continua pelos chips e badges. É só a ordem do array em `assets/menu.json`
 
-## Etapa 8 — i18n (spec 7)
+## Etapa 8 — i18n (spec 7) (concluída em 17/10/2026)
 
-- [ ] Chaves novas em `common.pt.json` e `common.en.json`
-- [ ] `scripts/i18n-check.mjs` sem pendências
-- [ ] Revisão do EN por agente revisor independente
+- [x] Chaves novas em `common.pt.json` e `common.en.json` (25 novas/alteradas desde a v1.1.0: `nav.all`, `nav.theme.*`, `footer.affiliation`, `menu.hero.*`, `menu.filter.*`, `menu.tag.*`, `summary.full_problem`, `view.*`, `result.example.*`, `result.title`); `logo.alt`, `nav.back`, `menu.subtitle/choose/mdf/mef`, `menu.note`, `tab.*`, `code.view_whole/collapse` removidas
+- [x] `scripts/i18n-check.mjs` sem pendências (aprendeu a ler `assets/menu.json` e as chaves escolhidas em tempo de execução no `app.js`)
+- [x] Revisão do EN por agente revisor independente (17/10/2026): 24 KEEP, 1 CHANGE (vírgula serial em `summary.full_problem`: "…method, and reference") e uma nota de consistência aplicada (`result.example.body` passa de "Press Run" para "Click Run", como o `output.placeholder` da v1.1.0). Terminologia confirmada: "benchmark solution" para "solução de referência", "finite-difference and finite-element cases" hifenizado; afiliação fica em português de propósito
 
-## Etapa 9 — Modo embutido (spec 5.7)
+## Etapa 9 — Modo embutido (spec 5.7) (lado da plataforma concluído em 17/10/2026; lado do fork fica com o autor)
 
-- [ ] `data-mm-embedded`: sem cabeçalho da plataforma; linha com "All simulations", PT | EN e tema
-- [ ] Mecanismo de inserção do atributo nas cópias do fork do labmfa (ler a doc do Pelican antes)
-- [ ] Build do Pelican e abertura das páginas embutidas
+- [x] `<body data-mm-embedded>` (ou `?embedded=1` para teste): sem o cabeçalho da plataforma; no lugar, uma linha discreta no topo do conteúdo com "Todas as simulações", irmão, PT | EN e tema; no menu só PT | EN e tema. Rodapé com crédito e licença continua. Conferido com `probe --query embedded=1` no NS e no menu
+- [ ] **No fork do labmfa (o autor faz lá)**: no `scripts/sync_minervamesh.sh`, depois do `cp -R` e antes do `mv`, acrescentar o atributo nas 11 páginas copiadas:
+  ```bash
+  find "$TMP/app" -name index.html -exec sed -i '' 's/<body /<body data-mm-embedded /' {} +
+  ```
+  (macOS `sed -i ''`; em Linux `sed -i`). Nada mais muda no Pelican: `STATIC_PATHS` já copia `content/minervamesh/app` inteiro, e `assets/menu.json` e `assets/thumbs/` entram junto. O `tailwind.src.css` já é removido pelo script
+- [ ] **No fork**: build do Pelican e abertura das páginas embutidas (conferir o cabeçalho do tema Flex em volta da linha discreta e o `.py` servido como arquivo comum)
 
 ## Etapa 10 — Fechamento (spec 3)
 

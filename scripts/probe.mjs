@@ -53,7 +53,9 @@ async function main() {
       try { localStorage.setItem("minervamesh.theme", t); } catch {}
       addEventListener("py:ready", () => { window.__pyReady = true; });
     }, theme);
-    await page.goto(`http://127.0.0.1:${PORT}/${mod.path}?lang=${lang}`, { waitUntil: "domcontentloaded" });
+    // --query "a=1&b=2": parâmetros extras na URL (ex.: embedded=1)
+    const extra = arg("query", "");
+    await page.goto(`http://127.0.0.1:${PORT}/${mod.path}?lang=${lang}${extra ? "&" + extra : ""}`, { waitUntil: "domcontentloaded" });
     if (pageId !== "menu") await page.waitForFunction(() => window.__pyReady === true, { timeout: 240_000, polling: 250 });
     await sleep(1500);
     for (const a of actions) {

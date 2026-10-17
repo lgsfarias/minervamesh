@@ -211,6 +211,27 @@ function brand() {
 function injectHeader({ menu: isMenu = false } = {}) {
   const sibling = document.body.dataset.mmSibling; // "href|chave"
   let siblingHtml = "";
+  const menu = new URL("index.html", ROOT);
+  // Modo embutido (v1.2.0, spec 5.7): dentro do site do LabMFA o cabeçalho é o do site. Fica só uma
+  // linha discreta no topo do conteúdo: "Todas as simulações", irmão, PT | EN e tema. Ativado por
+  // <body data-mm-embedded> (o sync do fork acrescenta o atributo) ou por ?embedded=1 para teste.
+  if ("mmEmbedded" in document.body.dataset) {
+    const bar = el(`<div class="mm-toolbar">
+          <nav class="flex flex-wrap items-center gap-3 text-sm"></nav>
+          <div class="flex items-center gap-2"></div>
+        </div>`);
+    if (!isMenu) {
+      bar.querySelector("nav").innerHTML = `<a href="${menu}" class="flex min-h-[44px] items-center gap-1 font-medium text-mm-muted hover:text-mm-text">${ICONS.arrowLeft}<span data-i18n="nav.all"></span></a>`;
+      if (sibling) {
+        const [href, key] = sibling.split("|");
+        bar.querySelector("nav").insertAdjacentHTML("beforeend", `<span class="text-mm-border" aria-hidden="true">|</span>
+          <a href="${href}" class="flex min-h-[44px] items-center gap-1 font-medium text-mm-muted hover:text-mm-text"><span data-i18n="${key}"></span>${ICONS.arrowRight}</a>`);
+      }
+    }
+    bar.querySelector("div").append(langSwitcher(), themeButton());
+    document.getElementById("mm-app")?.prepend(bar);
+    return;
+  }
   if (isMenu) {
     // Sem a marca: o hero logo abaixo já tem o lockup grande (decisão do autor, 17/10/2026)
     const header = el(`<header class="border-b border-mm-border bg-mm-surface">
@@ -230,7 +251,6 @@ function injectHeader({ menu: isMenu = false } = {}) {
       <a href="${href}" class="flex min-h-[44px] items-center gap-1 font-medium text-mm-muted hover:text-mm-text">
         <span data-i18n="${key}"></span>${ICONS.arrowRight}</a>`;
   }
-  const menu = new URL("index.html", ROOT);
   const header = el(`<header class="border-b border-mm-border bg-mm-surface">
         <div class="mx-auto flex min-h-[56px] max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 md:px-6">
           <div class="flex min-w-0 flex-wrap items-center gap-x-4">
@@ -768,6 +788,7 @@ function loadingStop() {
 // ---------------------------------------------------------------------------
 async function boot() {
   const app = document.getElementById("mm-app");
+  if (new URLSearchParams(location.search).get("embedded") === "1") document.body.dataset.mmEmbedded = "";
   if (!document.querySelector('script[type="py"]')) return bootMenu();
   // Backend interativo do Matplotlib (plt.show()) desenha dentro deste elemento em vez do body
   const out = document.getElementById("plot-output");
