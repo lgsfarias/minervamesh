@@ -8,3 +8,6 @@ CLAUDE.md
 
 # Dependências do build do Tailwind
 node_modules/
+
+# Baseline interrompida no meio
+docs/v1.1.0/baseline/*.partial.json

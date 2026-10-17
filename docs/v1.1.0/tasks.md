@@ -6,14 +6,20 @@ de cada etapa; a data fica na linha da etapa.
 
 Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 
-## Etapa 1 — Baseline na v1.0.0
+## Etapa 1 — Baseline na v1.0.0 (concluída em 17/10/2026; ferramenta `scripts/baseline.mjs`)
 
-- [ ] Fixar o conjunto de parâmetros por módulo (defaults da v1.0.0) e registrar no `CHANGELOG.md`
-- [ ] Rodar as 10 simulações e anotar as métricas exibidas (ou hash da imagem final onde não há métrica)
-- [ ] Medir tempo do transiente 2D
-- [ ] Medir tempo do Navier-Stokes: canal default antigo e cavidade com valores do TCC
-- [ ] Testar candidatos a default leve da cavidade e fixar o que fica abaixo de ~10 s
-- [ ] Criar `CHANGELOG.md` com a tabela "antes"
+- [x] Fixar o conjunto de parâmetros por módulo (defaults da v1.0.0) e registrar em `docs/v1.1.0/aceite.md`
+- [x] Rodar as 10 simulações e anotar as métricas exibidas (ou hash da imagem final onde não há métrica)
+- [x] Medir tempo do transiente 2D
+- [x] Medir tempo do Navier-Stokes: canal default antigo e cavidade com valores do TCC
+- [x] Testar candidatos a default da cavidade: escolhido 31×31, Δt 0,02, 300 passos, steps_per_frame 10 (~55 s). Tabela em `docs/v1.1.0/aceite.md`
+- [x] Registrar a tabela "antes" em `docs/v1.1.0/aceite.md` (CHANGELOG fica curto, decisão do autor)
+
+## Etapa 1b — Gancho de exportação de resultados (spec 2, passo 0)
+
+- [ ] `window.__minervamesh_result` ao final do `run` em cada `simulation.py` (commit só com isso)
+- [ ] `scripts/baseline.mjs` lê e grava o objeto exportado
+- [ ] Rodar baseline: hashes idênticos aos da `v1.0.0` (valida o gancho); gravar `v1.0.0-hook` como referência numérica
 
 ## Etapa 2 — Camada compartilhada e homogeneização (spec 4, 4.1)
 
@@ -23,6 +29,7 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [ ] Remover Font Awesome de todas as páginas
 - [ ] Padronizar `<title>`, largura do container e padding do `<body>`
 - [ ] Padronizar ids (`run-btn`, `show-code-btn`, `plot-output`) nos HTML e nos `getElementById` dos `.py` (commit separado)
+- [ ] Atualizar `MODULES` em `scripts/baseline.mjs` para os ids novos
 - [ ] Abrir e executar as 10 páginas após a renomeação de ids
 
 ## Etapa 3 — i18n dos HTML (spec 5)
@@ -54,7 +61,7 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [ ] MathJax 3.2.2 com SRI em todas as páginas; regra de separação texto × math
 - [ ] Template `<details open>` com memória nas 10 páginas
 - [ ] Textos PT reescritos a partir do `resultados.tex` (8 MEF) e do código (2 MDF)
-- [ ] Verificação em fonte confiável do que não está no TCC, fontes registradas no `CHANGELOG.md`
+- [ ] Verificação em fonte confiável do que não está no TCC, fontes registradas em `docs/v1.1.0/aceite.md`
 - [ ] Conferência de cada condição de contorno e inicial contra o solver
 - [ ] Tradução EN; revisão do EN pelo autor
 - [ ] Navier-Stokes: default cavidade leve; preset "Caso de validação (Ghia et al., 1982)"
@@ -79,7 +86,7 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 
 ## Etapa 10 — Fechamento
 
-- [ ] Métricas "depois" no `CHANGELOG.md`
+- [ ] Métricas "depois" em `docs/v1.1.0/aceite.md`; entrada curta no `CHANGELOG.md`
 - [ ] Tag `v1.1.0`
 - [ ] Espelhar `gh-pages`
 - [ ] `scripts/sync_minervamesh.sh` no fork do labmfa e atualização do draft PR #1

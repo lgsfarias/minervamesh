@@ -1,0 +1,51 @@
+{
+  "label": "ns-cavity-tcc",
+  "date": "2026-10-17T09:34:23.571Z",
+  "overrides": {
+    "scenario": "cavity",
+    "L": "1",
+    "H": "1",
+    "nx": "41",
+    "ny": "41",
+    "Re": "100",
+    "dt": "0.01",
+    "steps_per_frame": "50",
+    "total_steps": "2000"
+  },
+  "results": [
+    {
+      "id": "navier-stokes",
+      "url": "http://127.0.0.1:8123/simulations/mef/escoamento-fluido-2d/navier-stokes/index.html",
+      "params": {
+        "scenario": "cavity",
+        "L": "1",
+        "H": "1",
+        "cx": "0.5",
+        "cy": "0.5",
+        "geo_type": "cylinder",
+        "r": "0.15",
+        "w": "0.3",
+        "h": "0.3",
+        "step_h": "0.5",
+        "step_l": "0.5",
+        "Re": "100",
+        "dt": "0.01",
+        "steps_per_frame": "50",
+        "total_steps": "2000",
+        "nx": "41",
+        "ny": "41"
+      },
+      "errors": [],
+      "load_s": 4.2,
+      "run_s": 343.5,
+      "text": "ValidaçãoPasso: 2000 / 2000, Re = 100.0, malha 41×41ψ_min: -0.10296 em (0.600, 0.725)Referência Ghia et al. (1982) Re=100: ψ_min ≈ -0.1034, centro em (0.6172, 0.7344)Simulação Concluída!",
+      "images": [
+        {
+          "kind": "image/png",
+          "bytes": 467498,
+          "sha256_16": "7aa8e44a9b88ccd4"
+        }
+      ]
+    }
+  ]
+}

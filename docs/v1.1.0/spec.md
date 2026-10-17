@@ -32,8 +32,7 @@ A regra "nenhuma alteração numérica nos `simulation.py`, `common.py` e
 Critério de aceite, obrigatório antes da tag:
 
 1. Antes de qualquer edição, fixar um **conjunto de parâmetros por módulo**
-   (os defaults da `v1.0.0`) e registrá-lo na tabela de baseline do
-   `CHANGELOG.md`. Rodar as 10 simulações na `v1.0.0` com esses valores e
+   (os defaults da `v1.0.0`) e registrá-lo em `docs/v1.1.0/aceite.md`. Rodar as 10 simulações na `v1.0.0` com esses valores e
    anotar as métricas de erro exibidas sob o gráfico (erro máximo, erro L²,
    etc., conforme cada módulo mostra).
 2. Ao final, repetir **com os mesmos valores registrados**, digitando-os se
@@ -45,13 +44,41 @@ Critério de aceite, obrigatório antes da tag:
 4. Navier-Stokes: registrar dois conjuntos, o default antigo (canal, 500
    passos) e o da cavidade com os valores do TCC, e medir o tempo de execução
    dos dois.
-5. A tabela "antes × depois" vai no `CHANGELOG.md` e na descrição do PR.
+5. A tabela "antes × depois" vai em `docs/v1.1.0/aceite.md` e, resumida, na descrição do PR.
 6. No transiente 2D, medir também o tempo total de execução antes e depois
    para confirmar que o yield ao browser não encarece a simulação de forma
    perceptível.
 
 Edições em `.py` vão em commits separados dos commits de UI, para o diff
 numérico ser revisável isoladamente.
+
+Limite do hash de imagem: qualquer mudança não numérica que toque no gráfico
+(rótulos traduzidos, GIF de 1 frame virando PNG) muda o hash sem mudar o
+resultado. Por isso a comparação por hash só vale até a primeira dessas
+edições. Para os módulos sem métrica em texto (equação da onda, vibração,
+condução MDF) e como reforço nos demais, o protocolo tem um passo zero:
+
+0. **Gancho de exportação** (primeiro commit em `.py`, sem nenhuma outra
+   mudança): ao final de cada `run`, o Python grava em
+   `js.window.__minervamesh_result` um dicionário com os arrays e escalares
+   que definem o resultado (ex.: vetor `T` nodal, frequências naturais,
+   deslocamento da viga, `u` final da onda, `ψ_min` e sua posição). O
+   `scripts/baseline.mjs` lê e grava esse objeto. Serialização: converter com
+   `pyodide.ffi.to_js(result, dict_converter=js.Object.fromEntries)`, arrays
+   NumPy via `.tolist()`, escalares como `float`; um dicionário Python puro
+   viraria um `PyProxy` que o JS não consegue serializar. A escrita acontece
+   **depois** de o gráfico ser gerado e inserido no DOM, para não poder
+   influenciar a renderização. Como o gancho não toca em
+   nenhum gráfico, o hash das imagens tem de ficar idêntico ao da `v1.0.0`,
+   o que valida o próprio gancho. A partir daí, "métricas idênticas" significa
+   texto exibido **e** `__minervamesh_result` idênticos, e o hash deixa de ser
+   critério.
+
+Ferramenta: `scripts/baseline.mjs` (Node + `puppeteer-core`, devDependency)
+abre cada módulo em Chrome headless, roda com os parâmetros informados e grava
+em `docs/v1.1.0/baseline/<label>.json` as métricas exibidas, o hash das
+imagens geradas e os tempos de carga e execução. A mesma ferramenta produz os dados das tabelas "antes" e "depois" de
+`docs/v1.1.0/aceite.md`.
 
 ## 3. Inventário dos módulos
 
@@ -127,7 +154,8 @@ que a camada compartilhada impõe:
 
 | Item | Hoje | Padrão v1.1.0 |
 |---|---|---|
-| Dialog de carga inicial `#loading` | igual em todas, mas copiado 10× | markup e CSS injetados pelo `app.js` |
+| Dialog de carga inicial `#loading` | igual em 9 páginas, copiado 9×; a condução MDF não tem nenhum indicador de carga | markup e CSS injetados pelo `app.js` em todas |
+| Mecanismo de saída do gráfico | condução MDF usa `plt.show()` do backend wasm do Matplotlib (desenha em `<canvas>` anexado ao body, com barra de ferramentas); 5 módulos estáticos geram **GIF de 1 frame** via imageio; potencial e Navier-Stokes geram PNG base64 | PNG base64 em `#plot-output` para resultados estáticos, GIF só para animações. Edição não numérica (só a codificação da imagem); `imageio` sai do `config.toml` dos módulos estáticos |
 | Dialog `#sim-loading` | existe em 7 páginas; transiente 2D tem e não usa; potencial e Navier-Stokes não têm | existe e é controlado pelo `app.js` em todas as 10; conteúdo conforme seção 6.2 |
 | Ícones Font Awesome (`<i class="fas …">`) | usados em todas, mas só 3 páginas carregam a biblioteca; nas outras 7 o ícone nunca aparece | remover Font Awesome; ícones via SVG inline (seta de voltar, código, fechar) no `app.js` |
 | `<title>` | formatos variados ("Condução Permanente (Barra 1D com Geração Interna)", "Transiente 2D") | `MinervaMesh · <título do módulo>`, traduzível |
@@ -226,8 +254,10 @@ Módulos de **marcha no tempo** (`calor-transiente-1d`, `transcalor`,
 - Terminados os passos, a mensagem muda para `Encoding animation…` até o
   `imageio.mimsave` terminar e o `<img>` ser inserido.
 - Navier-Stokes: já mostra frames ao vivo e tem botão Parar; ganha só o
-  contador de passos e o cronômetro abaixo do gráfico. O botão Parar **não**
-  é generalizado para os outros módulos nesta versão.
+  contador de passos e o cronômetro abaixo do gráfico. O contador atual pode
+  passar do total ("402 / 400") porque o loop avança `steps_per_frame` passos
+  por quadro; o texto passa a mostrar `min(passo, total)`, sem mudar o loop.
+  O botão Parar **não** é generalizado para os outros módulos nesta versão.
 
 Módulos de **solução única** (os seis restantes): o mesmo dialog
 `sim-loading` do `app.js`, com spinner e a mensagem "Running simulation…",
@@ -285,18 +315,25 @@ rótulos dos inputs (seção 9).
   para MEF, LeVeque ou Strikwerda para MDF), artigos originais com DOI
   (Ghia et al. 1982; Brooks e Hughes 1982 para SUPG) e documentação oficial
   de software. Conhecimento geral do assistente não é fonte final. Cada
-  verificação registra onde foi feita (página do livro, DOI ou URL) no
-  `CHANGELOG.md`, e o que não puder ser confirmado é sinalizado ao autor em
+  verificação registra onde foi feita (página do livro, DOI ou URL) em
+  `docs/v1.1.0/aceite.md`, e o que não puder ser confirmado é sinalizado ao autor em
   vez de preenchido.
-- Navier-Stokes: o cenário default passa a ser **cavidade com parâmetros
-  leves**, escolhidos na etapa de baseline para rodar em poucos segundos no
-  browser (alvo: até ~10 s na máquina de referência; malha e número de passos
-  reduzidos em relação ao TCC, `Re = 100`). Decisão do autor em 17/10/2026:
-  não precisa reproduzir os parâmetros do TCC. Os valores do TCC
-  (`resultados.tex` 730–731) entram como preset "Caso de validação (Ghia et
-  al., 1982)" no seletor de casos, com aviso de que demora. Mudança só em
-  `index.html`. A descrição cobre os cenários com uma frase cada e um SVG por
-  cenário (seção 8).
+- Navier-Stokes: o cenário default passa a ser **cavidade**, `Re = 100`,
+  com malha e número de passos escolhidos na etapa de baseline. Como o módulo
+  mostra frames ao vivo, **não há alvo de tempo total**: o autor decidiu em
+  17/10/2026 que uma execução de algumas dezenas de segundos melhora a
+  experiência, desde que o quadro atualize com frequência (ajustar
+  `steps_per_frame` para cerca de 1 atualização por segundo) e o contador de
+  passos esteja visível. Não precisa reproduzir os parâmetros do TCC. Os
+  valores do TCC (`resultados.tex` 726–732: malha 41×41, `Δt = 0,01`, 2000
+  passos) entram como preset "Caso de validação (Ghia et al., 1982)" no
+  seletor de casos, com o tempo medido indicado (344 s no Chrome headless em
+  17/10/2026). Candidatos medidos em `docs/v1.1.0/aceite.md`; **default escolhido pelo
+  autor em 17/10/2026**: malha 31×31, `Δt = 0,02`, 300 passos,
+  `steps_per_frame = 10` (~55 s, ψ_min a 2,4 % de Ghia). Mudança só em
+  `index.html`.
+  A descrição cobre os cenários com uma frase cada e um SVG por cenário
+  (seção 8).
 
 ### 7.3 Renderização
 
@@ -379,9 +416,9 @@ conferência manual. Nada é commitado sem autorização do autor.
 1. **Baseline**: fixar os conjuntos de parâmetros, rodar as 10 simulações na
    `v1.0.0`, registrar métricas (ou hash da imagem) e os tempos do transiente
    2D e dos dois casos do Navier-Stokes (canal default antigo e cavidade com
-   os valores do TCC). Medir também candidatos a default leve da cavidade e
-   fixar o que fica abaixo de ~10 s. Criar `CHANGELOG.md` com a tabela
-   "antes".
+   os valores do TCC). Medir também candidatos a default da cavidade e fixar
+   um com cadência de ~1 quadro/s e duração de algumas dezenas de segundos.
+   Registrar a tabela "antes" em `docs/v1.1.0/aceite.md` (CHANGELOG fica curto, decisão do autor).
 2. **Camada compartilhada e homogeneização** (seção 4.1): `assets/app.js`,
    `assets/i18n/common.*.json`, cabeçalho, modais, rodapé, ids padronizados,
    remoção do Font Awesome, larguras e títulos uniformes. Os `.py` mudam só
@@ -398,12 +435,13 @@ conferência manual. Nada é commitado sem autorização do autor.
    MathJax em todas as páginas, default do Navier-Stokes para cavidade.
    Conferência de cada condição de contorno contra o solver e verificação em
    fonte externa confiável do que não está no TCC (seção 7.2), com as fontes
-   registradas no `CHANGELOG.md`.
+   registradas em `docs/v1.1.0/aceite.md`.
 7. **SVGs**: 13 esquemas, troca por cenário nos de escoamento, remoção das
    imagens antigas.
 8. **Inputs**: rótulos com símbolo e unidade.
 9. **Limpezas**: `plotly`, auditoria dos `config.toml`, README com resumo EN.
-10. **Fechamento**: métricas "depois" no `CHANGELOG.md`, revisão do EN pelo
+10. **Fechamento**: métricas "depois" em `docs/v1.1.0/aceite.md` e entrada
+    curta no `CHANGELOG.md`, revisão do EN pelo
     autor, tag `v1.1.0`, espelho `gh-pages`, `scripts/sync_minervamesh.sh` no
     fork do labmfa, atualização do draft PR #1.
 
