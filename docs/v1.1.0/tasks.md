@@ -104,6 +104,6 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 
 - [x] Métricas "depois" em `docs/v1.1.0/aceite.md` (rodada `v1.1.0` + `v1.1.0-ns-canal`, JSONs guardados em `docs/v1.1.0/baseline/`); entrada da v1.1.0 no `CHANGELOG.md` (17/10/2026)
 - [x] Remover o gancho `_export_result` dos 10 `simulation.py` (bloco e chamada do commit `79faad1`, 186 linhas); `scripts/baseline.mjs` passa a detectar o fim da execução pela barra verde de "Tempo total" (`#mm-status`, neutra de idioma) e `compare-baseline.mjs` aceita rodada sem gancho (critério: texto e imagens). Rodada final sem o gancho comparada à "depois" (17/10/2026)
-- [ ] Tag `v1.1.0`
-- [ ] Espelhar `gh-pages`
-- [ ] `scripts/sync_minervamesh.sh` no fork do labmfa e atualização do draft PR #1
+- [x] Tag `v1.1.0` (anotada, em `5d9a876`, 17/10/2026; `feat/v1.1.0` incorporada à `main` por fast-forward)
+- [x] Espelhar `gh-pages` (`git push origin main:gh-pages`, 17/10/2026)
+- [-] `scripts/sync_minervamesh.sh v1.1.0` no fork do labmfa e atualização do PR #1 (decisão do autor em 17/10/2026: a v1.1.0 não vai sozinha para o labmfa; o sync e o PR #1 ficam para o fechamento da v1.2.0, etapa 10 de `docs/v1.2.0/tasks.md`)
