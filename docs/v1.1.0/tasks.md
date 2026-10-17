@@ -69,15 +69,15 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] Invólucro `*_guarded` com `try/finally` nos 8 handlers que não tinham: o botão Executar volta ao normal se a simulação lançar exceção
 - [x] Modo de falha (17/10/2026): `mmProgress.fail()` reabilita o botão e esconde painel e linha de status sem "Tempo total"; os 10 invólucros tratam a exceção e mostram `py.error` em `#plot-output` (antes, nos 8 sem `try/except` próprio, o erro só ia ao console)
 
-## Etapa 6 — Descrições padronizadas (spec 7)
+## Etapa 6 — Descrições padronizadas (spec 7) (concluída em 17/10/2026)
 
-- [ ] MathJax 3.2.2 com SRI em todas as páginas; regra de separação texto × math
-- [ ] Template `<details open>` com memória nas 10 páginas
-- [ ] Textos PT reescritos a partir do `resultados.tex` (8 MEF) e do código (2 MDF)
-- [ ] Verificação em fonte confiável do que não está no TCC, fontes registradas em `docs/v1.1.0/aceite.md`
-- [ ] Conferência de cada condição de contorno e inicial contra o solver
-- [ ] Tradução EN; revisão do EN pelo autor
-- [ ] Navier-Stokes: default cavidade leve; preset "Caso de validação (Ghia et al., 1982)"
+- [x] MathJax 3.2.2 com SRI em todas as páginas (mesmo hash das páginas de escoamento; delimitadores `$…$`, `$$…$$`, `\(…\)`, `\[…\]`); regra de separação texto × math verificada em headless: número de `mjx-container` idêntico em PT e EN nas 10 páginas, nenhum `$` cru, nenhum `mjx-merror`
+- [x] Template `<details open data-mm-desc>` nas 10 páginas, com memória em `localStorage` (`minervamesh.desc.<módulo>`, `initDescMemory` no `app.js`); testado fechar/recarregar/abrir/recarregar nas 10
+- [x] Textos PT reescritos a partir do `resultados.tex` (8 MEF) e do código (2 MDF); textos antigos (`desc.*`) removidos dos JSONs; `section.physical_params` sai do comum; `section.method` vira "Método numérico"
+- [x] Verificação em fonte confiável do que não está no TCC, fontes registradas em `docs/v1.1.0/aceite.md` ("Fontes verificadas")
+- [x] Conferência de cada condição de contorno e inicial contra o solver; divergências código × TCC registradas em `docs/v1.1.0/aceite.md` (saída do potencial é natural, não Dirichlet; engastada-apoiada da vibração = engastada-engastada; nota "malha refinada" da vibração corrigida)
+- [x] Tradução EN revisada pelo agente revisor terminológico (o autor não lê inglês)
+- [x] Navier-Stokes: default cavidade (31×31, Δt 0,02, 300 passos, 10 passos/quadro, só no `index.html`; cavidade passa a ser a primeira opção do seletor); preset "Caso de validação (Ghia et al., 1982), ~6 min" (41×41, Δt 0,01, 2000 passos, 50 passos/quadro) via seletor + botão Carregar no `index.html`
 
 ## Etapa 7 — Esquemas SVG (spec 8)
 

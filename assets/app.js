@@ -11,6 +11,7 @@
  *   <body data-mm-module="<nome da pasta>" [data-mm-sibling="<href>|<chave nav.goto.*>"]>
  *     <div id="mm-app" class="max-w-5xl mx-auto"> … conteúdo do módulo … </div>
  *   Ids esperados no conteúdo: #run-btn, #show-code-btn, #plot-output.
+ *   Bloco de descrição: <details data-mm-desc> (estado lembrado em localStorage, minervamesh.desc.<módulo>).
  *   Strings do módulo: <body data-mm-i18n data-mm-title="title"> carrega ./i18n.<lang>.json
  *   (chaves do módulo têm precedência sobre as de assets/i18n/common.<lang>.json).
  *
@@ -410,6 +411,23 @@ function loadingStop() {
   statusHide();
 }
 
+// Bloco "Sobre o problema" (<details data-mm-desc>, spec 7.1): aberto/fechado lembrado por módulo.
+const LS_DESC = "minervamesh.desc.";
+function initDescMemory() {
+  const d = document.querySelector("details[data-mm-desc]");
+  if (!d) return;
+  const key = LS_DESC + (document.body.dataset.mmModule || location.pathname);
+  try {
+    const saved = localStorage.getItem(key);
+    if (saved === "0" || saved === "1") d.open = saved === "1";
+  } catch {}
+  d.addEventListener("toggle", () => {
+    try {
+      localStorage.setItem(key, d.open ? "1" : "0");
+    } catch {}
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Ciclo de vida
 // ---------------------------------------------------------------------------
@@ -436,6 +454,7 @@ async function boot() {
     injectCodeModal();
     decorateButtons();
   }
+  initDescMemory();
   await loadStrings(lang);
   applyStrings();
 
