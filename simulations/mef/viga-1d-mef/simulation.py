@@ -110,7 +110,7 @@ def get_variable_properties(x, prop_type, base_value, L):
 # ==============================
 # 4. Executar simulação MEF avançada para viga 1D
 # ==============================
-@when("click", "#runViga1D")
+@when("click", "#run-btn")
 async def run_viga_1d(event=None):
     # Abrir modal de execução
     sim_loading = document.getElementById("sim-loading")
@@ -443,7 +443,7 @@ async def run_viga_1d(event=None):
         + "</div>"
     )
 
-    container = document.getElementById("viga1d-output")
+    container = document.getElementById("plot-output")
     container.innerHTML = (
         f"<div class='flex flex-col gap-3 w-full'>"
         f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"

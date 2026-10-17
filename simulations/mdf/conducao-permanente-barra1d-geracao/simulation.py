@@ -130,6 +130,6 @@ def runSimulation(event):
 # 7. Configuração do Evento
 # ==============================
 # Configuração do evento de clique no botão
-run_btn = document.getElementById("runBtn")
+run_btn = document.getElementById("run-btn")
 run_btn.addEventListener("click", create_proxy(runSimulation))
 

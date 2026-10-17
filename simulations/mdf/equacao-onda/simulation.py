@@ -59,7 +59,7 @@ def initial_displacement(x, L, mode):
 # ==============================
 # 2. Executar simulação
 # ==============================
-@when("click", "#runWaveBtn")
+@when("click", "#run-btn")
 async def run_simulation(event=None):
     """Executa a simulação, monta frames e publica um GIF no contêiner HTML."""
     # parâmetros
@@ -92,7 +92,7 @@ async def run_simulation(event=None):
     u[-1] = 0.0
 
     # abrir modal de execução durante a simulação
-    container = document.getElementById("wave-output")
+    container = document.getElementById("plot-output")
     sim_loading = document.getElementById("sim-loading")
     if sim_loading is not None:
         try:

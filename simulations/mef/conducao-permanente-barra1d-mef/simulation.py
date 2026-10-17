@@ -47,7 +47,7 @@ def analytical_solution(x, Q, k, L, T0, TL):
 # ==============================
 # 2. Executar simulação MEF 1D
 # ==============================
-@when("click", "#runMEF1D")
+@when("click", "#run-btn")
 async def run_mef_1d(event=None):
     # Abrir modal de execução
     sim_loading = document.getElementById("sim-loading")
@@ -131,7 +131,7 @@ async def run_mef_1d(event=None):
     gif_buffer.seek(0)
     gif_base64 = base64.b64encode(gif_buffer.read()).decode('utf-8')
 
-    container = document.getElementById("mef1d-output")
+    container = document.getElementById("plot-output")
     metrics_html = f"""
     <div class="bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full">
         <h4 class="font-semibold text-blue-800 mb-1">Validação</h4>

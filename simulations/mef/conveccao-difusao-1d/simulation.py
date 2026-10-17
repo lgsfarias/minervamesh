@@ -72,7 +72,7 @@ def analytical_solution(x, Q, k, rho_cp, u, L, T0, TL):
 # ==============================
 # 2. Executar simulação MEF 1D com convecção-difusão
 # ==============================
-@when("click", "#runConveccaoDifusao1D")
+@when("click", "#run-btn")
 async def run_conveccao_difusao_1d(event=None):
     # Abrir modal de execução
     sim_loading = document.getElementById("sim-loading")
@@ -200,7 +200,7 @@ async def run_conveccao_difusao_1d(event=None):
     gif_buffer.seek(0)
     gif_base64 = base64.b64encode(gif_buffer.read()).decode('utf-8')
 
-    container = document.getElementById("conveccao-difusao-output")
+    container = document.getElementById("plot-output")
     container.innerHTML = f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
 
     # Atualizar informações sobre Péclet

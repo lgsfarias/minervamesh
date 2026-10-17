@@ -192,7 +192,7 @@ def render_frame(T, x_nodes, t, n_elements, k1=1.0, k2=5.0):
 # ==============================
 # 5. Executar simulação
 # ==============================
-@when("click", "#runHeatBtn")
+@when("click", "#run-btn")
 async def run_simulation(event=None):
     """Executa a simulação MEF, monta frames e publica um GIF no contêiner HTML."""
     # parâmetros
@@ -233,7 +233,7 @@ async def run_simulation(event=None):
         B[i, i] = 1
 
     # abrir modal de execução durante a simulação
-    container = document.getElementById("heat-output")
+    container = document.getElementById("plot-output")
     sim_loading = document.getElementById("sim-loading")
     if sim_loading is not None:
         try:

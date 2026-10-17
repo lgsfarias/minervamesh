@@ -94,7 +94,7 @@ def analytical_frequencies_fixed_free(L, E, rho, n_modes=5):
 # ==============================
 # 3. Executar simulação MEF para vibração 1D
 # ==============================
-@when("click", "#runVibracao1D")
+@when("click", "#run-btn")
 async def run_vibracao_1d(event=None):
     # Abrir modal de execução
     sim_loading = document.getElementById("sim-loading")
@@ -339,7 +339,7 @@ async def run_vibracao_1d(event=None):
     gif_buffer.seek(0)
     gif_base64 = base64.b64encode(gif_buffer.read()).decode('utf-8')
 
-    container = document.getElementById("vibracao1d-output")
+    container = document.getElementById("plot-output")
     container.innerHTML = f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
     _export_result(x=x, frequencies=frequencies, freq_analytical=freq_analytical, eigenvectors=eigenvectors)
 
