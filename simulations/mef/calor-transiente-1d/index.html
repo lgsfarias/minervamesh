@@ -69,27 +69,27 @@
                 <h3 class="text-lg font-semibold text-blue-700 mb-4" data-i18n="section.params">Parâmetros</h3>
                 <div class="space-y-3">
                     <div>
-                        <label for="L" class="block text-sm font-medium text-gray-700" data-i18n="input.L">Comprimento (L)</label>
+                        <label for="L" class="block text-sm font-medium text-gray-700" data-i18n="input.L">Comprimento L [m]</label>
                         <input type="number" id="L" value="1.0" step="0.1" min="0.2" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="k1" class="block text-sm font-medium text-gray-700" data-i18n="input.k1">Condutividade primeira metade (k₁)</label>
+                        <label for="k1" class="block text-sm font-medium text-gray-700" data-i18n="input.k1">Condutividade k₁ (x < L/2) [W/(m·K)]</label>
                         <input type="number" id="k1" value="5.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="k2" class="block text-sm font-medium text-gray-700" data-i18n="input.k2">Condutividade segunda metade (k₂)</label>
+                        <label for="k2" class="block text-sm font-medium text-gray-700" data-i18n="input.k2">Condutividade k₂ (x ≥ L/2) [W/(m·K)]</label>
                         <input type="number" id="k2" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="n_elements" class="block text-sm font-medium text-gray-700" data-i18n="input.n_elements">Número de elementos</label>
+                        <label for="n_elements" class="block text-sm font-medium text-gray-700" data-i18n="input.n_elements">Número de elementos nₑ</label>
                         <input type="number" id="n_elements" value="40" min="2" step="1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="rho_cp" class="block text-sm font-medium text-gray-700" data-i18n="input.rho_cp">Densidade × Calor específico (ρcₚ)</label>
+                        <label for="rho_cp" class="block text-sm font-medium text-gray-700" data-i18n="input.rho_cp">Densidade × calor específico ρcₚ [J/(m³·K)]</label>
                         <input type="number" id="rho_cp" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="dt" class="block text-sm font-medium text-gray-700" data-i18n="input.dt">Passo de tempo (dt)</label>
+                        <label for="dt" class="block text-sm font-medium text-gray-700" data-i18n="input.dt">Passo de tempo Δt [s]</label>
                         <input type="number" id="dt" value="0.001" step="0.0005" min="0.0005" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
@@ -97,7 +97,7 @@
                         <input type="number" id="theta" value="0.5" step="0.1" min="0" max="1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="tmax" class="block text-sm font-medium text-gray-700" data-i18n="input.tmax">Tempo total (s)</label>
+                        <label for="tmax" class="block text-sm font-medium text-gray-700" data-i18n="input.tmax">Tempo total tₘₐₓ [s]</label>
                         <input type="number" id="tmax" value="0.200" step="0.01" min="0.01" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                 </div>

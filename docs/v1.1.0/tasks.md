@@ -89,9 +89,9 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] Remover `assets/conducao_esquema.png` e `assets/placeholder.png`, a `<img>` da condução MDF e a chave `img.alt`
 - [x] Verificado em headless (17/10/2026): esquema visível correto em cada estado dos seletores, sem erros de console, sem chaves faltando, figura abaixo do texto em 390 px de largura
 
-## Etapa 8 — Rótulos dos inputs (spec 9)
+## Etapa 8 — Rótulos dos inputs (spec 9) (concluída em 17/10/2026)
 
-- [ ] Símbolo e unidade em todos os rótulos, PT e EN, símbolos iguais aos das equações
+- [x] Símbolo e unidade em todos os rótulos (76 chaves `input.*` nos 10 módulos), PT e EN, no padrão `Nome símbolo [unidade]` sem dois-pontos; símbolos iguais aos das descrições (nₑ, nₓ, k₁, k₂, Δt, tₘₐₓ, T₀, Tₗ, ρcₚ); adimensionais sem colchetes (Re, CFL, θ; α e Q da condução MDF, módulo sem unidades); subscritos sem glifo Unicode (c_x, c_y, n_x, n_y, T_bottom, T_top, c_v, U∞) em `<sub>` fora do `data-i18n`; texto fallback dos `<label>` nos HTML atualizado junto; EN revisado pelo agente revisor terminológico
 
 ## Etapa 9 — Limpezas (spec 10)
 

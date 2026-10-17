@@ -114,7 +114,7 @@
 
                 <!-- Geometria -->
                 <div class="mb-4">
-                    <label for="geo_type" class="block text-sm mb-1 font-medium" data-i18n="input.geo_type">Tipo de Obstrução:</label>
+                    <label for="geo_type" class="block text-sm mb-1 font-medium" data-i18n="input.geo_type">Tipo de obstáculo</label>
                     <select id="geo_type" class="w-full rounded border-gray-300 p-2 border text-sm"
                         onchange="toggleGeoParams()">
                         <option value="cylinder" data-i18n="option.geo_type.cylinder">Cilindro</option>
@@ -126,12 +126,12 @@
                 <!-- Fluido -->
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label for="rho" class="block text-xs mb-1 font-medium" data-i18n="input.rho">Densidade (ρ) [kg/m³]:</label>
+                        <label for="rho" class="block text-xs mb-1 font-medium" data-i18n="input.rho">Densidade ρ [kg/m³]</label>
                         <input type="number" id="rho" value="1.0" step="0.001"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
                     <div>
-                        <label for="v_inf" class="block text-xs mb-1 font-medium" data-i18n="input.v_inf">Velocidade (U∞) [m/s]:</label>
+                        <label for="v_inf" class="block text-xs mb-1 font-medium"><span data-i18n="input.v_inf">Velocidade de corrente livre</span> U<sub>∞</sub> [m/s]</label>
                         <input type="number" id="v_inf" value="1.0" step="1.0"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
@@ -140,22 +140,22 @@
                 <!-- Domínio -->
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div>
-                        <label for="L" class="block text-xs mb-1 font-medium" data-i18n="input.L">Comp. (L) [m]:</label>
+                        <label for="L" class="block text-xs mb-1 font-medium" data-i18n="input.L">Comprimento L [m]</label>
                         <input type="number" id="L" value="2.0" step="0.1"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
                     <div>
-                        <label for="H" class="block text-xs mb-1 font-medium" data-i18n="input.H">Altura (H) [m]:</label>
+                        <label for="H" class="block text-xs mb-1 font-medium" data-i18n="input.H">Altura H [m]</label>
                         <input type="number" id="H" value="1.0" step="0.1"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
                     <div>
-                        <label for="cx" class="block text-xs mb-1 font-medium" data-i18n="input.cx">Centro X [m]:</label>
+                        <label for="cx" class="block text-xs mb-1 font-medium"><span data-i18n="input.cx">Centro</span> c<sub>x</sub> [m]</label>
                         <input type="number" id="cx" value="0.5" step="0.1"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
                     <div>
-                        <label for="cy" class="block text-xs mb-1 font-medium" data-i18n="input.cy">Centro Y [m]:</label>
+                        <label for="cy" class="block text-xs mb-1 font-medium"><span data-i18n="input.cy">Centro</span> c<sub>y</sub> [m]</label>
                         <input type="number" id="cy" value="0.5" step="0.1"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
@@ -163,7 +163,7 @@
 
                 <!-- Parâmetros da geometria -->
                 <div id="params-cylinder" class="mb-4">
-                    <label for="r" class="block text-xs mb-1 font-medium" data-i18n="input.r">Raio (r) [m]:</label>
+                    <label for="r" class="block text-xs mb-1 font-medium" data-i18n="input.r">Raio r [m]</label>
                     <input type="number" id="r" value="0.15" step="0.01"
                         class="w-full rounded border-gray-300 p-2 border text-sm" />
                 </div>
@@ -171,12 +171,12 @@
                 <div id="params-airfoil" class="mb-4 hidden">
                     <div class="grid grid-cols-2 gap-2">
                         <div>
-                            <label for="chord" class="block text-xs mb-1 font-medium" data-i18n="input.chord">Corda [m]:</label>
+                            <label for="chord" class="block text-xs mb-1 font-medium" data-i18n="input.chord">Corda c [m]</label>
                             <input type="number" id="chord" value="0.5" step="0.05"
                                 class="w-full rounded border-gray-300 p-2 border text-sm" />
                         </div>
                         <div>
-                            <label for="angle_airfoil" class="block text-xs mb-1 font-medium" data-i18n="input.angle_airfoil">Ângulo (°):</label>
+                            <label for="angle_airfoil" class="block text-xs mb-1 font-medium" data-i18n="input.angle_airfoil">Ângulo de ataque α [°]</label>
                             <input type="number" id="angle_airfoil" value="0.0" step="1.0"
                                 class="w-full rounded border-gray-300 p-2 border text-sm" />
                         </div>
@@ -186,12 +186,12 @@
                 <!-- Malha -->
                 <div class="grid grid-cols-2 gap-4 mb-6">
                     <div>
-                        <label for="nx" class="block text-xs mb-1 font-medium" data-i18n="input.nx">Nós X:</label>
+                        <label for="nx" class="block text-xs mb-1 font-medium"><span data-i18n="input.nx">Nós em x,</span> n<sub>x</sub></label>
                         <input type="number" id="nx" value="60" step="5"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
                     <div>
-                        <label for="ny" class="block text-xs mb-1 font-medium" data-i18n="input.ny">Nós Y:</label>
+                        <label for="ny" class="block text-xs mb-1 font-medium"><span data-i18n="input.ny">Nós em y,</span> n<sub>y</sub></label>
                         <input type="number" id="ny" value="30" step="5"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
