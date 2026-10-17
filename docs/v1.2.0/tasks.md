@@ -61,11 +61,12 @@ Branch de trabalho: `feat/v1.2.0`. Nenhum commit sem autorização do autor.
 - [x] Estilos de carregando (Run "Preparando…" + barra indeterminada), executando (`#mm-run` com spinner, passo, barra e tempo acima da figura; Stop ativo no NS) e concluído (`#mm-status` verde) já vinham da v1.1.0 e passaram pelos tokens na etapa 2; conferidos com `probe.mjs` (NS pronto, NS aos 6 s de execução, viga a 390 px no escuro)
 - [x] `mmProgress.done()`: `scrollIntoView` em `#plot-output` só quando o card está fora da tela (celular, parâmetros acima)
 
-## Etapa 6 — Celular (spec 5.1)
+## Etapa 6 — Celular (spec 5.1) (concluída em 17/10/2026)
 
-- [ ] Ordem resultado → abas → inputs abaixo de 768 px
-- [ ] Grupo Run/Stop + `#mm-status` em `#mm-runbar` fixo no rodapé da tela (ids preservados)
-- [ ] Alvos de toque ≥ 44 px; inputs em duas colunas; sem rolagem horizontal a 390 px nas 10 páginas
+- [x] Ordem resultado → parâmetros abaixo de 768 px (`order` no CSS de `.mm-result` / `.mm-aside`; sem abas desde a revisão 2)
+- [x] Grupo Run/Stop + `#mm-status` embrulhado em `#mm-run-group`; abaixo de 768 px vai para `#mm-runbar` (último filho de `#mm-app`, `position: sticky; bottom: 0`), e volta ao painel antes de "Ver código-fonte" no desktop (`matchMedia`, reage à rotação). Ids preservados; o potencial, que tinha o Run solto, ganha o mesmo grupo
+- [x] Alvos de toque: inputs e selects com 44 px no celular (40 no desktop); botões já tinham 44; inputs em duas colunas vêm das páginas
+- [x] Rolagem horizontal a 390 px: nenhuma nas 11 páginas em PT (`shots --label etapa6`); conferido com `probe --viewport` que a barra do Run fica visível no rodapé da janela na viga, e com o NS executado a 390 px (resultado acima dos parâmetros)
 
 ## Etapa 7 — Menu (spec 6) (adiantada a pedido do autor; concluída em 17/10/2026)
 
@@ -92,6 +93,11 @@ Branch de trabalho: `feat/v1.2.0`. Nenhum commit sem autorização do autor.
 
 ## Etapa 10 — Fechamento (spec 3)
 
+- [ ] Limpeza dos `simulation.py` exibidos ao aluno (pedido do autor em 17/10/2026; commits separados dos de UI, sem tocar em nenhuma linha numérica):
+  - remover comentários que só repetem o que o código já diz (ex.: `# importa numpy` acima de `import numpy`) ou que poluem a leitura;
+  - os blocos repetidos em todos os módulos (guarda `i18n_t`, guarda `progress`, comentários "--- Idioma da interface (v1.1.0) ---" e "--- Progresso (v1.1.0) ---") saem dos `.py` e passam a ser reaproveitados de um módulo compartilhado (`assets/mmcommon.py`, buscado via `[[fetch]]` no `config.toml`, como o `mmplot.py`), ficando em cada `simulation.py` só o `from mmcommon import i18n_t, progress`;
+  - comentários que explicam o método numérico ficam (são o valor didático do "Ver código-fonte");
+  - ao final, baseline completa; critério: texto e imagens idênticos à rodada anterior desta mesma versão (`etapa4`), módulo a módulo (não há mais o gancho `__minervamesh_result`)
 - [ ] `scripts/baseline.mjs --label v1.2.0-final` (+ canal do NS) e `compare-baseline.mjs` contra `final-sem-gancho`
 - [ ] Capturas "depois" com `scripts/shots.mjs`; conferência visual pelo autor
 - [ ] `docs/v1.2.0/aceite.md` com a comparação e eventuais divergências de hash explicadas

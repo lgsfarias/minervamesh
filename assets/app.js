@@ -452,9 +452,18 @@ function layoutModule(app) {
   const runBtn = params.querySelector("#run-btn");
   if (runBtn) {
     runBtn.className = "mm-btn-primary";
-    const g = runBtn.parentElement;
-    if (g !== params && [...g.children].every((c) => c.tagName === "BUTTON")) g.className = "mm-actions";
-    else runBtn.classList.add("mt-4");
+    let actions = runBtn.parentElement;
+    if (actions === params || ![...actions.children].every((c) => c.tagName === "BUTTON")) {
+      // Botão solto (potencial): ganha o mesmo grupo das outras páginas
+      actions = el(`<div class="mm-actions"></div>`);
+      runBtn.before(actions);
+      actions.append(runBtn);
+    } else actions.className = "mm-actions";
+    // #mm-run-group = botões + #mm-status (criado depois, logo após o grupo): é o que vai para a
+    // barra fixa do celular (etapa 6) e volta ao painel no desktop
+    const runGroup = el(`<div id="mm-run-group"></div>`);
+    actions.before(runGroup);
+    runGroup.append(actions);
   }
   const stopBtn = params.querySelector("#stop-btn");
   if (stopBtn) stopBtn.className = "mm-btn-danger" + (stopBtn.classList.contains("hidden") ? " hidden" : "");
@@ -492,6 +501,28 @@ function layoutModule(app) {
     if (!c.textContent.trim() && !c.querySelector("input, select, button, canvas, img, svg, [id]")) c.remove();
   });
   app.append(titleRow, summary, main);
+
+  // Celular (spec 5.1, etapa 6): abaixo de 768 px o card de resultado vem antes dos parâmetros (CSS,
+  // order) e o grupo Executar/Parar + status vira barra fixa no rodapé da janela (#mm-runbar, sticky).
+  // No desktop o grupo volta ao painel, antes de "Ver código-fonte".
+  const runbar = el(`<div id="mm-runbar" class="mm-runbar" hidden></div>`);
+  app.append(runbar);
+  const runGroup = params.querySelector("#mm-run-group");
+  const compact = matchMedia("(max-width: 767px)");
+  const placeRunGroup = () => {
+    if (!runGroup) return;
+    if (compact.matches) {
+      runbar.append(runGroup);
+      runbar.hidden = false;
+    } else {
+      const codeBtn2 = params.querySelector("#show-code-btn");
+      if (codeBtn2) codeBtn2.before(runGroup);
+      else params.append(runGroup);
+      runbar.hidden = true;
+    }
+  };
+  placeRunGroup();
+  compact.addEventListener("change", placeRunGroup);
 
   // Seletor Resultado | Problema: clique, setas; o link da faixa abre o problema; mmProgress.start volta ao resultado
   const views = [...resultCard.querySelectorAll('[role="tab"]')];

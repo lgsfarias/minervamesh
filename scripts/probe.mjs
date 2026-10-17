@@ -82,7 +82,8 @@ async function main() {
         await sleep(Number(a.slice(5)));
       }
     }
-    await page.screenshot({ path: out, fullPage: true });
+    // --viewport: captura só a janela (para ver elementos sticky); padrão: página inteira
+    await page.screenshot({ path: out, fullPage: !process.argv.includes("--viewport") });
     const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
     console.log(`${out}${over > 0 ? `  OVERFLOW +${over}px` : ""}`);
   } finally {

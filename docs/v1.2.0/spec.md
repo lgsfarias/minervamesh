@@ -311,9 +311,12 @@ conferência manual. Commits só com autorização; um commit por etapa, `.py`
    agente.
 9. **Modo embutido**: `data-mm-embedded`, mecanismo de inserção no fork do
    labmfa (ler a doc do Pelican antes), teste do build do Pelican.
-10. **Fechamento**: baseline final e comparação (seção 3), capturas "depois",
-    `CHANGELOG.md`, tag `v1.2.0`, espelho `gh-pages`, sync no fork e
-    atualização do PR #1.
+10. **Fechamento**: limpeza dos `simulation.py` exibidos ao aluno (comentários
+    que só repetem o código saem; blocos repetidos de i18n e progresso passam
+    a um `assets/mmcommon.py` compartilhado; comentários sobre o método ficam;
+    commits separados, baseline depois), baseline final e comparação
+    (seção 3), capturas "depois", `CHANGELOG.md`, tag `v1.2.0`, espelho
+    `gh-pages`, sync no fork e atualização do PR #1.
 
 ## 9. Fora de escopo
 
