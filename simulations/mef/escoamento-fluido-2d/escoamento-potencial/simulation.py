@@ -6,6 +6,24 @@ from pyscript import when, document
 import asyncio
 from common import generate_mesh_generic, assemble_matrices, plot_to_base64
 
+# --- Gancho de verificação (v1.1.0) -------------------------------------------
+# Exporta o resultado numérico para window.__minervamesh_result, lido por
+# scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
+import js as _js
+from pyodide.ffi import to_js as _to_js
+
+def _export_result(**kw):
+    def _conv(v):
+        if isinstance(v, np.ndarray):
+            return v.tolist()
+        if isinstance(v, (np.floating, np.integer)):
+            return v.item()
+        return v
+    _js.window.__minervamesh_result = _to_js(
+        {k: _conv(v) for k, v in kw.items()}, dict_converter=_js.Object.fromEntries
+    )
+# ------------------------------------------------------------------------------
+
 # ==============================
 # 1. Geometrias
 # ==============================
@@ -351,6 +369,7 @@ async def solve_potential(params, plot_div):
     </div>
     """
     document.getElementById("lift-results").innerHTML = res_html
+    _export_result(psi=psi, cp_sorted=cp_sorted, angles_sorted=angles_sorted, Lift_dim=Lift_dim, Drag_dim=Drag_dim, Gamma_dim=Gamma_dim)
 
 # ==============================
 # 3. Interface Handler

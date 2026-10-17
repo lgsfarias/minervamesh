@@ -16,6 +16,24 @@ import io
 import imageio.v2 as imageio
 import base64
 
+# --- Gancho de verificação (v1.1.0) -------------------------------------------
+# Exporta o resultado numérico para window.__minervamesh_result, lido por
+# scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
+import js as _js
+from pyodide.ffi import to_js as _to_js
+
+def _export_result(**kw):
+    def _conv(v):
+        if isinstance(v, np.ndarray):
+            return v.tolist()
+        if isinstance(v, (np.floating, np.integer)):
+            return v.item()
+        return v
+    _js.window.__minervamesh_result = _to_js(
+        {k: _conv(v) for k, v in kw.items()}, dict_converter=_js.Object.fromEntries
+    )
+# ------------------------------------------------------------------------------
+
 
 # ==============================
 # 1. Solução analítica
@@ -198,6 +216,7 @@ async def run_conveccao_difusao_1d(event=None):
         <p class="text-sm text-gray-700"><strong>Erro máximo:</strong> {np.max(erro):.2e} °C</p>
     </div>
     """
+    _export_result(x=x, T=T, T_ana_mesh=T_ana_mesh, erro_max=float(np.max(erro)), Pe_local=Pe_local, tau=tau, use_supg=bool(use_supg))
 
     try:
         sim_loading.close()

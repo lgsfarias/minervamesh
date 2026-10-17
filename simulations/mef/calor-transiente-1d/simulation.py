@@ -22,6 +22,24 @@ import imageio.v2 as imageio
 import io
 import base64
 
+# --- Gancho de verificação (v1.1.0) -------------------------------------------
+# Exporta o resultado numérico para window.__minervamesh_result, lido por
+# scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
+import js as _js
+from pyodide.ffi import to_js as _to_js
+
+def _export_result(**kw):
+    def _conv(v):
+        if isinstance(v, np.ndarray):
+            return v.tolist()
+        if isinstance(v, (np.floating, np.integer)):
+            return v.item()
+        return v
+    _js.window.__minervamesh_result = _to_js(
+        {k: _conv(v) for k, v in kw.items()}, dict_converter=_js.Object.fromEntries
+    )
+# ------------------------------------------------------------------------------
+
 
 # ==============================
 # 1. Função de condutividade térmica k(x)
@@ -290,6 +308,7 @@ async def run_simulation(event=None):
         f"{metrics_html}"
         f"</div>"
     )
+    _export_result(x_nodes=x_nodes, T=T, nt=nt, dt=dt, T_meio_mef=T_meio_mef, erro_meio=erro_meio)
 
     if sim_loading is not None:
         try:
