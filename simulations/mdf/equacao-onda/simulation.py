@@ -31,6 +31,13 @@ def i18n_t(key):
     return str(_i18n.t(key)) if _i18n else key
 # ------------------------------------------------------------------------------
 
+# --- Progresso (v1.1.0): window.mmProgress (assets/app.js); sem o app.js, no-op ---
+_progress = getattr(js, "mmProgress", None)
+def progress(method, *args):
+    if _progress:
+        getattr(_progress, method)(*args)
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -68,7 +75,6 @@ def initial_displacement(x, L, mode):
 # ==============================
 # 2. Executar simulação
 # ==============================
-@when("click", "#run-btn")
 async def run_simulation(event=None):
     """Executa a simulação, monta frames e publica um GIF no contêiner HTML."""
     # parâmetros
@@ -100,14 +106,8 @@ async def run_simulation(event=None):
     u[0] = 0.0
     u[-1] = 0.0
 
-    # abrir modal de execução durante a simulação
     container = document.getElementById("plot-output")
-    sim_loading = document.getElementById("sim-loading")
-    if sim_loading is not None:
-        try:
-            sim_loading.showModal()
-        except Exception:
-            pass
+    progress("start", "counter", nt)
     # pequena espera para o DOM aplicar o modal antes do processamento pesado
     await asyncio.sleep(0.05)
 
@@ -168,20 +168,27 @@ async def run_simulation(event=None):
 
         if n % max(1, nt // 50) == 0 or n == nt:
             frames.append(render_frame(u, n*dt))
+            progress("step", n, n*dt)
+            await asyncio.sleep(0)  # cede o controle ao browser para repintar o progresso
 
     # ==============================
     # 5. Montar GIF e publicar no DOM
     # ==============================
+    progress("encoding")
+    await asyncio.sleep(0)
     gif_buffer = io.BytesIO()
     imageio.mimsave(gif_buffer, frames, format='GIF', duration=0.08, loop=0)
     gif_buffer.seek(0)
     gif_base64 = base64.b64encode(gif_buffer.read()).decode("utf-8")
     container.innerHTML = f"<img src='data:image/gif;base64,{gif_base64}' class='rounded shadow w-full'/>"
     _export_result(x=x, u=u, nt=nt, dt=dt, mode=mode)
-    if sim_loading is not None:
-        try:
-            sim_loading.close()
-        except Exception:
-            pass
+    progress("done")
 
 
+@when("click", "#run-btn")
+async def run_simulation_guarded(event=None):
+    """Reabilita o botão Executar mesmo se a simulação lançar exceção."""
+    try:
+        await run_simulation(event)
+    finally:
+        progress("done")
