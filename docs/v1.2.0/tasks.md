@@ -30,13 +30,14 @@ Branch de trabalho: `feat/v1.2.0`. Nenhum commit sem autorização do autor.
 - [x] `scripts/baseline.mjs` e `scripts/thumbs.mjs` detectam o fim da execução por `bg-mm-ok` (antes `bg-green-600`)
 - [x] Build e conferência em viga e Navier-Stokes nos dois temas (`docs/v1.2.0/shots/etapa2/`): layout inalterado, MathJax e esquemas legíveis no escuro
 
-## Etapa 3 — Cabeçalho, rodapé e marca (spec 4, 5.1)
+## Etapa 3 — Cabeçalho, rodapé e marca (spec 4, 5.1) (concluída em 17/10/2026)
 
-- [ ] Wordmark + ícone de malha no `app.js` (simulações e menu)
-- [ ] Remover `assets/logo_poli_ufrj.png`, `logo.alt` e o `<img>` do menu
-- [ ] Afiliação em texto no rodapé (`footer.affiliation`)
-- [ ] Favicon novo a partir do ícone
-- [ ] Botão de tema ao lado de PT | EN (sol/lua, `aria-pressed`), ligado pelo `app.js`; script inline no `<head>` aplica `data-theme` antes da primeira pintura
+- [x] Cabeçalho das simulações vira barra de largura total no `body` (marca com ícone de malha · "Todas as simulações" · irmão · PT | EN · tema · GitHub); o padding que era do `body` passou para `#mm-app` nas 10 páginas
+- [x] Remover `assets/logo_poli_ufrj.png`, `logo.alt`, `nav.back` (substituída por `nav.all`) e o `<img>` do menu
+- [x] Rodapé em barra, com afiliação em texto (`footer.affiliation`) e links para o código e a licença
+- [x] `favicon.ico` regenerado a partir do ícone de malha (Pillow, 16/32/48/64)
+- [x] Botão de tema (lua/sol, `aria-pressed`, `aria-label` traduzido) ao lado de PT | EN nas simulações e no menu, via `window.mmTheme` de `assets/theme.js`. O `i18n-check` avisa `nav.theme.*` como órfãs porque as chaves são escolhidas em tempo de execução; é aviso, não erro
+- [x] Conferido em viga (claro/escuro, 1440 e 390), menu e Navier-Stokes PT (`docs/v1.2.0/shots/etapa3/`); a 390 px o cabeçalho quebra em duas linhas sem overflow. O menu em si só muda na etapa 7
 
 ## Etapa 4 — Layout da página de simulação (spec 5.1 a 5.3, 5.5, 5.6)
 

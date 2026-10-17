@@ -88,7 +88,7 @@
     animation: mm-slide 1.2s ease-in-out infinite;
   }
   .mm-lang button {
-    @apply px-1 text-sm font-medium text-mm-muted hover:text-mm-text;
+    @apply min-h-[44px] min-w-[36px] px-1 text-sm font-medium text-mm-muted hover:text-mm-text;
   }
   .mm-lang button[aria-pressed="true"] {
     @apply text-mm-accent;

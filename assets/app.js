@@ -148,6 +148,15 @@ const ICONS = {
     '<svg class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M6.28 5.22a.75.75 0 0 1 0 1.06L2.56 10l3.72 3.72a.75.75 0 0 1-1.06 1.06L.97 10.53a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0Zm7.44 0a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L17.44 10l-3.72-3.72a.75.75 0 0 1 0-1.06ZM11.377 2.011a.75.75 0 0 1 .612.867l-2.5 14.5a.75.75 0 0 1-1.478-.255l2.5-14.5a.75.75 0 0 1 .866-.612Z" clip-rule="evenodd"/></svg>',
   close:
     '<svg class="h-6 w-6" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path d="M6.28 5.22a.75.75 0 0 0-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 1 0 1.06 1.06L10 11.06l3.72 3.72a.75.75 0 1 0 1.06-1.06L11.06 10l3.72-3.72a.75.75 0 0 0-1.06-1.06L10 8.94 6.28 5.22Z"/></svg>',
+  // Marca (v1.2.0): quadrado com malha cruzada, mesmo desenho do favicon.ico
+  mark:
+    '<svg class="h-7 w-7 shrink-0 text-mm-accent" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="22" height="22" rx="2"/><path d="M2 13h22M13 2v22M2 2l22 22M24 2 2 24"/></svg>',
+  sun:
+    '<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>',
+  moon:
+    '<svg class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></svg>',
+  external:
+    '<svg class="h-3.5 w-3.5" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 2H2.5A.5.5 0 0 0 2 2.5v9a.5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5V9M8 2h4v4M12 2 6.5 7.5"/></svg>',
 };
 
 // ---------------------------------------------------------------------------
@@ -160,48 +169,83 @@ function el(html) {
 }
 
 function langSwitcher() {
-  const sw = el(`<div class="mm-lang flex items-center gap-1" role="group" data-i18n-attr="aria-label:lang.label">
+  const sw = el(`<div class="mm-lang flex items-center" role="group" data-i18n-attr="aria-label:lang.label">
         <button type="button" data-lang="pt">PT</button><span class="text-mm-border">|</span><button type="button" data-lang="en">EN</button>
       </div>`);
   sw.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
   return sw;
 }
 
-function injectHeader(app) {
+// Botão claro/escuro (v1.2.0, spec 4): ícone do tema para o qual o clique leva;
+// aria-label traduzido via data-i18n-attr, atualizado a cada troca. window.mmTheme vem de assets/theme.js.
+function themeButton() {
+  const btn = el(`<button type="button" class="mm-theme flex h-11 w-11 items-center justify-center rounded-md text-mm-muted hover:bg-mm-surface2 hover:text-mm-text"></button>`);
+  const render = () => {
+    const dark = window.mmTheme?.get() === "dark";
+    const key = dark ? "nav.theme.light" : "nav.theme.dark";
+    btn.innerHTML = dark ? ICONS.sun : ICONS.moon;
+    btn.setAttribute("aria-pressed", String(dark));
+    btn.dataset.i18nAttr = `aria-label:${key}`;
+    btn.setAttribute("aria-label", t(key));
+  };
+  btn.addEventListener("click", () => window.mmTheme?.toggle());
+  addEventListener("mm:theme", render);
+  render();
+  return btn;
+}
+
+const GITHUB = "https://github.com/lgsfarias/minervamesh";
+
+// Marca: ícone + nome, link para o menu
+function brand() {
+  const menu = new URL("index.html", ROOT);
+  return el(`<a href="${menu}" class="flex min-h-[44px] items-center gap-2.5 text-mm-text" aria-label="MinervaMesh">
+        ${ICONS.mark}<span class="text-[17px] font-semibold tracking-tight">MinervaMesh</span></a>`);
+}
+
+// Cabeçalho das páginas de simulação (v1.2.0, spec 5.1): barra de largura total no topo do body,
+// com a marca, "Todas as simulações", o irmão (escoamentos), PT | EN, tema e GitHub.
+function injectHeader() {
   const sibling = document.body.dataset.mmSibling; // "href|chave"
   let siblingHtml = "";
   if (sibling) {
     const [href, key] = sibling.split("|");
-    siblingHtml = `<span class="text-mm-border">|</span>
-      <a href="${href}" class="flex items-center gap-1 text-mm-muted hover:text-mm-accent-strong font-medium">
+    siblingHtml = `<span class="text-mm-border" aria-hidden="true">|</span>
+      <a href="${href}" class="flex min-h-[44px] items-center gap-1 font-medium text-mm-muted hover:text-mm-text">
         <span data-i18n="${key}"></span>${ICONS.arrowRight}</a>`;
   }
-  const logo = new URL("assets/logo_poli_ufrj.png", ROOT);
   const menu = new URL("index.html", ROOT);
-  app.prepend(
-    el(`<header class="mb-8 flex items-center justify-between gap-4">
-          <nav class="flex items-center gap-3 text-sm">
-            <a href="${menu}" class="flex items-center gap-1 text-mm-accent hover:text-mm-accent-strong font-medium">
-              ${ICONS.arrowLeft}<span data-i18n="nav.back"></span></a>
-            ${siblingHtml}
-          </nav>
-          <div class="flex items-center gap-5">
-            <img src="${logo}" class="h-10 w-auto opacity-80" data-i18n-attr="alt:logo.alt" />
+  const header = el(`<header class="border-b border-mm-border bg-mm-surface">
+        <div class="mx-auto flex min-h-[56px] max-w-7xl flex-wrap items-center justify-between gap-x-4 gap-y-1 px-4 md:px-6">
+          <div class="flex min-w-0 flex-wrap items-center gap-x-4">
+            <nav class="flex flex-wrap items-center gap-3 text-sm">
+              <a href="${menu}" class="flex min-h-[44px] items-center gap-1 font-medium text-mm-muted hover:text-mm-text">
+                ${ICONS.arrowLeft}<span data-i18n="nav.all"></span></a>
+              ${siblingHtml}
+            </nav>
           </div>
-        </header>`)
-  );
-  app.querySelector("header > div").prepend(langSwitcher());
+          <div class="flex items-center gap-3">
+            <a href="${GITHUB}" class="hidden min-h-[44px] items-center gap-1.5 text-sm font-medium text-mm-accent hover:text-mm-accent-strong sm:flex">GitHub ${ICONS.external}</a>
+          </div>
+        </div>
+      </header>`);
+  header.querySelector("div > div").prepend(brand());
+  const right = header.querySelector("div > div + div");
+  right.prepend(langSwitcher(), themeButton());
+  document.body.prepend(header);
 }
 
-function injectFooter(app) {
-  // No menu o #mm-app fica dentro de uma linha flex centralizada; o rodapé vai no body (flex-col).
-  const anchor = document.querySelector('script[type="py"]') ? app : document.body;
-  const place = (node) => (anchor === app ? app.after(node) : document.body.append(node));
-  place(
-    el(`<footer class="mt-8 w-full pb-6 text-center text-sm text-mm-muted opacity-80">
-          <span data-i18n="site.name"></span> &middot; <span data-i18n="footer.developed_by"></span> &middot;
-          <a href="https://github.com/lgsfarias/minervamesh" class="underline hover:text-mm-text" data-i18n="footer.source"></a>
-          &middot; <span data-i18n="footer.license"></span>
+// Rodapé (spec 5.1): crédito, afiliação em texto (o logo da Poli saiu na v1.2.0), código e licença.
+function injectFooter() {
+  document.body.append(
+    el(`<footer class="mt-auto border-t border-mm-border bg-mm-surface">
+          <div class="mx-auto flex max-w-7xl flex-wrap justify-between gap-x-6 gap-y-2 px-4 py-5 text-sm text-mm-muted md:px-6">
+            <p><span data-i18n="site.name"></span> &middot; <span data-i18n="footer.developed_by"></span> &middot; <span data-i18n="footer.affiliation"></span></p>
+            <p class="flex flex-wrap gap-x-4">
+              <a href="${GITHUB}" class="text-mm-accent hover:text-mm-accent-strong" data-i18n="footer.source"></a>
+              <a href="${GITHUB}/blob/main/LICENSE" class="text-mm-accent hover:text-mm-accent-strong" data-i18n="footer.license"></a>
+            </p>
+          </div>
         </footer>`)
   );
 }
@@ -515,8 +559,12 @@ async function boot() {
   }
   injectMathJax();
   if (app) {
-    injectHeader(app);
-    injectFooter(app);
+    // Cabeçalho e rodapé são barras de largura total no body; o conteúdo do módulo
+    // fica em #mm-app com o padding que antes era do body (v1.2.0, etapa 3).
+    document.body.classList.add("flex", "flex-col");
+    app.classList.add("w-full", "flex-1", "px-4", "py-6", "md:px-6", "md:py-8");
+    injectHeader();
+    injectFooter();
     injectCodeModal();
     decorateButtons();
   }
@@ -543,9 +591,8 @@ async function boot() {
 
 // Menu: sem PyScript, logo sem dialog de carga nem cabeçalho de módulo.
 async function bootMenu() {
-  document.getElementById("mm-lang-slot")?.append(langSwitcher());
-  const app = document.getElementById("mm-app");
-  if (app) injectFooter(app);
+  document.getElementById("mm-lang-slot")?.append(langSwitcher(), themeButton());
+  injectFooter();
   await loadStrings(lang);
   applyStrings();
 }
