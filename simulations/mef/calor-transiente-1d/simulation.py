@@ -31,6 +31,13 @@ def i18n_t(key):
     return str(_i18n.t(key)) if _i18n else key
 # ------------------------------------------------------------------------------
 
+# --- Progresso (v1.1.0): window.mmProgress (assets/app.js); sem o app.js, no-op ---
+_progress = getattr(js, "mmProgress", None)
+def progress(method, *args):
+    if _progress:
+        getattr(_progress, method)(*args)
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -201,7 +208,6 @@ def render_frame(T, x_nodes, t, n_elements, k1=1.0, k2=5.0):
 # ==============================
 # 5. Executar simulação
 # ==============================
-@when("click", "#run-btn")
 async def run_simulation(event=None):
     """Executa a simulação MEF, monta frames e publica um GIF no contêiner HTML."""
     # parâmetros
@@ -241,18 +247,12 @@ async def run_simulation(event=None):
         B[i, :] = 0
         B[i, i] = 1
 
-    # abrir modal de execução durante a simulação
     container = document.getElementById("plot-output")
-    sim_loading = document.getElementById("sim-loading")
-    if sim_loading is not None:
-        try:
-            sim_loading.showModal()
-        except Exception:
-            pass
-    await asyncio.sleep(0.05)
-
     frames = []
     nt = max(1, int(tmax / dt))
+
+    progress("start", "counter", nt)
+    await asyncio.sleep(0.05)
 
     # Frame inicial
     frames.append(render_frame(T, x_nodes, 0.0, n_elements, k1, k2))
@@ -282,10 +282,14 @@ async def run_simulation(event=None):
 
         if n % max(1, nt // 50) == 0 or n == nt:
             frames.append(render_frame(T, x_nodes, n*dt, n_elements, k1, k2))
+            progress("step", n, n*dt)
+            await asyncio.sleep(0)  # cede o controle ao browser para repintar o progresso
 
     # ==============================
     # 7. Montar GIF e publicar no DOM
     # ==============================
+    progress("encoding")
+    await asyncio.sleep(0)
     gif_buffer = io.BytesIO()
     imageio.mimsave(gif_buffer, frames, format='GIF', duration=0.1, loop=0)
     gif_buffer.seek(0)
@@ -318,9 +322,13 @@ async def run_simulation(event=None):
         f"</div>"
     )
     _export_result(x_nodes=x_nodes, T=T, nt=nt, dt=dt, T_meio_mef=T_meio_mef, erro_meio=erro_meio)
+    progress("done")
 
-    if sim_loading is not None:
-        try:
-            sim_loading.close()
-        except Exception:
-            pass
+
+@when("click", "#run-btn")
+async def run_simulation_guarded(event=None):
+    """Reabilita o botão Executar mesmo se a simulação lançar exceção."""
+    try:
+        await run_simulation(event)
+    finally:
+        progress("done")
