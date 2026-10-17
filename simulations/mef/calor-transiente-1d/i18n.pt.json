@@ -1,0 +1,13 @@
+{
+  "title": "Condução Transiente 1D (MEF)",
+  "desc.intro": "Resolvemos a equação da condução transiente de calor 1D usando o Método dos Elementos Finitos com condutividade térmica variável k(x). Condições de contorno: T(0,t) = 0 e T(L,t) = 1. Condutividade: k(x) = k₁ para x < L/2 e k(x) = k₂ para x ≥ L/2 (configuráveis).",
+  "desc.method": "Utilizamos o Método dos Elementos Finitos (MEF) com elementos lineares uniformemente espaçados e integração temporal pelo método de Crank-Nicolson. O número de elementos é configurável, demonstrando a flexibilidade do MEF para tratar condutividade térmica variável. A solução analítica mostrada é para k(x) constante (linha reta) como referência.",
+  "input.L": "Comprimento (L)",
+  "input.k1": "Condutividade primeira metade (k₁)",
+  "input.k2": "Condutividade segunda metade (k₂)",
+  "input.n_elements": "Número de elementos",
+  "input.rho_cp": "Densidade × calor específico (ρcₚ)",
+  "input.dt": "Passo de tempo (dt)",
+  "input.theta": "Parâmetro θ (0 = explícito, 0.5 = Crank-Nicolson, 1 = implícito)",
+  "input.tmax": "Tempo total (s)"
+}

@@ -13,103 +13,104 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m" crossorigin="anonymous"></script>
   </head>
-  <body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="viga-1d-mef">
+  <body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="viga-1d-mef" data-mm-i18n data-mm-title="title">
 
     <div id="mm-app" class="max-w-7xl mx-auto">
 
-      <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Viga 1D Avançada - Análise Completa (MEF)</h2>
+      <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" data-i18n="title">Viga 1D Avançada - Análise Completa (MEF)</h2>
 
+      <!-- Descrição. Itens "Rótulo: texto": rótulo e texto em <span> separados; equação fora do <span> traduzível. -->
       <div class="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
-        <h3 class="font-semibold text-lg text-blue-800 mb-2">Sobre o problema</h3>
-        <p class="text-gray-700 mb-2">Versão expandida do problema 5.2.5 (apostila) com análise completa de flexão de vigas usando elementos finitos de viga de Euler-Bernoulli. Inclui múltiplos tipos de carregamento, condições de contorno, propriedades variáveis e análises completas.</p>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1">Funcionalidades</h4>
+        <h3 class="font-semibold text-lg text-blue-800 mb-2" data-i18n="section.about">Sobre o problema</h3>
+        <p class="text-gray-700 mb-2" data-i18n="desc.intro">Versão expandida do problema 5.2.5 (apostila) com análise completa de flexão de vigas usando elementos finitos de viga de Euler-Bernoulli. Inclui múltiplos tipos de carregamento, condições de contorno, propriedades variáveis e análises completas.</p>
+        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="desc.features.title">Funcionalidades</h4>
         <ul class="text-gray-700 list-disc list-inside space-y-1">
-          <li><strong>Carregamentos:</strong> Uniforme, linear, triangular, senoidal, pontual</li>
-          <li><strong>Condições de contorno:</strong> Simplesmente apoiada, em balanço, engastada-engastada, engastada-apoiada</li>
-          <li><strong>Propriedades variáveis:</strong> Constante, linear, parabólica</li>
-          <li><strong>Análises:</strong> Deslocamentos, momentos fletores, esforços cortantes</li>
-          <li><strong>Casos pré-definidos:</strong> Viga de concreto, viga de aço, cobertura em balanço, viga de ponte</li>
+          <li><strong><span data-i18n="desc.features.loads.label">Carregamentos</span>:</strong> <span data-i18n="desc.features.loads">Uniforme, linear, triangular, senoidal, pontual</span></li>
+          <li><strong><span data-i18n="desc.features.bc.label">Condições de contorno</span>:</strong> <span data-i18n="desc.features.bc">Simplesmente apoiada, em balanço, engastada-engastada, engastada-apoiada</span></li>
+          <li><strong><span data-i18n="desc.features.props.label">Propriedades variáveis</span>:</strong> <span data-i18n="desc.features.props">Constante, linear, parabólica</span></li>
+          <li><strong><span data-i18n="desc.features.analyses.label">Análises</span>:</strong> <span data-i18n="desc.features.analyses">Deslocamentos, momentos fletores, esforços cortantes</span></li>
+          <li><strong><span data-i18n="desc.features.presets.label">Casos pré-definidos</span>:</strong> <span data-i18n="desc.features.presets">Viga de concreto, viga de aço, cobertura em balanço, viga de ponte</span></li>
         </ul>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1">Equação diferencial</h4>
-        <p class="text-gray-700">EI(x) d⁴w/dx⁴ = q(x), onde w é o deslocamento vertical, E(x) é o módulo de elasticidade variável, I(x) é o momento de inércia variável e q(x) é o carregamento distribuído.</p>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1">Solução Analítica</h4>
-        <p class="text-gray-700">Disponível apenas para propriedades constantes (E e I constantes) e carregamento uniforme. Para propriedades variáveis, apenas o MEF fornece a solução numérica.</p>
+        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="desc.eq.title">Equação diferencial</h4>
+        <p class="text-gray-700"><span class="font-mono text-sm">EI(x) d⁴w/dx⁴ = q(x)</span>, <span data-i18n="desc.eq.text">onde w é o deslocamento vertical, E(x) é o módulo de elasticidade variável, I(x) é o momento de inércia variável e q(x) é o carregamento distribuído.</span></p>
+        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="desc.ana.title">Solução analítica</h4>
+        <p class="text-gray-700" data-i18n="desc.ana.text">Disponível apenas para propriedades constantes (E e I constantes) e carregamento uniforme. Para propriedades variáveis, apenas o MEF fornece a solução numérica.</p>
       </div>
 
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <div class="bg-white rounded-lg shadow p-5">
-          <h3 class="text-lg font-semibold text-blue-700 mb-4">Parâmetros</h3>
-          
+          <h3 class="text-lg font-semibold text-blue-700 mb-4" data-i18n="section.params">Parâmetros</h3>
+
           <!-- Casos Pré-definidos -->
           <div class="mb-4 p-3 bg-gray-50 rounded-lg">
-            <label for="preset_cases" class="block text-sm font-medium text-gray-700 mb-2">Casos Pré-definidos</label>
+            <label for="preset_cases" class="block text-sm font-medium text-gray-700 mb-2" data-i18n="input.preset_cases">Casos pré-definidos</label>
             <div class="flex gap-2">
               <select id="preset_cases" class="flex-1 rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                <option value="">Selecione um caso...</option>
-                <option value="concrete_beam">Viga de Concreto</option>
-                <option value="steel_beam">Viga de Aço</option>
-                <option value="cantilever_roof">Cobertura em Balanço</option>
-                <option value="bridge_beam">Viga de Ponte</option>
+                <option value="" data-i18n="option.preset_cases.none">Selecione um caso...</option>
+                <option value="concrete_beam" data-i18n="option.preset_cases.concrete_beam">Viga de concreto</option>
+                <option value="steel_beam" data-i18n="option.preset_cases.steel_beam">Viga de aço</option>
+                <option value="cantilever_roof" data-i18n="option.preset_cases.cantilever_roof">Cobertura em balanço</option>
+                <option value="bridge_beam" data-i18n="option.preset_cases.bridge_beam">Viga de ponte</option>
               </select>
-              <button id="loadCase" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded text-sm">Carregar</button>
+              <button id="loadCase" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded text-sm"><span data-i18n="btn.load_case">Carregar</span></button>
             </div>
           </div>
 
           <!-- Parâmetros Básicos -->
           <div class="space-y-3">
-            <div><label for="L" class="block text-sm font-medium text-gray-700">Comprimento (L) [m]</label><input type="number" id="L" value="2.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
-            <div><label for="nel" class="block text-sm font-medium text-gray-700">Número de elementos</label><input type="number" id="nel" value="20" min="2" step="1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
-            
+            <div><label for="L" class="block text-sm font-medium text-gray-700" data-i18n="input.L">Comprimento (L) [m]</label><input type="number" id="L" value="2.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
+            <div><label for="nel" class="block text-sm font-medium text-gray-700" data-i18n="input.nel">Número de elementos</label><input type="number" id="nel" value="20" min="2" step="1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
+
             <!-- Propriedades Materiais -->
             <div class="grid grid-cols-2 gap-3">
-              <div><label for="E" class="block text-sm font-medium text-gray-700">E [GPa]</label><input type="number" id="E" value="200.0" step="1.0" min="1.0" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
-              <div><label for="I" class="block text-sm font-medium text-gray-700">I [cm⁴]</label><input type="number" id="I" value="1000.0" step="10.0" min="1.0" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
+              <div><label for="E" class="block text-sm font-medium text-gray-700" data-i18n="input.E">E [GPa]</label><input type="number" id="E" value="200.0" step="1.0" min="1.0" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
+              <div><label for="I" class="block text-sm font-medium text-gray-700" data-i18n="input.I">I [cm⁴]</label><input type="number" id="I" value="1000.0" step="10.0" min="1.0" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
             </div>
-            
+
             <!-- Carregamento -->
-            <div><label for="q" class="block text-sm font-medium text-gray-700">Magnitude do Carregamento [kN/m]</label><input type="number" id="q" value="10.0" step="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
-            
+            <div><label for="q" class="block text-sm font-medium text-gray-700" data-i18n="input.q">Magnitude do carregamento [kN/m]</label><input type="number" id="q" value="10.0" step="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" /></div>
+
             <!-- Tipo de Carregamento -->
             <div>
-              <label for="load_type" class="block text-sm font-medium text-gray-700">Tipo de Carregamento</label>
+              <label for="load_type" class="block text-sm font-medium text-gray-700" data-i18n="input.load_type">Tipo de carregamento</label>
               <select id="load_type" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                <option value="uniform">Uniforme</option>
-                <option value="linear">Linear</option>
-                <option value="triangular">Triangular</option>
-                <option value="sinusoidal">Senoidal</option>
-                <option value="point">Pontual</option>
+                <option value="uniform" data-i18n="option.load_type.uniform">Uniforme</option>
+                <option value="linear" data-i18n="option.load_type.linear">Linear</option>
+                <option value="triangular" data-i18n="option.load_type.triangular">Triangular</option>
+                <option value="sinusoidal" data-i18n="option.load_type.sinusoidal">Senoidal</option>
+                <option value="point" data-i18n="option.load_type.point">Pontual</option>
               </select>
             </div>
-            
+
             <!-- Condições de Contorno -->
             <div>
-              <label for="bc_type" class="block text-sm font-medium text-gray-700">Condições de Contorno</label>
+              <label for="bc_type" class="block text-sm font-medium text-gray-700" data-i18n="input.bc_type">Condições de contorno</label>
               <select id="bc_type" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                <option value="simply_supported">Simplesmente Apoiada</option>
-                <option value="cantilever">Em Balanço</option>
-                <option value="fixed_fixed">Engastada-Engastada</option>
-                <option value="fixed_supported">Engastada-Apoiada</option>
+                <option value="simply_supported" data-i18n="option.bc_type.simply_supported">Simplesmente apoiada</option>
+                <option value="cantilever" data-i18n="option.bc_type.cantilever">Em balanço</option>
+                <option value="fixed_fixed" data-i18n="option.bc_type.fixed_fixed">Engastada-engastada</option>
+                <option value="fixed_supported" data-i18n="option.bc_type.fixed_supported">Engastada-apoiada</option>
               </select>
             </div>
-            
+
             <!-- Propriedades Variáveis -->
             <div>
-              <label for="prop_type" class="block text-sm font-medium text-gray-700">Propriedades Materiais</label>
+              <label for="prop_type" class="block text-sm font-medium text-gray-700" data-i18n="input.prop_type">Propriedades materiais</label>
               <select id="prop_type" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                <option value="constant">Constante</option>
-                <option value="linear">Linear</option>
-                <option value="parabolic">Parabólica</option>
+                <option value="constant" data-i18n="option.prop_type.constant">Constante</option>
+                <option value="linear" data-i18n="option.prop_type.linear">Linear</option>
+                <option value="parabolic" data-i18n="option.prop_type.parabolic">Parabólica</option>
               </select>
             </div>
-            
+
             <!-- Opções -->
             <div class="flex items-center">
               <input type="checkbox" id="show_analytical" class="rounded border-gray-300 text-blue-600 focus:ring-blue-500" checked />
-              <label for="show_analytical" class="ml-2 text-sm text-gray-700">Mostrar solução analítica</label>
+              <label for="show_analytical" class="ml-2 text-sm text-gray-700" data-i18n="input.show_analytical">Mostrar solução analítica</label>
             </div>
-            <p class="text-xs text-gray-500 mt-1">💡 Disponível apenas para propriedades constantes e carregamento uniforme</p>
+            <p class="text-xs text-gray-500 mt-1" data-i18n="note.analytical_only">Disponível apenas para propriedades constantes e carregamento uniforme</p>
           </div>
-          
+
           <div class="flex gap-3 mt-5">
             <button id="run-btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded"><span data-i18n="btn.run">Executar</span></button>
             <button id="show-code-btn" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
@@ -117,11 +118,11 @@
         </div>
 
         <div class="lg:col-span-3 bg-white rounded-lg shadow p-5">
-          <h3 class="text-lg font-semibold text-blue-700 mb-4">Resultados da Análise</h3>
+          <h3 class="text-lg font-semibold text-blue-700 mb-4" data-i18n="result.title">Resultados da análise</h3>
           <div class="mb-3 text-sm text-gray-600">
-            <p><strong>Análise completa:</strong> Deslocamentos, carregamento, propriedades materiais, momentos fletores e esforços cortantes</p>
+            <p><strong><span data-i18n="result.note.full.label">Análise completa</span>:</strong> <span data-i18n="result.note.full">Deslocamentos, carregamento, propriedades materiais, momentos fletores e esforços cortantes</span></p>
           </div>
-          <div id="plot-output" class="w-full min-h-[900px] bg-gray-50 rounded flex items-center justify-center text-gray-500">Clique em "Rodar Simulação" para iniciar</div>
+          <div id="plot-output" class="w-full min-h-[900px] bg-gray-50 rounded flex items-center justify-center text-gray-500"></div>
         </div>
       </div>
     </div>

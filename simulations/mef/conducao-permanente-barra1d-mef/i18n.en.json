@@ -1,0 +1,11 @@
+{
+  "title": "1D Steady Conduction (FEM)",
+  "desc.intro": "We solve problem 5.2.2 (course notes): one-dimensional steady heat conduction with internal heat generation and prescribed temperatures at both ends.",
+  "desc.method": "1D Finite Element Method (FEM) with linear elements. Assembly of the global stiffness matrix, source vector with internal generation, and imposition of essential (Dirichlet) boundary conditions. We compare with the analytical solution.",
+  "input.L": "Length (L) [m]",
+  "input.nel": "Number of elements",
+  "input.T0": "T(0) [°C]",
+  "input.TL": "T(L) [°C]",
+  "input.k": "k [W/m·K]",
+  "input.Q": "Q (generation) [W/m³]"
+}

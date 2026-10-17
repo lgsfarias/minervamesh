@@ -25,7 +25,7 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 
 - [x] `assets/app.js`: cabeçalho, dialog de carga, dialog `sim-loading`, modal de código, rodapé, ícones SVG
 - [x] `assets/i18n/common.pt.json` e `common.en.json`
-- [~] Incluir `app.js` nas 10 páginas e no menu; remover markup duplicado (10 páginas feitas; menu fica para a etapa 3)
+- [x] Incluir `app.js` nas 10 páginas e no menu; remover markup duplicado (menu concluído na etapa 3, em 17/10/2026)
 - [x] Remover Font Awesome de todas as páginas
 - [x] Padronizar `<title>`, largura do container e padding do `<body>`
 - [x] Layout largo: `max-w-7xl` em todas e grade parâmetros/resultado 1/4 + 3/4 a partir de `lg` (decisão de 17/10/2026; passe de design completo fica para uma v1.2)
@@ -37,13 +37,15 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] Gráfico interativo nos 6 módulos estáticos (spec 4.2) via `assets/mmplot.py` compartilhado; `imageio` fora do `config.toml` deles; resultado numérico idêntico nos 6 (17/10/2026)
 - [x] CSS da toolbar e título da figura; `png` pré-selecionado (app.js)
 
-## Etapa 3 — i18n dos HTML (spec 5)
+## Etapa 3 — i18n dos HTML (spec 5) (concluída em 17/10/2026)
 
-- [ ] `data-i18n` nas 10 páginas e no menu
-- [ ] `i18n.pt.json` e `i18n.en.json` em cada módulo
-- [ ] Seletor PT | EN, `?lang=`, `localStorage`, `<html lang>` e `<title>` dinâmicos
-- [ ] Menu com linha de descrição por módulo, bilíngue
-- [ ] Aviso no modal de código de que os comentários estão em português
+- [x] `data-i18n` nas 10 páginas e no menu (texto traduzível e math/`<sub>`/`<strong>` em elementos separados, spec 5.2)
+- [x] `i18n.pt.json` e `i18n.en.json` em cada módulo (`data-mm-i18n` no body); paridade e cobertura verificadas por `scripts/i18n-check.mjs`
+- [x] Seletor PT | EN, `?lang=`, `localStorage`, `<html lang>` e `<title>` dinâmicos (modo menu no `app.js`: sem dialog de carga nem cabeçalho de módulo)
+- [x] Menu com linha de descrição por módulo, bilíngue (`menu.*` em `common.*.json`; cada linha confirmada contra o código do módulo)
+- [x] Aviso no modal de código de que os comentários estão em português (`code.comments_pt`)
+- [x] Revisão terminológica do EN por agente revisor independente (17/10/2026): 4 correções de termo (propped cantilever, fixed-pinned), SUPG com barra (Brooks & Hughes 1982), Navier-Stokes descrito como semi-implícito (confere com o código), demais ajustes de consistência. O autor não lê inglês; a revisão substitui a leitura dele
+- [x] `DEFAULT_LANG = "en"` em `assets/app.js`
 
 ## Etapa 4 — i18n dos `.py` (spec 5.2; commits separados)
 

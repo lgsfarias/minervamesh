@@ -1,0 +1,13 @@
+{
+  "title": "1D Transient Conduction (FEM)",
+  "desc.intro": "We solve the 1D transient heat conduction equation with the Finite Element Method and a variable thermal conductivity k(x). Boundary conditions: T(0,t) = 0 and T(L,t) = 1. Conductivity: k(x) = k₁ for x < L/2 and k(x) = k₂ for x ≥ L/2 (configurable).",
+  "desc.method": "We use the Finite Element Method (FEM) with uniformly spaced linear elements and Crank-Nicolson time integration. The number of elements is configurable, showing the flexibility of FEM in handling variable thermal conductivity. The analytical solution shown is for constant k(x) (a straight line), as a reference.",
+  "input.L": "Length (L)",
+  "input.k1": "Conductivity, first half (k₁)",
+  "input.k2": "Conductivity, second half (k₂)",
+  "input.n_elements": "Number of elements",
+  "input.rho_cp": "Density × specific heat (ρcₚ)",
+  "input.dt": "Time step (dt)",
+  "input.theta": "θ parameter (0 = explicit, 0.5 = Crank-Nicolson, 1 = implicit)",
+  "input.tmax": "Total time (s)"
+}

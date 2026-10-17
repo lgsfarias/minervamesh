@@ -1,0 +1,9 @@
+{
+  "title": "1D Steady Conduction with Internal Heat Generation (FDM)",
+  "img.alt": "Physical sketch of heat conduction in the bar",
+  "desc.intro": "This simulation solves one-dimensional heat conduction in a bar with internal heat generation, representing, for example, an electric heating element. The ends of the bar are kept at fixed temperatures (T = 0 and T = 1).",
+  "desc.method": "The numerical solution is obtained with the Finite Difference Method (FDM), which discretizes the bar into nodes and solves the resulting linear system for the temperature distribution.",
+  "input.nx": "Number of nodes:",
+  "input.alpha": "Coefficient α:",
+  "input.Q": "Heat generation (Q):"
+}

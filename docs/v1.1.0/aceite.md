@@ -113,6 +113,7 @@ intermediários não são guardados; só o veredito.
 |---|---|---|---|---|
 | 2 — camada compartilhada, ids novos, 10 páginas convertidas | 17/10/2026 | idênticas (10/10) | idêntico (10/10) | idêntico (10/10) |
 | 2b — gráfico interativo (6 estáticos), layout largo, tabela da vibração em HTML | 17/10/2026 | mudaram nos 6 interativos (esperado); idênticas nos 4 demais | mudou onde a figura virou canvas (título/toolbar entram no texto) | idêntico (10/10) |
+| 3 — i18n dos HTML (data-i18n, JSON por módulo, menu bilíngue); nenhum `.py` tocado | 17/10/2026 | idênticas às da 2b (10/10) | idêntico fora o prefixo título/toolbar dos 6 interativos e a tabela da vibração em HTML (mudanças da 2b); Python ainda escreve em PT | idêntico (10/10) |
 
 ## Armadilha: cache do browser
 

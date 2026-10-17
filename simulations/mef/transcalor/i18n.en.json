@@ -1,0 +1,13 @@
+{
+  "title": "2D Transient Conduction (FEM)",
+  "desc.intro": "This simulation represents transient heat conduction in a two-dimensional plate with fixed (Dirichlet) boundary conditions on the top and bottom edges. The temperature evolves in time until it reaches the steady state.",
+  "desc.method": "We use the Finite Element Method (FEM) with a Delaunay triangulation for the spatial discretization and the Crank-Nicolson method for time integration. The thermal properties of the material (k, ρ, cv) can be adjusted.",
+  "input.n_steps": "Number of time steps:",
+  "input.dt": "Time step (Δt):",
+  "input.Tbottom": "Bottom temperature",
+  "input.Ttop": "Top temperature",
+  "input.k": "Thermal conductivity (k):",
+  "input.rho": "Density (ρ):",
+  "input.cv": "Specific heat",
+  "result.title": "Heat map (GIF)"
+}

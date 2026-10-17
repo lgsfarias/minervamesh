@@ -1,0 +1,13 @@
+{
+  "title": "1D Wave Equation - Leapfrog (FDM)",
+  "desc.intro": "We solve the 1D wave equation with fixed ends (u = 0 at the boundaries) and configurable initial conditions. For the sinusoidal initial condition, the known analytical solution is used for comparison during the animation.",
+  "desc.method": "We use the explicit leapfrog scheme on a uniform grid; stability is controlled by the CFL number (dt = CFL·dx/c). The frames are rendered and combined into a GIF for viewing in the browser.",
+  "input.L": "Length (L)",
+  "input.nx": "Number of points (nx)",
+  "input.c": "Wave speed (c)",
+  "input.cfl": "CFL (≤ 1)",
+  "input.tmax": "Total time (s)",
+  "input.mode": "Initial condition",
+  "option.mode.senoide": "Fundamental sine mode",
+  "option.mode.pulso": "Localized pulse"
+}

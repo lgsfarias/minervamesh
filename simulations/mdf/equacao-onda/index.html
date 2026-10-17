@@ -13,49 +13,49 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m" crossorigin="anonymous"></script>
 </head>
-<body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="equacao-onda">
+<body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="equacao-onda" data-mm-i18n data-mm-title="title">
     <div id="mm-app" class="max-w-7xl mx-auto">
 
-        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Equação da Onda 1D - Leapfrog</h2>
+        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" data-i18n="title">Equação da Onda 1D - Leapfrog</h2>
 
         <div class="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
-            <h3 class="font-semibold text-lg text-blue-800 mb-2">Sobre o problema</h3>
-            <p class="text-gray-700 mb-2">Resolvemos a equação da onda 1D com extremidades fixas (u=0 nas fronteiras) e condições iniciais configuráveis.
+            <h3 class="font-semibold text-lg text-blue-800 mb-2" data-i18n="section.about">Sobre o problema</h3>
+            <p class="text-gray-700 mb-2" data-i18n="desc.intro">Resolvemos a equação da onda 1D com extremidades fixas (u=0 nas fronteiras) e condições iniciais configuráveis.
                 Para a condição inicial senoidal, a solução analítica conhecida é usada para comparação durante a animação.</p>
-            <h4 class="font-semibold text-blue-700 mt-4 mb-1">Método utilizado</h4>
-            <p class="text-gray-700">Utilizamos o esquema explícito leapfrog em malha uniforme; a estabilidade é controlada via número CFL (dt = CFL·dx/c).
+            <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="section.method">Método utilizado</h4>
+            <p class="text-gray-700" data-i18n="desc.method">Utilizamos o esquema explícito leapfrog em malha uniforme; a estabilidade é controlada via número CFL (dt = CFL·dx/c).
                 Os frames são renderizados e combinados em um GIF para visualização no navegador.</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <div class="bg-white rounded-lg shadow p-5">
-                <h3 class="text-lg font-semibold text-blue-700 mb-4">Parâmetros</h3>
+                <h3 class="text-lg font-semibold text-blue-700 mb-4" data-i18n="section.params">Parâmetros</h3>
                 <div class="space-y-3">
                     <div>
-                        <label for="L" class="block text-sm font-medium text-gray-700">Comprimento (L)</label>
+                        <label for="L" class="block text-sm font-medium text-gray-700" data-i18n="input.L">Comprimento (L)</label>
                         <input type="number" id="L" value="1.0" step="0.1" min="0.2" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="nx" class="block text-sm font-medium text-gray-700">Número de pontos (nx)</label>
+                        <label for="nx" class="block text-sm font-medium text-gray-700" data-i18n="input.nx">Número de pontos (nx)</label>
                         <input type="number" id="nx" value="201" min="21" step="20" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="c" class="block text-sm font-medium text-gray-700">Velocidade (c)</label>
+                        <label for="c" class="block text-sm font-medium text-gray-700" data-i18n="input.c">Velocidade (c)</label>
                         <input type="number" id="c" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="cfl" class="block text-sm font-medium text-gray-700">CFL (<=1)</label>
+                        <label for="cfl" class="block text-sm font-medium text-gray-700" data-i18n="input.cfl">CFL (≤ 1)</label>
                         <input type="number" id="cfl" value="0.9" step="0.05" min="0.1" max="1.0" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="tmax" class="block text-sm font-medium text-gray-700">Tempo total (s)</label>
+                        <label for="tmax" class="block text-sm font-medium text-gray-700" data-i18n="input.tmax">Tempo total (s)</label>
                         <input type="number" id="tmax" value="2.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
                     </div>
                     <div>
-                        <label for="mode" class="block text-sm font-medium text-gray-700">Condição inicial</label>
+                        <label for="mode" class="block text-sm font-medium text-gray-700" data-i18n="input.mode">Condição inicial</label>
                         <select id="mode" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500">
-                            <option value="senoide">Senoide fundamental</option>
-                            <option value="pulso">Pulso localizado</option>
+                            <option value="senoide" data-i18n="option.mode.senoide">Senoide fundamental</option>
+                            <option value="pulso" data-i18n="option.mode.pulso">Pulso localizado</option>
                         </select>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
             </div>
 
             <div class="lg:col-span-3 bg-white rounded-lg shadow p-5">
-                <h3 class="text-lg font-semibold text-blue-700 mb-4">Resultado</h3>
+                <h3 class="text-lg font-semibold text-blue-700 mb-4" data-i18n="section.result">Resultado</h3>
                 <div id="plot-output" class="w-full min-h-[360px] bg-gray-50 rounded flex items-center justify-center text-gray-500"></div>
             </div>
         </div>
@@ -75,4 +75,3 @@
     <script type="py" src="simulation.py" config="config.toml"></script>
 </body>
 </html>
-

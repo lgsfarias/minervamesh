@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -16,29 +16,29 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m" crossorigin="anonymous"></script>
   </head>
-  <body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="conducao-permanente-barra1d-geracao">
+  <body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="conducao-permanente-barra1d-geracao" data-mm-i18n data-mm-title="title">
     <div id="mm-app" class="max-w-7xl mx-auto">
-      <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">
+      <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center" data-i18n="title">
         Condução Permanente - Barra 1D com Geração Interna
       </h2>
       <div class="flex justify-center mb-8">
         <img
           src="../../../assets/conducao_esquema.png"
           alt="Esquema físico da condução de calor"
+          data-i18n-attr="alt:img.alt"
           class="max-w-3xl w-full rounded shadow"
         />
       </div>
       <div class="mb-8 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
-        <h3 class="font-semibold text-lg text-blue-800 mb-2">Sobre o problema</h3>
-        <p class="text-gray-700 mb-2">
+        <h3 class="font-semibold text-lg text-blue-800 mb-2" data-i18n="section.about">Sobre o problema</h3>
+        <p class="text-gray-700 mb-2" data-i18n="desc.intro">
           Esta simulação resolve o problema de condução de calor unidimensional em uma barra com
           geração interna de calor, representando, por exemplo, uma resistência elétrica. As
-          extremidades da barra são mantidas em temperaturas fixas (<strong>T=0</strong> e
-          <strong>T=1</strong>).
+          extremidades da barra são mantidas em temperaturas fixas (T = 0 e T = 1).
         </p>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1">Método utilizado</h4>
-        <p class="text-gray-700">
-          A solução numérica é obtida pelo <strong>Método das Diferenças Finitas (MDF)</strong>, que
+        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="section.method">Método utilizado</h4>
+        <p class="text-gray-700" data-i18n="desc.method">
+          A solução numérica é obtida pelo Método das Diferenças Finitas (MDF), que
           discretiza a barra em vários nós e resolve o sistema linear resultante para encontrar a
           distribuição de temperatura.
         </p>
@@ -46,7 +46,7 @@
       <div id="controls" class="bg-white rounded-lg shadow-md p-6 mb-8">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div class="flex flex-col">
-            <label for="nx" class="text-sm font-medium text-gray-700 mb-1">Número de Nós:</label>
+            <label for="nx" class="text-sm font-medium text-gray-700 mb-1" data-i18n="input.nx">Número de Nós:</label>
             <input
               type="number"
               id="nx"
@@ -56,7 +56,7 @@
             />
           </div>
           <div class="flex flex-col">
-            <label for="alpha" class="text-sm font-medium text-gray-700 mb-1">Alpha:</label>
+            <label for="alpha" class="text-sm font-medium text-gray-700 mb-1" data-i18n="input.alpha">Alpha:</label>
             <input
               type="number"
               id="alpha"
@@ -66,9 +66,7 @@
             />
           </div>
           <div class="flex flex-col">
-            <label for="Q" class="text-sm font-medium text-gray-700 mb-1"
-              >Geração de Calor (Q):</label
-            >
+            <label for="Q" class="text-sm font-medium text-gray-700 mb-1" data-i18n="input.Q">Geração de Calor (Q):</label>
             <input
               type="number"
               id="Q"
@@ -90,7 +88,7 @@
         </div>
       </div>
       <div class="bg-white rounded-lg shadow-md p-6">
-        <h3 class="text-lg font-semibold text-blue-700 mb-4">Resultado</h3>
+        <h3 class="text-lg font-semibold text-blue-700 mb-4" data-i18n="section.result">Resultado</h3>
         <div id="plot-output" class="w-full min-h-[360px] bg-gray-50 rounded flex flex-col items-center justify-center text-gray-500"></div>
       </div>
     </div>
@@ -98,4 +96,3 @@
     <script type="py" src="simulation.py" config="config.toml"></script>
 </body>
 </html>
-

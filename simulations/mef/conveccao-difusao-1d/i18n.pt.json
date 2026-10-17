@@ -1,0 +1,18 @@
+{
+  "title": "Convecção-Difusão 1D Permanente (MEF)",
+  "desc.intro": "Resolvemos o problema 5.2.4 (apostila) de convecção-difusão térmica unidimensional em regime permanente. A equação governante é:",
+  "desc.method": "Método dos Elementos Finitos (MEF) 1D com elementos lineares. Inclui estabilização SUPG (Streamline Upwind/Petrov-Galerkin) para problemas com alta convecção (número de Péclet elevado).",
+  "desc.param.k": "condutividade térmica",
+  "desc.param.rho_cp": "densidade × calor específico",
+  "desc.param.u": "velocidade de convecção",
+  "desc.param.Q": "geração interna de calor",
+  "input.L": "Comprimento (L) [m]",
+  "input.nel": "Número de elementos",
+  "input.T0": "T(0) [°C]",
+  "input.TL": "T(L) [°C]",
+  "input.k": "k [W/m·K]",
+  "input.rho_cp": "ρcp [J/m³·K]",
+  "input.u": "u [m/s]",
+  "input.Q": "Q [W/m³]",
+  "input.use_supg": "Usar estabilização SUPG"
+}

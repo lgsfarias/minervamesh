@@ -1,0 +1,11 @@
+{
+  "title": "Condução Permanente 1D (MEF)",
+  "desc.intro": "Resolvemos o problema 5.2.2 (apostila) de condução térmica unidimensional em regime permanente com geração interna e temperaturas prescritas nas extremidades.",
+  "desc.method": "Método dos Elementos Finitos (MEF) 1D com elementos lineares. Montagem da matriz de rigidez global, vetor de fontes com geração interna e imposição de contorno essencial (Dirichlet). Comparamos com a solução analítica.",
+  "input.L": "Comprimento (L) [m]",
+  "input.nel": "Número de elementos",
+  "input.T0": "T(0) [°C]",
+  "input.TL": "T(L) [°C]",
+  "input.k": "k [W/m·K]",
+  "input.Q": "Q (geração) [W/m³]"
+}

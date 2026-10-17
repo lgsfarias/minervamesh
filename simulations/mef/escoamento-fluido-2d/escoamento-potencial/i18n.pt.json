@@ -1,0 +1,23 @@
+{
+  "title": "Escoamento Potencial 2D (MEF)",
+  "desc.intro": "Resolvemos o problema de escoamento potencial incompressível e irrotacional em 2D. A equação governante é a equação de Laplace para a função corrente",
+  "desc.method": "Método dos Elementos Finitos (MEF) com elementos triangulares lineares.",
+  "desc.param.rho": "Densidade do fluido",
+  "desc.param.uinf": "Velocidade do escoamento livre",
+  "desc.param.LH": "Dimensões do domínio",
+  "input.geo_type": "Tipo de obstrução:",
+  "option.geo_type.cylinder": "Cilindro",
+  "option.geo_type.airfoil": "Aerofólio (NACA 0012)",
+  "option.geo_type.naca4412": "Aerofólio (NACA 4412)",
+  "input.rho": "Densidade (ρ) [kg/m³]:",
+  "input.v_inf": "Velocidade (U∞) [m/s]:",
+  "input.L": "Comprimento (L) [m]:",
+  "input.H": "Altura (H) [m]:",
+  "input.cx": "Centro X [m]:",
+  "input.cy": "Centro Y [m]:",
+  "input.r": "Raio (r) [m]:",
+  "input.chord": "Corda [m]:",
+  "input.angle_airfoil": "Ângulo de ataque (°):",
+  "input.nx": "Nós em X:",
+  "input.ny": "Nós em Y:"
+}

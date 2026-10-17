@@ -1,0 +1,23 @@
+{
+  "title": "2D Potential Flow (FEM)",
+  "desc.intro": "We solve the 2D incompressible, irrotational potential flow problem. The governing equation is the Laplace equation for the stream function",
+  "desc.method": "Finite Element Method (FEM) with linear triangular elements.",
+  "desc.param.rho": "Fluid density",
+  "desc.param.uinf": "Free-stream velocity",
+  "desc.param.LH": "Domain dimensions",
+  "input.geo_type": "Obstacle type:",
+  "option.geo_type.cylinder": "Cylinder",
+  "option.geo_type.airfoil": "Airfoil (NACA 0012)",
+  "option.geo_type.naca4412": "Airfoil (NACA 4412)",
+  "input.rho": "Density (ρ) [kg/m³]:",
+  "input.v_inf": "Free-stream velocity (U∞) [m/s]:",
+  "input.L": "Length (L) [m]:",
+  "input.H": "Height (H) [m]:",
+  "input.cx": "Center X [m]:",
+  "input.cy": "Center Y [m]:",
+  "input.r": "Radius (r) [m]:",
+  "input.chord": "Chord [m]:",
+  "input.angle_airfoil": "Angle of attack (°):",
+  "input.nx": "Nodes in X:",
+  "input.ny": "Nodes in Y:"
+}

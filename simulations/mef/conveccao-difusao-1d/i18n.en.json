@@ -1,0 +1,18 @@
+{
+  "title": "1D Steady Convection-Diffusion (FEM)",
+  "desc.intro": "We solve problem 5.2.4 (course notes): one-dimensional steady thermal convection-diffusion. The governing equation is:",
+  "desc.method": "1D Finite Element Method (FEM) with linear elements. Includes SUPG (Streamline Upwind/Petrov-Galerkin) stabilization for convection-dominated problems (high Péclet number).",
+  "desc.param.k": "thermal conductivity",
+  "desc.param.rho_cp": "density × specific heat",
+  "desc.param.u": "convection velocity",
+  "desc.param.Q": "internal heat generation",
+  "input.L": "Length (L) [m]",
+  "input.nel": "Number of elements",
+  "input.T0": "T(0) [°C]",
+  "input.TL": "T(L) [°C]",
+  "input.k": "k [W/m·K]",
+  "input.rho_cp": "ρcp [J/m³·K]",
+  "input.u": "u [m/s]",
+  "input.Q": "Q [W/m³]",
+  "input.use_supg": "Use SUPG stabilization"
+}

@@ -1,0 +1,13 @@
+{
+  "title": "Equação da Onda 1D - Leapfrog (MDF)",
+  "desc.intro": "Resolvemos a equação da onda 1D com extremidades fixas (u = 0 nas fronteiras) e condições iniciais configuráveis. Para a condição inicial senoidal, a solução analítica conhecida é usada para comparação durante a animação.",
+  "desc.method": "Utilizamos o esquema explícito leapfrog em malha uniforme; a estabilidade é controlada pelo número CFL (dt = CFL·dx/c). Os quadros são renderizados e combinados em um GIF para visualização no navegador.",
+  "input.L": "Comprimento (L)",
+  "input.nx": "Número de pontos (nx)",
+  "input.c": "Velocidade (c)",
+  "input.cfl": "CFL (≤ 1)",
+  "input.tmax": "Tempo total (s)",
+  "input.mode": "Condição inicial",
+  "option.mode.senoide": "Senoide fundamental",
+  "option.mode.pulso": "Pulso localizado"
+}

@@ -11,6 +11,11 @@
  *   <body data-mm-module="<nome da pasta>" [data-mm-sibling="<href>|<chave nav.goto.*>"]>
  *     <div id="mm-app" class="max-w-5xl mx-auto"> … conteúdo do módulo … </div>
  *   Ids esperados no conteúdo: #run-btn, #show-code-btn, #plot-output.
+ *   Strings do módulo: <body data-mm-i18n data-mm-title="title"> carrega ./i18n.<lang>.json
+ *   (chaves do módulo têm precedência sobre as de assets/i18n/common.<lang>.json).
+ *
+ * Menu (index.html da raiz): página sem <script type="py">. Recebe só strings,
+ * seletor de idioma (em #mm-lang-slot) e rodapé; sem dialogs nem cabeçalho de módulo.
  *
  * Contrato com o Python (simulation.py):
  *   document.getElementById("sim-loading").showModal() / .close()
@@ -18,7 +23,7 @@
  */
 
 const ROOT = new URL("../", import.meta.url); // app.js vive em assets/
-const DEFAULT_LANG = "pt"; // etapa 3 da v1.1.0 troca para "en"
+const DEFAULT_LANG = "en"; // inglês por padrão (spec 5.1); ?lang=pt ou o seletor trocam
 const LANGS = ["pt", "en"];
 const LS_LANG = "minervamesh.lang";
 
@@ -151,6 +156,14 @@ function injectDialogs() {
   }
 }
 
+function langSwitcher() {
+  const sw = el(`<div class="mm-lang flex items-center gap-1" role="group" data-i18n-attr="aria-label:lang.label">
+        <button type="button" data-lang="pt">PT</button><span class="text-gray-300">|</span><button type="button" data-lang="en">EN</button>
+      </div>`);
+  sw.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
+  return sw;
+}
+
 function injectHeader(app) {
   const sibling = document.body.dataset.mmSibling; // "href|chave"
   let siblingHtml = "";
@@ -170,18 +183,18 @@ function injectHeader(app) {
             ${siblingHtml}
           </nav>
           <div class="flex items-center gap-5">
-            <div class="mm-lang flex items-center gap-1" role="group" data-i18n-attr="aria-label:lang.label">
-              <button type="button" data-lang="pt">PT</button><span class="text-gray-300">|</span><button type="button" data-lang="en">EN</button>
-            </div>
             <img src="${logo}" class="h-10 w-auto opacity-80" data-i18n-attr="alt:logo.alt" />
           </div>
         </header>`)
   );
-  app.querySelectorAll(".mm-lang button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
+  app.querySelector("header > div").prepend(langSwitcher());
 }
 
 function injectFooter(app) {
-  app.after(
+  // No menu o #mm-app fica dentro de uma linha flex centralizada; o rodapé vai no body (flex-col).
+  const anchor = document.querySelector('script[type="py"]') ? app : document.body;
+  const place = (node) => (anchor === app ? app.after(node) : document.body.append(node));
+  place(
     el(`<footer class="mt-8 w-full pb-6 text-center text-sm text-gray-500 opacity-80">
           <span data-i18n="site.name"></span> &middot; <span data-i18n="footer.developed_by"></span> &middot;
           <a href="https://github.com/lgsfarias/minervamesh" class="underline hover:text-gray-700" data-i18n="footer.source"></a>
@@ -197,6 +210,7 @@ function injectCodeModal() {
           <h3 class="text-xl font-bold text-gray-800" data-i18n="code.title"></h3>
           <button id="closeModalBtn" type="button" class="text-gray-500 hover:text-gray-800" data-i18n-attr="aria-label:code.close">${ICONS.close}</button>
         </div>
+        <p class="mb-3 text-sm text-gray-500" data-i18n="code.comments_pt"></p>
         <pre class="text-sm"><code class="language-python" id="sourceCode"></code></pre>
       </div>
     </div>`);
@@ -251,6 +265,7 @@ function decorateButtons() {
 // ---------------------------------------------------------------------------
 async function boot() {
   const app = document.getElementById("mm-app");
+  if (!document.querySelector('script[type="py"]')) return bootMenu();
   injectDialogs();
   // Backend interativo do Matplotlib (plt.show()) desenha dentro deste elemento em vez do body
   const out = document.getElementById("plot-output");
@@ -280,12 +295,24 @@ async function boot() {
     if (loading.open) loading.close();
     const out = document.getElementById("plot-output");
     if (out && out.textContent.trim() === "" && out.children.length === 0) {
-      out.textContent = t("output.placeholder");
+      const ph = document.createElement("span");
+      ph.dataset.i18n = "output.placeholder";
+      ph.textContent = t("output.placeholder");
+      out.append(ph);
     }
   };
   if (window.__pyReadyFired) onReady();
   else addEventListener("py:ready", onReady, { once: true });
   if (!window.__pyReadyFired && !loading.open) loading.showModal();
+}
+
+// Menu: sem PyScript, logo sem dialog de carga nem cabeçalho de módulo.
+async function bootMenu() {
+  document.getElementById("mm-lang-slot")?.append(langSwitcher());
+  const app = document.getElementById("mm-app");
+  if (app) injectFooter(app);
+  await loadStrings(lang);
+  applyStrings();
 }
 
 // O listener é registrado no carregamento do módulo (antes do core.js) para

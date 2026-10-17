@@ -1,0 +1,13 @@
+{
+  "title": "Condução Transiente 2D (MEF)",
+  "desc.intro": "Esta simulação representa a condução transiente de calor em uma placa bidimensional com condições de contorno fixas (Dirichlet) nas bordas superior e inferior. A temperatura evolui ao longo do tempo até atingir o regime permanente.",
+  "desc.method": "Utilizamos o Método dos Elementos Finitos (MEF) com triangulação de Delaunay para a discretização espacial e o método de Crank-Nicolson para a integração temporal. As propriedades térmicas do material (k, ρ, cv) podem ser ajustadas.",
+  "input.n_steps": "Número de passos de tempo:",
+  "input.dt": "Passo de tempo (Δt):",
+  "input.Tbottom": "Temperatura inferior",
+  "input.Ttop": "Temperatura superior",
+  "input.k": "Condutividade térmica (k):",
+  "input.rho": "Densidade (ρ):",
+  "input.cv": "Calor específico",
+  "result.title": "Mapa de calor (GIF)"
+}

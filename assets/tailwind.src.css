@@ -24,6 +24,10 @@
   .mm-lang button[aria-pressed="true"] {
     @apply text-blue-700;
   }
+  /* Menu: link com título e uma linha de descrição */
+  .mm-menu-link {
+    @apply block w-full rounded-md bg-indigo-600 px-4 py-3 text-left text-white transition hover:bg-indigo-700;
+  }
 }
 
 /* Figura interativa do Matplotlib (backend webagg do Pyodide) dentro de #plot-output.
