@@ -42,6 +42,13 @@ const appKeys = keysInHtml(appJs);
 for (const m of appJs.matchAll(/\b(?:t|fmt)\("([^"]+)"/g)) appKeys.add(m[1]);
 for (const m of appJs.matchAll(/setRunBusy\(true, "([^"]+)"/g)) appKeys.add(m[1]);
 for (const m of appJs.matchAll(/dataset\.i18n = "([^"]+)"/g)) appKeys.add(m[1]);
+// v1.2.0: chaves escolhidas em tempo de execução (botão de tema: "nav.theme.light" / "nav.theme.dark" como literais)
+for (const m of appJs.matchAll(/"((?:nav|menu|result|tab|summary|code)\.[a-z0-9_.-]+)"/g)) appKeys.add(m[1]);
+// v1.2.0: cards do menu montados a partir de assets/menu.json (buildMenu em app.js)
+const menu = JSON.parse(readFileSync(join(ROOT, "assets/menu.json"), "utf8"));
+for (const mod of menu.modules) {
+  for (const k of [`menu.${mod.id}.title`, `menu.${mod.id}.desc`, `menu.tag.${mod.method}`, `menu.tag.${mod.dim}`, `menu.tag.${mod.regime}`]) appKeys.add(k);
+}
 
 let errors = 0;
 const usedCommon = new Set(appKeys);

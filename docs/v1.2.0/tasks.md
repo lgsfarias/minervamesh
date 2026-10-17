@@ -63,12 +63,15 @@ Branch de trabalho: `feat/v1.2.0`. Nenhum commit sem autorização do autor.
 - [ ] Grupo Run/Stop + `#mm-status` em `#mm-runbar` fixo no rodapé da tela (ids preservados)
 - [ ] Alvos de toque ≥ 44 px; inputs em duas colunas; sem rolagem horizontal a 390 px nas 10 páginas
 
-## Etapa 7 — Menu (spec 6)
+## Etapa 7 — Menu (spec 6) (adiantada a pedido do autor; concluída em 17/10/2026)
 
-- [ ] `index.html` novo: hero com lockup, chips, contêiner da grade, `<noscript>` com os links, rodapé
-- [ ] `assets/menu.json` (id, path, method, dim, regime) e montagem dos cards no `bootMenu()`; `scripts/thumbs.mjs` e `scripts/baseline.mjs` lendo a mesma lista
-- [ ] Miniaturas em `assets/thumbs/`
-- [ ] Filtro por método com `aria-pressed`
+- [x] `index.html` novo: hero com lockup, chips, contêiner da grade, `<noscript>` com os 10 links; cabeçalho (variante menu, sem navegação) e rodapé vêm do `app.js`
+- [x] `buildMenu()` no `app.js` monta os cards a partir de `assets/menu.json`; componentes `.mm-chip`, `.mm-card`, `.mm-tag` no CSS; chaves `menu.hero.*`, `menu.filter.*`, `menu.note`, `menu.tag.*` (PT/EN); `menu.subtitle`, `menu.choose`, `menu.mdf`, `menu.mef` removidas
+- [-] `scripts/baseline.mjs` lendo `assets/menu.json`: fica como está (tem campos próprios, `legacy`, `extraText`); só `thumbs.mjs` e `shots.mjs` leem o JSON
+- [x] Miniaturas em `assets/thumbs/` (etapa 1)
+- [x] Filtro por método com `aria-pressed`
+- [x] Conferido a 1440 (5 colunas), 820 (3 colunas, último card sozinho) e 390 (cards horizontais), claro e escuro (`docs/v1.2.0/shots/etapa7/`)
+- [x] Ajustes do autor (17/10/2026): sem a frase "Cada caso compara…" ao lado dos chips (`menu.note` removida) e sem a marca no cabeçalho do menu, porque o hero já tem o lockup grande
 
 ## Etapa 8 — i18n (spec 7)
 

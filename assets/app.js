@@ -205,9 +205,22 @@ function brand() {
 
 // Cabeçalho das páginas de simulação (v1.2.0, spec 5.1): barra de largura total no topo do body,
 // com a marca, "Todas as simulações", o irmão (escoamentos), PT | EN, tema e GitHub.
-function injectHeader() {
+function injectHeader({ menu: isMenu = false } = {}) {
   const sibling = document.body.dataset.mmSibling; // "href|chave"
   let siblingHtml = "";
+  if (isMenu) {
+    // Sem a marca: o hero logo abaixo já tem o lockup grande (decisão do autor, 17/10/2026)
+    const header = el(`<header class="border-b border-mm-border bg-mm-surface">
+          <div class="mx-auto flex min-h-[56px] max-w-[1360px] flex-wrap items-center justify-end gap-x-4 gap-y-1 px-4 md:px-6">
+            <div class="flex items-center gap-3">
+              <a href="${GITHUB}" class="flex min-h-[44px] items-center gap-1.5 text-sm font-medium text-mm-accent hover:text-mm-accent-strong">GitHub ${ICONS.external}</a>
+            </div>
+          </div>
+        </header>`);
+    header.querySelector("div > div").prepend(langSwitcher(), themeButton());
+    document.body.prepend(header);
+    return;
+  }
   if (sibling) {
     const [href, key] = sibling.split("|");
     siblingHtml = `<span class="text-mm-border" aria-hidden="true">|</span>
@@ -590,8 +603,45 @@ async function boot() {
 }
 
 // Menu: sem PyScript, logo sem dialog de carga nem cabeçalho de módulo.
+// Cards do menu (v1.2.0, spec 6): um por módulo de assets/menu.json; título e descrição
+// pelas chaves menu.<id>.title/.desc; miniatura em assets/thumbs/<id>-sm.png (scripts/thumbs.mjs).
+async function buildMenu() {
+  const grid = document.getElementById("mm-grid");
+  if (!grid) return;
+  const data = await fetchJson(new URL("assets/menu.json", ROOT));
+  for (const m of data.modules || []) {
+    const href = new URL(m.path, ROOT);
+    const img = new URL(`assets/thumbs/${m.id}-sm.png`, ROOT);
+    grid.append(
+      el(`<a href="${href}" class="mm-card" data-method="${m.method}">
+          <div class="mm-card-thumb"><img src="${img}" alt="" width="480" height="360" loading="lazy" /></div>
+          <div class="mm-card-body">
+            <div class="flex flex-wrap gap-1.5">
+              <span class="mm-tag mm-tag-${m.method}" data-i18n="menu.tag.${m.method}"></span>
+              <span class="mm-tag" data-i18n="menu.tag.${m.dim}"></span>
+              <span class="mm-tag" data-i18n="menu.tag.${m.regime}"></span>
+            </div>
+            <h2 class="mm-card-title" data-i18n="menu.${m.id}.title"></h2>
+            <p class="mm-card-desc" data-i18n="menu.${m.id}.desc"></p>
+          </div>
+        </a>`)
+    );
+  }
+  // Chips: filtram por método; aria-pressed marca o ativo
+  const chips = [...document.querySelectorAll("#mm-filters .mm-chip")];
+  for (const chip of chips) {
+    chip.addEventListener("click", () => {
+      const method = chip.dataset.method;
+      chips.forEach((c) => c.setAttribute("aria-pressed", String(c === chip)));
+      grid.querySelectorAll(".mm-card").forEach((card) => card.classList.toggle("hidden", method !== "all" && card.dataset.method !== method));
+    });
+  }
+}
+
 async function bootMenu() {
-  document.getElementById("mm-lang-slot")?.append(langSwitcher(), themeButton());
+  document.body.classList.add("flex", "flex-col");
+  injectHeader({ menu: true });
+  await buildMenu();
   injectFooter();
   await loadStrings(lang);
   applyStrings();

@@ -93,9 +93,46 @@
   .mm-lang button[aria-pressed="true"] {
     @apply text-mm-accent;
   }
-  /* Menu: link com título e uma linha de descrição */
-  .mm-menu-link {
-    @apply block w-full rounded-md bg-mm-accent px-4 py-3 text-left text-mm-on-accent transition hover:bg-mm-accent-strong;
+  /* Menu (v1.2.0, spec 6): chips de filtro, cards e badges */
+  .mm-chip {
+    @apply inline-flex min-h-[40px] items-center gap-2 rounded-full border border-mm-border bg-mm-surface px-4 text-sm font-medium text-mm-text hover:border-mm-accent;
+  }
+  .mm-chip[aria-pressed="true"] {
+    @apply border-mm-text bg-mm-text text-mm-bg;
+  }
+  .mm-chip-n {
+    @apply font-mono text-xs opacity-75;
+  }
+  /* Card: miniatura e texto em flex-wrap; vertical no desktop, horizontal no celular, sem media query */
+  .mm-card {
+    @apply flex flex-wrap overflow-hidden rounded-[10px] border border-mm-border bg-mm-surface text-mm-text transition hover:border-mm-accent hover:shadow-[0_4px_18px_rgba(21,24,29,0.08)];
+  }
+  .mm-card-thumb {
+    @apply aspect-[4/3] flex-[1_1_140px] overflow-hidden border-b border-mm-border bg-mm-plate;
+  }
+  .mm-card-thumb img {
+    @apply block h-full w-full object-cover object-top;
+  }
+  .mm-card-body {
+    @apply flex min-w-0 flex-[999_1_160px] flex-col gap-2 px-4 pb-4 pt-3.5;
+  }
+  .mm-card-title {
+    @apply text-[15.5px] font-semibold leading-tight tracking-tight;
+  }
+  .mm-card:hover .mm-card-title {
+    @apply text-mm-accent;
+  }
+  .mm-card-desc {
+    @apply line-clamp-3 text-[13px] leading-snug text-mm-muted;
+  }
+  .mm-tag {
+    @apply rounded border border-mm-border px-1.5 py-0.5 font-mono text-[11px] tracking-wide text-mm-muted;
+  }
+  .mm-tag-fem {
+    @apply border-transparent bg-mm-fem-bg font-medium text-mm-fem-fg;
+  }
+  .mm-tag-fdm {
+    @apply border-transparent bg-mm-fdm-bg font-medium text-mm-fdm-fg;
   }
 }
 

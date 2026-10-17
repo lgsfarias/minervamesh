@@ -11,67 +11,43 @@
   <script type="module" src="assets/app.js"></script>
 </head>
 
-<body class="bg-mm-surface2 min-h-screen flex flex-col justify-between relative" data-mm-title="menu.title">
-  <div class="flex-1 flex items-center justify-center px-4 py-16">
-    <div id="mm-app" class="max-w-2xl w-full bg-mm-surface rounded-xl shadow-md p-8 border border-mm-border">
-      <div id="mm-lang-slot" class="-mr-2 -mt-2 flex items-center justify-end gap-2 text-sm"></div>
-      <h1 class="text-3xl font-semibold text-center text-mm-text tracking-tight" data-i18n="site.name">MinervaMesh</h1>
-      <p class="text-center text-mm-muted mt-2" data-i18n="menu.subtitle">Simulações numéricas com uma interface simples e consistente.</p>
-      <h2 class="text-base font-medium text-mm-text mt-8 mb-3" data-i18n="menu.choose">Escolha o tipo de simulação</h2>
-      <div class="space-y-3">
-        <details class="bg-mm-surface rounded-lg border border-mm-border">
-          <summary class="cursor-pointer select-none px-4 py-3 font-medium text-mm-text" data-i18n="menu.mdf">MDF (Método das Diferenças Finitas)</summary>
-          <div class="p-4 pt-0 flex flex-col gap-2">
-            <a href="simulations/mdf/conducao-permanente-barra1d-geracao/index.html" class="mm-menu-link">
-              <span class="block font-medium" data-i18n="menu.mdf-conducao.title">Condução Permanente 1D com Geração Interna</span>
-              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.mdf-conducao.desc"></span>
-            </a>
-            <a href="simulations/mdf/equacao-onda/index.html" class="mm-menu-link">
-              <span class="block font-medium" data-i18n="menu.mdf-onda.title">Equação da Onda 1D</span>
-              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.mdf-onda.desc"></span>
-            </a>
-          </div>
-        </details>
-        <details class="bg-mm-surface rounded-lg border border-mm-border">
-          <summary class="cursor-pointer select-none px-4 py-3 font-medium text-mm-text" data-i18n="menu.mef">MEF (Método dos Elementos Finitos)</summary>
-          <div class="p-4 pt-0 flex flex-col gap-2">
-            <a href="simulations/mef/conducao-permanente-barra1d-mef/index.html" class="mm-menu-link">
-              <span class="block font-medium" data-i18n="menu.mef-conducao.title">Condução Permanente 1D</span>
-              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.mef-conducao.desc"></span>
-            </a>
-            <a href="simulations/mef/calor-transiente-1d/index.html" class="mm-menu-link">
-              <span class="block font-medium" data-i18n="menu.calor-transiente-1d.title">Condução Transiente 1D com k(x) Variável</span>
-              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.calor-transiente-1d.desc"></span>
-            </a>
-            <a href="simulations/mef/conveccao-difusao-1d/index.html" class="mm-menu-link">
-              <span class="block font-medium" data-i18n="menu.conveccao-difusao.title">Convecção-Difusão 1D Permanente</span>
-              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.conveccao-difusao.desc"></span>
-            </a>
-            <a href="simulations/mef/viga-1d-mef/index.html" class="mm-menu-link">
-              <span class="block font-medium" data-i18n="menu.viga.title">Viga 1D - Análise de Flexão</span>
-              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.viga.desc"></span>
-            </a>
-            <a href="simulations/mef/vibracao-1d-mef/index.html" class="mm-menu-link">
-              <span class="block font-medium" data-i18n="menu.vibracao.title">Vibração 1D - Problema de Autovalor</span>
-              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.vibracao.desc"></span>
-            </a>
-            <a href="simulations/mef/transcalor/index.html" class="mm-menu-link">
-              <span class="block font-medium" data-i18n="menu.transcalor.title">Condução Transiente 2D</span>
-              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.transcalor.desc"></span>
-            </a>
-            <a href="simulations/mef/escoamento-fluido-2d/escoamento-potencial/index.html" class="mm-menu-link">
-              <span class="block font-medium" data-i18n="menu.potencial.title">Escoamento Potencial 2D</span>
-              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.potencial.desc"></span>
-            </a>
-            <a href="simulations/mef/escoamento-fluido-2d/navier-stokes/index.html" class="mm-menu-link">
-              <span class="block font-medium" data-i18n="menu.navier-stokes.title">Navier-Stokes 2D (Vorticidade)</span>
-              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.navier-stokes.desc"></span>
-            </a>
-          </div>
-        </details>
-      </div>
+<!-- Menu (v1.2.0, spec 6): cabeçalho e rodapé vêm do app.js; os cards são montados a partir de assets/menu.json. -->
+<body class="bg-mm-bg min-h-screen flex flex-col" data-mm-title="menu.title">
+  <main id="mm-app" class="mx-auto w-full max-w-[1360px] flex-1 px-4 pb-14 pt-10 md:px-6 md:pt-12">
+
+    <section class="flex max-w-[800px] flex-col gap-4">
+      <h1 class="flex flex-wrap items-center gap-4 text-mm-text">
+        <svg class="h-14 w-14 shrink-0 text-mm-accent md:h-16 md:w-16" viewBox="0 0 26 26" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="22" height="22" rx="2"/><path d="M2 13h22M13 2v22M2 2l22 22M24 2 2 24"/></svg>
+        <span class="text-[clamp(40px,5.5vw,64px)] font-semibold leading-none tracking-[-0.035em]" data-i18n="site.name">MinervaMesh</span>
+      </h1>
+      <p class="text-[clamp(22px,2.6vw,30px)] font-medium leading-tight tracking-tight text-mm-text" data-i18n="menu.hero.title">Simulações numéricas que rodam inteiramente no seu navegador.</p>
+      <p class="text-[17px] leading-relaxed text-mm-muted" data-i18n="menu.hero.lead">Dez casos de diferenças finitas e elementos finitos para ensino. Defina os parâmetros, execute, compare com a solução analítica ou de referência e leia o Python que produziu o resultado.</p>
+      <p class="font-mono text-[12.5px] leading-relaxed text-mm-muted" data-i18n="menu.hero.stack">Python · NumPy · SciPy · Matplotlib → Pyodide (WebAssembly) · nada para instalar, sem servidor</p>
+    </section>
+
+    <div id="mm-filters" class="mt-8 flex flex-wrap gap-2" role="group" data-i18n-attr="aria-label:menu.filter.label">
+      <button type="button" class="mm-chip" data-method="all" aria-pressed="true"><span data-i18n="menu.filter.all">Todas</span> <span class="mm-chip-n">10</span></button>
+      <button type="button" class="mm-chip" data-method="fdm" aria-pressed="false"><span data-i18n="menu.filter.fdm">Diferenças finitas</span> <span class="mm-chip-n">2</span></button>
+      <button type="button" class="mm-chip" data-method="fem" aria-pressed="false"><span data-i18n="menu.filter.fem">Elementos finitos</span> <span class="mm-chip-n">8</span></button>
     </div>
-  </div>
+
+    <div id="mm-grid" class="mt-6 grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr))]"></div>
+
+    <noscript>
+      <ul class="mt-6 list-disc space-y-1 pl-5">
+        <li><a href="simulations/mdf/conducao-permanente-barra1d-geracao/index.html">Condução Permanente 1D com Geração Interna (MDF)</a></li>
+        <li><a href="simulations/mdf/equacao-onda/index.html">Equação da Onda 1D (MDF)</a></li>
+        <li><a href="simulations/mef/conducao-permanente-barra1d-mef/index.html">Condução Permanente 1D (MEF)</a></li>
+        <li><a href="simulations/mef/calor-transiente-1d/index.html">Condução Transiente 1D com k(x) Variável (MEF)</a></li>
+        <li><a href="simulations/mef/conveccao-difusao-1d/index.html">Convecção-Difusão 1D Permanente (MEF)</a></li>
+        <li><a href="simulations/mef/viga-1d-mef/index.html">Viga 1D - Análise de Flexão (MEF)</a></li>
+        <li><a href="simulations/mef/vibracao-1d-mef/index.html">Vibração 1D - Problema de Autovalor (MEF)</a></li>
+        <li><a href="simulations/mef/transcalor/index.html">Condução Transiente 2D (MEF)</a></li>
+        <li><a href="simulations/mef/escoamento-fluido-2d/escoamento-potencial/index.html">Escoamento Potencial 2D (MEF)</a></li>
+        <li><a href="simulations/mef/escoamento-fluido-2d/navier-stokes/index.html">Navier-Stokes 2D (Vorticidade) (MEF)</a></li>
+      </ul>
+    </noscript>
+  </main>
 </body>
 
 </html>
