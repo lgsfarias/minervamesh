@@ -17,6 +17,13 @@ def i18n_t(key):
     return str(_i18n.t(key)) if _i18n else key
 # ------------------------------------------------------------------------------
 
+# --- Progresso (v1.1.0): window.mmProgress (assets/app.js); sem o app.js, no-op ---
+_progress = getattr(js, "mmProgress", None)
+def progress(method, *args):
+    if _progress:
+        getattr(_progress, method)(*args)
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -386,7 +393,7 @@ async def solve_potential(params, plot_div):
 @when("click", "#run-btn")
 async def run_handler(event=None):
     plot_div = document.getElementById("plot-output")
-    plot_div.innerHTML = i18n_t("py.computing")
+    progress("start", "spinner")
     await asyncio.sleep(0.1)
     
     try:
@@ -413,3 +420,5 @@ async def run_handler(event=None):
     except Exception as e:
         plot_div.innerHTML = i18n_t("py.error").format(e=e)
         print(e)
+    finally:
+        progress("done")
