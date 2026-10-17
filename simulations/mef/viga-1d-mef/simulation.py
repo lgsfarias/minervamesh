@@ -23,6 +23,13 @@ def i18n_t(key):
     return str(_i18n.t(key)) if _i18n else key
 # ------------------------------------------------------------------------------
 
+# --- Progresso (v1.1.0): window.mmProgress (assets/app.js); sem o app.js, no-op ---
+_progress = getattr(js, "mmProgress", None)
+def progress(method, *args):
+    if _progress:
+        getattr(_progress, method)(*args)
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -118,14 +125,8 @@ def get_variable_properties(x, prop_type, base_value, L):
 # ==============================
 # 4. Executar simulação MEF avançada para viga 1D
 # ==============================
-@when("click", "#run-btn")
 async def run_viga_1d(event=None):
-    # Abrir modal de execução
-    sim_loading = document.getElementById("sim-loading")
-    try:
-        sim_loading.showModal()
-    except Exception:
-        pass
+    progress("start", "spinner")
     await asyncio.sleep(0.05)
 
     # Parâmetros básicos
@@ -431,11 +432,16 @@ async def run_viga_1d(event=None):
 
     plot_append_html(metrics_html)
     _export_result(x=x, w=w, M=M, V=V, w_max_mef=w_max_mef, x_wmax=x_wmax, M_abs_max=M_abs_max, V_abs_max=V_abs_max)
+    progress("done")
 
+
+@when("click", "#run-btn")
+async def run_viga_1d_guarded(event=None):
+    """Reabilita o botão Executar mesmo se a simulação lançar exceção."""
     try:
-        sim_loading.close()
-    except Exception:
-        pass
+        await run_viga_1d(event)
+    finally:
+        progress("done")
 
 
 # ==============================
