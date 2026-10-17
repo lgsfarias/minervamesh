@@ -93,6 +93,7 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 
 ## Etapa 9 — Limpezas (spec 10)
 
+- [x] CDN num lugar só (17/10/2026, pedido do autor): Prism carregado pelo `app.js` no primeiro clique em "Ver código" e MathJax injetado pelo `app.js`, ambos com SRI; os `<head>` perdem 6 tags de CDN e ficam com PyScript, Tailwind e `app.js`. Verificado em headless: mesma contagem de `mjx-container` nas 10 páginas, Prism só pedido ao abrir o modal, menu sem MathJax nem Prism
 - [ ] Remover `plotly` do transiente 2D (9,7 MB do PyPI na carga, medição da etapa 5); auditar os demais `config.toml`
 - [ ] Recompilar Tailwind
 - [ ] README: parágrafo de resumo em inglês no topo

@@ -130,7 +130,7 @@ Cada simulação continua auto-contida no que é específico (HTML, `simulation.
 
 ```
 assets/
-├── app.js                 # i18n, seletor de idioma, cronômetros, modais, <details> com memória
+├── app.js                 # i18n, seletor de idioma, cronômetros, modais, <details> com memória, MathJax e Prism (sob demanda)
 ├── i18n/
 │   ├── common.pt.json     # menu, voltar, executar, ver código, carregando, progresso, rodapé
 │   └── common.en.json
@@ -168,9 +168,9 @@ que a camada compartilhada impõe:
 | Padding do `<body>` | `p-6`, `p-8`, `p-6 md:p-10` | `p-6 md:p-10` em todas |
 | Cabeçalho | link "Voltar para Menu" com e sem ícone; logo da Poli em posição absoluta; link cruzado só nos de escoamento | cabeçalho único: voltar ao menu, título, seletor PT/EN, logo; link cruzado potencial ⇄ Navier-Stokes mantido como item do cabeçalho |
 | Ids de botão e saída | `runBtn`, `runWaveBtn`, `runHeatBtn`, `run-btn`; `wave-output`, `heat-output`, `plot-output`, `conveccao-difusao-output` | `run-btn`, `show-code-btn`, `plot-output` em todas; os `.py` mudam só o `getElementById` correspondente (edição não numérica) |
-| Modal de código-fonte | copiado 10× com pequenas variações | injetado pelo `app.js`, carrega `simulation.py` da pasta atual |
+| Modal de código-fonte | copiado 10× com pequenas variações | injetado pelo `app.js`, carrega `simulation.py` da pasta atual; Prism carregado do CDN só no primeiro clique (decisão do autor em 17/10/2026) |
 | Bloco "Sobre o problema" | prosa livre, estrutura diferente em cada página | template da seção 7 |
-| MathJax | só nas 2 páginas de escoamento | em todas (seção 7.3) |
+| MathJax | só nas 2 páginas de escoamento | em todas (seção 7.3), injetado pelo `app.js` |
 | Rodapé | copiado 10× | injetado pelo `app.js` |
 | `<html lang>` | `pt-BR` fixo | definido pelo `app.js` conforme idioma |
 
@@ -221,8 +221,10 @@ O utilitário `simulations/extra/gerador-malha` está fora do menu e fora do esc
 v1.1.0: não recebe a camada compartilhada nem os ids novos.
 
 O `index.html` de cada módulo fica reduzido a: head mínimo (PyScript, Tailwind,
-MathJax, `app.js`), bloco de descrição + SVG, painel de parâmetros, área de
-resultado e o `<script type="py">`. Tudo o mais vem do `app.js`.
+`app.js`), bloco de descrição + SVG, painel de parâmetros, área de
+resultado e o `<script type="py">`. Tudo o mais, inclusive MathJax e Prism, vem do `app.js`;
+só o PyScript fica no HTML, porque a ordem `app.js` antes do `core.js` e o evento
+`py:ready` dependem dele.
 
 ## 5. Internacionalização
 
@@ -402,8 +404,8 @@ rótulos dos inputs (seção 9).
 ### 7.3 Renderização
 
 MathJax 3.2.2 (`tex-mml-chtml.js` do jsDelivr, com o mesmo hash SRI já usado
-nas páginas de escoamento) em todas as 10 páginas e no menu, se o menu exibir
-equações. Configurar delimitadores `$…$` e `$$…$$`. Com a regra de separação
+nas páginas de escoamento) em todas as 10 páginas, injetado pelo `app.js`
+(configuração e `<script>` num lugar só; o menu não carrega). Delimitadores `$…$` e `$$…$$`. Com a regra de separação
 da seção 5.2, a troca de idioma nunca toca em elementos com math, então não é
 preciso retypeset.
 

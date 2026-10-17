@@ -2,8 +2,9 @@
  * MinervaMesh — camada compartilhada das páginas de simulação.
  *
  * Injeta o que antes era copiado em cada index.html: cabeçalho (voltar ao menu,
- * seletor de idioma, logo), modal de código-fonte, rodapé e o bloco de status
- * (barra de progresso + texto) abaixo do botão Executar. Também aplica as
+ * seletor de idioma, logo), modal de código-fonte, rodapé, o bloco de status
+ * (barra de progresso + texto) abaixo do botão Executar, o MathJax e o Prism
+ * (este só quando o modal de código abre). O PyScript fica no HTML. Também aplica as
  * strings traduzíveis (data-i18n) e expõe window.i18n e window.mmProgress para o Python.
  *
  * Contrato com a página:
@@ -222,12 +223,58 @@ async function loadSourceCode() {
   const code = document.getElementById("sourceCode");
   code.textContent = t("code.loading");
   try {
-    const r = await fetch(new URL("simulation.py", location.href), { cache: "no-store" });
-    code.textContent = await r.text();
+    const [, src] = await Promise.all([loadPrism(), fetch(new URL("simulation.py", location.href), { cache: "no-store" }).then((r) => r.text())]);
+    code.textContent = src;
     if (window.Prism) Prism.highlightElement(code);
   } catch (e) {
     code.textContent = String(e);
   }
+}
+
+// ---------------------------------------------------------------------------
+// Bibliotecas de CDN (um lugar só para versão e hash SRI; antes copiadas em cada index.html)
+// ---------------------------------------------------------------------------
+const CDN = {
+  prismCss: ["https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css", "sha384-wFjoQjtV1y5jVHbt0p35Ui8aV8GVpEZkyF99OXWqP/eNJDU93D3Ugxkoyh6Y2I4A"],
+  prismJs: ["https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js", "sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt"],
+  prismPython: ["https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js", "sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m"],
+  mathjax: ["https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js", "sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei"],
+};
+
+function loadScript([src, integrity], attrs = {}) {
+  return new Promise((resolve, reject) => {
+    const el = document.createElement("script");
+    Object.assign(el, { src, integrity, crossOrigin: "anonymous", onload: resolve, onerror: () => reject(new Error(`falha ao carregar ${src}`)) }, attrs);
+    document.head.append(el);
+  });
+}
+
+function loadStyle([href, integrity]) {
+  return new Promise((resolve, reject) => {
+    const el = document.createElement("link");
+    Object.assign(el, { rel: "stylesheet", href, integrity, crossOrigin: "anonymous", onload: resolve, onerror: () => reject(new Error(`falha ao carregar ${href}`)) });
+    document.head.append(el);
+  });
+}
+
+// Prism só é usado no modal "Ver código": carregado no primeiro clique, uma vez.
+// O componente python depende do núcleo, por isso os dois são sequenciais.
+let prismPromise = null;
+function loadPrism() {
+  if (!prismPromise) {
+    prismPromise = Promise.all([loadStyle(CDN.prismCss), loadScript(CDN.prismJs).then(() => loadScript(CDN.prismPython))]).catch((e) => {
+      console.warn(e); // sem realce, o código aparece em texto puro
+    });
+  }
+  return prismPromise;
+}
+
+// MathJax (spec 7.3): configuração antes do script; só nas páginas de simulação.
+// Delimitadores $…$ e $$…$$; o texto traduzível nunca divide elemento com math (spec 5.2).
+function injectMathJax() {
+  if (window.MathJax) return;
+  window.MathJax = { tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true } };
+  loadScript(CDN.mathjax, { id: "MathJax-script", async: true }).catch((e) => console.warn(e));
 }
 
 function decorateButtons() {
@@ -448,6 +495,7 @@ async function boot() {
       });
     }).observe(out, { childList: true, subtree: true });
   }
+  injectMathJax();
   if (app) {
     injectHeader(app);
     injectFooter(app);
