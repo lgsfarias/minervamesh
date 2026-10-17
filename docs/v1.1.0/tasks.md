@@ -21,16 +21,17 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] `scripts/baseline.mjs` lê e grava o objeto exportado
 - [x] Rodar baseline: hashes idênticos aos da `v1.0.0` (valida o gancho); gravar `v1.0.0-hook` como referência numérica
 
-## Etapa 2 — Camada compartilhada e homogeneização (spec 4, 4.1)
+## Etapa 2 — Camada compartilhada e homogeneização (spec 4, 4.1) (em andamento, 17/10/2026)
 
-- [ ] `assets/app.js`: cabeçalho, dialog de carga, dialog `sim-loading`, modal de código, rodapé, ícones SVG
-- [ ] `assets/i18n/common.pt.json` e `common.en.json`
-- [ ] Incluir `app.js` nas 10 páginas e no menu; remover markup duplicado
-- [ ] Remover Font Awesome de todas as páginas
-- [ ] Padronizar `<title>`, largura do container e padding do `<body>`
-- [ ] Padronizar ids (`run-btn`, `show-code-btn`, `plot-output`) nos HTML e nos `getElementById` dos `.py` (commit separado)
-- [ ] Atualizar `MODULES` em `scripts/baseline.mjs` para os ids novos
-- [ ] Abrir e executar as 10 páginas após a renomeação de ids
+- [x] `assets/app.js`: cabeçalho, dialog de carga, dialog `sim-loading`, modal de código, rodapé, ícones SVG
+- [x] `assets/i18n/common.pt.json` e `common.en.json`
+- [~] Incluir `app.js` nas 10 páginas e no menu; remover markup duplicado (10 páginas feitas; menu fica para a etapa 3)
+- [x] Remover Font Awesome de todas as páginas
+- [x] Padronizar `<title>`, largura do container e padding do `<body>`
+- [x] Padronizar ids (`run-btn`, `show-code-btn`, `plot-output`) nos HTML e nos `getElementById` dos `.py` (commit separado)
+- [x] Atualizar `MODULES` em `scripts/baseline.mjs` para os ids novos
+- [x] Abrir e executar as 10 páginas após a renomeação de ids (baseline completa idêntica à referência, 17/10/2026)
+- [ ] Saída padronizada nos `.py` (spec 4.1): PNG base64 em `#plot-output` nos 6 módulos estáticos (hoje GIF de 1 frame ou canvas do `plt.show()`), `imageio` fora do `config.toml` deles (commit separado; verificação pelo `__minervamesh_result`)
 
 ## Etapa 3 — i18n dos HTML (spec 5)
 

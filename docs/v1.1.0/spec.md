@@ -174,6 +174,9 @@ que a camada compartilhada impõe:
 | Rodapé | copiado 10× | injetado pelo `app.js` |
 | `<html lang>` | `pt-BR` fixo | definido pelo `app.js` conforme idioma |
 
+O utilitário `simulations/extra/gerador-malha` está fora do menu e fora do escopo da
+v1.1.0: não recebe a camada compartilhada nem os ids novos.
+
 O `index.html` de cada módulo fica reduzido a: head mínimo (PyScript, Tailwind,
 MathJax, `app.js`), bloco de descrição + SVG, painel de parâmetros, área de
 resultado e o `<script type="py">`. Tudo o mais vem do `app.js`.

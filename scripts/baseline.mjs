@@ -25,14 +25,15 @@ const PORT = 8123;
 const OUT_DIR = resolve(ROOT, "docs/v1.1.0/baseline");
 
 const MODULES = [
+  // run/out: ids padronizados da v1.1.0; legacy: ids da v1.0.0 (usados enquanto a página não foi convertida)
   // plt.show() do backend wasm do matplotlib: desenha num <canvas> anexado ao body, não num <img>
-  { id: "mdf-conducao", path: "simulations/mdf/conducao-permanente-barra1d-geracao/index.html", run: "#runBtn", out: "body", canvas: true },
-  { id: "mdf-onda", path: "simulations/mdf/equacao-onda/index.html", run: "#runWaveBtn", out: "#wave-output" },
-  { id: "mef-conducao", path: "simulations/mef/conducao-permanente-barra1d-mef/index.html", run: "#runMEF1D", out: "#mef1d-output" },
-  { id: "calor-transiente-1d", path: "simulations/mef/calor-transiente-1d/index.html", run: "#runHeatBtn", out: "#heat-output" },
-  { id: "conveccao-difusao", path: "simulations/mef/conveccao-difusao-1d/index.html", run: "#runConveccaoDifusao1D", out: "#conveccao-difusao-output", extraText: "#pe-info" },
-  { id: "viga", path: "simulations/mef/viga-1d-mef/index.html", run: "#runViga1D", out: "#viga1d-output" },
-  { id: "vibracao", path: "simulations/mef/vibracao-1d-mef/index.html", run: "#runVibracao1D", out: "#vibracao1d-output" },
+  { id: "mdf-conducao", path: "simulations/mdf/conducao-permanente-barra1d-geracao/index.html", run: "#run-btn", out: "#plot-output", canvas: true, legacy: { run: "#runBtn", out: "body" } },
+  { id: "mdf-onda", path: "simulations/mdf/equacao-onda/index.html", run: "#run-btn", out: "#plot-output", legacy: { run: "#runWaveBtn", out: "#wave-output" } },
+  { id: "mef-conducao", path: "simulations/mef/conducao-permanente-barra1d-mef/index.html", run: "#run-btn", out: "#plot-output", legacy: { run: "#runMEF1D", out: "#mef1d-output" } },
+  { id: "calor-transiente-1d", path: "simulations/mef/calor-transiente-1d/index.html", run: "#run-btn", out: "#plot-output", legacy: { run: "#runHeatBtn", out: "#heat-output" } },
+  { id: "conveccao-difusao", path: "simulations/mef/conveccao-difusao-1d/index.html", run: "#run-btn", out: "#plot-output", extraText: "#pe-info", legacy: { run: "#runConveccaoDifusao1D", out: "#conveccao-difusao-output" } },
+  { id: "viga", path: "simulations/mef/viga-1d-mef/index.html", run: "#run-btn", out: "#plot-output", legacy: { run: "#runViga1D", out: "#viga1d-output" } },
+  { id: "vibracao", path: "simulations/mef/vibracao-1d-mef/index.html", run: "#run-btn", out: "#plot-output", legacy: { run: "#runVibracao1D", out: "#vibracao1d-output" } },
   { id: "transcalor", path: "simulations/mef/transcalor/index.html", run: "#run-btn", out: "#plot-output" },
   { id: "potencial", path: "simulations/mef/escoamento-fluido-2d/escoamento-potencial/index.html", run: "#run-btn", out: "#plot-output", extraText: "#lift-results" },
   { id: "navier-stokes", path: "simulations/mef/escoamento-fluido-2d/navier-stokes/index.html", run: "#run-btn", out: "#plot-output", doneText: /Conclu|Parada/ },
@@ -93,10 +94,13 @@ async function main() {
         if (!ok) r.errors.push(`override: input #${k} não existe`);
       }
       r.params = await page.evaluate(() => Object.fromEntries([...document.querySelectorAll("input, select")].filter((e) => e.id).map((e) => [e.id, e.type === "checkbox" ? e.checked : e.value])));
-      const before = await page.evaluate((sel) => [...document.querySelector(sel).querySelectorAll("img")].map((i) => i.src), m.out);
+      // Página já convertida para os ids da v1.1.0? Senão usa os legados.
+      const runSel = (await page.$(m.run)) ? m.run : m.legacy?.run ?? m.run;
+      const outSel = (await page.$(m.out)) ? m.out : m.legacy?.out ?? m.out;
+      const before = await page.evaluate((sel) => [...document.querySelector(sel).querySelectorAll("img")].map((i) => i.src), outSel);
       await page.evaluate(() => { window.__minervamesh_result = undefined; });
       const t1 = Date.now();
-      await page.click(m.run);
+      await page.click(runSel);
       await page.waitForFunction((sel, beforeJson, doneSrc, useCanvas) => {
         const root = document.querySelector(sel); if (!root) return false;
         if (useCanvas) return root.querySelectorAll("canvas").length > 0;
@@ -104,10 +108,12 @@ async function main() {
         const changed = JSON.stringify(imgs) !== beforeJson && imgs.length > 0;
         const dialogOpen = [...document.querySelectorAll("dialog")].some((d) => d.open);
         const txt = root.textContent || "";
-        const busy = /Iniciando|Calculando|Executando|Carregando/.test(txt) && !/Conclu/.test(txt);
+        // Sinal neutro de idioma: o gancho _export_result define window.__minervamesh_result ao final do run
+        if (window.__minervamesh_result !== undefined && !dialogOpen) return true;
+        const busy = /Iniciando|Calculando|Executando|Carregando|Running|Starting/.test(txt) && !/Conclu|Finished|Complete/.test(txt);
         const done = doneSrc ? new RegExp(doneSrc).test(txt) : true;
         return changed && !dialogOpen && !busy && done;
-      }, { timeout: RUN_TIMEOUT, polling: 250 }, m.out, JSON.stringify(before), m.doneText ? m.doneText.source : null, !!m.canvas);
+      }, { timeout: RUN_TIMEOUT, polling: 250 }, outSel, JSON.stringify(before), m.doneText ? m.doneText.source : null, !!m.canvas);
       if (m.canvas) await sleep(1500); // deixa o canvas terminar de desenhar
       r.run_s = +((Date.now() - t1) / 1000).toFixed(1);
       const snap = await page.evaluate((sel, extra) => {
@@ -118,7 +124,7 @@ async function main() {
           .concat([...root.querySelectorAll("canvas")].map((c) => { try { return c.toDataURL("image/png"); } catch { return "data:canvas-indisponivel"; } }));
         const extraText = extra ? (document.querySelector(extra)?.textContent || "").replace(/\s+/g, " ").trim() : "";
         return { text, imgs, extraText };
-      }, m.out, m.extraText || null);
+      }, outSel, m.extraText || null);
       r.text = m.canvas ? "(gráfico em canvas; comparar pelo hash)" : snap.text; if (snap.extraText) r.extra_text = snap.extraText;
       r.images = snap.imgs.map((s) => ({ kind: s.slice(5, s.indexOf(";")), bytes: s.length, sha256_16: sha(s) }));
       // Resultado numérico exportado pelo gancho _export_result (spec 2, passo 0)

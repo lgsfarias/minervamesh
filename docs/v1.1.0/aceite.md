@@ -103,6 +103,16 @@ Os hashes abaixo são a **referência numérica** para a comparação "depois".
 
 Arquivo: `docs/v1.1.0/baseline/v1.0.0-hook.json` (contém os arrays completos).
 
+## Verificações intermediárias
+
+Cada etapa que toca em `.py` ou em HTML termina com uma rodada completa do
+`scripts/baseline.mjs` comparada à referência `v1.0.0-hook`. Os JSONs
+intermediários não são guardados; só o veredito.
+
+| Etapa | Data | Imagens | Texto exibido | `__minervamesh_result` |
+|---|---|---|---|---|
+| 2 — camada compartilhada, ids novos, 10 páginas convertidas | 17/10/2026 | idênticas (10/10) | idêntico (10/10) | idêntico (10/10) |
+
 ## Armadilha: cache do browser
 
 Na primeira rodada com o gancho o resultado veio vazio porque o perfil

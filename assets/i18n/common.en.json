@@ -1,0 +1,20 @@
+{
+  "site.name": "MinervaMesh",
+  "nav.back": "Back to menu",
+  "nav.goto.potencial": "Go to Potential Flow",
+  "nav.goto.navier-stokes": "Go to Navier-Stokes",
+  "lang.label": "Language",
+  "loading.pyscript": "Loading the Python environment...",
+  "sim.running": "Running simulation...",
+  "output.placeholder": "Click \"Run\" to see the result.",
+  "btn.run": "Run",
+  "btn.stop": "Stop",
+  "btn.show_code": "View source code",
+  "code.title": "Simulation source code (simulation.py)",
+  "code.loading": "Loading...",
+  "code.close": "Close",
+  "footer.developed_by": "Developed by Luiz Gustavo Santos Farias",
+  "footer.source": "Source code on GitHub",
+  "footer.license": "MIT License",
+  "logo.alt": "Logo of Escola Politécnica, UFRJ"
+}
