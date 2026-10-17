@@ -28,6 +28,13 @@ def i18n_t(key):
     return str(_i18n.t(key)) if _i18n else key
 # ------------------------------------------------------------------------------
 
+# --- Progresso (v1.1.0): window.mmProgress (assets/app.js); sem o app.js, no-op ---
+_progress = getattr(js, "mmProgress", None)
+def progress(method, *args):
+    if _progress:
+        getattr(_progress, method)(*args)
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -92,18 +99,7 @@ def generate_frame_image(u, step, dt, Tbottom, Ttop):
 # ==============================
 # 4. Rodar Simulação
 # ==============================
-@when("click", "#run-btn")
 async def run_simulation(event=None):
-    # Mostrar spinner de loading dentro do plot-output
-    document.getElementById("plot-output").innerHTML = """
-      <div class="flex flex-col items-center justify-center py-6">
-        <div class="animate-spin h-10 w-10 border-4 border-blue-500 border-t-transparent rounded-full"></div>
-        <p class="mt-4 text-blue-700 font-medium">""" + i18n_t("sim.running") + """</p>
-      </div>
-    """
-
-    await asyncio.sleep(0.05) # permite que o DOM atualize antes de continuar
-
     # Parâmetros
     dt = float(document.getElementById("dt").value)
     n_steps = int(document.getElementById("n_steps").value)
@@ -112,6 +108,9 @@ async def run_simulation(event=None):
     k = float(document.getElementById("k").value)
     rho = float(document.getElementById("rho").value)
     cv = float(document.getElementById("cv").value)
+
+    progress("start", "counter", n_steps)
+    await asyncio.sleep(0.05) # permite que o DOM atualize antes de continuar
 
     # Matrizes globais
     M = lil_matrix((n_nodes, n_nodes))
@@ -157,8 +156,12 @@ async def run_simulation(event=None):
         b[boundary_nodes] = u_init[boundary_nodes]
         u = spsolve(A, b)
         frames.append(generate_frame_image(u, step, dt, Tbottom, Ttop))
+        progress("step", step + 1, (step + 1) * dt)
+        await asyncio.sleep(0)  # cede o controle ao browser para repintar o progresso
 
     # Salvar GIF
+    progress("encoding")
+    await asyncio.sleep(0)
     gif_buffer = io.BytesIO()
     imageio.mimsave(gif_buffer, frames, format='GIF', duration=0.1, loop=0)
     gif_buffer.seek(0)
@@ -197,3 +200,13 @@ async def run_simulation(event=None):
         f"</div>"
     )
     _export_result(X=X, Y=Y, u=u, n_steps=n_steps, dt=dt, T_centro_mef=T_centro_mef, erro_centro=erro_centro)
+    progress("done")
+
+
+@when("click", "#run-btn")
+async def run_simulation_guarded(event=None):
+    """Reabilita o botão Executar mesmo se a simulação lançar exceção."""
+    try:
+        await run_simulation(event)
+    finally:
+        progress("done")
