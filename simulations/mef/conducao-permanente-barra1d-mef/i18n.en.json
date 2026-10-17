@@ -1,7 +1,11 @@
 {
   "title": "1D Steady Conduction (FEM)",
-  "desc.intro": "We solve problem 5.2.2 (course notes): one-dimensional steady heat conduction with internal heat generation and prescribed temperatures at both ends.",
-  "desc.method": "1D Finite Element Method (FEM) with linear elements. Assembly of the global stiffness matrix, source vector with internal generation, and imposition of essential (Dirichlet) boundary conditions. We compare with the analytical solution.",
+  "desc.equation": "Steady heat conduction in a bar with uniform internal heat generation Q and conductivity k:",
+  "desc.domain": "Bar of length L divided into nₑ linear elements of uniform size:",
+  "desc.bc.left": "Left end, prescribed temperature:",
+  "desc.bc.right": "Right end, prescribed temperature:",
+  "desc.method": "Finite Element Method (Galerkin) with linear elements: stiffness matrix and load vector assembled element by element; Dirichlet conditions imposed by replacing the corresponding rows; the system is solved directly.",
+  "desc.reference": "Analytical solution obtained by direct integration of the equation with the boundary conditions above:",
   "input.L": "Length (L) [m]",
   "input.nel": "Number of elements",
   "input.T0": "T(0) [°C]",

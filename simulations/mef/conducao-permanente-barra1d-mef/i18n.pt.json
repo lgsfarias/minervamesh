@@ -1,7 +1,11 @@
 {
   "title": "Condução Permanente 1D (MEF)",
-  "desc.intro": "Resolvemos o problema 5.2.2 (apostila) de condução térmica unidimensional em regime permanente com geração interna e temperaturas prescritas nas extremidades.",
-  "desc.method": "Método dos Elementos Finitos (MEF) 1D com elementos lineares. Montagem da matriz de rigidez global, vetor de fontes com geração interna e imposição de contorno essencial (Dirichlet). Comparamos com a solução analítica.",
+  "desc.equation": "Condução de calor em regime permanente numa barra com geração interna uniforme Q e condutividade k:",
+  "desc.domain": "Barra de comprimento L dividida em nₑ elementos lineares de tamanho uniforme:",
+  "desc.bc.left": "Extremidade esquerda, temperatura prescrita:",
+  "desc.bc.right": "Extremidade direita, temperatura prescrita:",
+  "desc.method": "Método dos Elementos Finitos (Galerkin) com elementos lineares: matriz de rigidez e vetor de carga montados elemento a elemento; condições de Dirichlet impostas por substituição das linhas correspondentes; sistema resolvido diretamente.",
+  "desc.reference": "Solução analítica obtida por integração direta da equação com as condições de contorno acima:",
   "input.L": "Comprimento (L) [m]",
   "input.nel": "Número de elementos",
   "input.T0": "T(0) [°C]",
