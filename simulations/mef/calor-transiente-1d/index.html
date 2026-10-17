@@ -12,20 +12,51 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" integrity="sha384-wFjoQjtV1y5jVHbt0p35Ui8aV8GVpEZkyF99OXWqP/eNJDU93D3Ugxkoyh6Y2I4A" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m" crossorigin="anonymous"></script>
+    <script>
+      window.MathJax = { tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true } };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"></script>
 </head>
 <body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="calor-transiente-1d" data-mm-i18n data-mm-title="title">
     <div id="mm-app" class="max-w-7xl mx-auto">
         <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" data-i18n="title">Condução Transiente 1D (MEF)</h2>
 
-        <div class="mb-6 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
-            <h3 class="font-semibold text-lg text-blue-800 mb-2" data-i18n="section.about">Sobre o problema</h3>
-            <p class="text-gray-700 mb-2" data-i18n="desc.intro">Resolvemos a equação da condução transiente de calor 1D usando Método dos Elementos Finitos com condutividade térmica variável k(x).
-                Condições de contorno: T(0,t) = 0 e T(L,t) = 1. Condutividade: k(x) = k₁ para x < L/2 e k(x) = k₂ para x ≥ L/2 (configuráveis).</p>
-            <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="section.method">Método utilizado</h4>
-            <p class="text-gray-700" data-i18n="desc.method">Utilizamos o Método dos Elementos Finitos (MEF) com elementos lineares uniformemente espaçados e integração temporal via método de Crank-Nicolson.
-                O número de elementos é configurável, demonstrando a flexibilidade do MEF para tratar condutividade térmica variável. A solução analítica mostrada é para k(x) constante (linha reta) como referência.</p>
-        </div>
-
+            <details class="mm-desc mb-6 rounded border-l-4 border-blue-400 bg-blue-50" data-mm-desc open>
+              <summary class="cursor-pointer select-none px-4 py-3 text-lg font-semibold text-blue-800" data-i18n="section.about">Sobre o problema</summary>
+              <div class="space-y-4 px-4 pb-4 text-gray-700">
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.equation">Equação governante</h4>
+                  <p data-i18n="desc.equation">Condução de calor transiente numa barra com condutividade constante por trecho, descontínua em x = L/2:</p>
+                  <div class="overflow-x-auto py-1">$$ \rho c_p\,\frac{\partial T}{\partial t} = \frac{\partial}{\partial x}\!\left(k(x)\,\frac{\partial T}{\partial x}\right) $$</div>
+                  <p><span data-i18n="desc.k">com</span> $k(x) = k_1 \ \ (x < L/2)$, $k(x) = k_2 \ \ (x \ge L/2)$.</p>
+                </section>
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.domain">Domínio</h4>
+                  <p><span data-i18n="desc.domain">Barra de comprimento L, nₑ elementos lineares com um nó exatamente em x = L/2; tempo de 0 a t_max:</span> $0 \le x \le L$, $0 < t \le t_{\max}$.</p>
+                </section>
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.bc">Condições de contorno</h4>
+                  <ul class="list-disc space-y-1 pl-5">
+                    <li><span data-i18n="desc.bc.left">Extremidade esquerda (valor fixo no código):</span> $T(0, t) = 0$</li>
+                    <li><span data-i18n="desc.bc.right">Extremidade direita (valor fixo no código):</span> $T(L, t) = 1$</li>
+                  </ul>
+                </section>
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.ic">Condição inicial</h4>
+                  <p><span data-i18n="desc.ic">Temperatura nula no interior da barra:</span> $T(x, 0) = 0$, $0 < x < L$.</p>
+                </section>
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="section.method">Método numérico</h4>
+                  <p data-i18n="desc.method">Método dos Elementos Finitos com elementos lineares e matriz de massa consistente, com k avaliado no centro de cada elemento; integração no tempo pelo método θ (θ = 0,5 é Crank-Nicolson, θ = 1 implícito, θ = 0 explícito), com um sistema linear resolvido a cada passo.</p>
+                </section>
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.reference">Solução de referência</h4>
+                  <p data-i18n="desc.reference">Regime permanente analítico: o fluxo de calor é constante ao longo da barra, logo o perfil é linear em cada metade, contínuo em x = L/2,</p>
+                  <div class="overflow-x-auto py-1">$$ T_\infty(x) = \begin{cases} \dfrac{C}{k_1}\,x, & x < L/2 \\[6pt] \dfrac{C L}{2 k_1} + \dfrac{C}{k_2}\left(x - \dfrac{L}{2}\right), & x \ge L/2 \end{cases} \qquad C = \frac{2 k_1 k_2}{L\,(k_1 + k_2)} $$</div>
+                  <p><span data-i18n="desc.reference.mid">de modo que a temperatura no meio da barra é</span> $T_\infty(L/2) = \dfrac{k_2}{k_1 + k_2}$.</p>
+                </section>
+              </div>
+            </details>
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <div class="bg-white rounded-lg shadow p-5">
                 <h3 class="text-lg font-semibold text-blue-700 mb-4" data-i18n="section.params">Parâmetros</h3>
