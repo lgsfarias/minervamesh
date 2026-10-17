@@ -324,9 +324,13 @@ async def run_vibracao_1d(event=None):
 
 @when("click", "#run-btn")
 async def run_vibracao_1d_guarded(event=None):
-    """Reabilita o botão Executar mesmo se a simulação lançar exceção."""
+    """Mostra a exceção na área do resultado e reabilita o botão Executar."""
     try:
         await run_vibracao_1d(event)
+    except Exception as e:
+        progress("fail")
+        document.getElementById("plot-output").innerHTML = i18n_t("py.error").format(e=e)
+        print(e)
     finally:
         progress("done")
 
