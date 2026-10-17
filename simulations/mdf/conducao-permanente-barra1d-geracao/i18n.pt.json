@@ -6,7 +6,6 @@
   "desc.bc.right": "Extremidade direita, temperatura prescrita (fixa no código):",
   "desc.method": "Método das Diferenças Finitas: a segunda derivada é aproximada por diferenças centradas de segunda ordem nos nₓ − 2 nós internos, e o sistema linear tridiagonal resultante é resolvido diretamente.",
   "desc.reference": "Solução analítica obtida por integração direta da equação com as condições de contorno acima:",
-  "img.alt": "Esquema físico da condução de calor na barra",
   "input.nx": "Número de nós:",
   "input.alpha": "Coeficiente α:",
   "input.Q": "Geração de calor (Q):",

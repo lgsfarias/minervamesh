@@ -31,6 +31,8 @@
   "desc.sec.bc": "Condições de contorno",
   "desc.sec.ic": "Condição inicial",
   "desc.sec.reference": "Solução de referência",
+  "scheme.alt": "Esquema do domínio",
+  "scheme.parametric": "Esquema ilustrativo: as dimensões são definidas pelos parâmetros.",
   "section.params": "Parâmetros",
   "section.result": "Resultado",
   "menu.title": "Simulações",

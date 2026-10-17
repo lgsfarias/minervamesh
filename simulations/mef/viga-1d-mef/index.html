@@ -27,7 +27,28 @@
           </section>
           <section>
             <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.domain">Domínio</h4>
-            <p><span data-i18n="desc.domain">Viga de comprimento L dividida em nₑ elementos de viga de tamanho uniforme:</span> $h = L/n_e$.</p>
+            <div class="md:flex md:items-start md:gap-6">
+              <p class="md:flex-1"><span data-i18n="desc.domain">Viga de comprimento L dividida em nₑ elementos de viga de tamanho uniforme:</span> $h = L/n_e$.</p>
+              <figure class="mm-scheme mt-3 shrink-0 md:mt-0 md:w-80 lg:w-96" data-mm-scheme="beam">
+                <svg viewBox="0 0 400 190" role="img" data-i18n-attr="aria-label:scheme.alt"><defs><marker id="viga-ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker><marker id="viga-ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker><pattern id="viga-h" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" class="hatch"/></pattern></defs>
+                <line x1="80" y1="48" x2="320" y2="48" stroke="#2563eb" stroke-width="1.6"/>
+                <line x1="80" y1="48" x2="80" y2="86" class="arrow" marker-end="url(#viga-ab)"/><line x1="110" y1="48" x2="110" y2="86" class="arrow" marker-end="url(#viga-ab)"/><line x1="140" y1="48" x2="140" y2="86" class="arrow" marker-end="url(#viga-ab)"/><line x1="170" y1="48" x2="170" y2="86" class="arrow" marker-end="url(#viga-ab)"/><line x1="200" y1="48" x2="200" y2="86" class="arrow" marker-end="url(#viga-ab)"/><line x1="230" y1="48" x2="230" y2="86" class="arrow" marker-end="url(#viga-ab)"/><line x1="260" y1="48" x2="260" y2="86" class="arrow" marker-end="url(#viga-ab)"/><line x1="290" y1="48" x2="290" y2="86" class="arrow" marker-end="url(#viga-ab)"/><line x1="320" y1="48" x2="320" y2="86" class="arrow" marker-end="url(#viga-ab)"/>
+                <text x="200" y="38" text-anchor="middle" class="bc">q</text>
+                <rect x="70" y="90" width="260" height="10" class="dom"/>
+                <text x="200" y="118" text-anchor="middle" class="lab">EI</text>
+                <!-- apoio fixo (pino) -->
+                <polygon points="70,100 58,124 82,124" fill="#fff" stroke="#1f2937" stroke-width="2"/>
+                <rect x="52" y="124" width="36" height="8" fill="url(#viga-h)" stroke="none"/><line x1="52" y1="124" x2="88" y2="124" stroke="#1f2937" stroke-width="1.5"/>
+                <!-- apoio móvel (rolete) -->
+                <polygon points="330,100 318,120 342,120" fill="#fff" stroke="#1f2937" stroke-width="2"/>
+                <circle cx="324" cy="124" r="3.5" fill="#fff" stroke="#1f2937" stroke-width="1.5"/><circle cx="336" cy="124" r="3.5" fill="#fff" stroke="#1f2937" stroke-width="1.5"/>
+                <rect x="312" y="128" width="36" height="8" fill="url(#viga-h)" stroke="none"/><line x1="312" y1="128" x2="348" y2="128" stroke="#1f2937" stroke-width="1.5"/>
+                <text x="64" y="150" text-anchor="start" class="bc">w(0) = 0</text>
+                <text x="336" y="150" text-anchor="end" class="bc">w(L) = 0</text>
+                <line x1="70" y1="172" x2="120" y2="172" class="ax" marker-end="url(#viga-ag)"/><text x="126" y="176" class="axl">x</text><text x="70" y="184" text-anchor="middle" class="axl">0</text><text x="330" y="184" text-anchor="middle" class="axl">L</text>
+                </svg>
+              </figure>
+            </div>
           </section>
           <section>
             <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.bc">Condições de contorno</h4>

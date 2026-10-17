@@ -31,6 +31,8 @@
   "desc.sec.bc": "Boundary conditions",
   "desc.sec.ic": "Initial condition",
   "desc.sec.reference": "Reference solution",
+  "scheme.alt": "Domain sketch",
+  "scheme.parametric": "Schematic only: the dimensions are set by the parameters.",
   "section.params": "Parameters",
   "section.result": "Result",
   "menu.title": "Simulations",

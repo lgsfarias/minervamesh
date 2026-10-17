@@ -6,7 +6,6 @@
   "desc.bc.right": "Right end, prescribed temperature (fixed in the code):",
   "desc.method": "Finite Difference Method: the second derivative is approximated by second-order central differences at the nₓ − 2 interior nodes, and the resulting tridiagonal linear system is solved directly.",
   "desc.reference": "Analytical solution obtained by direct integration of the equation with the boundary conditions above:",
-  "img.alt": "Physical sketch of heat conduction in the bar",
   "input.nx": "Number of nodes:",
   "input.alpha": "Coefficient α:",
   "input.Q": "Heat generation (Q):",

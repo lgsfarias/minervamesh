@@ -79,13 +79,15 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] Tradução EN revisada pelo agente revisor terminológico (o autor não lê inglês)
 - [x] Navier-Stokes: default cavidade (31×31, Δt 0,02, 300 passos, 10 passos/quadro, só no `index.html`; cavidade passa a ser a primeira opção do seletor); preset "Caso de validação (Ghia et al., 1982), ~6 min" (41×41, Δt 0,01, 2000 passos, 50 passos/quadro) via seletor + botão Carregar no `index.html`
 
-## Etapa 7 — Esquemas SVG (spec 8)
+## Etapa 7 — Esquemas SVG (spec 8) (concluída em 17/10/2026)
 
-- [ ] 6 esquemas 1D
-- [ ] Transiente 2D
-- [ ] Potencial: cilindro, aerofólio
-- [ ] Navier-Stokes: cavidade, canal com obstáculo, degrau; troca pelo seletor de cenário
-- [ ] Remover `assets/conducao_esquema.png` e `assets/placeholder.png`
+- [x] 7 esquemas 1D (condução MDF, onda com senoide cheia e pulso tracejado, condução MEF, transiente 1D com k₁/k₂, convecção-difusão, viga simplesmente apoiada, vibração livre-livre), cada um como `<figure class="mm-scheme" data-mm-scheme>` ao lado do parágrafo da seção "Domínio"; CSS compartilhado em `tailwind.src.css` (fora de `@layer`); rótulos só com símbolos, `<tspan>` para sub/sobrescritos; `<defs>` com ids prefixados por esquema
+- [x] Transiente 2D (quadrado unitário, laterais com gradiente e a expressão linear em y)
+- [x] Potencial: cilindro, aerofólio; troca em `toggleGeoParams()`
+- [x] Navier-Stokes: cavidade, canal com obstáculo (cilindro + retângulo w × h tracejado), degrau; troca em `updateUI()` (cavidade / canal / degrau; o preset Ghia cai na cavidade)
+- [x] Legenda "dimensões definidas pelos parâmetros" (`scheme.parametric`) nas páginas de escoamento e `aria-label` traduzível (`scheme.alt`) em todos os SVGs; EN revisado pelo agente revisor terminológico
+- [x] Remover `assets/conducao_esquema.png` e `assets/placeholder.png`, a `<img>` da condução MDF e a chave `img.alt`
+- [x] Verificado em headless (17/10/2026): esquema visível correto em cada estado dos seletores, sem erros de console, sem chaves faltando, figura abaixo do texto em 390 px de largura
 
 ## Etapa 8 — Rótulos dos inputs (spec 9)
 

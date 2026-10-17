@@ -28,7 +28,77 @@
                 </section>
                 <section>
                   <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.domain">Domínio</h4>
-                  <p><span data-i18n="desc.domain">Conforme o cenário: cavidade retangular fechada (caso de validação com L = H = 1) ou canal com um obstáculo (cilindro de raio r ou retângulo w × h centrado em (c_x, c_y), ou degrau de altura h e comprimento l no canto inferior esquerdo). Malha triangular sobre uma grade de nₓ × n_y nós:</span> $\Omega = [0, L] \times [0, H]$.</p>
+                  <div class="md:flex md:items-start md:gap-6">
+                    <p class="md:flex-1"><span data-i18n="desc.domain">Conforme o cenário: cavidade retangular fechada (caso de validação com L = H = 1) ou canal com um obstáculo (cilindro de raio r ou retângulo w × h centrado em (c_x, c_y), ou degrau de altura h e comprimento l no canto inferior esquerdo). Malha triangular sobre uma grade de nₓ × n_y nós:</span> $\Omega = [0, L] \times [0, H]$.</p>
+                    <figure class="mm-scheme mt-3 shrink-0 md:mt-0 md:w-80 lg:w-96" data-mm-scheme="cavity">
+                      <svg viewBox="0 0 400 320" role="img" data-i18n-attr="aria-label:scheme.alt"><defs><marker id="nsc-ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker><marker id="nsc-ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker><pattern id="nsc-h" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" class="hatch"/></pattern></defs>
+                      <rect x="100" y="60" width="200" height="200" class="dom"/>
+                      <rect x="92" y="60" width="8" height="200" fill="url(#nsc-h)" stroke="none"/>
+                      <rect x="300" y="60" width="8" height="200" fill="url(#nsc-h)" stroke="none"/>
+                      <rect x="100" y="260" width="200" height="8" fill="url(#nsc-h)" stroke="none"/>
+                      <line x1="100" y1="60" x2="300" y2="60" class="lid"/>
+                      <line x1="120" y1="44" x2="160" y2="44" class="arrow" marker-end="url(#nsc-ab)"/><line x1="180" y1="44" x2="220" y2="44" class="arrow" marker-end="url(#nsc-ab)"/><line x1="240" y1="44" x2="280" y2="44" class="arrow" marker-end="url(#nsc-ab)"/>
+                      <text x="200" y="30" text-anchor="middle" class="bc">u = 1,  v = 0</text>
+                      <text x="200" y="290" text-anchor="middle" class="bc">u = v = 0</text>
+                      <text x="80" y="165" text-anchor="end" class="bc">u = v = 0</text>
+                      <text x="320" y="165" class="bc">u = v = 0</text>
+                      <text x="200" y="150" text-anchor="middle" class="lab">Ω = [0, L] × [0, H]</text>
+                      <text x="200" y="172" text-anchor="middle" class="lab">ψ = 0  (∂Ω)</text>
+                      <text x="200" y="194" text-anchor="middle" class="lab">ψ = ω = 0  (t = 0)</text>
+                      <line x1="100" y1="302" x2="150" y2="302" class="ax" marker-end="url(#nsc-ag)"/><text x="156" y="306" class="axl">x</text><line x1="60" y1="260" x2="60" y2="210" class="ax" marker-end="url(#nsc-ag)"/><text x="56" y="204" class="axl">y</text>
+                      <text x="100" y="318" text-anchor="middle" class="axl">0</text><text x="300" y="318" text-anchor="middle" class="axl">L</text><text x="60" y="64" text-anchor="middle" class="axl">H</text>
+                      </svg>
+                      <figcaption class="mt-1 text-xs text-gray-500" data-i18n="scheme.parametric">Esquema ilustrativo: as dimensões são definidas pelos parâmetros.</figcaption>
+                    </figure>
+                    <figure class="mm-scheme mt-3 shrink-0 md:mt-0 md:w-80 lg:w-96 hidden" data-mm-scheme="channel">
+                      <svg viewBox="0 0 400 265" role="img" data-i18n-attr="aria-label:scheme.alt"><defs><marker id="nsch-ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker><marker id="nsch-ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker><pattern id="nsch-h" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" class="hatch"/></pattern></defs>
+                      <rect x="60" y="50" width="300" height="150" class="dom"/>
+                      <rect x="60" y="42" width="300" height="8" fill="url(#nsch-h)" stroke="none"/>
+                      <rect x="60" y="200" width="300" height="8" fill="url(#nsch-h)" stroke="none"/>
+                      <line x1="60" y1="50" x2="360" y2="50" class="wall"/><line x1="60" y1="200" x2="360" y2="200" class="wall"/>
+                      <line x1="22" y1="75" x2="56" y2="75" class="arrow" marker-end="url(#nsch-ab)"/><line x1="22" y1="125" x2="56" y2="125" class="arrow" marker-end="url(#nsch-ab)"/><line x1="22" y1="175" x2="56" y2="175" class="arrow" marker-end="url(#nsch-ab)"/>
+                      <text x="38" y="40" text-anchor="middle" class="bc">u = 1</text>
+                      <text x="210" y="30" text-anchor="middle" class="bc">ψ = H,  u = v = 0</text>
+                      <text x="210" y="226" text-anchor="middle" class="bc">ψ = 0,  u = v = 0</text>
+                      <text x="66" y="68" text-anchor="start" class="bc">ψ = y,  ω = 0</text>
+                      <text x="354" y="68" text-anchor="end" class="bc">∂ψ/∂x = ∂ω/∂x = 0</text>
+                      <line x1="60" y1="246" x2="110" y2="246" class="ax" marker-end="url(#nsch-ag)"/><text x="116" y="250" class="axl">x</text><text x="60" y="258" text-anchor="middle" class="axl">0</text><text x="360" y="258" text-anchor="middle" class="axl">L</text>
+                      <line x1="380" y1="200" x2="380" y2="150" class="ax" marker-end="url(#nsch-ag)"/><text x="376" y="144" class="axl">y</text>
+                      <text x="380" y="214" text-anchor="middle" class="axl">0</text><text x="380" y="54" text-anchor="middle" class="axl">H</text>
+                      <rect x="105" y="95" width="60" height="60" fill="none" stroke="#6b7280" stroke-width="1" stroke-dasharray="4 3"/>
+                      <circle cx="135" cy="125" r="22" fill="url(#nsch-h)" stroke="#1f2937" stroke-width="2"/>
+                      <line x1="135" y1="125" x2="150.5562" y2="109.4438" class="dim"/><text x="149" y="119" class="axl">r</text>
+                      <circle cx="135" cy="125" r="1.8" fill="#1f2937"/>
+                      <text x="173" y="117" class="axl">w × h</text>
+                      <text x="173" y="135" class="bc">ψ = c<tspan dy="4" font-size="9">y</tspan><tspan dy="-4">,  u = v = 0</tspan></text>
+                      <text x="173" y="151" class="axl">(c<tspan dy="4" font-size="9">x</tspan><tspan dy="-4">, c</tspan><tspan dy="4" font-size="9">y</tspan><tspan dy="-4">)</tspan></text>
+                      </svg>
+                      <figcaption class="mt-1 text-xs text-gray-500" data-i18n="scheme.parametric">Esquema ilustrativo: as dimensões são definidas pelos parâmetros.</figcaption>
+                    </figure>
+                    <figure class="mm-scheme mt-3 shrink-0 md:mt-0 md:w-80 lg:w-96 hidden" data-mm-scheme="step">
+                      <svg viewBox="0 0 400 265" role="img" data-i18n-attr="aria-label:scheme.alt"><defs><marker id="nsst-ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker><marker id="nsst-ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker><pattern id="nsst-h" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" class="hatch"/></pattern></defs>
+                      <rect x="60" y="50" width="300" height="150" class="dom"/>
+                      <rect x="60" y="42" width="300" height="8" fill="url(#nsst-h)" stroke="none"/>
+                      <rect x="60" y="200" width="300" height="8" fill="url(#nsst-h)" stroke="none"/>
+                      <line x1="60" y1="50" x2="360" y2="50" class="wall"/><line x1="60" y1="200" x2="360" y2="200" class="wall"/>
+                      <line x1="22" y1="63.25" x2="56" y2="63.25" class="arrow" marker-end="url(#nsst-ab)"/><line x1="22" y1="89.75" x2="56" y2="89.75" class="arrow" marker-end="url(#nsst-ab)"/>
+                      <text x="38" y="40" text-anchor="middle" class="bc">u = 1</text>
+                      <text x="210" y="30" text-anchor="middle" class="bc">ψ = H,  u = v = 0</text>
+                      <text x="210" y="226" text-anchor="middle" class="bc">ψ = 0,  u = v = 0</text>
+                      <text x="66" y="68" text-anchor="start" class="bc">ψ = y,  ω = 0</text>
+                      <text x="354" y="68" text-anchor="end" class="bc">∂ψ/∂x = ∂ω/∂x = 0</text>
+                      <line x1="60" y1="246" x2="110" y2="246" class="ax" marker-end="url(#nsst-ag)"/><text x="116" y="250" class="axl">x</text><text x="60" y="258" text-anchor="middle" class="axl">0</text><text x="360" y="258" text-anchor="middle" class="axl">L</text>
+                      <line x1="380" y1="200" x2="380" y2="150" class="ax" marker-end="url(#nsst-ag)"/><text x="376" y="144" class="axl">y</text>
+                      <text x="380" y="214" text-anchor="middle" class="axl">0</text><text x="380" y="54" text-anchor="middle" class="axl">H</text>
+                      <rect x="60" y="125" width="75" height="75" fill="url(#nsst-h)" stroke="none"/>
+                      <path d="M60,125 L135,125 L135,200" fill="none" class="wall"/>
+                      <line x1="141" y1="125" x2="141" y2="200" class="dim" marker-end="url(#nsst-ag)" marker-start="url(#nsst-ag)"/><text x="147" y="166.5" class="axl">h</text>
+                      <line x1="60" y1="113" x2="135" y2="113" class="dim" marker-end="url(#nsst-ag)" marker-start="url(#nsst-ag)"/><text x="97.5" y="108" text-anchor="middle" class="axl">l</text>
+                      <text x="149" y="190" text-anchor="start" class="bc">ψ = 0,  u = v = 0</text>
+                      </svg>
+                      <figcaption class="mt-1 text-xs text-gray-500" data-i18n="scheme.parametric">Esquema ilustrativo: as dimensões são definidas pelos parâmetros.</figcaption>
+                    </figure>
+                  </div>
                 </section>
                 <section>
                   <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.bc">Condições de contorno</h4>
@@ -231,6 +301,10 @@
         function updateUI() {
             const scenario = document.getElementById("scenario").value;
             const geoType = document.getElementById("geo_type").value;
+
+            // Esquema do domínio correspondente ao cenário (bloco "Sobre o problema")
+            const scheme = scenario === "cavity" ? "cavity" : geoType === "step" ? "step" : "channel";
+            document.querySelectorAll("[data-mm-scheme]").forEach(el => el.classList.toggle("hidden", el.dataset.mmScheme !== scheme));
 
             if (scenario === "cavity") {
                 document.getElementById("geo-section").classList.add("hidden");

@@ -72,3 +72,21 @@
 #plot-output .mpl-message {
   @apply ml-auto min-w-0 flex-1 truncate text-right font-mono text-xs text-gray-500;
 }
+
+/* Esquema do domínio (SVG inline no bloco "Sobre o problema", spec 8). Fora de @layer pelo mesmo motivo acima. */
+.mm-scheme svg { display: block; width: 100%; height: auto; }
+.mm-scheme .dom { fill: #eff6ff; stroke: #1f2937; stroke-width: 2; }
+.mm-scheme .wall { stroke: #1f2937; stroke-width: 5; fill: none; }
+.mm-scheme .hatch { stroke: #1f2937; stroke-width: 1; }
+.mm-scheme .lid { stroke: #2563eb; stroke-width: 5; }
+.mm-scheme .hot { stroke: #dc2626; stroke-width: 5; }
+.mm-scheme .cold { stroke: #2563eb; stroke-width: 5; }
+.mm-scheme .fix { stroke: #1f2937; stroke-width: 5; }
+.mm-scheme .arrow { stroke: #2563eb; stroke-width: 1.6; fill: none; }
+.mm-scheme .ax { stroke: #6b7280; stroke-width: 1.2; fill: none; }
+.mm-scheme .dim { stroke: #6b7280; stroke-width: 1; fill: none; }
+.mm-scheme .lab { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #111827; }
+.mm-scheme .bc { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #1d4ed8; }
+.mm-scheme .bcr { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #b91c1c; }
+.mm-scheme .halo { paint-order: stroke; stroke: #eff6ff; stroke-width: 4px; stroke-linejoin: round; }
+.mm-scheme .axl { font: italic 12px serif; fill: #6b7280; }

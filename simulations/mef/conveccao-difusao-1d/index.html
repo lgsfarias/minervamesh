@@ -26,7 +26,18 @@
           </section>
           <section>
             <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.domain">Domínio</h4>
-            <p><span data-i18n="desc.domain">Barra de comprimento L dividida em nₑ elementos lineares de tamanho uniforme:</span> $h = L/n_e$.</p>
+            <div class="md:flex md:items-start md:gap-6">
+              <p class="md:flex-1"><span data-i18n="desc.domain">Barra de comprimento L dividida em nₑ elementos lineares de tamanho uniforme:</span> $h = L/n_e$.</p>
+              <figure class="mm-scheme mt-3 shrink-0 md:mt-0 md:w-80 lg:w-96" data-mm-scheme="bar">
+                <svg viewBox="0 0 400 150" role="img" data-i18n-attr="aria-label:scheme.alt"><defs><marker id="cd1-ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker><marker id="cd1-ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker><pattern id="cd1-q" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1.3" fill="#f59e0b"/></pattern></defs>
+                <rect x="70" y="55" width="260" height="30" class="dom"/><rect x="70" y="55" width="260" height="30" fill="url(#cd1-q)" stroke="none"/><line x1="70" y1="51" x2="70" y2="89" class="fix"/><line x1="330" y1="51" x2="330" y2="89" class="fix"/><line x1="70" y1="120" x2="120" y2="120" class="ax" marker-end="url(#cd1-ag)"/><text x="126" y="124" class="axl">x</text><text x="70" y="138" text-anchor="middle" class="axl">0</text><text x="330" y="138" text-anchor="middle" class="axl">L</text>
+                <text x="200" y="74" text-anchor="middle" class="lab halo">Q, k</text>
+                <line x1="160" y1="32" x2="240" y2="32" class="arrow" marker-end="url(#cd1-ab)"/><text x="200" y="22" text-anchor="middle" class="bc">u</text>
+                <text x="64" y="44" text-anchor="start" class="bc">T(0) = T<tspan dy="4" font-size="9">0</tspan></text>
+                <text x="336" y="44" text-anchor="end" class="bc">T(L) = T<tspan dy="4" font-size="9">L</tspan></text>
+                </svg>
+              </figure>
+            </div>
           </section>
           <section>
             <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.bc">Condições de contorno</h4>
