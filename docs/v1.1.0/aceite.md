@@ -20,7 +20,9 @@ campo `params` de `docs/v1.1.0/baseline/v1.0.0-defaults.json`.
 O hash da imagem só serve de critério até a primeira edição que toque no
 gráfico (tradução de rótulos, troca de GIF por PNG). Antes disso entra um
 gancho que exporta os resultados numéricos para `window.__minervamesh_result`
-(spec, seção 2, passo 0); a partir daí a comparação é pelos números.
+(spec, seção 2, passo 0); a partir daí a comparação é pelos números. O gancho é temporário e sai no fechamento da versão; para reinserir,
+aplicar de novo o commit da etapa 1b (`git cherry-pick`) e rodar
+`node scripts/baseline.mjs --label <rótulo>`.
 
 ### Antes (v1.0.0, 17/10/2026)
 
@@ -78,6 +80,37 @@ C passa a atualizar a cada ~1,8 s e dura ~55 s. Arquivos:
 ### Depois (v1.1.0)
 
 Pendente; preenchido ao final da etapa 10.
+
+## Gancho de exportação validado (17/10/2026)
+
+Rodada `v1.0.0-hook` (código da v1.0.0 mais o gancho `_export_result`, nada
+além disso): hashes de imagem e textos exibidos idênticos aos de
+`v1.0.0-defaults` nos 10 módulos, e o resultado numérico exportado em todos.
+Os hashes abaixo são a **referência numérica** para a comparação "depois".
+
+| Módulo | Imagem igual à v1.0.0 | Texto igual | Chaves exportadas | sha256/16 do resultado |
+|---|---|---|---|---|
+| mdf-conducao | sim | sim | x, T, T_analytical, nx, alpha, Q | `f4bec9c0ec3bf719` |
+| mdf-onda | sim | sim | x, u, nt, dt, mode | `f9ee818ac6205a34` |
+| mef-conducao | sim | sim | x, T, T_ana_mesh, e_max, T_max_mef, x_max_mef | `37b2c108a97899e2` |
+| calor-transiente-1d | sim | sim | x_nodes, T, nt, dt, T_meio_mef, erro_meio | `60e236980bf88b4a` |
+| conveccao-difusao | sim | sim | x, T, T_ana_mesh, erro_max, Pe_local, tau, use_supg | `da38aa9b91d42295` |
+| viga | sim | sim | x, w, M, V, w_max_mef, x_wmax, M_abs_max, V_abs_max | `0cb54a229a4859de` |
+| vibracao | sim | sim | x, frequencies, freq_analytical, eigenvectors | `c85c2f02e695cf19` |
+| transcalor | sim | sim | X, Y, u, n_steps, dt, T_centro_mef, erro_centro | `a21b6afac4adabb1` |
+| potencial | sim | sim | psi, cp_sorted, angles_sorted, Lift_dim, Drag_dim, Gamma_dim | `231d13de637773a3` |
+| navier-stokes | sim | sim | psi, omega, current_step, total_steps, stopped | `908c0a7730520e05` |
+
+Arquivo: `docs/v1.1.0/baseline/v1.0.0-hook.json` (contém os arrays completos).
+
+## Armadilha: cache do browser
+
+Na primeira rodada com o gancho o resultado veio vazio porque o perfil
+persistente do Chrome servia o `simulation.py` antigo do cache (o
+`http.server` do Python não manda `Cache-Control`). O `scripts/baseline.mjs`
+passou a servir os arquivos do repositório com `no-store`. Vale o mesmo aviso
+para teste manual: depois de editar um `.py`, recarregar a página ignorando o
+cache (Shift + recarregar), senão o PyScript roda a versão anterior.
 
 ## Fontes verificadas
 

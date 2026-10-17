@@ -15,11 +15,11 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] Testar candidatos a default da cavidade: escolhido 31×31, Δt 0,02, 300 passos, steps_per_frame 10 (~55 s). Tabela em `docs/v1.1.0/aceite.md`
 - [x] Registrar a tabela "antes" em `docs/v1.1.0/aceite.md` (CHANGELOG fica curto, decisão do autor)
 
-## Etapa 1b — Gancho de exportação de resultados (spec 2, passo 0)
+## Etapa 1b — Gancho de exportação de resultados (spec 2, passo 0) (concluída em 17/10/2026)
 
-- [ ] `window.__minervamesh_result` ao final do `run` em cada `simulation.py` (commit só com isso)
-- [ ] `scripts/baseline.mjs` lê e grava o objeto exportado
-- [ ] Rodar baseline: hashes idênticos aos da `v1.0.0` (valida o gancho); gravar `v1.0.0-hook` como referência numérica
+- [x] `window.__minervamesh_result` ao final do `run` em cada `simulation.py` (commit só com isso)
+- [x] `scripts/baseline.mjs` lê e grava o objeto exportado
+- [x] Rodar baseline: hashes idênticos aos da `v1.0.0` (valida o gancho); gravar `v1.0.0-hook` como referência numérica
 
 ## Etapa 2 — Camada compartilhada e homogeneização (spec 4, 4.1)
 
@@ -87,6 +87,7 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 ## Etapa 10 — Fechamento
 
 - [ ] Métricas "depois" em `docs/v1.1.0/aceite.md`; entrada curta no `CHANGELOG.md`
+- [ ] Remover o gancho `_export_result` dos 10 `simulation.py` (revert do commit da etapa 1b), depois de registrada a comparação final; rodar a baseline uma última vez para confirmar texto e imagens idênticos aos da rodada "depois"
 - [ ] Tag `v1.1.0`
 - [ ] Espelhar `gh-pages`
 - [ ] `scripts/sync_minervamesh.sh` no fork do labmfa e atualização do draft PR #1

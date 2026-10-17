@@ -72,7 +72,12 @@ condução MDF) e como reforço nos demais, o protocolo tem um passo zero:
    nenhum gráfico, o hash das imagens tem de ficar idêntico ao da `v1.0.0`,
    o que valida o próprio gancho. A partir daí, "métricas idênticas" significa
    texto exibido **e** `__minervamesh_result` idênticos, e o hash deixa de ser
-   critério.
+   critério. O gancho é **temporário**: decisão do autor em 17/10/2026 de
+   removê-lo no fechamento (etapa 10), depois da comparação final, para o
+   `simulation.py` exibido no modal "Ver código" voltar a conter só o
+   método. O commit da etapa 1b fica como receita para reinseri-lo quando
+   uma mudança futura (ex.: atualização do PyScript) precisar de verificação
+   numérica.
 
 Ferramenta: `scripts/baseline.mjs` (Node + `puppeteer-core`, devDependency)
 abre cada módulo em Chrome headless, roda com os parâmetros informados e grava
