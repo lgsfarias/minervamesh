@@ -6,7 +6,7 @@ from pyscript import when, document
 import asyncio
 from common import generate_mesh_generic, assemble_matrices
 
-from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
+from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
@@ -264,7 +264,7 @@ async def solve_potential(params, plot_div):
 
     # --- VISUALIZAÇÃO ---
     plot_begin()
-    fig = plt.figure(figsize=plot_size(10, 12))
+    fig = plt.figure(**plot_fig(10, 12))
     gs = fig.add_gridspec(3, 1, height_ratios=[1.5, 1.5, 1])
     
     ax1 = fig.add_subplot(gs[0])

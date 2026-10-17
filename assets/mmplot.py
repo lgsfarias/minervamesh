@@ -8,33 +8,34 @@ apresentação; nenhuma delas participa do cálculo.
 
 Uso em simulation.py (o config.toml do módulo busca este arquivo via [[fetch]]):
 
-    from mmplot import plot_begin, plot_size, plot_show
+    from mmplot import plot_begin, plot_fig, plot_show
 
     plot_begin()
-    fig, ax = plt.subplots(figsize=plot_size(8, 4))
+    fig, ax = plt.subplots(**plot_fig(8, 4))
     ...
     plot_show("Título da figura")
 """
 import matplotlib.pyplot as plt
 from js import document
 
-DPI = 100  # dpi padrão do Matplotlib; o backend multiplica pelo devicePixelRatio
+DPI_MAX = 100  # dpi padrão do Matplotlib; o backend multiplica pelo devicePixelRatio
 
 
-def plot_size(default_w, default_h):
-    """figsize em polegadas ajustado à largura da área de resultado.
+def plot_fig(width_in, height_in):
+    """kwargs para plt.figure()/plt.subplots(): figsize original e dpi ajustado ao container.
 
-    O backend não é responsivo: o canvas nasce com figsize × dpi pixels. Por isso
-    a largura é lida do container e a altura segue a proporção pedida.
+    O backend não é responsivo: o canvas nasce com figsize × dpi pixels. Em vez de
+    encolher o figsize (o que deixaria títulos e rótulos, medidos em pontos,
+    grandes demais e sobrepostos), mantém-se o figsize com que o gráfico foi
+    desenhado e reduz-se o dpi, de modo que a figura inteira escala como uma
+    imagem, fontes incluídas.
     """
     try:
         w_px = document.getElementById("plot-output").clientWidth - 8
     except Exception:
         w_px = 0
-    if w_px < 300:
-        return (default_w, default_h)
-    w_in = w_px / DPI
-    return (w_in, w_in * default_h / default_w)
+    dpi = DPI_MAX if w_px < 300 else min(DPI_MAX, w_px / width_in)
+    return {"figsize": (width_in, height_in), "dpi": dpi}
 
 
 def plot_begin():

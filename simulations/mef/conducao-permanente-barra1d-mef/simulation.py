@@ -12,7 +12,7 @@ from js import document
 from pyscript import when
 import asyncio
 
-from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
+from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
@@ -111,7 +111,7 @@ async def run_mef_1d(event=None):
 
     # Plot
     plot_begin()
-    fig, ax = plt.subplots(figsize=plot_size(8, 4))
+    fig, ax = plt.subplots(**plot_fig(8, 4))
     ax.plot(x, T, 'o-', label='MEF 1D', color='#3B82F6')
     ax.plot(x_dense, T_ana_dense, '--', label='Analítica', color='#EF4444')
     ax.set_xlabel('x [m]')

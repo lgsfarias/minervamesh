@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 from js import document
 from pyodide.ffi import create_proxy
 
-from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
+from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
@@ -110,7 +110,7 @@ def runSimulation(event):
     # 6. Visualização dos Resultados
     # ==============================
     plot_begin()
-    plt.figure(figsize=plot_size(10, 6))
+    plt.figure(**plot_fig(10, 6))
     x = np.linspace(0, L, nx + 2)
     plt.plot(x, T, 'o-', label="Solução Numérica", color='#3B82F6', linewidth=2, markersize=8)
     plt.plot(x_analytical, T_analytical, '--', label="Solução Analítica", color='#EF4444', linewidth=2)

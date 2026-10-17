@@ -15,7 +15,7 @@ from pyscript import when
 import asyncio
 from scipy.linalg import eigh
 
-from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
+from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
@@ -224,57 +224,38 @@ async def run_vibracao_1d(event=None):
     }
     bc_title = bc_titles.get(bc_type, "Desconhecida")
 
-    # Plot avançado com múltiplos gráficos
-    plot_begin()
-    fig = plt.figure(figsize=plot_size(14, 22))
-
-    # Layout: 7x1 grid (1 tabela + 5 modos + 1 propriedades)
-    gs = fig.add_gridspec(7, 1, height_ratios=[1.2, 2.2, 2.2, 2.2, 2.2, 2.2, 1.5], hspace=0.5)
-
-    # 1. Tabela de frequências
-    ax1 = fig.add_subplot(gs[0, :])
-    ax1.axis('off')
-
-    # Criar tabela de frequências
-    table_data = []
+    # Tabela de frequências naturais (em HTML, abaixo da figura; ver plot_append_html)
     show_analytical_table = show_analytical and prop_type == "constant"
-
+    rows_html = []
     for i in range(min(5, n_modes)):
-        row = [f'Modo {i+1}', f'{frequencies[i]:.2f} Hz']
+        cells = [f"Modo {i+1}", f"{frequencies[i]:.2f}"]
         if show_analytical_table and i < len(freq_analytical) and freq_analytical[i] > 0:
             error = abs(frequencies[i] - freq_analytical[i]) / freq_analytical[i] * 100
-            row.append(f'{freq_analytical[i]:.2f} Hz')
-            row.append(f'{error:.1f}%')
+            cells += [f"{freq_analytical[i]:.2f}", f"{error:.1f}%"]
         elif show_analytical_table:
-            row.extend(['-', '-'])
-        table_data.append(row)
+            cells += ["-", "-"]
+        rows_html.append("<tr>" + "".join(f"<td class='px-3 py-1 text-center'>{c}</td>" for c in cells) + "</tr>")
+    headers = ["Modo", "MEF [Hz]", "Analítica [Hz]", "Erro [%]"] if show_analytical_table else ["Modo", "MEF [Hz]"]
+    metrics_html = (
+        "<div class=\"bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full\">"
+        "<h4 class=\"font-semibold text-blue-800 mb-2\">Validação</h4>"
+        f"<p class=\"text-sm text-gray-700 mb-2\"><strong>Frequências naturais:</strong> {bc_title}, propriedades {prop_type}</p>"
+        "<table class=\"text-sm text-gray-700 border-collapse\"><thead><tr>"
+        + "".join(f"<th class='px-3 py-1 text-center font-semibold text-blue-800 border-b border-blue-200'>{h}</th>" for h in headers)
+        + "</tr></thead><tbody>" + "".join(rows_html) + "</tbody></table></div>"
+    )
 
-    # Definir cabeçalhos e larguras baseado nas condições
-    if show_analytical_table:
-        headers = ['Modo', 'MEF [Hz]', 'Analítica [Hz]', 'Erro [%]']
-        col_widths = [0.2, 0.2, 0.2, 0.2]
-    else:
-        headers = ['Modo', 'MEF [Hz]']
-        col_widths = [0.3, 0.3]
+    # Plot avançado com múltiplos gráficos
+    plot_begin()
+    fig = plt.figure(**plot_fig(14, 20))
 
-    table = ax1.table(cellText=table_data, colLabels=headers, 
-                     cellLoc='center', loc='center',
-                     colWidths=col_widths)
-    table.auto_set_font_size(False)
-    table.set_fontsize(12)
-    table.scale(1, 2)
-
-    # Colorir cabeçalho
-    for i in range(len(headers)):
-        table[(0, i)].set_facecolor('#4F46E5')
-        table[(0, i)].set_text_props(weight='bold', color='white')
-
-    ax1.set_title(f'Frequências Naturais - {bc_title}', fontsize=16, fontweight='bold', pad=50)
+    # Layout: 6x1 grid (5 modos + 1 propriedades)
+    gs = fig.add_gridspec(6, 1, height_ratios=[2.2, 2.2, 2.2, 2.2, 2.2, 1.5], hspace=0.5)
 
     # 2-6. Modos de vibração (5 modos fixos)
     colors = ['#3B82F6', '#EF4444', '#10B981', '#F59E0B', '#8B5CF6']
     for i in range(min(5, n_modes)):
-        ax = fig.add_subplot(gs[i+1, :])
+        ax = fig.add_subplot(gs[i, :])
 
         # Plotar modo de vibração
         ax.plot(x, eigenvectors[:, i], 'o-', color=colors[i], markersize=6, linewidth=3, 
@@ -294,7 +275,7 @@ async def run_vibracao_1d(event=None):
         ax.scatter(x, eigenvectors[:, i], color=colors[i], s=50, zorder=5)
 
     # 7. Propriedades materiais
-    ax_props = fig.add_subplot(gs[6, :])
+    ax_props = fig.add_subplot(gs[5, :])
 
     # Plotar linha vermelha primeiro (E) com estilo mais visível
     line1 = ax_props.plot(x, E/1e9, 'r-', linewidth=4, label='E [GPa]', alpha=0.9, zorder=3)
@@ -328,7 +309,10 @@ async def run_vibracao_1d(event=None):
     ax_props.legend(loc='upper left', fontsize=12, framealpha=0.9, edgecolor='r')
     ax_props_twin.legend(loc='upper right', fontsize=12, framealpha=0.9, edgecolor='b')
 
+    # Sem bbox_inches='tight' (figura ao vivo), reduz as margens externas da figura
+    fig.subplots_adjust(top=0.98, bottom=0.03)
     plot_show("Vibração 1D (MEF)")
+    plot_append_html(metrics_html)
     _export_result(x=x, frequencies=frequencies, freq_analytical=freq_analytical, eigenvectors=eigenvectors)
 
     try:

@@ -13,7 +13,7 @@ from js import document
 from pyscript import when
 import asyncio
 
-from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
+from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
@@ -162,7 +162,7 @@ async def run_conveccao_difusao_1d(event=None):
 
     # Plot
     plot_begin()
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=plot_size(10, 8))
+    fig, (ax1, ax2) = plt.subplots(2, 1, **plot_fig(10, 8))
     
     # Gráfico principal
     ax1.plot(x, T, 'o-', label='MEF 1D', color='#3B82F6', markersize=6)

@@ -12,7 +12,7 @@ from js import document
 from pyscript import when
 import asyncio
 
-from mmplot import plot_begin, plot_size, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
+from mmplot import plot_begin, plot_fig, plot_show, plot_append_html  # gráfico interativo (assets/mmplot.py)
 
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
@@ -298,7 +298,7 @@ async def run_viga_1d(event=None):
 
     # Plot avançado com múltiplos gráficos
     plot_begin()
-    fig = plt.figure(figsize=plot_size(12, 18))
+    fig = plt.figure(**plot_fig(12, 18))
     
     # Layout: 5x1 grid
     gs = fig.add_gridspec(5, 1, height_ratios=[2, 1.5, 1.5, 1.5, 1.5])
