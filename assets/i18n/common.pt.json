@@ -48,5 +48,11 @@
   "menu.potencial.title": "Escoamento Potencial 2D",
   "menu.potencial.desc": "Equação de Laplace para a função corrente ψ em canal com cilindro ou aerofólio; elementos triangulares lineares, Cp comparado à teoria do cilindro.",
   "menu.navier-stokes.title": "Navier-Stokes 2D (Vorticidade)",
-  "menu.navier-stokes.desc": "Formulação ψ–ω em cavidade com tampa móvel ou canal com obstáculo; elementos triangulares, difusão implícita e convecção explícita, referência Ghia et al. (1982) na cavidade."
+  "menu.navier-stokes.desc": "Formulação ψ–ω em cavidade com tampa móvel ou canal com obstáculo; elementos triangulares, difusão implícita e convecção explícita, referência Ghia et al. (1982) na cavidade.",
+  "py.validation": "Validação",
+  "py.error": "Erro: {e}",
+  "py.computing": "Calculando...",
+  "py.starting": "Iniciando...",
+  "py.yes": "Sim",
+  "py.no": "Não"
 }

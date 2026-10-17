@@ -26,5 +26,16 @@
   "input.steps_per_frame": "Passos por quadro:",
   "input.total_steps": "Total de passos:",
   "input.nx": "Nós em X:",
-  "input.ny": "Nós em Y:"
+  "input.ny": "Nós em Y:",
+  "py.plot.psi_title": "Navier-Stokes (Step {step}) - $\\psi$",
+  "py.plot.omega_title": "Navier-Stokes (Step {step}) - $\\omega$",
+  "py.plot.streamlines": "Linhas de Corrente",
+  "py.val.ghia_label": "Referência Ghia et al. (1982) Re=100:",
+  "py.val.ghia": "ψ_min ≈ {psi}, centro em ({x}, {y})",
+  "py.val.step_label": "Passo:",
+  "py.val.step": "{step} / {total}, Re = {Re:.1f}, malha {nx}×{ny}",
+  "py.val.psi_min_label": "ψ_min:",
+  "py.val.psi_min": "{psi:+.5f} em ({x:.3f}, {y:.3f})",
+  "py.done": "Simulação Concluída!",
+  "py.stopped": "Simulação Parada pelo Usuário."
 }

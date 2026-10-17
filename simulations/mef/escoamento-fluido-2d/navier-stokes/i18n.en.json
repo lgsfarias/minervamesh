@@ -26,5 +26,16 @@
   "input.steps_per_frame": "Steps per frame:",
   "input.total_steps": "Total steps:",
   "input.nx": "Nodes in X:",
-  "input.ny": "Nodes in Y:"
+  "input.ny": "Nodes in Y:",
+  "py.plot.psi_title": "Navier-Stokes (step {step}) - $\\psi$",
+  "py.plot.omega_title": "Navier-Stokes (step {step}) - $\\omega$",
+  "py.plot.streamlines": "Streamlines",
+  "py.val.ghia_label": "Reference (Ghia et al., 1982, Re=100):",
+  "py.val.ghia": "ψ_min ≈ {psi}, center at ({x}, {y})",
+  "py.val.step_label": "Step:",
+  "py.val.step": "{step} / {total}, Re = {Re:.1f}, mesh {nx}×{ny}",
+  "py.val.psi_min_label": "ψ_min:",
+  "py.val.psi_min": "{psi:+.5f} at ({x:.3f}, {y:.3f})",
+  "py.done": "Simulation finished!",
+  "py.stopped": "Simulation stopped by the user."
 }

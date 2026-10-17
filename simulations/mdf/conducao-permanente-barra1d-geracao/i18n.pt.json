@@ -5,5 +5,11 @@
   "desc.method": "A solução numérica é obtida pelo Método das Diferenças Finitas (MDF), que discretiza a barra em vários nós e resolve o sistema linear resultante para encontrar a distribuição de temperatura.",
   "input.nx": "Número de nós:",
   "input.alpha": "Coeficiente α:",
-  "input.Q": "Geração de calor (Q):"
+  "input.Q": "Geração de calor (Q):",
+  "py.legend.numeric": "Solução Numérica",
+  "py.legend.analytical": "Solução Analítica",
+  "py.legend.params": "Parâmetros:\nNº Nós (nx): {nx} | Alpha: {alpha} | Q: {Q}",
+  "py.plot.title": "Comparação: Solução Numérica vs Analítica",
+  "py.plot.xlabel": "Posição (x)",
+  "py.plot.ylabel": "Temperatura (T)"
 }

@@ -9,5 +9,11 @@
   "input.k": "Thermal conductivity (k):",
   "input.rho": "Density (ρ):",
   "input.cv": "Specific heat",
-  "result.title": "Heat map (GIF)"
+  "result.title": "Heat map (GIF)",
+  "py.val.t_final_label": "Final time:",
+  "py.val.t_final": "{t_final:.3f} s ({frac:.1f}% of the diffusive time scale τ_dif = {tau_dif:.2f} s)",
+  "py.val.t_center_fem_label": "T(0.5, 0.5) FEM:",
+  "py.val.t_center_ss_label": "T(0.5, 0.5) steady state (T_bot + (T_top − T_bot)·y):",
+  "py.val.dev_label": "Deviation from steady state:",
+  "py.val.dev": "{err:.4f} °C (increase n_steps to converge)"
 }

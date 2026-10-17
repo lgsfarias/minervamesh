@@ -14,5 +14,19 @@
   "input.rho_cp": "ρcp [J/m³·K]",
   "input.u": "u [m/s]",
   "input.Q": "Q [W/m³]",
-  "input.use_supg": "Use SUPG stabilization"
+  "input.use_supg": "Use SUPG stabilization",
+  "py.legend.fem": "1D FEM",
+  "py.legend.analytical": "Analytical",
+  "py.plot.ylabel": "Temperature [°C]",
+  "py.plot.title": "1D Steady Convection-Diffusion (FEM)",
+  "py.plot.err_ylabel": "Absolute error [°C]",
+  "py.plot.err_title": "Error between numerical and analytical solutions (log scale)",
+  "py.plot.err_text": "Maximum error: {err:.2e} °C\n(machine precision)",
+  "py.info.title": "Simulation summary",
+  "py.info.peclet": "Péclet number:",
+  "py.info.supg": "SUPG stabilization:",
+  "py.info.tau": "τ parameter:",
+  "py.info.u": "Velocity:",
+  "py.info.h": "Element size:",
+  "py.info.err": "Maximum error:"
 }

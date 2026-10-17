@@ -19,5 +19,21 @@
   "input.chord": "Chord [m]:",
   "input.angle_airfoil": "Angle of attack (°):",
   "input.nx": "Nodes in X:",
-  "input.ny": "Nodes in Y:"
+  "input.ny": "Nodes in Y:",
+  "py.plot.psi_title": "Stream function ($\\psi$) - {geo}",
+  "py.plot.streamlines": "Streamlines",
+  "py.plot.velocity": "Velocity",
+  "py.legend.numeric": "Numerical",
+  "py.legend.analytical": "Analytical (theoretical)",
+  "py.legend.cp_numeric": "Numerical Cp",
+  "py.plot.theta_xlabel": "$\\theta$ (degrees)",
+  "py.plot.angle_xlabel": "Angle (rad)",
+  "py.plot.cp_ylabel": "$C_p$ (dimensionless)",
+  "py.plot.cp_title": "Pressure coefficient distribution ($C_p$)",
+  "py.val.cp_row": "C_p FEM = {cp_n:.3f} | theory = {cp_t:.3f} (Δ = {d:+.3f})",
+  "py.val.cp_title": "Validation: C_p on the cylinder surface (theory: C_p = 1 − 4 sin²θ)",
+  "py.res.title": "Aerodynamic results",
+  "py.res.lift": "Lift (L):",
+  "py.res.drag": "Drag (D):",
+  "py.res.circulation": "Circulation (Γ):"
 }

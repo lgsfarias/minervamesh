@@ -5,5 +5,11 @@
   "desc.method": "The numerical solution is obtained with the Finite Difference Method (FDM), which discretizes the bar into nodes and solves the resulting linear system for the temperature distribution.",
   "input.nx": "Number of nodes:",
   "input.alpha": "Coefficient α:",
-  "input.Q": "Heat generation (Q):"
+  "input.Q": "Heat generation (Q):",
+  "py.legend.numeric": "Numerical solution",
+  "py.legend.analytical": "Analytical solution",
+  "py.legend.params": "Parameters:\nNodes (nx): {nx} | α: {alpha} | Q: {Q}",
+  "py.plot.title": "Comparison: numerical vs analytical solution",
+  "py.plot.xlabel": "Position (x)",
+  "py.plot.ylabel": "Temperature (T)"
 }

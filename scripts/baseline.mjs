@@ -7,6 +7,10 @@
  *   node scripts/baseline.mjs --label v1.0.0-defaults
  *   node scripts/baseline.mjs --label ns-cavity-tcc --only navier-stokes \
  *        --set scenario=cavity,L=1,H=1,nx=41,ny=41,Re=100,dt=0.01,total_steps=2000
+ *   node scripts/baseline.mjs --label fumaca-en --lang en --only viga
+ *
+ * --lang (default pt): idioma da interface (?lang= na URL). A referência v1.0.0-hook
+ * tem o texto em português, então a comparação de texto só vale em pt.
  *
  * Saída: docs/v1.1.0/baseline/<label>.json (resumo humano em docs/v1.1.0/aceite.md)
  * Requer: puppeteer-core (devDependency), Google Chrome instalado, python3.
@@ -48,6 +52,7 @@ const only = arg("only", null);
 const sets = Object.fromEntries((arg("set", "") || "").split(",").filter(Boolean).map((kv) => kv.split("=")));
 const LOAD_TIMEOUT = Number(arg("load-timeout", 240)) * 1000;
 const RUN_TIMEOUT = Number(arg("run-timeout", 900)) * 1000;
+const LANG = arg("lang", "pt");
 
 const sha = (s) => createHash("sha256").update(s).digest("hex").slice(0, 16);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -72,8 +77,8 @@ async function main() {
     for (const m of MODULES) {
       if (only && m.id !== only) continue;
       const page = await browser.newPage();
-      const url = `http://127.0.0.1:${PORT}/${m.path}`;
-      const r = { id: m.id, url, params: {}, errors: [] };
+      const url = `http://127.0.0.1:${PORT}/${m.path}?lang=${LANG}`;
+      const r = { id: m.id, url, lang: LANG, params: {}, errors: [] };
       try {
       await page.setViewport({ width: 1400, height: 1000 });
       await page.setCacheEnabled(false); // nunca medir um simulation.py antigo vindo do cache
@@ -142,7 +147,7 @@ async function main() {
     await browser.close();
     server.kill();
   }
-  const out = { label, date: new Date().toISOString(), overrides: sets, results };
+  const out = { label, date: new Date().toISOString(), lang: LANG, overrides: sets, results };
   writeFileSync(resolve(OUT_DIR, `${label}.json`), JSON.stringify(out, null, 2));
   console.log(`\nGravado em docs/v1.1.0/baseline/${label}.json`);
 }

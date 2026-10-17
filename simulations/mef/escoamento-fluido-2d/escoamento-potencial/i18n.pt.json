@@ -19,5 +19,21 @@
   "input.chord": "Corda [m]:",
   "input.angle_airfoil": "Ângulo de ataque (°):",
   "input.nx": "Nós em X:",
-  "input.ny": "Nós em Y:"
+  "input.ny": "Nós em Y:",
+  "py.plot.psi_title": "Função Corrente ($\\psi$) - {geo}",
+  "py.plot.streamlines": "Linhas de Corrente",
+  "py.plot.velocity": "Velocidade",
+  "py.legend.numeric": "Numérico",
+  "py.legend.analytical": "Analítico (Teórico)",
+  "py.legend.cp_numeric": "Cp Numérico",
+  "py.plot.theta_xlabel": "$\\theta$ (graus)",
+  "py.plot.angle_xlabel": "Ângulo (rad)",
+  "py.plot.cp_ylabel": "$C_p$ (adimensional)",
+  "py.plot.cp_title": "Distribuição de Coeficiente de Pressão ($C_p$)",
+  "py.val.cp_row": "C_p MEF = {cp_n:.3f} | teórico = {cp_t:.3f} (Δ = {d:+.3f})",
+  "py.val.cp_title": "Validação: C_p na superfície do cilindro (teoria: C_p = 1 − 4 sen²θ)",
+  "py.res.title": "Resultados Aerodinâmicos",
+  "py.res.lift": "Sustentação (L):",
+  "py.res.drag": "Arrasto (D):",
+  "py.res.circulation": "Circulação (Γ):"
 }

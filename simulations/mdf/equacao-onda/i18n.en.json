@@ -9,5 +9,9 @@
   "input.tmax": "Total time (s)",
   "input.mode": "Initial condition",
   "option.mode.senoide": "Fundamental sine mode",
-  "option.mode.pulso": "Localized pulse"
+  "option.mode.pulso": "Localized pulse",
+  "py.legend.numeric": "Numerical",
+  "py.legend.analytical": "Analytical",
+  "py.legend.dalembert": "Analytical (d'Alembert)",
+  "py.plot.title": "1D Wave Equation - Leapfrog | t = {t:.3f}s"
 }

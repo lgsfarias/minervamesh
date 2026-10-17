@@ -260,10 +260,16 @@ resultado e o `<script type="py">`. Tudo o mais vem do `app.js`.
   `t` devolve a chave entre colchetes quando não encontra, para o buraco ficar
   visível em teste.
 - Python: no topo de cada `simulation.py`, um guarda de três linhas:
-  `_i18n = getattr(js, "i18n", None)` e `def t(key): return _i18n.t(key) if
-  _i18n else key`. Os literais viram `t("py.plot.xlabel")`. Assim, se o
-  `app.js` falhar, a simulação roda com as chaves no lugar dos textos em vez
-  de quebrar. Em `common.py` e `geometry.py` não há strings de UI; não mudam.
+  `_i18n = getattr(js, "i18n", None)` e `def i18n_t(key): return
+  str(_i18n.t(key)) if _i18n else key`. Os literais viram
+  `i18n_t("py.plot.xlabel")`; strings com valores usam `str.format`
+  (`i18n_t("py.plot.title").format(t=t)`), com os mesmos placeholders em PT e
+  EN. Assim, se o `app.js` falhar, a simulação roda com as chaves no lugar dos
+  textos em vez de quebrar. O nome é `i18n_t`, não `t`, porque `t` é a
+  variável de tempo em `render_frame` da onda e do transiente 1D (e `tr` e `_`
+  também já são usados no potencial e no Navier-Stokes). O guarda fica
+  separado do gancho de exportação (etapa 1b), que é revertido no fechamento.
+  Em `common.py` e `geometry.py` não há strings de UI; não mudam.
 
 ### 5.3 Conteúdo
 

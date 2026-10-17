@@ -14,5 +14,19 @@
   "input.rho_cp": "ρcp [J/m³·K]",
   "input.u": "u [m/s]",
   "input.Q": "Q [W/m³]",
-  "input.use_supg": "Usar estabilização SUPG"
+  "input.use_supg": "Usar estabilização SUPG",
+  "py.legend.fem": "MEF 1D",
+  "py.legend.analytical": "Analítica",
+  "py.plot.ylabel": "Temperatura [°C]",
+  "py.plot.title": "Convecção-Difusão 1D Permanente (MEF)",
+  "py.plot.err_ylabel": "Erro Absoluto [°C]",
+  "py.plot.err_title": "Erro entre Solução Numérica e Analítica (Escala Logarítmica)",
+  "py.plot.err_text": "Erro máximo: {err:.2e} °C\n(Precisão de máquina)",
+  "py.info.title": "Informações da Simulação",
+  "py.info.peclet": "Número de Péclet:",
+  "py.info.supg": "Estabilização SUPG:",
+  "py.info.tau": "Parâmetro τ:",
+  "py.info.u": "Velocidade:",
+  "py.info.h": "Tamanho elemento:",
+  "py.info.err": "Erro máximo:"
 }

@@ -9,5 +9,16 @@
   "input.rho_cp": "Density × specific heat (ρcₚ)",
   "input.dt": "Time step (dt)",
   "input.theta": "θ parameter (0 = explicit, 0.5 = Crank-Nicolson, 1 = implicit)",
-  "input.tmax": "Total time (s)"
+  "input.tmax": "Total time (s)",
+  "py.legend.fem": "FEM",
+  "py.legend.steady": "Steady state (analytical)",
+  "py.plot.k_ylabel": "Conductivity k(x)",
+  "py.plot.xlabel": "Position x",
+  "py.plot.ylabel": "Temperature T",
+  "py.plot.title": "1D Transient Conduction - FEM (n={n}) | t = {t:.3f}s",
+  "py.val.t_final_label": "Final time:",
+  "py.val.t_final": "{t_final:.3f} s ({frac:.1f}% of τ_dif = {tau_dif:.2f} s)",
+  "py.val.t_mid_fem_label": "T(L/2) FEM:",
+  "py.val.t_mid_ana_label": "T(L/2) analytical (steady state, k2/(k1+k2)):",
+  "py.val.dev_label": "Deviation at x = L/2:"
 }

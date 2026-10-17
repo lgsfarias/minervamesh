@@ -7,5 +7,15 @@
   "input.T0": "T(0) [°C]",
   "input.TL": "T(L) [°C]",
   "input.k": "k [W/m·K]",
-  "input.Q": "Q (generation) [W/m³]"
+  "input.Q": "Q (generation) [W/m³]",
+  "py.legend.fem": "1D FEM",
+  "py.legend.analytical": "Analytical",
+  "py.plot.ylabel": "Temperature [°C]",
+  "py.plot.title": "1D Steady Conduction (FEM)",
+  "py.val.mesh_label": "Mesh:",
+  "py.val.mesh": "{nel} linear elements, h = {h:.4f} m",
+  "py.val.tmax_fem_label": "T_max (FEM):",
+  "py.val.tmax_ana_label": "T_max (analytical):",
+  "py.val.at_x": "{T:.6f} °C at x = {x:.3f} m",
+  "py.val.err_label": "Maximum nodal error:"
 }

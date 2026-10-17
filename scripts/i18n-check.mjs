@@ -4,7 +4,9 @@
  *   - paridade de chaves entre i18n.pt.json e i18n.en.json (comum e por módulo);
  *   - toda chave usada em data-i18n / data-i18n-attr / data-mm-title no HTML existe
  *     no JSON do módulo ou no comum;
- *   - chaves definidas e não usadas em lugar nenhum (órfãs; aviso, não erro).
+ *   - chaves definidas e não usadas em lugar nenhum (órfãs; aviso, não erro);
+ *   - toda chave usada em i18n_t("…") no simulation.py do módulo existe no JSON
+ *     do módulo ou no comum (etapa 4).
  *
  * Uso: node scripts/i18n-check.mjs   (sai com código 1 se houver chave faltando)
  */
@@ -73,6 +75,20 @@ for (const page of pages) {
     errors++; console.log(`✗ ${rel}: tem i18n.pt.json mas o body não declara data-mm-i18n`);
   }
   const used = keysInHtml(html);
+  // Chaves usadas pelo Python do módulo (i18n_t("py.…"), etapa 4)
+  const pyFile = join(dir, "simulation.py");
+  if (existsSync(pyFile)) {
+    const py = readFileSync(pyFile, "utf8");
+    for (const m of py.matchAll(/i18n_t\(\s*"([^"]+)"/g)) used.add(m[1]);
+    for (const m of py.matchAll(/i18n_t\(\s*'([^']+)'/g)) used.add(m[1]);
+    // Chaves montadas em tempo de execução: i18n_t("prefixo." + var) → aceita qualquer chave com o prefixo
+    for (const m of py.matchAll(/i18n_t\(\s*["']([^"']+\.)["']\s*\+/g)) {
+      const prefix = m[1];
+      Object.keys(mod.pt).concat(Object.keys(common.pt)).forEach((k) => { if (k.startsWith(prefix)) used.add(k); });
+    }
+  }
+  // Chave terminada em ponto é prefixo de i18n_t("prefixo." + var), não chave literal
+  [...used].filter((k) => k.endsWith(".")).forEach((k) => used.delete(k));
   const missing = [...used].filter((k) => !(k in mod.pt) && !(k in common.pt));
   if (missing.length) { errors++; console.log(`✗ ${rel}: chaves sem tradução: ${missing.join(", ")}`); }
   used.forEach((k) => { if (!(k in mod.pt)) usedCommon.add(k); });

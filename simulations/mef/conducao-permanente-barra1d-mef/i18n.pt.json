@@ -7,5 +7,15 @@
   "input.T0": "T(0) [°C]",
   "input.TL": "T(L) [°C]",
   "input.k": "k [W/m·K]",
-  "input.Q": "Q (geração) [W/m³]"
+  "input.Q": "Q (geração) [W/m³]",
+  "py.legend.fem": "MEF 1D",
+  "py.legend.analytical": "Analítica",
+  "py.plot.ylabel": "Temperatura [°C]",
+  "py.plot.title": "Condução Permanente 1D (MEF)",
+  "py.val.mesh_label": "Malha:",
+  "py.val.mesh": "{nel} elementos lineares, h = {h:.4f} m",
+  "py.val.tmax_fem_label": "T_max (MEF):",
+  "py.val.tmax_ana_label": "T_max (analítica):",
+  "py.val.at_x": "{T:.6f} °C em x = {x:.3f} m",
+  "py.val.err_label": "Erro máximo nodal:"
 }

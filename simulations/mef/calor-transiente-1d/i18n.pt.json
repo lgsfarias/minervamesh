@@ -9,5 +9,16 @@
   "input.rho_cp": "Densidade × calor específico (ρcₚ)",
   "input.dt": "Passo de tempo (dt)",
   "input.theta": "Parâmetro θ (0 = explícito, 0.5 = Crank-Nicolson, 1 = implícito)",
-  "input.tmax": "Tempo total (s)"
+  "input.tmax": "Tempo total (s)",
+  "py.legend.fem": "MEF",
+  "py.legend.steady": "Regime permanente (analítico)",
+  "py.plot.k_ylabel": "Condutividade k(x)",
+  "py.plot.xlabel": "Posição x",
+  "py.plot.ylabel": "Temperatura T",
+  "py.plot.title": "Condução Transiente 1D - MEF (n={n}) | t = {t:.3f}s",
+  "py.val.t_final_label": "Tempo final:",
+  "py.val.t_final": "{t_final:.3f} s ({frac:.1f}% de τ_dif = {tau_dif:.2f} s)",
+  "py.val.t_mid_fem_label": "T(L/2) MEF:",
+  "py.val.t_mid_ana_label": "T(L/2) analítica (regime permanente, k2/(k1+k2)):",
+  "py.val.dev_label": "Desvio em x = L/2:"
 }

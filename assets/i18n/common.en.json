@@ -48,5 +48,11 @@
   "menu.potencial.title": "2D Potential Flow",
   "menu.potencial.desc": "Laplace equation for the stream function ψ in a channel with a cylinder or airfoil; linear triangular elements, Cp compared with cylinder theory.",
   "menu.navier-stokes.title": "2D Navier-Stokes (Vorticity)",
-  "menu.navier-stokes.desc": "ψ–ω formulation in a lid-driven cavity or a channel with an obstacle; triangular elements, implicit diffusion and explicit convection, Ghia et al. (1982) as reference for the cavity."
+  "menu.navier-stokes.desc": "ψ–ω formulation in a lid-driven cavity or a channel with an obstacle; triangular elements, implicit diffusion and explicit convection, Ghia et al. (1982) as reference for the cavity.",
+  "py.validation": "Validation",
+  "py.error": "Error: {e}",
+  "py.computing": "Computing...",
+  "py.starting": "Starting...",
+  "py.yes": "Yes",
+  "py.no": "No"
 }

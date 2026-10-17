@@ -9,5 +9,9 @@
   "input.tmax": "Tempo total (s)",
   "input.mode": "Condição inicial",
   "option.mode.senoide": "Senoide fundamental",
-  "option.mode.pulso": "Pulso localizado"
+  "option.mode.pulso": "Pulso localizado",
+  "py.legend.numeric": "Numérico",
+  "py.legend.analytical": "Analítico",
+  "py.legend.dalembert": "Analítico (d'Alembert)",
+  "py.plot.title": "Equação da Onda 1D - Leapfrog | t = {t:.3f}s"
 }

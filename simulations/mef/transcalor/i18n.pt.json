@@ -9,5 +9,11 @@
   "input.k": "Condutividade térmica (k):",
   "input.rho": "Densidade (ρ):",
   "input.cv": "Calor específico",
-  "result.title": "Mapa de calor (GIF)"
+  "result.title": "Mapa de calor (GIF)",
+  "py.val.t_final_label": "Tempo final:",
+  "py.val.t_final": "{t_final:.3f} s ({frac:.1f}% da escala difusiva τ_dif = {tau_dif:.2f} s)",
+  "py.val.t_center_fem_label": "T(0,5; 0,5) MEF:",
+  "py.val.t_center_ss_label": "T(0,5; 0,5) regime permanente (T_bot + (T_top − T_bot)·y):",
+  "py.val.dev_label": "Desvio do regime permanente:",
+  "py.val.dev": "{err:.4f} °C (aumentar n_steps para convergir)"
 }

@@ -106,14 +106,17 @@ Arquivo: `docs/v1.1.0/baseline/v1.0.0-hook.json` (contém os arrays completos).
 ## Verificações intermediárias
 
 Cada etapa que toca em `.py` ou em HTML termina com uma rodada completa do
-`scripts/baseline.mjs` comparada à referência `v1.0.0-hook`. Os JSONs
-intermediários não são guardados; só o veredito.
+`scripts/baseline.mjs --lang pt` comparada à referência `v1.0.0-hook` com
+`scripts/compare-baseline.mjs` (desconta o prefixo título/toolbar do gráfico
+interativo; a partir da etapa 3 o default do site é `en`, por isso o `--lang`).
+Os JSONs intermediários não são guardados; só o veredito.
 
 | Etapa | Data | Imagens | Texto exibido | `__minervamesh_result` |
 |---|---|---|---|---|
 | 2 — camada compartilhada, ids novos, 10 páginas convertidas | 17/10/2026 | idênticas (10/10) | idêntico (10/10) | idêntico (10/10) |
 | 2b — gráfico interativo (6 estáticos), layout largo, tabela da vibração em HTML | 17/10/2026 | mudaram nos 6 interativos (esperado); idênticas nos 4 demais | mudou onde a figura virou canvas (título/toolbar entram no texto) | idêntico (10/10) |
 | 3 — i18n dos HTML (data-i18n, JSON por módulo, menu bilíngue); nenhum `.py` tocado | 17/10/2026 | idênticas às da 2b (10/10) | idêntico fora o prefixo título/toolbar dos 6 interativos e a tabela da vibração em HTML (mudanças da 2b); Python ainda escreve em PT | idêntico (10/10) |
+| 4 — i18n dos `.py`: literais de gráfico e de validação viram `i18n_t("py.…")`, PT byte a byte igual aos literais anteriores; baseline em `--lang pt` | 17/10/2026 | idênticas às da 3 (10/10) | idêntico (10/10) fora a tabela da vibração em HTML (2b), conferido com `scripts/compare-baseline.mjs` | idêntico (10/10) |
 
 ## Armadilha: cache do browser
 

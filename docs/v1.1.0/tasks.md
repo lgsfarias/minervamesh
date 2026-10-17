@@ -47,11 +47,14 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] Revisão terminológica do EN por agente revisor independente (17/10/2026): 4 correções de termo (propped cantilever, fixed-pinned), SUPG com barra (Brooks & Hughes 1982), Navier-Stokes descrito como semi-implícito (confere com o código), demais ajustes de consistência. O autor não lê inglês; a revisão substitui a leitura dele
 - [x] `DEFAULT_LANG = "en"` em `assets/app.js`
 
-## Etapa 4 — i18n dos `.py` (spec 5.2; commits separados)
+## Etapa 4 — i18n dos `.py` (spec 5.2; commits separados) (concluída em 17/10/2026)
 
-- [ ] Guarda `t(key)` no topo de cada `simulation.py`
-- [ ] Trocar literais de rótulos de gráfico e mensagens por `t("py.…")`
-- [ ] Conferir métricas contra a baseline
+- [x] Guarda `i18n_t(key)` no topo de cada `simulation.py` (nome `i18n_t` em vez de `t`: colisão com a variável de tempo; ver spec 5.2)
+- [x] Trocar literais de rótulos de gráfico e mensagens por `i18n_t("py.…")`; PT dos `py.*` byte a byte igual aos literais anteriores, para a comparação de texto continuar válida
+- [x] `scripts/baseline.mjs --lang` (default `pt`) e `scripts/compare-baseline.mjs`; `scripts/i18n-check.mjs` passa a varrer os `i18n_t(...)` dos `.py`
+- [x] EN das chaves `py.*` revisado pelo agente revisor (1 correção de sentido, 4 de estilo)
+- [x] Conferir métricas contra a baseline (17/10/2026: `__minervamesh_result` e texto idênticos nos 10 módulos)
+- [ ] Decisão do autor, fora do commit mecânico: traduzir `prop_type` cru em "propriedades constant" (viga, vibração) e o `geo_type.capitalize()` ("Naca4412") no título do potencial; muda texto exibido em PT
 
 ## Etapa 5 — Progresso (spec 6)
 
