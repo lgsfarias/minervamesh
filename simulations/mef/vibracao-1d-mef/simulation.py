@@ -244,7 +244,7 @@ async def run_vibracao_1d(event=None):
     metrics_html = (
         "<div class=\"bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full\">"
         f"<h4 class=\"font-semibold text-blue-800 mb-2\">{i18n_t('py.validation')}</h4>"
-        f"<p class=\"text-sm text-gray-700 mb-2\"><strong>{i18n_t('py.val.freq_label')}</strong> {i18n_t('py.val.case').format(bc=bc_title, prop=prop_type)}</p>"
+        f"<p class=\"text-sm text-gray-700 mb-2\"><strong>{i18n_t('py.val.freq_label')}</strong> {i18n_t('py.val.case').format(bc=bc_title, prop=i18n_t('option.prop_type.' + prop_type).lower())}</p>"
         "<table class=\"text-sm text-gray-700 border-collapse\"><thead><tr>"
         + "".join(f"<th class='px-3 py-1 text-center font-semibold text-blue-800 border-b border-blue-200'>{h}</th>" for h in headers)
         + "</tr></thead><tbody>" + "".join(rows_html) + "</tbody></table></div>"

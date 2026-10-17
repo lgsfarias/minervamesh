@@ -290,7 +290,7 @@ async def solve_potential(params, plot_div):
     # 1. Função corrente + malha (sombreamento Gouraud, mapa de cores Jet)
     contour = ax1.tripcolor(triang, psi, shading='gouraud', cmap='jet')
     ax1.triplot(triang, color='k', alpha=0.2, linewidth=0.5)
-    ax1.set_title(i18n_t("py.plot.psi_title").format(geo=params['geo_type'].capitalize()))
+    ax1.set_title(i18n_t("py.plot.psi_title").format(geo=i18n_t("option.geo_type." + params["geo_type"])))
     ax1.set_aspect('equal')
     ax1.set_xlabel("x [m]")
     ax1.set_ylabel("y [m]")

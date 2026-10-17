@@ -54,7 +54,7 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] `scripts/baseline.mjs --lang` (default `pt`) e `scripts/compare-baseline.mjs`; `scripts/i18n-check.mjs` passa a varrer os `i18n_t(...)` dos `.py`
 - [x] EN das chaves `py.*` revisado pelo agente revisor (1 correção de sentido, 4 de estilo)
 - [x] Conferir métricas contra a baseline (17/10/2026: `__minervamesh_result` e texto idênticos nos 10 módulos)
-- [ ] Decisão do autor, fora do commit mecânico: traduzir `prop_type` cru em "propriedades constant" (viga, vibração) e o `geo_type.capitalize()` ("Naca4412") no título do potencial; muda texto exibido em PT
+- [x] Decisão do autor em 17/10/2026 (feito na etapa 6): `prop_type` cru em "propriedades constant" (viga, vibração) traduzido via `option.prop_type.*`, e o `geo_type.capitalize()` ("Naca4412") do título do potencial via `option.geo_type.*`; a partir daqui a divergência de texto aceita na comparação inclui "propriedades constante" na viga e na vibração
 
 ## Etapa 5 — Progresso (spec 6) (concluída em 17/10/2026)
 

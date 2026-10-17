@@ -425,7 +425,7 @@ async def run_viga_1d(event=None):
     metrics_html = (
         "<div class=\"bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full\">"
         f"<h4 class=\"font-semibold text-blue-800 mb-1\">{i18n_t('py.validation')}</h4>"
-        f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.case_label')}</strong> {i18n_t('py.val.case').format(bc=bc_title, load=load_title.lower(), prop=prop_type)}</p>"
+        f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.case_label')}</strong> {i18n_t('py.val.case').format(bc=bc_title, load=load_title.lower(), prop=i18n_t('option.prop_type.' + prop_type).lower())}</p>"
         + "".join(rows)
         + "</div>"
     )
