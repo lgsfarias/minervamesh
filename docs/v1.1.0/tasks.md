@@ -93,12 +93,12 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 
 - [x] Símbolo e unidade em todos os rótulos (76 chaves `input.*` nos 10 módulos), PT e EN, no padrão `Nome símbolo [unidade]` sem dois-pontos; símbolos iguais aos das descrições (nₑ, nₓ, k₁, k₂, Δt, tₘₐₓ, T₀, Tₗ, ρcₚ); adimensionais sem colchetes (Re, CFL, θ; α e Q da condução MDF, módulo sem unidades); subscritos sem glifo Unicode (c_x, c_y, n_x, n_y, T_bottom, T_top, c_v, U∞) em `<sub>` fora do `data-i18n`; texto fallback dos `<label>` nos HTML atualizado junto; EN revisado pelo agente revisor terminológico
 
-## Etapa 9 — Limpezas (spec 10)
+## Etapa 9 — Limpezas (spec 10) (concluída em 17/10/2026)
 
 - [x] CDN num lugar só (17/10/2026, pedido do autor): Prism carregado pelo `app.js` no primeiro clique em "Ver código" e MathJax injetado pelo `app.js`, ambos com SRI; os `<head>` perdem 6 tags de CDN e ficam com PyScript, Tailwind e `app.js`. Verificado em headless: mesma contagem de `mjx-container` nas 10 páginas, Prism só pedido ao abrir o modal, menu sem MathJax nem Prism
-- [ ] Remover `plotly` do transiente 2D (9,7 MB do PyPI na carga, medição da etapa 5); auditar os demais `config.toml`
-- [ ] Recompilar Tailwind
-- [ ] README: parágrafo de resumo em inglês no topo
+- [x] Remover `plotly` do transiente 2D (9,7 MB do PyPI na carga, medição da etapa 5); auditoria dos demais `config.toml` contra os `import` dos `.py` (incluindo `common.py`, `geometry.py` e `mmplot.py`): todos os outros pacotes são usados, nada mais a remover
+- [x] Recompilar Tailwind (feito ao fim de cada etapa que tocou HTML; `assets/tailwind.css` versionado)
+- [x] README: parágrafo de resumo em inglês no topo (revisado pelo agente revisor terminológico) e linhas desatualizadas pela v1.1.0 corrigidas (`assets/`, arquivos `i18n.*.json` por módulo, MathJax, passos de uso com idioma, "Executar" e "Ver código-fonte")
 
 ## Etapa 10 — Fechamento
 

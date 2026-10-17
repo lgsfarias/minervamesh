@@ -2,7 +2,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-Plataforma educacional para simulações numéricas de transferência de calor, mecânica dos fluidos e análise estrutural, executada **integralmente no navegador** com PyScript.
+Plataforma educacional para simulações numéricas de transferência de calor, mecânica dos fluidos e análise estrutural, executada **integralmente no navegador** com PyScript. Interface bilíngue (inglês por padrão, português no seletor).
+
+> **English summary.** MinervaMesh is an educational platform for numerical simulation (finite difference and finite element methods) in heat transfer, fluid mechanics and structural analysis. Everything runs in the browser through PyScript/Pyodide, with no backend. The interface is bilingual (English by default, Portuguese available). Each module states the governing equation, domain, boundary conditions, numerical method and reference solution, and compares the numerical result with an analytical solution or a benchmark case. Developed as an undergraduate thesis project in Mechanical Engineering at Escola Politécnica, UFRJ. MIT license.
 
 ---
 
@@ -37,7 +39,7 @@ minervamesh/
 ├── index.html                              # Menu principal
 ├── favicon.ico
 ├── LICENSE
-├── assets/                                 # Logos e imagens globais
+├── assets/                                 # Camada compartilhada: app.js (i18n, cabeçalho, progresso), i18n/common.*.json, mmplot.py, CSS, logo
 └── simulations/                            # Simulações organizadas por método
     ├── mdf/                               # Método das Diferenças Finitas
     │   ├── conducao-permanente-barra1d-geracao/
@@ -61,9 +63,10 @@ minervamesh/
 Cada simulação segue o padrão:
 ```
 simulacao/
-├── index.html         # Interface (parâmetros + resultado)
+├── index.html         # Interface (descrição do problema, parâmetros, resultado)
 ├── simulation.py      # Lógica numérica em Python
-└── config.toml        # Dependências PyScript (numpy, scipy, etc.)
+├── config.toml        # Dependências PyScript (numpy, scipy, etc.)
+└── i18n.pt.json / i18n.en.json   # Textos da página nos dois idiomas
 ```
 
 ---
@@ -114,17 +117,18 @@ npm run build:css
 | Cálculo | NumPy, SciPy | Álgebra linear, solvers esparsos |
 | Visualização | Matplotlib | Gráficos e campos 2D |
 | Interface | TailwindCSS 3 (CSS compilado pelo CLI, versionado em `assets/`) | Estilização responsiva |
+| Equações | MathJax 3 | Renderização das equações na descrição de cada problema |
 | Código | Prism.js | Syntax highlighting do código-fonte |
 
 ---
 
 ## 📖 Como Usar
 
-1. Escolha uma simulação no menu principal
-2. Configure os parâmetros físicos e numéricos
-3. Clique em **Rodar** e visualize os resultados
-4. Use **Ver Código** para inspecionar a implementação Python
-5. Compare com soluções analíticas (quando disponível)
+1. Escolha o idioma (PT | EN) e uma simulação no menu principal
+2. Leia o bloco **Sobre o problema** (equação, domínio, condições de contorno, método, solução de referência)
+3. Configure os parâmetros físicos e numéricos
+4. Clique em **Executar** e acompanhe o progresso; o resultado aparece com as métricas de validação
+5. Use **Ver código-fonte** para inspecionar a implementação Python
 
 ---
 
