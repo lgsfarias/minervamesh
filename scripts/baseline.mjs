@@ -117,7 +117,7 @@ async function main() {
         // da v1.1.0, a barra verde de "Tempo total" que mmProgress.done() acende em #mm-status
         if (window.__minervamesh_result !== undefined && !dialogOpen) return true;
         const st = document.getElementById("mm-status");
-        if (st && !st.classList.contains("hidden") && st.querySelector("#mm-status-bar")?.classList.contains("bg-green-600")) return true;
+        if (st && !st.classList.contains("hidden") && st.querySelector("#mm-status-bar")?.classList.contains("bg-mm-ok")) return true; // v1.2.0: antes bg-green-600
         const busy = /Iniciando|Calculando|Executando|Carregando|Running|Starting/.test(txt) && !/Conclu|Finished|Complete/.test(txt);
         const done = doneSrc ? new RegExp(doneSrc).test(txt) : true;
         return changed && !dialogOpen && !busy && done;

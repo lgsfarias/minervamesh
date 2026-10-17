@@ -3,6 +3,69 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ---------------------------------------------------------------------------
+   Tokens de cor da v1.2.0 (docs/v1.2.0/spec.md, seção 4). As utilidades
+   bg-mm-*, text-mm-*, border-mm-* (tailwind.config.js) apontam para estas
+   variáveis; assets/theme.js escreve <html data-theme> antes da primeira pintura.
+   --------------------------------------------------------------------------- */
+@layer base {
+  :root {
+    --mm-bg: #f3f5f8;
+    --mm-surface: #ffffff;
+    --mm-surface2: #f8f9fb;
+    --mm-text: #15181d;
+    --mm-muted: #5b6470;
+    --mm-border: #dde1e6;
+    --mm-accent: #2a5ad8;
+    --mm-accent-strong: #1e47b5;
+    --mm-accent-soft: #e6ecfb;
+    --mm-on-accent: #ffffff;
+    --mm-ok: #1f7a3d;
+    --mm-ok-strong: #166030;
+    --mm-ok-soft: #e3f3e8;
+    --mm-danger: #c2410c;
+    --mm-danger-strong: #9a3412;
+    --mm-fem-bg: #e3eafb;
+    --mm-fem-fg: #1e47b5;
+    --mm-fdm-bg: #fbeedc;
+    --mm-fdm-fg: #8a4b0a;
+    --mm-hot: #dc2626;
+    --mm-plate: #ffffff; /* placa das figuras do Matplotlib: sempre clara */
+  }
+  [data-theme="dark"] {
+    --mm-bg: #0f1216;
+    --mm-surface: #171b21;
+    --mm-surface2: #1d222a;
+    --mm-text: #e7eaee;
+    --mm-muted: #a2a9b4;
+    --mm-border: #2a3038;
+    --mm-accent: #8fabf7;
+    --mm-accent-strong: #b3c6fa;
+    --mm-accent-soft: #1d2a4a;
+    --mm-on-accent: #0f1216;
+    --mm-ok: #6fd392;
+    --mm-ok-strong: #8fe0aa;
+    --mm-ok-soft: #163421;
+    --mm-danger: #fb923c;
+    --mm-danger-strong: #fdba74;
+    --mm-fem-bg: #1d2a4a;
+    --mm-fem-fg: #b3c6fa;
+    --mm-fdm-bg: #3a2a12;
+    --mm-fdm-fg: #f3c98a;
+    --mm-hot: #f87171;
+    --mm-plate: #ffffff;
+  }
+  body {
+    @apply bg-mm-bg text-mm-text;
+  }
+  /* Controles nativos (select, number) seguem o tema */
+  input,
+  select,
+  textarea {
+    @apply bg-mm-surface text-mm-text;
+  }
+}
+
 /* Componentes compartilhados injetados por assets/app.js (prefixo mm- = MinervaMesh) */
 @layer components {
   /* Botão Executar ocupado (carga do PyScript ou simulação em andamento) */
@@ -10,11 +73,11 @@
     @apply cursor-wait opacity-70;
   }
   .mm-btn-spinner {
-    @apply mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent align-[-2px];
+    @apply mr-2 inline-block h-4 w-4 animate-spin rounded-full border-2 border-mm-on-accent border-t-transparent align-[-2px];
   }
   /* Painel de execução (#mm-run, acima de #plot-output) */
   .mm-run-spinner {
-    @apply h-8 w-8 shrink-0 animate-spin rounded-full border-4 border-blue-600 border-t-transparent;
+    @apply h-8 w-8 shrink-0 animate-spin rounded-full border-4 border-mm-accent border-t-transparent;
   }
   /* Resultado anterior esmaecido enquanto a simulação roda */
   .mm-dim {
@@ -25,14 +88,14 @@
     animation: mm-slide 1.2s ease-in-out infinite;
   }
   .mm-lang button {
-    @apply px-1 text-sm font-medium text-gray-400 hover:text-gray-700;
+    @apply px-1 text-sm font-medium text-mm-muted hover:text-mm-text;
   }
   .mm-lang button[aria-pressed="true"] {
-    @apply text-blue-700;
+    @apply text-mm-accent;
   }
   /* Menu: link com título e uma linha de descrição */
   .mm-menu-link {
-    @apply block w-full rounded-md bg-indigo-600 px-4 py-3 text-left text-white transition hover:bg-indigo-700;
+    @apply block w-full rounded-md bg-mm-accent px-4 py-3 text-left text-mm-on-accent transition hover:bg-mm-accent-strong;
   }
 }
 
@@ -55,38 +118,39 @@
   @apply mt-3;
 }
 #plot-output .ui-dialog-titlebar {
-  @apply rounded-t-md bg-gray-100 text-sm font-medium text-gray-600;
+  @apply rounded-t-md bg-mm-surface2 text-sm font-medium text-mm-muted;
 }
 #plot-output .mpl-toolbar {
-  @apply flex flex-wrap items-center gap-2 border border-t-0 border-gray-200 bg-gray-50 px-2 py-1.5 text-sm rounded-b-md;
+  @apply flex flex-wrap items-center gap-2 border border-t-0 border-mm-border bg-mm-surface2 px-2 py-1.5 text-sm rounded-b-md;
 }
 #plot-output .mpl-toolbar div.mpl-button-group {
   @apply flex;
 }
 #plot-output .mpl-widget {
-  @apply rounded-md border-gray-300 p-1.5;
+  @apply rounded-md border-mm-border p-1.5;
 }
 #plot-output select.mpl-widget {
-  @apply rounded-md border border-gray-300 bg-white px-2 py-1 text-sm text-gray-700;
+  @apply rounded-md border border-mm-border bg-mm-surface px-2 py-1 text-sm text-mm-text;
 }
 #plot-output .mpl-message {
-  @apply ml-auto min-w-0 flex-1 truncate text-right font-mono text-xs text-gray-500;
+  @apply ml-auto min-w-0 flex-1 truncate text-right font-mono text-xs text-mm-muted;
 }
 
-/* Esquema do domínio (SVG inline no bloco "Sobre o problema", spec 8). Fora de @layer pelo mesmo motivo acima. */
+/* Esquema do domínio (SVG inline no bloco "Sobre o problema", spec 8). Fora de @layer pelo mesmo motivo acima.
+   Cores pelos tokens, para o esquema funcionar nos dois temas. */
 .mm-scheme svg { display: block; width: 100%; height: auto; }
-.mm-scheme .dom { fill: #eff6ff; stroke: #1f2937; stroke-width: 2; }
-.mm-scheme .wall { stroke: #1f2937; stroke-width: 5; fill: none; }
-.mm-scheme .hatch { stroke: #1f2937; stroke-width: 1; }
-.mm-scheme .lid { stroke: #2563eb; stroke-width: 5; }
-.mm-scheme .hot { stroke: #dc2626; stroke-width: 5; }
-.mm-scheme .cold { stroke: #2563eb; stroke-width: 5; }
-.mm-scheme .fix { stroke: #1f2937; stroke-width: 5; }
-.mm-scheme .arrow { stroke: #2563eb; stroke-width: 1.6; fill: none; }
-.mm-scheme .ax { stroke: #6b7280; stroke-width: 1.2; fill: none; }
-.mm-scheme .dim { stroke: #6b7280; stroke-width: 1; fill: none; }
-.mm-scheme .lab { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #111827; }
-.mm-scheme .bc { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #1d4ed8; }
-.mm-scheme .bcr { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: #b91c1c; }
-.mm-scheme .halo { paint-order: stroke; stroke: #eff6ff; stroke-width: 4px; stroke-linejoin: round; }
-.mm-scheme .axl { font: italic 12px serif; fill: #6b7280; }
+.mm-scheme .dom { fill: var(--mm-accent-soft); stroke: var(--mm-text); stroke-width: 2; }
+.mm-scheme .wall { stroke: var(--mm-text); stroke-width: 5; fill: none; }
+.mm-scheme .hatch { stroke: var(--mm-text); stroke-width: 1; }
+.mm-scheme .lid { stroke: var(--mm-accent); stroke-width: 5; }
+.mm-scheme .hot { stroke: var(--mm-hot); stroke-width: 5; }
+.mm-scheme .cold { stroke: var(--mm-accent); stroke-width: 5; }
+.mm-scheme .fix { stroke: var(--mm-text); stroke-width: 5; }
+.mm-scheme .arrow { stroke: var(--mm-accent); stroke-width: 1.6; fill: none; }
+.mm-scheme .ax { stroke: var(--mm-muted); stroke-width: 1.2; fill: none; }
+.mm-scheme .dim { stroke: var(--mm-muted); stroke-width: 1; fill: none; }
+.mm-scheme .lab { font: 13px ui-monospace, SFMono-Regular, Menlo, monospace; fill: var(--mm-text); }
+.mm-scheme .bc { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: var(--mm-accent); }
+.mm-scheme .bcr { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: var(--mm-hot); }
+.mm-scheme .halo { paint-order: stroke; stroke: var(--mm-accent-soft); stroke-width: 4px; stroke-linejoin: round; }
+.mm-scheme .axl { font: italic 12px serif; fill: var(--mm-muted); }

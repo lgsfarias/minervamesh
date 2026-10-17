@@ -7,26 +7,27 @@
     <link rel="icon" type="image/x-icon" href="../../../../favicon.ico" />
     <title>MinervaMesh · Escoamento Potencial 2D (MEF)</title>
     <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css" integrity="sha384-C7Vo5fjeYiyN27fdJgeiteaUwrLVW0+I9EbpT1kBxsxac8+kxV5zYrLayugNSu1q" crossorigin="anonymous" />
+    <script src="../../../../assets/theme.js"></script>
     <link rel="stylesheet" href="../../../../assets/tailwind.css" />
     <script type="module" src="../../../../assets/app.js"></script>
     <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js" integrity="sha384-3iTboEo+2h87xDhKzYs49FbFFhi1sOZV/X7TQG7Bf9A0Lo1ZO98j9P0LBbu8GrW4" crossorigin="anonymous"></script>
 </head>
 
-<body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="escoamento-potencial" data-mm-i18n data-mm-title="title" data-mm-sibling="../navier-stokes/index.html|nav.goto.navier-stokes">
+<body class="bg-mm-bg min-h-screen p-6 md:p-10" data-mm-module="escoamento-potencial" data-mm-i18n data-mm-title="title" data-mm-sibling="../navier-stokes/index.html|nav.goto.navier-stokes">
     <div id="mm-app" class="max-w-7xl mx-auto">
 
-        <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center" data-i18n="title">Escoamento Potencial 2D</h2>
+        <h2 class="text-3xl font-bold text-mm-text mb-8 text-center" data-i18n="title">Escoamento Potencial 2D</h2>
 
-            <details class="mm-desc mb-6 rounded border-l-4 border-blue-400 bg-blue-50" data-mm-desc open>
-              <summary class="cursor-pointer select-none px-4 py-3 text-lg font-semibold text-blue-800" data-i18n="section.about">Sobre o problema</summary>
-              <div class="space-y-4 px-4 pb-4 text-gray-700">
+            <details class="mm-desc mb-6 rounded border-l-4 border-mm-accent bg-mm-accent-soft" data-mm-desc open>
+              <summary class="cursor-pointer select-none px-4 py-3 text-lg font-semibold text-mm-accent" data-i18n="section.about">Sobre o problema</summary>
+              <div class="space-y-4 px-4 pb-4 text-mm-text">
                 <section>
-                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.equation">Equação governante</h4>
+                  <h4 class="mb-1 font-semibold text-mm-accent" data-i18n="desc.sec.equation">Equação governante</h4>
                   <p data-i18n="desc.equation">Escoamento bidimensional incompressível e irrotacional: a função corrente ψ satisfaz a equação de Laplace, e as velocidades são suas derivadas:</p>
                   <div class="overflow-x-auto py-1">$$ \nabla^2 \psi = \frac{\partial^2 \psi}{\partial x^2} + \frac{\partial^2 \psi}{\partial y^2} = 0, \qquad u = \frac{\partial \psi}{\partial y}, \quad v = -\frac{\partial \psi}{\partial x} $$</div>
                 </section>
                 <section>
-                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.domain">Domínio</h4>
+                  <h4 class="mb-1 font-semibold text-mm-accent" data-i18n="desc.sec.domain">Domínio</h4>
                   <div class="md:flex md:items-start md:gap-6">
                     <p class="md:flex-1"><span data-i18n="desc.domain">Canal retangular menos o obstáculo centrado em (c_x, c_y): cilindro de raio r, ou aerofólio NACA 0012 ou NACA 4412 de corda c e ângulo de ataque α. Malha triangular gerada sobre uma grade de nₓ × n_y nós, com os nós da fronteira do obstáculo acrescentados:</span> $\Omega = [0, L] \times [0, H] \setminus \Omega_{\mathrm{obs}}$.</p>
                     <figure class="mm-scheme mt-3 shrink-0 md:mt-0 md:w-80 lg:w-96" data-mm-scheme="cylinder">
@@ -50,7 +51,7 @@
                       <text x="135" y="165" text-anchor="middle" class="bc">ψ = U<tspan dy="4" font-size="9">∞</tspan><tspan dy="-4">c</tspan><tspan dy="4" font-size="9">y</tspan></text>
                       <text x="135" y="181" text-anchor="middle" class="axl">(c<tspan dy="4" font-size="9">x</tspan><tspan dy="-4">, c</tspan><tspan dy="4" font-size="9">y</tspan><tspan dy="-4">)</tspan></text>
                       </svg>
-                      <figcaption class="mt-1 text-xs text-gray-500" data-i18n="scheme.parametric">Esquema ilustrativo: as dimensões são definidas pelos parâmetros.</figcaption>
+                      <figcaption class="mt-1 text-xs text-mm-muted" data-i18n="scheme.parametric">Esquema ilustrativo: as dimensões são definidas pelos parâmetros.</figcaption>
                     </figure>
                     <figure class="mm-scheme mt-3 shrink-0 md:mt-0 md:w-80 lg:w-96 hidden" data-mm-scheme="airfoil">
                       <svg viewBox="0 0 400 265" role="img" data-i18n-attr="aria-label:scheme.alt"><defs><marker id="pota-ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#6b7280"/></marker><marker id="pota-ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#2563eb"/></marker><pattern id="pota-h" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="8" class="hatch"/></pattern></defs>
@@ -79,12 +80,12 @@
                       <text x="135" y="169" text-anchor="middle" class="bc">ψ = U<tspan dy="4" font-size="9">∞</tspan><tspan dy="-4">c</tspan><tspan dy="4" font-size="9">y</tspan></text>
                       <text x="135" y="185" text-anchor="middle" class="axl">(c<tspan dy="4" font-size="9">x</tspan><tspan dy="-4">, c</tspan><tspan dy="4" font-size="9">y</tspan><tspan dy="-4">)</tspan></text>
                       </svg>
-                      <figcaption class="mt-1 text-xs text-gray-500" data-i18n="scheme.parametric">Esquema ilustrativo: as dimensões são definidas pelos parâmetros.</figcaption>
+                      <figcaption class="mt-1 text-xs text-mm-muted" data-i18n="scheme.parametric">Esquema ilustrativo: as dimensões são definidas pelos parâmetros.</figcaption>
                     </figure>
                   </div>
                 </section>
                 <section>
-                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.bc">Condições de contorno</h4>
+                  <h4 class="mb-1 font-semibold text-mm-accent" data-i18n="desc.sec.bc">Condições de contorno</h4>
                   <ul class="list-disc space-y-1 pl-5">
                     <li><span data-i18n="desc.bc.inlet">Entrada (x = 0), escoamento uniforme:</span> $\psi(0, y) = U_\infty\,y$</li>
                     <li><span data-i18n="desc.bc.bottom">Parede inferior:</span> $\psi(x, 0) = 0$</li>
@@ -94,13 +95,13 @@
                   </ul>
                 </section>
                 <section>
-                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="section.method">Método numérico</h4>
+                  <h4 class="mb-1 font-semibold text-mm-accent" data-i18n="section.method">Método numérico</h4>
                   <p data-i18n="desc.method">Método dos Elementos Finitos (Galerkin) com elementos triangulares lineares; o sistema esparso é resolvido uma única vez. Velocidades pelo gradiente de ψ interpolado; coeficiente de pressão pela equação de Bernoulli,</p>
                   <div class="overflow-x-auto py-1">$$ C_p = 1 - \frac{u^2 + v^2}{U_\infty^2} $$</div>
                   <p data-i18n="desc.method.forces">sustentação e arrasto pela integração de −C_p sobre a superfície do obstáculo.</p>
                 </section>
                 <section>
-                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.reference">Solução de referência</h4>
+                  <h4 class="mb-1 font-semibold text-mm-accent" data-i18n="desc.sec.reference">Solução de referência</h4>
                   <p data-i18n="desc.reference">Cilindro em escoamento uniforme não confinado (teoria potencial clássica), com θ medido a partir do ponto de estagnação frontal:</p>
                   <div class="overflow-x-auto py-1">$$ C_p(\theta) = 1 - 4\sin^2\theta $$</div>
                   <p data-i18n="desc.reference.note">Para os aerofólios não há referência analítica; a simulação mostra só o resultado numérico.</p>
@@ -109,13 +110,13 @@
             </details>
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <!-- Painel de Parâmetros -->
-            <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-1">
-                <h3 class="text-xl font-semibold text-blue-700 mb-4 border-b pb-2" data-i18n="section.params">Parâmetros</h3>
+            <div class="bg-mm-surface rounded-lg shadow-md p-6 lg:col-span-1">
+                <h3 class="text-xl font-semibold text-mm-accent mb-4 border-b pb-2" data-i18n="section.params">Parâmetros</h3>
 
                 <!-- Geometria -->
                 <div class="mb-4">
                     <label for="geo_type" class="block text-sm mb-1 font-medium" data-i18n="input.geo_type">Tipo de obstáculo</label>
-                    <select id="geo_type" class="w-full rounded border-gray-300 p-2 border text-sm"
+                    <select id="geo_type" class="w-full rounded border-mm-border p-2 border text-sm"
                         onchange="toggleGeoParams()">
                         <option value="cylinder" data-i18n="option.geo_type.cylinder">Cilindro</option>
                         <option value="airfoil" data-i18n="option.geo_type.airfoil">Aerofólio (NACA 0012)</option>
@@ -128,12 +129,12 @@
                     <div>
                         <label for="rho" class="block text-xs mb-1 font-medium" data-i18n="input.rho">Densidade ρ [kg/m³]</label>
                         <input type="number" id="rho" value="1.0" step="0.001"
-                            class="w-full rounded border-gray-300 p-2 border text-sm" />
+                            class="w-full rounded border-mm-border p-2 border text-sm" />
                     </div>
                     <div>
                         <label for="v_inf" class="block text-xs mb-1 font-medium"><span data-i18n="input.v_inf">Velocidade de corrente livre</span> U<sub>∞</sub> [m/s]</label>
                         <input type="number" id="v_inf" value="1.0" step="1.0"
-                            class="w-full rounded border-gray-300 p-2 border text-sm" />
+                            class="w-full rounded border-mm-border p-2 border text-sm" />
                     </div>
                 </div>
 
@@ -142,22 +143,22 @@
                     <div>
                         <label for="L" class="block text-xs mb-1 font-medium" data-i18n="input.L">Comprimento L [m]</label>
                         <input type="number" id="L" value="2.0" step="0.1"
-                            class="w-full rounded border-gray-300 p-2 border text-sm" />
+                            class="w-full rounded border-mm-border p-2 border text-sm" />
                     </div>
                     <div>
                         <label for="H" class="block text-xs mb-1 font-medium" data-i18n="input.H">Altura H [m]</label>
                         <input type="number" id="H" value="1.0" step="0.1"
-                            class="w-full rounded border-gray-300 p-2 border text-sm" />
+                            class="w-full rounded border-mm-border p-2 border text-sm" />
                     </div>
                     <div>
                         <label for="cx" class="block text-xs mb-1 font-medium"><span data-i18n="input.cx">Centro</span> c<sub>x</sub> [m]</label>
                         <input type="number" id="cx" value="0.5" step="0.1"
-                            class="w-full rounded border-gray-300 p-2 border text-sm" />
+                            class="w-full rounded border-mm-border p-2 border text-sm" />
                     </div>
                     <div>
                         <label for="cy" class="block text-xs mb-1 font-medium"><span data-i18n="input.cy">Centro</span> c<sub>y</sub> [m]</label>
                         <input type="number" id="cy" value="0.5" step="0.1"
-                            class="w-full rounded border-gray-300 p-2 border text-sm" />
+                            class="w-full rounded border-mm-border p-2 border text-sm" />
                     </div>
                 </div>
 
@@ -165,7 +166,7 @@
                 <div id="params-cylinder" class="mb-4">
                     <label for="r" class="block text-xs mb-1 font-medium" data-i18n="input.r">Raio r [m]</label>
                     <input type="number" id="r" value="0.15" step="0.01"
-                        class="w-full rounded border-gray-300 p-2 border text-sm" />
+                        class="w-full rounded border-mm-border p-2 border text-sm" />
                 </div>
 
                 <div id="params-airfoil" class="mb-4 hidden">
@@ -173,12 +174,12 @@
                         <div>
                             <label for="chord" class="block text-xs mb-1 font-medium" data-i18n="input.chord">Corda c [m]</label>
                             <input type="number" id="chord" value="0.5" step="0.05"
-                                class="w-full rounded border-gray-300 p-2 border text-sm" />
+                                class="w-full rounded border-mm-border p-2 border text-sm" />
                         </div>
                         <div>
                             <label for="angle_airfoil" class="block text-xs mb-1 font-medium" data-i18n="input.angle_airfoil">Ângulo de ataque α [°]</label>
                             <input type="number" id="angle_airfoil" value="0.0" step="1.0"
-                                class="w-full rounded border-gray-300 p-2 border text-sm" />
+                                class="w-full rounded border-mm-border p-2 border text-sm" />
                         </div>
                     </div>
                 </div>
@@ -188,21 +189,21 @@
                     <div>
                         <label for="nx" class="block text-xs mb-1 font-medium"><span data-i18n="input.nx">Nós em x,</span> n<sub>x</sub></label>
                         <input type="number" id="nx" value="60" step="5"
-                            class="w-full rounded border-gray-300 p-2 border text-sm" />
+                            class="w-full rounded border-mm-border p-2 border text-sm" />
                     </div>
                     <div>
                         <label for="ny" class="block text-xs mb-1 font-medium"><span data-i18n="input.ny">Nós em y,</span> n<sub>y</sub></label>
                         <input type="number" id="ny" value="30" step="5"
-                            class="w-full rounded border-gray-300 p-2 border text-sm" />
+                            class="w-full rounded border-mm-border p-2 border text-sm" />
                     </div>
                 </div>
 
                 <button id="run-btn"
-                    class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded w-full transition shadow flex items-center justify-center"><span data-i18n="btn.run">Executar</span></button>
+                    class="bg-mm-accent hover:bg-mm-accent-strong text-mm-on-accent font-semibold py-2 px-4 rounded w-full transition shadow flex items-center justify-center"><span data-i18n="btn.run">Executar</span></button>
 
                 <div class="mt-4">
                     <button id="show-code-btn"
-                        class="bg-gray-700 hover:bg-gray-800 text-white font-semibold py-2 px-4 rounded w-full transition shadow text-sm"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
+                        class="bg-mm-muted hover:bg-mm-text text-mm-on-accent font-semibold py-2 px-4 rounded w-full transition shadow text-sm"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
                 </div>
             </div>
 
@@ -223,12 +224,12 @@
 
             <!-- Visualização -->
             <div class="lg:col-span-3">
-                <div class="bg-white rounded-lg shadow-md p-6 min-h-[600px]">
-                    <h3 class="text-xl font-semibold text-blue-700 mb-4 text-center" data-i18n="section.result">Resultado</h3>
+                <div class="bg-mm-surface rounded-lg shadow-md p-6 min-h-[600px]">
+                    <h3 class="text-xl font-semibold text-mm-accent mb-4 text-center" data-i18n="section.result">Resultado</h3>
                     <div id="plot-output"
-                        class="w-full flex justify-center items-center bg-gray-50 rounded border border-gray-200 min-h-[500px] text-gray-400"></div>
+                        class="w-full flex justify-center items-center bg-mm-surface2 rounded border border-mm-border min-h-[500px] text-mm-muted"></div>
                     <!-- Resultados aerodinâmicos (preenchido pelo Python) -->
-                    <div id="lift-results" class="mt-4 text-center font-bold text-gray-700"></div>
+                    <div id="lift-results" class="mt-4 text-center font-bold text-mm-text"></div>
                 </div>
             </div>
         </div>

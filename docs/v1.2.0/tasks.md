@@ -20,13 +20,15 @@ Branch de trabalho: `feat/v1.2.0`. Nenhum commit sem autorização do autor.
 - [x] Capturas "antes" (66 em `docs/v1.2.0/shots/antes/` + 11 a 390 px em `antes-390/`): overflow horizontal só no transiente 2D, potencial e Navier-Stokes (17/10/2026)
 - [x] Miniaturas geradas na `main` atual (`assets/thumbs/`, 20 PNGs quantizados a 256 cores, 1,3 MB); recortes ajustados após conferência a olho: convecção-difusao e potencial → gráfico de cima, viga → deflexão, vibração → modo 5 (o 3 fica para quando o default mudar), NS → linhas de corrente; região mais baixa que 4:3 ganha faixas brancas em vez de perder o eixo x
 
-## Etapa 2 — Tokens e tema (spec 4)
+## Etapa 2 — Tokens e tema (spec 4) (concluída em 17/10/2026)
 
-- [ ] Variáveis CSS claro/escuro em `assets/tailwind.src.css`; `theme.extend.colors.mm` no `tailwind.config.js`
-- [ ] Fontes IBM Plex via `<link>` injetado pelo `app.js`
-- [ ] `data-theme` em `<html>` antes da primeira pintura; `prefers-color-scheme` + `localStorage` `minervamesh.theme`
-- [ ] Esquemas SVG (`.mm-scheme`) com tokens
-- [ ] Trocar `gray-*`/`blue-*`/`indigo-*` das 11 páginas e do `app.js` pelos tokens; build e conferência nos dois temas
+- [x] Variáveis CSS claro/escuro em `assets/tailwind.src.css` (`@layer base`, `:root` e `[data-theme="dark"]`); `theme.extend.colors.mm`, `fontFamily` e `darkMode: ["selector", '[data-theme="dark"]']` no `tailwind.config.js`
+- [x] Fontes IBM Plex Sans/Mono via `<link>` (preconnect + css2) injetado no topo do `app.js`; sem SRI porque o CSS do Google Fonts varia por navegador
+- [x] `assets/theme.js` (script clássico no `<head>` das 11 páginas, antes do `tailwind.css`): `data-theme` antes da primeira pintura, `prefers-color-scheme` como valor inicial, `localStorage` `minervamesh.theme`, `window.mmTheme.get/set/toggle` para o botão da etapa 3
+- [x] Esquemas SVG (`.mm-scheme`) com tokens (`--mm-hot` para a borda quente)
+- [x] Mapeamento mecânico das 11 páginas e do `app.js` (script Python de uma vez, 560 trocas): `gray-900/800/700 → mm-text`, `gray-600/500/400 → mm-muted`, `gray-300/200/100 (borda) → mm-border`, `blue-800/700/600 → mm-accent`, `blue-50/100 → mm-accent-soft`, `white (texto em botão) → mm-on-accent`, `green → mm-ok`, `red → mm-danger`, `indigo → mm-accent`; nenhuma classe de cor antiga restou nos HTML/JS (as das strings Python ficam para a lista caso a caso)
+- [x] `scripts/baseline.mjs` e `scripts/thumbs.mjs` detectam o fim da execução por `bg-mm-ok` (antes `bg-green-600`)
+- [x] Build e conferência em viga e Navier-Stokes nos dois temas (`docs/v1.2.0/shots/etapa2/`): layout inalterado, MathJax e esquemas legíveis no escuro
 
 ## Etapa 3 — Cabeçalho, rodapé e marca (spec 4, 5.1)
 

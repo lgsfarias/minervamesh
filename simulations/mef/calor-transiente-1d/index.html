@@ -6,25 +6,26 @@
     <link rel="icon" type="image/x-icon" href="../../../favicon.ico" />
     <title>MinervaMesh · Condução Transiente 1D</title>
     <link rel="stylesheet" href="https://pyscript.net/releases/2025.8.1/core.css" integrity="sha384-C7Vo5fjeYiyN27fdJgeiteaUwrLVW0+I9EbpT1kBxsxac8+kxV5zYrLayugNSu1q" crossorigin="anonymous" />
+    <script src="../../../assets/theme.js"></script>
     <link rel="stylesheet" href="../../../assets/tailwind.css" />
     <script type="module" src="../../../assets/app.js"></script>
     <script type="module" src="https://pyscript.net/releases/2025.8.1/core.js" integrity="sha384-3iTboEo+2h87xDhKzYs49FbFFhi1sOZV/X7TQG7Bf9A0Lo1ZO98j9P0LBbu8GrW4" crossorigin="anonymous"></script>
 </head>
-<body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="calor-transiente-1d" data-mm-i18n data-mm-title="title">
+<body class="bg-mm-bg min-h-screen p-6 md:p-10" data-mm-module="calor-transiente-1d" data-mm-i18n data-mm-title="title">
     <div id="mm-app" class="max-w-7xl mx-auto">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center" data-i18n="title">Condução Transiente 1D (MEF)</h2>
+        <h2 class="text-3xl font-bold text-mm-text mb-6 text-center" data-i18n="title">Condução Transiente 1D (MEF)</h2>
 
-            <details class="mm-desc mb-6 rounded border-l-4 border-blue-400 bg-blue-50" data-mm-desc open>
-              <summary class="cursor-pointer select-none px-4 py-3 text-lg font-semibold text-blue-800" data-i18n="section.about">Sobre o problema</summary>
-              <div class="space-y-4 px-4 pb-4 text-gray-700">
+            <details class="mm-desc mb-6 rounded border-l-4 border-mm-accent bg-mm-accent-soft" data-mm-desc open>
+              <summary class="cursor-pointer select-none px-4 py-3 text-lg font-semibold text-mm-accent" data-i18n="section.about">Sobre o problema</summary>
+              <div class="space-y-4 px-4 pb-4 text-mm-text">
                 <section>
-                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.equation">Equação governante</h4>
+                  <h4 class="mb-1 font-semibold text-mm-accent" data-i18n="desc.sec.equation">Equação governante</h4>
                   <p data-i18n="desc.equation">Condução de calor transiente numa barra com condutividade constante por trecho, descontínua em x = L/2:</p>
                   <div class="overflow-x-auto py-1">$$ \rho c_p\,\frac{\partial T}{\partial t} = \frac{\partial}{\partial x}\!\left(k(x)\,\frac{\partial T}{\partial x}\right) $$</div>
                   <p><span data-i18n="desc.k">com</span> $k(x) = k_1 \ \ (x < L/2)$, $k(x) = k_2 \ \ (x \ge L/2)$.</p>
                 </section>
                 <section>
-                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.domain">Domínio</h4>
+                  <h4 class="mb-1 font-semibold text-mm-accent" data-i18n="desc.sec.domain">Domínio</h4>
                   <div class="md:flex md:items-start md:gap-6">
                     <p class="md:flex-1"><span data-i18n="desc.domain">Barra de comprimento L, nₑ elementos lineares com um nó exatamente em x = L/2; tempo de 0 a t_max:</span> $0 \le x \le L$, $0 < t \le t_{\max}$.</p>
                     <figure class="mm-scheme mt-3 shrink-0 md:mt-0 md:w-80 lg:w-96" data-mm-scheme="bar">
@@ -42,22 +43,22 @@
                   </div>
                 </section>
                 <section>
-                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.bc">Condições de contorno</h4>
+                  <h4 class="mb-1 font-semibold text-mm-accent" data-i18n="desc.sec.bc">Condições de contorno</h4>
                   <ul class="list-disc space-y-1 pl-5">
                     <li><span data-i18n="desc.bc.left">Extremidade esquerda (valor fixo no código):</span> $T(0, t) = 0$</li>
                     <li><span data-i18n="desc.bc.right">Extremidade direita (valor fixo no código):</span> $T(L, t) = 1$</li>
                   </ul>
                 </section>
                 <section>
-                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.ic">Condição inicial</h4>
+                  <h4 class="mb-1 font-semibold text-mm-accent" data-i18n="desc.sec.ic">Condição inicial</h4>
                   <p><span data-i18n="desc.ic">Temperatura nula no interior da barra:</span> $T(x, 0) = 0$, $0 < x < L$.</p>
                 </section>
                 <section>
-                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="section.method">Método numérico</h4>
+                  <h4 class="mb-1 font-semibold text-mm-accent" data-i18n="section.method">Método numérico</h4>
                   <p data-i18n="desc.method">Método dos Elementos Finitos com elementos lineares e matriz de massa consistente, com k avaliado no centro de cada elemento; integração no tempo pelo método θ (θ = 0,5 é Crank-Nicolson, θ = 1 implícito, θ = 0 explícito), com um sistema linear resolvido a cada passo.</p>
                 </section>
                 <section>
-                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.reference">Solução de referência</h4>
+                  <h4 class="mb-1 font-semibold text-mm-accent" data-i18n="desc.sec.reference">Solução de referência</h4>
                   <p data-i18n="desc.reference">Regime permanente analítico: o fluxo de calor é constante ao longo da barra, logo o perfil é linear em cada metade, contínuo em x = L/2,</p>
                   <div class="overflow-x-auto py-1">$$ T_\infty(x) = \begin{cases} \dfrac{C}{k_1}\,x, & x < L/2 \\[6pt] \dfrac{C L}{2 k_1} + \dfrac{C}{k_2}\left(x - \dfrac{L}{2}\right), & x \ge L/2 \end{cases} \qquad C = \frac{2 k_1 k_2}{L\,(k_1 + k_2)} $$</div>
                   <p><span data-i18n="desc.reference.mid">de modo que a temperatura no meio da barra é</span> $T_\infty(L/2) = \dfrac{k_2}{k_1 + k_2}$.</p>
@@ -65,51 +66,51 @@
               </div>
             </details>
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <div class="bg-white rounded-lg shadow p-5">
-                <h3 class="text-lg font-semibold text-blue-700 mb-4" data-i18n="section.params">Parâmetros</h3>
+            <div class="bg-mm-surface rounded-lg shadow p-5">
+                <h3 class="text-lg font-semibold text-mm-accent mb-4" data-i18n="section.params">Parâmetros</h3>
                 <div class="space-y-3">
                     <div>
-                        <label for="L" class="block text-sm font-medium text-gray-700" data-i18n="input.L">Comprimento L [m]</label>
-                        <input type="number" id="L" value="1.0" step="0.1" min="0.2" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                        <label for="L" class="block text-sm font-medium text-mm-text" data-i18n="input.L">Comprimento L [m]</label>
+                        <input type="number" id="L" value="1.0" step="0.1" min="0.2" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
                     </div>
                     <div>
-                        <label for="k1" class="block text-sm font-medium text-gray-700" data-i18n="input.k1">Condutividade k₁ (x < L/2) [W/(m·K)]</label>
-                        <input type="number" id="k1" value="5.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                        <label for="k1" class="block text-sm font-medium text-mm-text" data-i18n="input.k1">Condutividade k₁ (x < L/2) [W/(m·K)]</label>
+                        <input type="number" id="k1" value="5.0" step="0.1" min="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
                     </div>
                     <div>
-                        <label for="k2" class="block text-sm font-medium text-gray-700" data-i18n="input.k2">Condutividade k₂ (x ≥ L/2) [W/(m·K)]</label>
-                        <input type="number" id="k2" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                        <label for="k2" class="block text-sm font-medium text-mm-text" data-i18n="input.k2">Condutividade k₂ (x ≥ L/2) [W/(m·K)]</label>
+                        <input type="number" id="k2" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
                     </div>
                     <div>
-                        <label for="n_elements" class="block text-sm font-medium text-gray-700" data-i18n="input.n_elements">Número de elementos nₑ</label>
-                        <input type="number" id="n_elements" value="40" min="2" step="1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                        <label for="n_elements" class="block text-sm font-medium text-mm-text" data-i18n="input.n_elements">Número de elementos nₑ</label>
+                        <input type="number" id="n_elements" value="40" min="2" step="1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
                     </div>
                     <div>
-                        <label for="rho_cp" class="block text-sm font-medium text-gray-700" data-i18n="input.rho_cp">Densidade × calor específico ρcₚ [J/(m³·K)]</label>
-                        <input type="number" id="rho_cp" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                        <label for="rho_cp" class="block text-sm font-medium text-mm-text" data-i18n="input.rho_cp">Densidade × calor específico ρcₚ [J/(m³·K)]</label>
+                        <input type="number" id="rho_cp" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
                     </div>
                     <div>
-                        <label for="dt" class="block text-sm font-medium text-gray-700" data-i18n="input.dt">Passo de tempo Δt [s]</label>
-                        <input type="number" id="dt" value="0.001" step="0.0005" min="0.0005" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                        <label for="dt" class="block text-sm font-medium text-mm-text" data-i18n="input.dt">Passo de tempo Δt [s]</label>
+                        <input type="number" id="dt" value="0.001" step="0.0005" min="0.0005" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
                     </div>
                     <div>
-                        <label for="theta" class="block text-sm font-medium text-gray-700" data-i18n="input.theta">Parâmetro θ (0=explícito, 0.5=Crank-Nicolson, 1=implícito)</label>
-                        <input type="number" id="theta" value="0.5" step="0.1" min="0" max="1" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                        <label for="theta" class="block text-sm font-medium text-mm-text" data-i18n="input.theta">Parâmetro θ (0=explícito, 0.5=Crank-Nicolson, 1=implícito)</label>
+                        <input type="number" id="theta" value="0.5" step="0.1" min="0" max="1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
                     </div>
                     <div>
-                        <label for="tmax" class="block text-sm font-medium text-gray-700" data-i18n="input.tmax">Tempo total tₘₐₓ [s]</label>
-                        <input type="number" id="tmax" value="0.200" step="0.01" min="0.01" class="w-full rounded-md border-gray-300 focus:border-blue-500 focus:ring-blue-500" />
+                        <label for="tmax" class="block text-sm font-medium text-mm-text" data-i18n="input.tmax">Tempo total tₘₐₓ [s]</label>
+                        <input type="number" id="tmax" value="0.200" step="0.01" min="0.01" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
                     </div>
                 </div>
                 <div class="flex gap-3 mt-5">
-                    <button id="run-btn" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded"><span data-i18n="btn.run">Executar</span></button>
-                    <button id="show-code-btn" class="bg-gray-600 hover:bg-gray-700 text-white font-medium py-2 px-4 rounded"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
+                    <button id="run-btn" class="flex-1 bg-mm-accent hover:bg-mm-accent-strong text-mm-on-accent font-medium py-2 px-4 rounded"><span data-i18n="btn.run">Executar</span></button>
+                    <button id="show-code-btn" class="bg-mm-muted hover:bg-mm-text text-mm-on-accent font-medium py-2 px-4 rounded"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
                 </div>
             </div>
 
-            <div class="lg:col-span-3 bg-white rounded-lg shadow p-5">
-                <h3 class="text-lg font-semibold text-blue-700 mb-4" data-i18n="section.result">Resultado</h3>
-                <div id="plot-output" class="w-full min-h-[360px] bg-gray-50 rounded flex items-center justify-center text-gray-500"></div>
+            <div class="lg:col-span-3 bg-mm-surface rounded-lg shadow p-5">
+                <h3 class="text-lg font-semibold text-mm-accent mb-4" data-i18n="section.result">Resultado</h3>
+                <div id="plot-output" class="w-full min-h-[360px] bg-mm-surface2 rounded flex items-center justify-center text-mm-muted"></div>
             </div>
         </div>
     </div>

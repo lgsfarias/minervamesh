@@ -27,6 +27,24 @@
 
 const ROOT = new URL("../", import.meta.url); // app.js vive em assets/
 const DEFAULT_LANG = "en"; // inglês por padrão (spec 5.1); ?lang=pt ou o seletor trocam
+
+// Fontes (v1.2.0, spec 4): IBM Plex Sans e Mono via Google Fonts, com fallback de
+// sistema no tailwind.config.js. Injetadas aqui para não repetir três <link> em cada
+// página. Sem SRI: o CSS do Google Fonts varia por navegador.
+(function injectFonts() {
+  if (document.querySelector('link[data-mm-fonts]')) return;
+  const links = [
+    { rel: "preconnect", href: "https://fonts.googleapis.com" },
+    { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+    { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" },
+  ];
+  for (const attrs of links) {
+    const l = document.createElement("link");
+    Object.assign(l, attrs);
+    l.dataset.mmFonts = "1";
+    document.head.append(l);
+  }
+})();
 const LANGS = ["pt", "en"];
 const LS_LANG = "minervamesh.lang";
 
@@ -143,7 +161,7 @@ function el(html) {
 
 function langSwitcher() {
   const sw = el(`<div class="mm-lang flex items-center gap-1" role="group" data-i18n-attr="aria-label:lang.label">
-        <button type="button" data-lang="pt">PT</button><span class="text-gray-300">|</span><button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pt">PT</button><span class="text-mm-border">|</span><button type="button" data-lang="en">EN</button>
       </div>`);
   sw.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => setLang(b.dataset.lang)));
   return sw;
@@ -154,8 +172,8 @@ function injectHeader(app) {
   let siblingHtml = "";
   if (sibling) {
     const [href, key] = sibling.split("|");
-    siblingHtml = `<span class="text-gray-300">|</span>
-      <a href="${href}" class="flex items-center gap-1 text-gray-600 hover:text-blue-800 font-medium">
+    siblingHtml = `<span class="text-mm-border">|</span>
+      <a href="${href}" class="flex items-center gap-1 text-mm-muted hover:text-mm-accent-strong font-medium">
         <span data-i18n="${key}"></span>${ICONS.arrowRight}</a>`;
   }
   const logo = new URL("assets/logo_poli_ufrj.png", ROOT);
@@ -163,7 +181,7 @@ function injectHeader(app) {
   app.prepend(
     el(`<header class="mb-8 flex items-center justify-between gap-4">
           <nav class="flex items-center gap-3 text-sm">
-            <a href="${menu}" class="flex items-center gap-1 text-blue-600 hover:text-blue-800 font-medium">
+            <a href="${menu}" class="flex items-center gap-1 text-mm-accent hover:text-mm-accent-strong font-medium">
               ${ICONS.arrowLeft}<span data-i18n="nav.back"></span></a>
             ${siblingHtml}
           </nav>
@@ -180,9 +198,9 @@ function injectFooter(app) {
   const anchor = document.querySelector('script[type="py"]') ? app : document.body;
   const place = (node) => (anchor === app ? app.after(node) : document.body.append(node));
   place(
-    el(`<footer class="mt-8 w-full pb-6 text-center text-sm text-gray-500 opacity-80">
+    el(`<footer class="mt-8 w-full pb-6 text-center text-sm text-mm-muted opacity-80">
           <span data-i18n="site.name"></span> &middot; <span data-i18n="footer.developed_by"></span> &middot;
-          <a href="https://github.com/lgsfarias/minervamesh" class="underline hover:text-gray-700" data-i18n="footer.source"></a>
+          <a href="https://github.com/lgsfarias/minervamesh" class="underline hover:text-mm-text" data-i18n="footer.source"></a>
           &middot; <span data-i18n="footer.license"></span>
         </footer>`)
   );
@@ -190,12 +208,12 @@ function injectFooter(app) {
 
 function injectCodeModal() {
   const modal = el(`<div id="codeModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black bg-opacity-50 p-4">
-      <div class="max-h-[85vh] w-full max-w-5xl overflow-y-auto rounded-lg bg-white p-6 shadow-2xl">
+      <div class="max-h-[85vh] w-full max-w-5xl overflow-y-auto rounded-lg bg-mm-surface p-6 shadow-2xl">
         <div class="mb-4 flex items-center justify-between border-b pb-2">
-          <h3 class="text-xl font-bold text-gray-800" data-i18n="code.title"></h3>
-          <button id="closeModalBtn" type="button" class="text-gray-500 hover:text-gray-800" data-i18n-attr="aria-label:code.close">${ICONS.close}</button>
+          <h3 class="text-xl font-bold text-mm-text" data-i18n="code.title"></h3>
+          <button id="closeModalBtn" type="button" class="text-mm-muted hover:text-mm-text" data-i18n-attr="aria-label:code.close">${ICONS.close}</button>
         </div>
-        <p class="mb-3 text-sm text-gray-500" data-i18n="code.comments_pt"></p>
+        <p class="mb-3 text-sm text-mm-muted" data-i18n="code.comments_pt"></p>
         <pre class="text-sm"><code class="language-python" id="sourceCode"></code></pre>
       </div>
     </div>`);
@@ -320,8 +338,8 @@ function statusEl() {
     const btn = document.getElementById("run-btn");
     if (!btn) return null;
     box = el(`<div id="mm-status" class="mt-3 hidden" aria-live="polite">
-        <div class="h-1.5 w-full overflow-hidden rounded bg-gray-200"><div id="mm-status-bar" class="h-full w-0 rounded bg-blue-600 transition-[width] duration-300"></div></div>
-        <div class="mt-1 flex justify-between gap-2 text-xs text-gray-600"><span id="mm-status-text"></span><span id="mm-status-time" class="shrink-0 font-mono tabular-nums"></span></div>
+        <div class="h-1.5 w-full overflow-hidden rounded bg-mm-border"><div id="mm-status-bar" class="h-full w-0 rounded bg-mm-accent transition-[width] duration-300"></div></div>
+        <div class="mt-1 flex justify-between gap-2 text-xs text-mm-muted"><span id="mm-status-text"></span><span id="mm-status-time" class="shrink-0 font-mono tabular-nums"></span></div>
       </div>`);
     const group = btn.parentElement;
     const anchor = [...group.children].every((c) => c.tagName === "BUTTON") ? group : btn;
@@ -337,8 +355,8 @@ function statusShow(text, frac, time = "", done = false) {
   box.classList.remove("hidden");
   const bar = box.querySelector("#mm-status-bar");
   bar.classList.toggle("mm-bar-indeterminate", frac == null);
-  bar.classList.toggle("bg-green-600", done);
-  bar.classList.toggle("bg-blue-600", !done);
+  bar.classList.toggle("bg-mm-ok", done);
+  bar.classList.toggle("bg-mm-accent", !done);
   bar.style.width = frac == null ? "40%" : `${Math.round(Math.min(1, Math.max(0, frac)) * 100)}%`;
   box.querySelector("#mm-status-text").textContent = text;
   box.querySelector("#mm-status-time").textContent = time;
@@ -353,12 +371,12 @@ function runEl() {
   if (!box) {
     const out = document.getElementById("plot-output");
     if (!out) return null;
-    box = el(`<div id="mm-run" class="mb-4 hidden rounded-lg border border-blue-200 bg-blue-50 p-4 text-left" aria-live="polite">
+    box = el(`<div id="mm-run" class="mb-4 hidden rounded-lg border border-mm-accent bg-mm-accent-soft p-4 text-left" aria-live="polite">
         <div class="flex items-center gap-4">
           <span class="mm-run-spinner" aria-hidden="true"></span>
           <div class="min-w-0 flex-1">
-            <div class="flex items-baseline justify-between gap-3 font-medium text-blue-800"><span id="mm-run-text"></span><span id="mm-run-time" class="shrink-0 font-mono tabular-nums text-sm"></span></div>
-            <div class="mt-2 h-2 w-full overflow-hidden rounded bg-blue-100"><div id="mm-run-bar" class="h-full w-0 rounded bg-blue-600 transition-[width] duration-300"></div></div>
+            <div class="flex items-baseline justify-between gap-3 font-medium text-mm-accent"><span id="mm-run-text"></span><span id="mm-run-time" class="shrink-0 font-mono tabular-nums text-sm"></span></div>
+            <div class="mt-2 h-2 w-full overflow-hidden rounded bg-mm-accent-soft"><div id="mm-run-bar" class="h-full w-0 rounded bg-mm-accent transition-[width] duration-300"></div></div>
           </div>
         </div>
       </div>`);

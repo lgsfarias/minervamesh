@@ -6,67 +6,68 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>MinervaMesh · Simulações</title>
   <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <script src="assets/theme.js"></script>
   <link rel="stylesheet" href="assets/tailwind.css" />
   <script type="module" src="assets/app.js"></script>
 </head>
 
-<body class="bg-gray-50 min-h-screen flex flex-col justify-between relative" data-mm-title="menu.title">
+<body class="bg-mm-surface2 min-h-screen flex flex-col justify-between relative" data-mm-title="menu.title">
   <img src="assets/logo_poli_ufrj.png" alt="Logo da Escola Politécnica da UFRJ" data-i18n-attr="alt:logo.alt"
     class="h-12 w-auto absolute top-0 right-0 mt-4 mr-4 opacity-80" />
   <div class="flex-1 flex items-center justify-center px-4 py-16">
-    <div id="mm-app" class="max-w-2xl w-full bg-white rounded-xl shadow-md p-8 border border-gray-100">
+    <div id="mm-app" class="max-w-2xl w-full bg-mm-surface rounded-xl shadow-md p-8 border border-mm-border">
       <div id="mm-lang-slot" class="flex justify-end text-sm -mt-2 -mr-2"></div>
-      <h1 class="text-3xl font-semibold text-center text-gray-900 tracking-tight" data-i18n="site.name">MinervaMesh</h1>
-      <p class="text-center text-gray-600 mt-2" data-i18n="menu.subtitle">Simulações numéricas com uma interface simples e consistente.</p>
-      <h2 class="text-base font-medium text-gray-700 mt-8 mb-3" data-i18n="menu.choose">Escolha o tipo de simulação</h2>
+      <h1 class="text-3xl font-semibold text-center text-mm-text tracking-tight" data-i18n="site.name">MinervaMesh</h1>
+      <p class="text-center text-mm-muted mt-2" data-i18n="menu.subtitle">Simulações numéricas com uma interface simples e consistente.</p>
+      <h2 class="text-base font-medium text-mm-text mt-8 mb-3" data-i18n="menu.choose">Escolha o tipo de simulação</h2>
       <div class="space-y-3">
-        <details class="bg-white rounded-lg border border-gray-200">
-          <summary class="cursor-pointer select-none px-4 py-3 font-medium text-gray-800" data-i18n="menu.mdf">MDF (Método das Diferenças Finitas)</summary>
+        <details class="bg-mm-surface rounded-lg border border-mm-border">
+          <summary class="cursor-pointer select-none px-4 py-3 font-medium text-mm-text" data-i18n="menu.mdf">MDF (Método das Diferenças Finitas)</summary>
           <div class="p-4 pt-0 flex flex-col gap-2">
             <a href="simulations/mdf/conducao-permanente-barra1d-geracao/index.html" class="mm-menu-link">
               <span class="block font-medium" data-i18n="menu.mdf-conducao.title">Condução Permanente 1D com Geração Interna</span>
-              <span class="block text-sm text-indigo-100 mt-0.5" data-i18n="menu.mdf-conducao.desc"></span>
+              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.mdf-conducao.desc"></span>
             </a>
             <a href="simulations/mdf/equacao-onda/index.html" class="mm-menu-link">
               <span class="block font-medium" data-i18n="menu.mdf-onda.title">Equação da Onda 1D</span>
-              <span class="block text-sm text-indigo-100 mt-0.5" data-i18n="menu.mdf-onda.desc"></span>
+              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.mdf-onda.desc"></span>
             </a>
           </div>
         </details>
-        <details class="bg-white rounded-lg border border-gray-200">
-          <summary class="cursor-pointer select-none px-4 py-3 font-medium text-gray-800" data-i18n="menu.mef">MEF (Método dos Elementos Finitos)</summary>
+        <details class="bg-mm-surface rounded-lg border border-mm-border">
+          <summary class="cursor-pointer select-none px-4 py-3 font-medium text-mm-text" data-i18n="menu.mef">MEF (Método dos Elementos Finitos)</summary>
           <div class="p-4 pt-0 flex flex-col gap-2">
             <a href="simulations/mef/conducao-permanente-barra1d-mef/index.html" class="mm-menu-link">
               <span class="block font-medium" data-i18n="menu.mef-conducao.title">Condução Permanente 1D</span>
-              <span class="block text-sm text-indigo-100 mt-0.5" data-i18n="menu.mef-conducao.desc"></span>
+              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.mef-conducao.desc"></span>
             </a>
             <a href="simulations/mef/calor-transiente-1d/index.html" class="mm-menu-link">
               <span class="block font-medium" data-i18n="menu.calor-transiente-1d.title">Condução Transiente 1D com k(x) Variável</span>
-              <span class="block text-sm text-indigo-100 mt-0.5" data-i18n="menu.calor-transiente-1d.desc"></span>
+              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.calor-transiente-1d.desc"></span>
             </a>
             <a href="simulations/mef/conveccao-difusao-1d/index.html" class="mm-menu-link">
               <span class="block font-medium" data-i18n="menu.conveccao-difusao.title">Convecção-Difusão 1D Permanente</span>
-              <span class="block text-sm text-indigo-100 mt-0.5" data-i18n="menu.conveccao-difusao.desc"></span>
+              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.conveccao-difusao.desc"></span>
             </a>
             <a href="simulations/mef/viga-1d-mef/index.html" class="mm-menu-link">
               <span class="block font-medium" data-i18n="menu.viga.title">Viga 1D - Análise de Flexão</span>
-              <span class="block text-sm text-indigo-100 mt-0.5" data-i18n="menu.viga.desc"></span>
+              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.viga.desc"></span>
             </a>
             <a href="simulations/mef/vibracao-1d-mef/index.html" class="mm-menu-link">
               <span class="block font-medium" data-i18n="menu.vibracao.title">Vibração 1D - Problema de Autovalor</span>
-              <span class="block text-sm text-indigo-100 mt-0.5" data-i18n="menu.vibracao.desc"></span>
+              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.vibracao.desc"></span>
             </a>
             <a href="simulations/mef/transcalor/index.html" class="mm-menu-link">
               <span class="block font-medium" data-i18n="menu.transcalor.title">Condução Transiente 2D</span>
-              <span class="block text-sm text-indigo-100 mt-0.5" data-i18n="menu.transcalor.desc"></span>
+              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.transcalor.desc"></span>
             </a>
             <a href="simulations/mef/escoamento-fluido-2d/escoamento-potencial/index.html" class="mm-menu-link">
               <span class="block font-medium" data-i18n="menu.potencial.title">Escoamento Potencial 2D</span>
-              <span class="block text-sm text-indigo-100 mt-0.5" data-i18n="menu.potencial.desc"></span>
+              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.potencial.desc"></span>
             </a>
             <a href="simulations/mef/escoamento-fluido-2d/navier-stokes/index.html" class="mm-menu-link">
               <span class="block font-medium" data-i18n="menu.navier-stokes.title">Navier-Stokes 2D (Vorticidade)</span>
-              <span class="block text-sm text-indigo-100 mt-0.5" data-i18n="menu.navier-stokes.desc"></span>
+              <span class="block text-sm text-mm-on-accent mt-0.5" data-i18n="menu.navier-stokes.desc"></span>
             </a>
           </div>
         </details>

@@ -62,7 +62,7 @@ async function main() {
           if (!root) return false;
           if (useCanvas) return root.querySelectorAll("canvas").length > 0;
           const st = document.getElementById("mm-status");
-          if (st && !st.classList.contains("hidden") && st.querySelector("#mm-status-bar")?.classList.contains("bg-green-600")) return true;
+          if (st && !st.classList.contains("hidden") && st.querySelector("#mm-status-bar")?.classList.contains("bg-mm-ok")) return true;
           const imgs = [...root.querySelectorAll("img")].filter((i) => i.src.startsWith("data:"));
           const txt = root.textContent || "";
           const busy = /Iniciando|Calculando|Executando|Carregando|Running|Starting/.test(txt) && !/Conclu|Finished|Complete/i.test(txt);
