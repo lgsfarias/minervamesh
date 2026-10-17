@@ -67,6 +67,7 @@ Branch de trabalho: `feat/v1.1.0`. Nenhum commit sem autorização do autor.
 - [x] Conferir métricas e tempo do transiente 2D contra a baseline (17/10/2026: `__minervamesh_result` e texto idênticos nos 10 módulos; transiente 2D 6,4 s → 6,7–7,0 s)
 - [x] EN das 7 chaves novas (`btn.preparing`, `btn.running`, `loading.status`, `sim.running`, `sim.progress.step`, `sim.encoding`, `sim.total_time`) revisado pelo agente revisor terminológico (17/10/2026): sem correção
 - [x] Invólucro `*_guarded` com `try/finally` nos 8 handlers que não tinham: o botão Executar volta ao normal se a simulação lançar exceção
+- [x] Modo de falha (17/10/2026): `mmProgress.fail()` reabilita o botão e esconde painel e linha de status sem "Tempo total"; os 10 invólucros tratam a exceção e mostram `py.error` em `#plot-output` (antes, nos 8 sem `try/except` próprio, o erro só ia ao console)
 
 ## Etapa 6 — Descrições padronizadas (spec 7)
 

@@ -19,7 +19,7 @@
  *
  * Contrato com o Python (simulation.py):
  *   js.i18n.t("py.…") para rótulos de gráfico e mensagens (etapa 4 da v1.1.0)
- *   js.mmProgress.start(modo, total) / .step(i, t) / .encoding() / .done()
+ *   js.mmProgress.start(modo, total) / .step(i, t) / .encoding() / .done() / .fail()
  *     modo "spinner" (solução única), "counter" (marcha com GIF) ou "inline" (frames ao vivo)
  */
 
@@ -382,6 +382,15 @@ window.mmProgress = {
     setRunBusy(false);
     runHide();
     statusShow(t("sim.total_time"), 1, `${elapsed()} s`, true);
+  },
+  // Simulação lançou exceção: volta ao estado de repouso sem "Tempo total".
+  // Zera o modo, então o done() do finally em seguida é no-op. Sem guarda de modo:
+  // a exceção pode vir antes do start() (ex.: parâmetro inválido).
+  fail() {
+    progressReset();
+    setRunBusy(false);
+    runHide();
+    statusHide();
   },
 };
 
