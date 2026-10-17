@@ -12,28 +12,51 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" integrity="sha384-wFjoQjtV1y5jVHbt0p35Ui8aV8GVpEZkyF99OXWqP/eNJDU93D3Ugxkoyh6Y2I4A" crossorigin="anonymous" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m" crossorigin="anonymous"></script>
+    <script>
+      window.MathJax = { tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true } };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"></script>
   </head>
   <body class="bg-gray-100 min-h-screen p-6 md:p-10" data-mm-module="transcalor" data-mm-i18n data-mm-title="title">
     <div id="mm-app" class="max-w-7xl mx-auto">
 
       <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center" data-i18n="title">Condução Transiente 2D (MEF)</h2>
 
-      <!-- DESCRIÇÃO DO PROBLEMA -->
-      <div class="mb-8 bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
-        <h3 class="font-semibold text-lg text-blue-800 mb-2" data-i18n="section.about">Sobre o problema</h3>
-        <p class="text-gray-700 mb-2" data-i18n="desc.intro">
-          Esta simulação representa a condução transiente de calor em uma placa bidimensional com
-          condições de contorno fixas (Dirichlet) nas bordas superior e inferior. A temperatura
-          evolui ao longo do tempo até atingir o regime permanente.
-        </p>
-        <h4 class="font-semibold text-blue-700 mt-4 mb-1" data-i18n="section.method">Método utilizado</h4>
-        <p class="text-gray-700" data-i18n="desc.method">
-          Utilizamos o Método dos Elementos Finitos (MEF) com triangulação de
-          Delaunay para discretização espacial, e o método de Crank-Nicolson para
-          integração temporal. As propriedades térmicas do material (k, ρ, cv) podem ser ajustadas.
-        </p>
-      </div>
-
+      <details class="mm-desc mb-6 rounded border-l-4 border-blue-400 bg-blue-50" data-mm-desc open>
+        <summary class="cursor-pointer select-none px-4 py-3 text-lg font-semibold text-blue-800" data-i18n="section.about">Sobre o problema</summary>
+        <div class="space-y-4 px-4 pb-4 text-gray-700">
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.equation">Equação governante</h4>
+            <p data-i18n="desc.equation">Condução de calor transiente numa placa, sem geração interna, com condutividade k, densidade ρ e calor específico c_v constantes:</p>
+            <div class="overflow-x-auto py-1">$$ \rho\,c_v\,\frac{\partial T}{\partial t} = k\,\nabla^2 T $$</div>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.domain">Domínio</h4>
+            <p><span data-i18n="desc.domain">Placa quadrada unitária com malha de 40 × 40 nós em triangulação de Delaunay (domínio e malha fixos no código); tempo de 0 a (número de passos)·Δt:</span> $\Omega = [0, 1] \times [0, 1]$.</p>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.bc">Condições de contorno</h4>
+            <ul class="list-disc space-y-1 pl-5">
+              <li><span data-i18n="desc.bc.bottom">Base:</span> $T(x, 0, t) = T_{\mathrm{bottom}}$</li>
+              <li><span data-i18n="desc.bc.top">Topo:</span> $T(x, 1, t) = T_{\mathrm{top}}$</li>
+              <li><span data-i18n="desc.bc.sides">Laterais, perfil linear entre as temperaturas da base e do topo:</span> $T(0, y, t) = T(1, y, t) = T_{\mathrm{bottom}} + (T_{\mathrm{top}} - T_{\mathrm{bottom}})\,y$</li>
+            </ul>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.ic">Condição inicial</h4>
+            <p><span data-i18n="desc.ic">Temperatura nula no interior da placa:</span> $T(x, y, 0) = 0$.</p>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="section.method">Método numérico</h4>
+            <p data-i18n="desc.method">Método dos Elementos Finitos com elementos triangulares lineares e matriz de massa consistente; integração no tempo por Crank-Nicolson (θ = 0,5, fixo no código), com um sistema linear esparso resolvido a cada passo. Os quadros são combinados em um GIF.</p>
+          </section>
+          <section>
+            <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.reference">Solução de referência</h4>
+            <p data-i18n="desc.reference">Regime permanente analítico, linear em y e independente de x, comparado com a solução numérica no centro da placa:</p>
+            <div class="overflow-x-auto py-1">$$ T_\infty(x, y) = T_{\mathrm{bottom}} + (T_{\mathrm{top}} - T_{\mathrm{bottom}})\,y $$</div>
+          </section>
+        </div>
+      </details>
       <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <!-- Painel de Parâmetros. Rótulos com subscrito: texto traduzível no <span>, símbolo fora dele. -->
         <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-1">
