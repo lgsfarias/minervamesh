@@ -14,11 +14,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha384-06z5D//U/xpvxZHuUz92xBvq3DqBBFi7Up53HRrbV7Jlv7Yvh/MZ7oenfUe9iCEt" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" integrity="sha384-WJdEkJKrbsqw0evQ4GB6mlsKe5cGTxBOw4KAEIa52ZLB7DDpliGkwdme/HMa5n1m" crossorigin="anonymous"></script>
     <script>
-        window.MathJax = {
-            tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']]
-            }
-        };
+      window.MathJax = { tex: { inlineMath: [["$", "$"], ["\\(", "\\)"]], displayMath: [["$$", "$$"], ["\\[", "\\]"]], processEscapes: true } };
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha384-Wuix6BuhrWbjDBs24bXrjf4ZQ5aFeFWBuKkFekO2t8xFU0iNaLQfp2K6/1Nxveei" crossorigin="anonymous"></script>
 </head>
@@ -28,39 +24,78 @@
 
         <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center" data-i18n="title">Navier-Stokes 2D (Vorticidade)</h2>
 
-        <!-- Explicação do Problema. Regra: texto traduzível (data-i18n) e math ($…$) nunca no mesmo elemento. -->
-        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-8 rounded shadow-sm">
-            <h3 class="text-lg font-bold text-blue-800 mb-2" data-i18n="section.about">Sobre o problema</h3>
-            <p class="text-gray-700 mb-2">
-                <span data-i18n="desc.intro">Resolvemos as equações de Navier-Stokes incompressíveis em 2D usando a formulação função corrente-vorticidade</span> ($\psi$-$\omega$). <span data-i18n="desc.system">O sistema acoplado é:</span>
-            </p>
-            <div class="overflow-x-auto my-2">
-                $$ \nabla^2 \psi = -\omega $$
-                $$ \frac{\partial \omega}{\partial t} + \mathbf{u} \cdot \nabla \omega = \frac{1}{Re} \nabla^2 \omega $$
-            </div>
-            <p class="text-gray-700 mb-2">
-                <strong><span data-i18n="section.method">Método utilizado</span>:</strong>
-                <span data-i18n="desc.method">MEF com passo de tempo semi-implícito para o transporte de vorticidade (convecção explícita, difusão implícita) e solucionador linear para a função corrente a cada passo.</span>
-            </p>
-            <p class="text-gray-700">
-                <strong><span data-i18n="section.physical_params">Parâmetros físicos</span>:</strong>
-            </p>
-            <ul class="list-disc list-inside ml-4 text-gray-700">
-                <li>$Re$: <span data-i18n="desc.param.Re">Número de Reynolds (adimensional)</span></li>
-                <li>$dt$: <span data-i18n="desc.param.dt">Passo de tempo</span> [s]</li>
-            </ul>
-        </div>
+            <details class="mm-desc mb-6 rounded border-l-4 border-blue-400 bg-blue-50" data-mm-desc open>
+              <summary class="cursor-pointer select-none px-4 py-3 text-lg font-semibold text-blue-800" data-i18n="section.about">Sobre o problema</summary>
+              <div class="space-y-4 px-4 pb-4 text-gray-700">
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.equation">Equação governante</h4>
+                  <p data-i18n="desc.equation">Equações de Navier-Stokes incompressíveis em 2D, adimensionais, na formulação função corrente-vorticidade (ψ-ω):</p>
+                  <div class="overflow-x-auto py-1">$$ \nabla^2 \psi = -\omega, \qquad \frac{\partial \omega}{\partial t} + \mathbf{u} \cdot \nabla \omega = \frac{1}{Re}\,\nabla^2 \omega $$</div>
+                  <p><span data-i18n="desc.velocities">com</span> $u = \dfrac{\partial \psi}{\partial y}$, $v = -\dfrac{\partial \psi}{\partial x}$, $\omega = \dfrac{\partial v}{\partial x} - \dfrac{\partial u}{\partial y}$.</p>
+                </section>
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.domain">Domínio</h4>
+                  <p><span data-i18n="desc.domain">Conforme o cenário: cavidade retangular fechada (caso de validação com L = H = 1) ou canal com um obstáculo (cilindro de raio r ou retângulo w × h centrado em (c_x, c_y), ou degrau de altura h e comprimento l no canto inferior esquerdo). Malha triangular sobre uma grade de nₓ × n_y nós:</span> $\Omega = [0, L] \times [0, H]$.</p>
+                </section>
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.bc">Condições de contorno</h4>
+                  <ul class="list-disc space-y-1 pl-5">
+                    <li><span data-i18n="desc.bc.cavity">Cavidade com tampa móvel:</span>
+                      <ul class="list-disc space-y-1 pl-5">
+                        <li><span data-i18n="desc.bc.cavity.psi">função corrente nula em todas as paredes:</span> $\psi = 0$</li>
+                        <li><span data-i18n="desc.bc.cavity.lid">tampa (y = H) com velocidade tangencial u = 1; demais paredes em repouso:</span> $u(x, H) = 1$; $u = v = 0$</li>
+                        <li><span data-i18n="desc.bc.cavity.omega">vorticidade nas paredes pela fórmula de Thom generalizada, com ψ_nb no nó interior vizinho à distância h e u_tan a velocidade da parede:</span> $\omega_w = -\dfrac{2\,(\psi_{nb} - \psi_w + h\,u_{\mathrm{tan}})}{h^2}$</li>
+                      </ul>
+                    </li>
+                    <li><span data-i18n="desc.bc.channel">Canal com obstáculo:</span>
+                      <ul class="list-disc space-y-1 pl-5">
+                        <li><span data-i18n="desc.bc.channel.inlet">entrada (x = 0), escoamento uniforme u = 1 e vorticidade nula:</span> $\psi(0, y) = y$, $\omega(0, y) = 0$</li>
+                        <li><span data-i18n="desc.bc.channel.walls">paredes inferior e superior:</span> $\psi(x, 0) = 0$, $\psi(x, H) = H$</li>
+                        <li><span data-i18n="desc.bc.channel.obstacle">obstáculo (cilindro ou retângulo) e degrau, respectivamente:</span> $\psi = c_y$, $\psi = 0$</li>
+                        <li><span data-i18n="desc.bc.channel.omega">vorticidade nas paredes e no obstáculo pela fórmula de Thom com u_tan = 0;</span></li>
+                        <li><span data-i18n="desc.bc.channel.outlet">saída (x = L): condição natural para ψ e ω.</span></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </section>
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.ic">Condição inicial</h4>
+                  <p><span data-i18n="desc.ic">Fluido em repouso:</span> $\psi = \omega = 0$.</p>
+                </section>
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="section.method">Método numérico</h4>
+                  <p data-i18n="desc.method">Método dos Elementos Finitos com elementos triangulares lineares. A cada passo de tempo: equação de Poisson para ψ, vorticidade nas paredes pela fórmula de Thom, velocidades por elemento e transporte de vorticidade com passo semi-implícito (convecção explícita, difusão implícita). Os campos são redesenhados a cada grupo de passos.</p>
+                </section>
+                <section>
+                  <h4 class="mb-1 font-semibold text-blue-700" data-i18n="desc.sec.reference">Solução de referência</h4>
+                  <p data-i18n="desc.reference">Cavidade com Re = 100: benchmark de Ghia, Ghia e Shin (1982), com mínimo da função corrente ψ_min ≈ −0,1034 e centro do vórtice primário em (x, y) ≈ (0,6172; 0,7344).</p>
+                  <p data-i18n="desc.reference.note">O caso de validação do TCC que originou a plataforma (malha 41 × 41, Δt = 0,01, 2000 passos) está no seletor de casos pré-definidos. Para o canal com obstáculo não há referência; a simulação mostra só o resultado numérico.</p>
+                </section>
+              </div>
+            </details>
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
             <!-- Painel de Parâmetros -->
             <div class="bg-white rounded-lg shadow-md p-6 lg:col-span-1">
                 <h3 class="text-xl font-semibold text-blue-700 mb-4 border-b pb-2" data-i18n="section.params">Parâmetros</h3>
 
+                <!-- Casos pré-definidos (valores aplicados pelo script no fim da página) -->
+                <div class="mb-4 rounded-lg bg-gray-50 p-3">
+                    <label for="preset_cases" class="block text-xs mb-1 font-medium" data-i18n="input.preset_cases">Casos pré-definidos:</label>
+                    <div class="flex gap-2">
+                        <select id="preset_cases" class="flex-1 min-w-0 rounded border-gray-300 p-2 border text-sm">
+                            <option value="" data-i18n="option.preset_cases.none">Selecione um caso...</option>
+                            <option value="ghia1982" data-i18n="option.preset_cases.ghia1982">Caso de validação (Ghia et al., 1982), ~6 min</option>
+                        </select>
+                        <button id="loadCase" type="button" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-3 rounded text-sm"><span data-i18n="btn.load_case">Carregar</span></button>
+                    </div>
+                </div>
+
                 <!-- Cenário -->
                 <div class="mb-4">
                     <label for="scenario" class="block text-xs mb-1 font-medium" data-i18n="input.scenario">Cenário:</label>
                     <select id="scenario" class="w-full rounded border-gray-300 p-2 border text-sm">
-                        <option value="channel" data-i18n="option.scenario.channel">Canal com Obstrução/Geometria</option>
-                        <option value="cavity" data-i18n="option.scenario.cavity">Cavidade (Lid-Driven)</option>
+                        <option value="cavity" data-i18n="option.scenario.cavity">Cavidade com tampa móvel (lid-driven)</option>
+                        <option value="channel" data-i18n="option.scenario.channel">Canal com obstrução</option>
                     </select>
                 </div>
 
@@ -68,7 +103,7 @@
                 <div class="grid grid-cols-2 gap-4 mb-4">
                     <div>
                         <label for="L" class="block text-xs mb-1 font-medium" data-i18n="input.L">Comp. (L) [m]:</label>
-                        <input type="number" id="L" value="2.0" step="0.1"
+                        <input type="number" id="L" value="1.0" step="0.1"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
                     <div>
@@ -142,7 +177,7 @@
                     </div>
                     <div>
                         <label for="dt" class="block text-xs mb-1 font-medium" data-i18n="input.dt">Passo Tempo (dt) [s]:</label>
-                        <input type="number" id="dt" value="0.001" step="0.001"
+                        <input type="number" id="dt" value="0.02" step="0.001"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
                     <div>
@@ -152,7 +187,7 @@
                     </div>
                     <div>
                         <label for="total_steps" class="block text-xs mb-1 font-medium" data-i18n="input.total_steps">Total Passos:</label>
-                        <input type="number" id="total_steps" value="500" step="50"
+                        <input type="number" id="total_steps" value="300" step="50"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
                 </div>
@@ -161,12 +196,12 @@
                 <div class="grid grid-cols-2 gap-4 mb-6">
                     <div>
                         <label for="nx" class="block text-xs mb-1 font-medium" data-i18n="input.nx">Nós X:</label>
-                        <input type="number" id="nx" value="60" step="5"
+                        <input type="number" id="nx" value="31" step="5"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
                     <div>
                         <label for="ny" class="block text-xs mb-1 font-medium" data-i18n="input.ny">Nós Y:</label>
-                        <input type="number" id="ny" value="30" step="5"
+                        <input type="number" id="ny" value="31" step="5"
                             class="w-full rounded border-gray-300 p-2 border text-sm" />
                     </div>
                 </div>
@@ -227,6 +262,17 @@
 
         document.getElementById("geo_type").addEventListener("change", updateUI);
         document.getElementById("scenario").addEventListener("change", updateUI);
+
+        // Preset do caso de validação do TCC (resultados.tex, tabela de parâmetros do Navier-Stokes)
+        const PRESETS = {
+            ghia1982: { scenario: "cavity", L: "1.0", H: "1.0", nx: "41", ny: "41", Re: "100.0", dt: "0.01", steps_per_frame: "50", total_steps: "2000" },
+        };
+        document.getElementById("loadCase").addEventListener("click", () => {
+            const p = PRESETS[document.getElementById("preset_cases").value];
+            if (!p) return;
+            for (const [id, v] of Object.entries(p)) document.getElementById(id).value = v;
+            updateUI();
+        });
 
         updateUI();
     </script>
