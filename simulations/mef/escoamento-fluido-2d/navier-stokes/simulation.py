@@ -17,6 +17,13 @@ def i18n_t(key):
     return str(_i18n.t(key)) if _i18n else key
 # ------------------------------------------------------------------------------
 
+# --- Progresso (v1.1.0): window.mmProgress (assets/app.js); sem o app.js, no-op ---
+_progress = getattr(js, "mmProgress", None)
+def progress(method, *args):
+    if _progress:
+        getattr(_progress, method)(*args)
+# ------------------------------------------------------------------------------
+
 # --- Gancho de verificação (v1.1.0) -------------------------------------------
 # Exporta o resultado numérico para window.__minervamesh_result, lido por
 # scripts/baseline.mjs para comparar versões. Não participa de nenhum cálculo.
@@ -367,7 +374,7 @@ async def solve_navier_stokes(params, plot_div):
             "<div class=\"bg-blue-50 border-l-4 border-blue-400 p-3 rounded w-full\">"
             f"<h4 class=\"font-semibold text-blue-800 mb-1\">{i18n_t('py.validation')}</h4>"
             f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.step_label')}</strong> "
-            f"{i18n_t('py.val.step').format(step=current_step, total=total_steps, Re=params['Re'], nx=params['nx'], ny=params['ny'])}</p>"
+            f"{i18n_t('py.val.step').format(step=min(current_step, total_steps), total=total_steps, Re=params['Re'], nx=params['nx'], ny=params['ny'])}</p>"
             f"<p class=\"text-sm text-gray-700\"><strong>{i18n_t('py.val.psi_min_label')}</strong> "
             f"{i18n_t('py.val.psi_min').format(psi=psi_min, x=x_vort, y=y_vort)}</p>"
             f"{ghia_row}"
@@ -380,6 +387,7 @@ async def solve_navier_stokes(params, plot_div):
             f"{metrics_html}"
             "</div>"
         )
+        progress("step", current_step)
         await asyncio.sleep(0.01)
 
     _export_result(psi=psi, omega=omega, current_step=current_step, total_steps=total_steps, stopped=bool(STOP_SIMULATION))
@@ -423,13 +431,15 @@ async def run_handler(event=None):
             "steps_per_frame": int(document.getElementById("steps_per_frame").value),
             "total_steps": int(document.getElementById("total_steps").value)
         }
-        
+
+        progress("start", "inline", params["total_steps"])
         await solve_navier_stokes(params, plot_div)
         
     except Exception as e:
         plot_div.innerHTML = i18n_t("py.error").format(e=e)
         print(e)
     finally:
+        progress("done")
         document.getElementById("stop-btn").classList.add("hidden")
         document.getElementById("stop-btn").classList.remove("flex")
         document.getElementById("run-btn").classList.remove("hidden")
