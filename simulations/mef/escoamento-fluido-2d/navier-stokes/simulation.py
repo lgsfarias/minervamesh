@@ -8,21 +8,7 @@ import asyncio
 from common import generate_mesh_generic, assemble_matrices, plot_to_base64
 import geometry
 
-# --- Idioma da interface (v1.1.0) ---------------------------------------------
-# Rótulos de gráfico e mensagens vêm de i18n.<lang>.json via window.i18n
-# (assets/app.js). Sem o app.js, a simulação roda mostrando as chaves no lugar dos textos.
-import js
-_i18n = getattr(js, "i18n", None)
-def i18n_t(key):
-    return str(_i18n.t(key)) if _i18n else key
-# ------------------------------------------------------------------------------
-
-# --- Progresso (v1.1.0): window.mmProgress (assets/app.js); sem o app.js, no-op ---
-_progress = getattr(js, "mmProgress", None)
-def progress(method, *args):
-    if _progress:
-        getattr(_progress, method)(*args)
-# ------------------------------------------------------------------------------
+from mmcommon import i18n_t, progress  # textos traduzidos e indicador de progresso (assets/mmcommon.py)
 
 
 # Sinalizador global de controle

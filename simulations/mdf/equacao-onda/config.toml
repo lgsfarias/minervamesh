@@ -1,3 +1,5 @@
 packages = ["numpy", "matplotlib", "imageio"]
 
-
+[[fetch]]
+from = "../../../assets/"
+files = ["mmcommon.py"]

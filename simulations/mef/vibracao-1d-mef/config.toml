@@ -2,4 +2,4 @@ packages = ["numpy", "matplotlib", "scipy"]
 
 [[fetch]]
 from = "../../../assets/"
-files = ["mmplot.py"]
+files = ["mmplot.py", "mmcommon.py"]
