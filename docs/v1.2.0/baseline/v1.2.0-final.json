@@ -1,0 +1,328 @@
+{
+  "label": "v1.2.0-final",
+  "date": "2026-10-17T23:52:00.315Z",
+  "lang": "pt",
+  "overrides": {},
+  "results": [
+    {
+      "id": "mdf-conducao",
+      "url": "http://127.0.0.1:8123/simulations/mdf/conducao-permanente-barra1d-geracao/index.html?lang=pt",
+      "lang": "pt",
+      "params": {
+        "nx": "10",
+        "alpha": "0.1",
+        "Q": "2"
+      },
+      "errors": [],
+      "load_s": 12.5,
+      "run_s": 2.5,
+      "text": "(gráfico em canvas; comparar pelo hash)",
+      "images": [
+        {
+          "kind": "image/png",
+          "bytes": 103794,
+          "sha256_16": "6bc8d2f61a52b039"
+        },
+        {
+          "kind": "image/png",
+          "bytes": 15142,
+          "sha256_16": "156173437cd25048"
+        }
+      ],
+      "result": null,
+      "result_sha256_16": null
+    },
+    {
+      "id": "mdf-onda",
+      "url": "http://127.0.0.1:8123/simulations/mdf/equacao-onda/index.html?lang=pt",
+      "lang": "pt",
+      "params": {
+        "L": "1.0",
+        "nx": "201",
+        "c": "1.0",
+        "cfl": "0.9",
+        "tmax": "2.0",
+        "mode": "senoide"
+      },
+      "errors": [],
+      "load_s": 7.3,
+      "run_s": 8.9,
+      "text": "",
+      "images": [
+        {
+          "kind": "image/gif",
+          "bytes": 472386,
+          "sha256_16": "fe2bcc08555a7ee3"
+        }
+      ],
+      "result": null,
+      "result_sha256_16": null
+    },
+    {
+      "id": "mef-conducao",
+      "url": "http://127.0.0.1:8123/simulations/mef/conducao-permanente-barra1d-mef/index.html?lang=pt",
+      "lang": "pt",
+      "params": {
+        "L": "1.0",
+        "nel": "10",
+        "T0": "0.0",
+        "TL": "1.0",
+        "k": "1.0",
+        "Q": "4.0"
+      },
+      "errors": [],
+      "load_s": 7.1,
+      "run_s": 0.4,
+      "text": "Condução Permanente 1D (MEF)epsjpegpgfpdfpngpsrawsvgtifwebp Validação Malha: 10 elementos lineares, h = 0.1000 m T_max (MEF): 1.120000 °C em x = 0.700 m T_max (analítica): 1.125000 °C em x = 0.750 m Erro máximo nodal: 8.88e-16 °C",
+      "images": [
+        {
+          "kind": "image/png",
+          "bytes": 74762,
+          "sha256_16": "0a8de685dc811c44"
+        },
+        {
+          "kind": "image/png",
+          "bytes": 10578,
+          "sha256_16": "7533c140e510d08a"
+        }
+      ],
+      "result": null,
+      "result_sha256_16": null
+    },
+    {
+      "id": "calor-transiente-1d",
+      "url": "http://127.0.0.1:8123/simulations/mef/calor-transiente-1d/index.html?lang=pt",
+      "lang": "pt",
+      "params": {
+        "L": "1.0",
+        "k1": "5.0",
+        "k2": "1.0",
+        "n_elements": "40",
+        "rho_cp": "1.0",
+        "dt": "0.001",
+        "theta": "0.5",
+        "tmax": "0.200"
+      },
+      "errors": [],
+      "load_s": 7,
+      "run_s": 12.8,
+      "text": "Validação Tempo final: 0.200 s (100.0% de τ_dif = 0.20 s) T(L/2) MEF: 0.163656 °C T(L/2) analítica (regime permanente, k2/(k1+k2)): 0.166667 °C Desvio em x = L/2: 3.01e-03 °C",
+      "images": [
+        {
+          "kind": "image/gif",
+          "bytes": 718806,
+          "sha256_16": "498cf6d45b0deb8d"
+        }
+      ],
+      "result": null,
+      "result_sha256_16": null
+    },
+    {
+      "id": "conveccao-difusao",
+      "url": "http://127.0.0.1:8123/simulations/mef/conveccao-difusao-1d/index.html?lang=pt",
+      "lang": "pt",
+      "params": {
+        "L": "1.0",
+        "nel": "50",
+        "T0": "0.0",
+        "TL": "1.0",
+        "k": "1.0",
+        "rho_cp": "1000.0",
+        "u": "0.05",
+        "Q": "1.0",
+        "use_supg": true
+      },
+      "errors": [],
+      "load_s": 9.4,
+      "run_s": 0.9,
+      "text": "Convecção-Difusão 1D Permanente (MEF)epsjpegpgfpdfpngpsrawsvgtifwebp",
+      "extra_text": "Informações da Simulação Número de Péclet: 0.500 Estabilização SUPG: Sim Parâmetro τ: 0.032791 Velocidade: 0.050 m/s Tamanho elemento: 0.0200 m Erro máximo: 4.44e-16 °C",
+      "images": [
+        {
+          "kind": "image/png",
+          "bytes": 122074,
+          "sha256_16": "2f98ad39d5080601"
+        },
+        {
+          "kind": "image/png",
+          "bytes": 20142,
+          "sha256_16": "5e450f0b8112405d"
+        }
+      ],
+      "result": null,
+      "result_sha256_16": null
+    },
+    {
+      "id": "viga",
+      "url": "http://127.0.0.1:8123/simulations/mef/viga-1d-mef/index.html?lang=pt",
+      "lang": "pt",
+      "params": {
+        "preset_cases": "",
+        "L": "2.0",
+        "nel": "20",
+        "E": "200.0",
+        "I": "1000.0",
+        "q": "10.0",
+        "load_type": "uniform",
+        "bc_type": "simply_supported",
+        "prop_type": "constant",
+        "show_analytical": true
+      },
+      "errors": [],
+      "load_s": 9.7,
+      "run_s": 1.6,
+      "text": "Viga 1D - Análise de Flexão (MEF)epsjpegpgfpdfpngpsrawsvgtifwebpValidaçãoCaso: Simplesmente Apoiada com carga uniforme, propriedades constanteDeflexão máxima: 1.0417 mm (analítica 1.0417 mm, erro relativo 8.60e-13) em x = 1.000 m|M| máximo: 5.0083 kN·m (analítica 5.0000 kN·m, erro relativo 1.67e-03)|V| máximo: 9.5000 kN (analítica 10.0000 kN, erro relativo 5.00e-02)",
+      "images": [
+        {
+          "kind": "image/png",
+          "bytes": 280010,
+          "sha256_16": "fae1da9d336b6b45"
+        },
+        {
+          "kind": "image/png",
+          "bytes": 37670,
+          "sha256_16": "ba20e5134f18ecf9"
+        }
+      ],
+      "result": null,
+      "result_sha256_16": null
+    },
+    {
+      "id": "vibracao",
+      "url": "http://127.0.0.1:8123/simulations/mef/vibracao-1d-mef/index.html?lang=pt",
+      "lang": "pt",
+      "params": {
+        "preset_cases": "",
+        "L": "2.0",
+        "nel": "20",
+        "E": "200.0",
+        "rho": "7850.0",
+        "A": "100.0",
+        "bc_type": "free_free",
+        "prop_type": "constant",
+        "show_analytical": true
+      },
+      "errors": [],
+      "load_s": 14.9,
+      "run_s": 1.5,
+      "text": "Vibração 1D - Problema de Autovalor (MEF)epsjpegpgfpdfpngpsrawsvgtifwebpValidaçãoFrequências naturais: Livre-Livre, propriedades constanteModoMEF [Hz]Analítica [Hz]Erro [%]Modo 10.00--Modo 21260.591261.890.1%Modo 32513.412523.770.4%Modo 43750.733785.660.9%Modo 54964.925047.541.6%",
+      "images": [
+        {
+          "kind": "image/png",
+          "bytes": 285082,
+          "sha256_16": "d303e4c9b1f87afe"
+        },
+        {
+          "kind": "image/png",
+          "bytes": 35866,
+          "sha256_16": "c035145acbf84ed0"
+        }
+      ],
+      "result": null,
+      "result_sha256_16": null
+    },
+    {
+      "id": "transcalor",
+      "url": "http://127.0.0.1:8123/simulations/mef/transcalor/index.html?lang=pt",
+      "lang": "pt",
+      "params": {
+        "n_steps": "50",
+        "dt": "0.001",
+        "Tbottom": "30",
+        "Ttop": "100",
+        "k": "1.0",
+        "rho": "1.0",
+        "cv": "1.0"
+      },
+      "errors": [],
+      "load_s": 13,
+      "run_s": 11.6,
+      "text": "ValidaçãoTempo final: 0.050 s (5.0% da escala difusiva τ_dif = 1.00 s)T(0,5; 0,5) MEF: 27.0799 °CT(0,5; 0,5) regime permanente (T_bot + (T_top − T_bot)·y): 65.8974 °CDesvio do regime permanente: 38.8175 °C (aumentar n_steps para convergir)",
+      "images": [
+        {
+          "kind": "image/gif",
+          "bytes": 1138454,
+          "sha256_16": "7c3f213f15483e9a"
+        }
+      ],
+      "result": null,
+      "result_sha256_16": null
+    },
+    {
+      "id": "potencial",
+      "url": "http://127.0.0.1:8123/simulations/mef/escoamento-fluido-2d/escoamento-potencial/index.html?lang=pt",
+      "lang": "pt",
+      "params": {
+        "geo_type": "cylinder",
+        "rho": "1.0",
+        "v_inf": "1.0",
+        "L": "2.0",
+        "H": "1.0",
+        "cx": "0.5",
+        "cy": "0.5",
+        "r": "0.15",
+        "chord": "0.5",
+        "angle_airfoil": "0.0",
+        "nx": "60",
+        "ny": "30"
+      },
+      "errors": [],
+      "load_s": 11.7,
+      "run_s": 1.4,
+      "text": "Escoamento Potencial 2D (MEF)epsjpegpgfpdfpngpsrawsvgtifwebp",
+      "extra_text": "Resultados Aerodinâmicos Sustentação (L): -0.0013 N/m Arrasto (D): 0.0158 N/m Circulação (Γ): -0.0013 m²/s Validação: C_p na superfície do cilindro (teoria: C_p = 1 − 4 sen²θ)θ = 0°: C_p MEF = 0.892 | teórico = 1.000 (Δ = -0.108)θ = 90°: C_p MEF = -2.926 | teórico = -3.000 (Δ = +0.074)θ = 180°: C_p MEF = 0.976 | teórico = 1.000 (Δ = -0.024)θ = -90°: C_p MEF = -2.926 | teórico = -3.000 (Δ = +0.074)",
+      "images": [
+        {
+          "kind": "image/png",
+          "bytes": 606302,
+          "sha256_16": "d7edcdc8423eb3e2"
+        },
+        {
+          "kind": "image/png",
+          "bytes": 30162,
+          "sha256_16": "3cb3e698c96463c2"
+        }
+      ],
+      "result": null,
+      "result_sha256_16": null
+    },
+    {
+      "id": "navier-stokes",
+      "url": "http://127.0.0.1:8123/simulations/mef/escoamento-fluido-2d/navier-stokes/index.html?lang=pt",
+      "lang": "pt",
+      "params": {
+        "preset_cases": "",
+        "scenario": "cavity",
+        "L": "1.0",
+        "H": "1.0",
+        "cx": "0.5",
+        "cy": "0.5",
+        "geo_type": "cylinder",
+        "r": "0.15",
+        "w": "0.3",
+        "h": "0.3",
+        "step_h": "0.5",
+        "step_l": "0.5",
+        "Re": "100.0",
+        "dt": "0.02",
+        "steps_per_frame": "10",
+        "total_steps": "300",
+        "nx": "31",
+        "ny": "31"
+      },
+      "errors": [],
+      "load_s": 8.4,
+      "run_s": 55.8,
+      "text": "ValidaçãoPasso: 300 / 300, Re = 100.0, malha 31×31ψ_min: -0.10090 em (0.633, 0.733)Referência Ghia et al. (1982) Re=100: ψ_min ≈ -0.1034, centro em (0.6172, 0.7344)Simulação Concluída!",
+      "images": [
+        {
+          "kind": "image/png",
+          "bytes": 430346,
+          "sha256_16": "8248b46ea45d57d6"
+        }
+      ],
+      "result": null,
+      "result_sha256_16": null
+    }
+  ]
+}

@@ -72,47 +72,47 @@
             </section>
           </div>
         </details>
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <div data-mm-params class="bg-mm-surface rounded-lg shadow p-5">
-                <h3 class="text-lg font-semibold text-mm-accent mb-4" data-i18n="section.params">Parâmetros</h3>
+        <div>
+            <div data-mm-params>
+                <h3 data-i18n="section.params">Parâmetros</h3>
                 <div class="space-y-3">
                     <div>
                         <label for="L" class="block text-sm font-medium text-mm-text" data-i18n="input.L">Comprimento L [m]</label>
-                        <input type="number" id="L" value="1.0" step="0.1" min="0.2" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
+                        <input type="number" id="L" value="1.0" step="0.1" min="0.2" />
                     </div>
                     <div>
                         <label for="nx" class="block text-sm font-medium text-mm-text" data-i18n="input.nx">Número de pontos nₓ</label>
-                        <input type="number" id="nx" value="201" min="21" step="20" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
+                        <input type="number" id="nx" value="201" min="21" step="20" />
                     </div>
                     <div>
                         <label for="c" class="block text-sm font-medium text-mm-text" data-i18n="input.c">Velocidade de propagação c [m/s]</label>
-                        <input type="number" id="c" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
+                        <input type="number" id="c" value="1.0" step="0.1" min="0.1" />
                     </div>
                     <div>
                         <label for="cfl" class="block text-sm font-medium text-mm-text" data-i18n="input.cfl">Número de Courant CFL (≤ 1)</label>
-                        <input type="number" id="cfl" value="0.9" step="0.05" min="0.1" max="1.0" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
+                        <input type="number" id="cfl" value="0.9" step="0.05" min="0.1" max="1.0" />
                     </div>
                     <div>
                         <label for="tmax" class="block text-sm font-medium text-mm-text" data-i18n="input.tmax">Tempo total tₘₐₓ [s]</label>
-                        <input type="number" id="tmax" value="2.0" step="0.1" min="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" />
+                        <input type="number" id="tmax" value="2.0" step="0.1" min="0.1" />
                     </div>
                     <div>
                         <label for="mode" class="block text-sm font-medium text-mm-text" data-i18n="input.mode">Condição inicial</label>
-                        <select id="mode" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent">
+                        <select id="mode">
                             <option value="senoide" data-i18n="option.mode.senoide">Senoide fundamental</option>
                             <option value="pulso" data-i18n="option.mode.pulso">Pulso localizado</option>
                         </select>
                     </div>
                 </div>
                 <div class="flex gap-3 mt-5">
-                    <button id="run-btn" class="flex-1 bg-mm-accent hover:bg-mm-accent-strong text-mm-on-accent font-medium py-2 px-4 rounded"><span data-i18n="btn.run">Executar</span></button>
-                    <button id="show-code-btn" class="bg-mm-muted hover:bg-mm-text text-mm-on-accent font-medium py-2 px-4 rounded"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
+                    <button id="run-btn"><span data-i18n="btn.run">Executar</span></button>
+                    <button id="show-code-btn"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
                 </div>
             </div>
 
-            <div data-mm-result class="lg:col-span-3 bg-mm-surface rounded-lg shadow p-5">
-                <h3 class="text-lg font-semibold text-mm-accent mb-4" data-i18n="section.result">Resultado</h3>
-                <div id="plot-output" class="w-full min-h-[360px] bg-mm-surface2 rounded flex items-center justify-center text-mm-muted"></div>
+            <div data-mm-result>
+                <h3 data-i18n="section.result">Resultado</h3>
+                <div id="plot-output"></div>
             </div>
         </div>
     </div>

@@ -1,0 +1,56 @@
+{
+  "label": "v1.2.0-final-ns-canal",
+  "date": "2026-10-17T23:56:40.541Z",
+  "lang": "pt",
+  "overrides": {
+    "scenario": "channel",
+    "L": "2.0",
+    "H": "1.0",
+    "nx": "60",
+    "ny": "30",
+    "Re": "100.0",
+    "dt": "0.001",
+    "steps_per_frame": "10",
+    "total_steps": "500"
+  },
+  "results": [
+    {
+      "id": "navier-stokes",
+      "url": "http://127.0.0.1:8123/simulations/mef/escoamento-fluido-2d/navier-stokes/index.html?lang=pt",
+      "lang": "pt",
+      "params": {
+        "preset_cases": "",
+        "scenario": "channel",
+        "L": "2.0",
+        "H": "1.0",
+        "cx": "0.5",
+        "cy": "0.5",
+        "geo_type": "cylinder",
+        "r": "0.15",
+        "w": "0.3",
+        "h": "0.3",
+        "step_h": "0.5",
+        "step_l": "0.5",
+        "Re": "100.0",
+        "dt": "0.001",
+        "steps_per_frame": "10",
+        "total_steps": "500",
+        "nx": "60",
+        "ny": "30"
+      },
+      "errors": [],
+      "load_s": 5.2,
+      "run_s": 132,
+      "text": "ValidaçãoPasso: 500 / 500, Re = 100.0, malha 60×30ψ_min: +0.00000 em (0.000, 0.000)Simulação Concluída!",
+      "images": [
+        {
+          "kind": "image/png",
+          "bytes": 682194,
+          "sha256_16": "a0286f6ead411156"
+        }
+      ],
+      "result": null,
+      "result_sha256_16": null
+    }
+  ]
+}

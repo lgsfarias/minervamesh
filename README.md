@@ -39,7 +39,17 @@ minervamesh/
 ├── index.html                              # Menu principal
 ├── favicon.ico
 ├── LICENSE
-├── assets/                                 # Camada compartilhada: app.js (i18n, cabeçalho, progresso), i18n/common.*.json, mmplot.py, CSS, logo
+├── assets/                                 # Camada compartilhada
+│   ├── app.js                             # i18n, cabeçalho, layout da página, progresso, menu
+│   ├── theme.js                           # tema claro/escuro antes da primeira pintura
+│   ├── mmcommon.py, mmplot.py             # ponte Python↔página e gráfico interativo (via [[fetch]])
+│   ├── menu.json                          # lista dos módulos (cards do menu, badges, miniaturas)
+│   ├── thumbs/                            # miniaturas reais dos resultados (scripts/thumbs.mjs)
+│   └── i18n/common.*.json, tailwind.*.css
+├── scripts/                                # ferramentas de desenvolvimento (Node + Chrome headless)
+│   ├── baseline.mjs, compare-baseline.mjs # verificação numérica antes × depois
+│   ├── shots.mjs, probe.mjs, thumbs.mjs   # capturas, sonda de estados, miniaturas
+│   └── i18n-check.mjs, ast-check.py       # paridade PT/EN; AST idêntica após limpeza de comentários
 └── simulations/                            # Simulações organizadas por método
     ├── mdf/                               # Método das Diferenças Finitas
     │   ├── conducao-permanente-barra1d-geracao/
@@ -100,11 +110,18 @@ python3 -m http.server 8000
 # http://localhost:8000/index.html
 ```
 
-O CSS do Tailwind já vem compilado em `assets/tailwind.css`. Só é preciso recompilar se alterar classes nas páginas:
+O CSS do Tailwind já vem compilado em `assets/tailwind.css`. Só é preciso recompilar se alterar classes nas páginas, no `app.js` ou em `assets/tailwind.src.css`:
 
 ```bash
 npm install
 npm run build:css
+```
+
+As miniaturas do menu (`assets/thumbs/`) são geradas a partir das próprias
+simulações, com os parâmetros padrão; regenerar quando uma plotagem mudar:
+
+```bash
+node scripts/thumbs.mjs          # requer Google Chrome e python3 com Pillow
 ```
 
 ---

@@ -57,30 +57,30 @@
           </section>
         </div>
       </details>
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div data-mm-params class="bg-mm-surface rounded-lg shadow p-5">
-          <h3 class="text-lg font-semibold text-mm-accent mb-4" data-i18n="section.params">Parâmetros</h3>
+      <div>
+        <div data-mm-params>
+          <h3 data-i18n="section.params">Parâmetros</h3>
           <div class="space-y-3">
-            <div><label for="L" class="block text-sm font-medium text-mm-text" data-i18n="input.L">Comprimento L [m]</label><input type="number" id="L" value="1.0" step="0.1" min="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" /></div>
-            <div><label for="nel" class="block text-sm font-medium text-mm-text" data-i18n="input.nel">Número de elementos nₑ</label><input type="number" id="nel" value="10" min="2" step="1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" /></div>
+            <div><label for="L" class="block text-sm font-medium text-mm-text" data-i18n="input.L">Comprimento L [m]</label><input type="number" id="L" value="1.0" step="0.1" min="0.1" /></div>
+            <div><label for="nel" class="block text-sm font-medium text-mm-text" data-i18n="input.nel">Número de elementos nₑ</label><input type="number" id="nel" value="10" min="2" step="1" /></div>
             <div class="grid grid-cols-2 gap-3">
-              <div><label for="T0" class="block text-sm font-medium text-mm-text" data-i18n="input.T0">Temperatura T₀ [°C]</label><input type="number" id="T0" value="0.0" step="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" /></div>
-              <div><label for="TL" class="block text-sm font-medium text-mm-text" data-i18n="input.TL">Temperatura Tₗ [°C]</label><input type="number" id="TL" value="1.0" step="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" /></div>
+              <div><label for="T0" class="block text-sm font-medium text-mm-text" data-i18n="input.T0">Temperatura T₀ [°C]</label><input type="number" id="T0" value="0.0" step="0.1" /></div>
+              <div><label for="TL" class="block text-sm font-medium text-mm-text" data-i18n="input.TL">Temperatura Tₗ [°C]</label><input type="number" id="TL" value="1.0" step="0.1" /></div>
             </div>
             <div class="grid grid-cols-2 gap-3">
-              <div><label for="k" class="block text-sm font-medium text-mm-text" data-i18n="input.k">Condutividade k [W/(m·K)]</label><input type="number" id="k" value="1.0" step="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" /></div>
-              <div><label for="Q" class="block text-sm font-medium text-mm-text" data-i18n="input.Q">Geração de calor Q [W/m³]</label><input type="number" id="Q" value="4.0" step="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" /></div>
+              <div><label for="k" class="block text-sm font-medium text-mm-text" data-i18n="input.k">Condutividade k [W/(m·K)]</label><input type="number" id="k" value="1.0" step="0.1" /></div>
+              <div><label for="Q" class="block text-sm font-medium text-mm-text" data-i18n="input.Q">Geração de calor Q [W/m³]</label><input type="number" id="Q" value="4.0" step="0.1" /></div>
             </div>
           </div>
           <div class="flex gap-3 mt-5">
-            <button id="run-btn" class="flex-1 bg-mm-accent hover:bg-mm-accent-strong text-mm-on-accent font-medium py-2 px-4 rounded"><span data-i18n="btn.run">Executar</span></button>
-            <button id="show-code-btn" class="bg-mm-muted hover:bg-mm-text text-mm-on-accent font-medium py-2 px-4 rounded"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
+            <button id="run-btn"><span data-i18n="btn.run">Executar</span></button>
+            <button id="show-code-btn"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
           </div>
         </div>
 
-        <div data-mm-result class="lg:col-span-3 bg-mm-surface rounded-lg shadow p-5">
-          <h3 class="text-lg font-semibold text-mm-accent mb-4" data-i18n="section.result">Resultado</h3>
-          <div id="plot-output" class="w-full min-h-[360px] bg-mm-surface2 rounded flex items-center justify-center text-mm-muted"></div>
+        <div data-mm-result>
+          <h3 data-i18n="section.result">Resultado</h3>
+          <div id="plot-output"></div>
         </div>
       </div>
     </div>

@@ -97,15 +97,19 @@ Branch de trabalho: `feat/v1.2.0`. Nenhum commit sem autorização do autor.
 
 ## Etapa 10 — Fechamento (spec 3)
 
-- [ ] Limpeza dos `simulation.py` exibidos ao aluno (pedido do autor em 17/10/2026; commits separados dos de UI, sem tocar em nenhuma linha numérica):
-  - remover comentários que só repetem o que o código já diz (ex.: `# importa numpy` acima de `import numpy`) ou que poluem a leitura;
-  - os blocos repetidos em todos os módulos (guarda `i18n_t`, guarda `progress`, comentários "--- Idioma da interface (v1.1.0) ---" e "--- Progresso (v1.1.0) ---") saem dos `.py` e passam a ser reaproveitados de um módulo compartilhado (`assets/mmcommon.py`, buscado via `[[fetch]]` no `config.toml`, como o `mmplot.py`), ficando em cada `simulation.py` só o `from mmcommon import i18n_t, progress`;
-  - comentários que explicam o método numérico ficam (são o valor didático do "Ver código-fonte");
-  - ao final, baseline completa; critério: texto e imagens idênticos à rodada anterior desta mesma versão (`etapa4`), módulo a módulo (não há mais o gancho `__minervamesh_result`)
-- [ ] `scripts/baseline.mjs --label v1.2.0-final` (+ canal do NS) e `compare-baseline.mjs` contra `final-sem-gancho`
-- [ ] Capturas "depois" com `scripts/shots.mjs`; conferência visual pelo autor
-- [ ] `docs/v1.2.0/aceite.md` com a comparação e eventuais divergências de hash explicadas
-- [ ] `CHANGELOG.md`, tag `v1.2.0`, espelho `gh-pages`
+- [x] Limpeza dos `simulation.py` exibidos ao aluno (pedido do autor em 17/10/2026; commit separado dos de UI, sem tocar em nenhuma linha numérica):
+  - blocos repetidos de i18n e progresso (15 linhas por arquivo) viraram `assets/mmcommon.py` + `from mmcommon import i18n_t, progress`; `[[fetch]]` em cada `config.toml`;
+  - comentários: a primeira passada do agente (17/10/2026) removeu rótulos de passo ("Montar matriz de rigidez", "Resolver sistema", "Solução analítica para viga…") e o autor barrou ao ver o diff: **engenheiros não são devs, explicar a lógica é didático**. Política final, conservadora: só saem notas de versão, separadores decorativos vazios, repetições literais de uma linha trivial e frases duplicadas. Resultado: 9 arquivos intocados; no transiente 1D saíram 2 comentários duplicados em linhas adjacentes, os cabeçalhos numerados foram corrigidos (havia dois "2.") e dois comentários enganosos foram corrigidos/removidos ("Crank-Nicolson com suavização suave" → "método θ; θ = 0,5 é Crank-Nicolson"; `T_prev` "para suavização temporal" não é usado em lugar nenhum);
+  - `scripts/ast-check.py` (novo): AST idêntica à do snapshot pré-limpeza nos 12 `.py` (docstrings incluídas);
+  - follow-up anotado, fora desta versão (mudança de código): variáveis mortas `T_prev` e `interior_nodes` (transiente 1D) e `outlet_nodes` (potencial)
+- [x] Mesma limpeza nos 10 `index.html` (pedido do autor em 17/10/2026, feita por script): 33 comentários-rótulo que repetiam a seção seguinte saíram, ficaram 6 que explicam algo; classes visuais de `<input>`/`<select>` que o CSS de `.mm-params` já aplica saíram (88 → 10 com classe, só as de layout: `flex-1`, `min-w-0`, `mb-3`); cards `[data-mm-params]`/`[data-mm-result]` e wrappers de grade perderam as classes, porque o `layoutModule` os descarta ou reescreve. O `<head>` (8 linhas iguais nas 10 páginas) fica: PyScript, `theme.js` síncrono, CSS e `app.js` têm de estar no HTML. `i18n-check` limpo
+- [x] `assets/mmcommon.py` criado; blocos de guarda removidos dos 10 `.py` (15 linhas cada → 1 `from mmcommon import i18n_t, progress`); `[[fetch]]` em cada `config.toml`. Baseline `etapa10-mmcommon` × `etapa4`: texto idêntico nos 10, imagens idênticas em 9; a condução MDF difere em 36 bytes no canvas e é estável em três rodadas: a saída de exemplo (etapa 5) deixou a página mais alta que a janela, a barra de rolagem apareceu e o `clientWidth` de `#plot-output` caiu 15 px, mudando o dpi do `mmplot` (mesmo mecanismo dos 5 módulos na etapa 4; nas outras páginas a barra já existia)
+- [x] `scripts/baseline.mjs --label v1.2.0-final` (+ canal do NS com os parâmetros da referência, Δt = 0,001) e `compare-baseline.mjs` contra `final-sem-gancho`: **texto idêntico nos 10 módulos e nas duas configurações do NS**; imagens iguais em 5 + NS canal, diferentes nos 5 de `mmplot` (dpi), explicado no `aceite.md`
+- [x] Capturas "depois" com `scripts/shots.mjs --label depois --themes light,dark`: 132 capturas em `docs/v1.2.0/shots/depois/`, sem overflow e sem erro (17/10/2026)
+- [ ] Conferência visual pelo autor (abrir cada página, executar, nos dois temas)
+- [x] `docs/v1.2.0/aceite.md` com a comparação, as rodadas intermediárias e a explicação dos hashes
+- [x] `CHANGELOG.md` com a entrada da v1.2.0
+- [ ] Tag `v1.2.0` e espelho `gh-pages` (com autorização)
 - [ ] `scripts/sync_minervamesh.sh` no fork do labmfa e atualização do PR #1
 
 ## Lista "caso a caso" (fora desta versão)

@@ -3,6 +3,35 @@
 Registro de versões da plataforma MinervaMesh. Formato livre, em português,
 uma seção por versão, da mais recente para a mais antiga.
 
+## v1.2.0 (17/10/2026)
+
+Repaginação da interface (protótipo aprovado pelo autor no Claude Design;
+especificação em `docs/v1.2.0/spec.md`):
+
+- Menu em galeria: card por simulação com miniatura real do resultado,
+  badges de método, dimensão e regime, e chips de filtro; marca MinervaMesh
+  própria (o logo da Poli saiu; a afiliação vai no rodapé).
+- Página de simulação com o resultado como foco: faixa com a equação
+  governante e o esquema do domínio sempre visível; enunciado completo na
+  coluna larga, num seletor Resultado | Problema; código-fonte em popup com
+  números de linha; figura em largura total com a validação embaixo.
+- Saída de exemplo (parâmetros padrão) antes do primeiro Run, no lugar da
+  área vazia.
+- Tema claro e escuro (botão no cabeçalho, segue o sistema por padrão) e
+  tipografia IBM Plex; tokens de cor em variáveis CSS.
+- Celular: resultado antes dos parâmetros, barra do Run fixa no rodapé da
+  janela, equações com rolagem própria; nenhuma página rola na horizontal.
+- Modo embutido (`data-mm-embedded`) para a hospedagem no site do LabMFA.
+- `simulation.py` exibidos ao aluno mais enxutos: o bloco repetido de i18n e
+  progresso (15 linhas por módulo) virou `assets/mmcommon.py`; no transiente
+  1D, dois comentários duplicados saíram e três enganosos foram corrigidos.
+  Os comentários que explicam os passos do método ficaram. Nenhuma linha
+  numérica mudou (AST idêntica, `scripts/ast-check.py`).
+- Resultados numéricos inalterados em relação à v1.1.0 (texto das métricas
+  idêntico nos 10 módulos; verificação em `docs/v1.2.0/aceite.md`).
+- Ferramentas: `scripts/shots.mjs` (capturas), `scripts/thumbs.mjs`
+  (miniaturas), `scripts/probe.mjs` (sonda de estados), `scripts/ast-check.py`.
+
 ## v1.1.0 (17/10/2026)
 
 Melhorias para a hospedagem no site do LabMFA:

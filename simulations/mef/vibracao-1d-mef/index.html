@@ -71,43 +71,38 @@
           </section>
         </div>
       </details>
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <div data-mm-params class="bg-mm-surface rounded-lg shadow p-5">
-          <h3 class="text-lg font-semibold text-mm-accent mb-4" data-i18n="section.params">Parâmetros</h3>
+      <div>
+        <div data-mm-params>
+          <h3 data-i18n="section.params">Parâmetros</h3>
 
-          <!-- Casos Pré-definidos -->
           <div class="mb-4 p-3 bg-mm-surface2 rounded-lg">
             <label for="preset_cases" class="block text-sm font-medium text-mm-text mb-2" data-i18n="input.preset_cases">Casos pré-definidos</label>
             <div class="flex gap-2">
-              <select id="preset_cases" class="flex-1 rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent">
+              <select id="preset_cases" class="flex-1">
                 <option value="" data-i18n="option.preset_cases.none">Selecione um caso...</option>
                 <option value="steel_bar" data-i18n="option.preset_cases.steel_bar">Barra de aço</option>
                 <option value="aluminum_bar" data-i18n="option.preset_cases.aluminum_bar">Barra de alumínio</option>
                 <option value="concrete_column" data-i18n="option.preset_cases.concrete_column">Coluna de concreto</option>
                 <option value="composite_bar" data-i18n="option.preset_cases.composite_bar">Barra composta</option>
               </select>
-              <button id="loadCase" class="bg-mm-ok hover:bg-mm-ok-strong text-mm-on-accent font-medium py-2 px-3 rounded text-sm"><span data-i18n="btn.load_case">Carregar</span></button>
+              <button id="loadCase"><span data-i18n="btn.load_case">Carregar</span></button>
             </div>
           </div>
 
-          <!-- Parâmetros Básicos -->
           <div class="space-y-3">
-            <div><label for="L" class="block text-sm font-medium text-mm-text" data-i18n="input.L">Comprimento L [m]</label><input type="number" id="L" value="2.0" step="0.1" min="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" /></div>
-            <div><label for="nel" class="block text-sm font-medium text-mm-text" data-i18n="input.nel">Número de elementos nₑ</label><input type="number" id="nel" value="20" min="2" step="1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" /></div>
+            <div><label for="L" class="block text-sm font-medium text-mm-text" data-i18n="input.L">Comprimento L [m]</label><input type="number" id="L" value="2.0" step="0.1" min="0.1" /></div>
+            <div><label for="nel" class="block text-sm font-medium text-mm-text" data-i18n="input.nel">Número de elementos nₑ</label><input type="number" id="nel" value="20" min="2" step="1" /></div>
 
-            <!-- Propriedades Materiais -->
             <div class="grid grid-cols-2 gap-3">
-              <div><label for="E" class="block text-sm font-medium text-mm-text" data-i18n="input.E">Módulo de elasticidade E [GPa]</label><input type="number" id="E" value="200.0" step="1.0" min="1.0" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" /></div>
-              <div><label for="rho" class="block text-sm font-medium text-mm-text" data-i18n="input.rho">Densidade ρ [kg/m³]</label><input type="number" id="rho" value="7850.0" step="10.0" min="100.0" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" /></div>
+              <div><label for="E" class="block text-sm font-medium text-mm-text" data-i18n="input.E">Módulo de elasticidade E [GPa]</label><input type="number" id="E" value="200.0" step="1.0" min="1.0" /></div>
+              <div><label for="rho" class="block text-sm font-medium text-mm-text" data-i18n="input.rho">Densidade ρ [kg/m³]</label><input type="number" id="rho" value="7850.0" step="10.0" min="100.0" /></div>
             </div>
 
-            <!-- Área da seção transversal -->
-            <div><label for="A" class="block text-sm font-medium text-mm-text" data-i18n="input.A">Área da seção A [cm²]</label><input type="number" id="A" value="100.0" step="1.0" min="0.1" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent" /></div>
+            <div><label for="A" class="block text-sm font-medium text-mm-text" data-i18n="input.A">Área da seção A [cm²]</label><input type="number" id="A" value="100.0" step="1.0" min="0.1" /></div>
 
-            <!-- Condições de Contorno -->
             <div>
               <label for="bc_type" class="block text-sm font-medium text-mm-text" data-i18n="input.bc_type">Condições de contorno</label>
-              <select id="bc_type" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent">
+              <select id="bc_type">
                 <option value="free_free" data-i18n="option.bc_type.free_free">Livre-livre</option>
                 <option value="fixed_fixed" data-i18n="option.bc_type.fixed_fixed">Engastada-engastada</option>
                 <option value="fixed_free" data-i18n="option.bc_type.fixed_free">Engastada-livre</option>
@@ -115,10 +110,9 @@
               </select>
             </div>
 
-            <!-- Propriedades Variáveis -->
             <div>
               <label for="prop_type" class="block text-sm font-medium text-mm-text" data-i18n="input.prop_type">Propriedades materiais</label>
-              <select id="prop_type" class="w-full rounded-md border-mm-border focus:border-mm-accent focus:ring-mm-accent">
+              <select id="prop_type">
                 <option value="constant" data-i18n="option.prop_type.constant">Constante</option>
                 <option value="linear" data-i18n="option.prop_type.linear">Linear</option>
                 <option value="parabolic" data-i18n="option.prop_type.parabolic">Parabólica</option>
@@ -126,29 +120,28 @@
               </select>
             </div>
 
-            <!-- Opções -->
             <div class="flex items-center">
-              <input type="checkbox" id="show_analytical" class="rounded border-mm-border text-mm-accent focus:ring-mm-accent" checked />
+              <input type="checkbox" id="show_analytical" checked />
               <label for="show_analytical" class="ml-2 text-sm text-mm-text" data-i18n="input.show_analytical">Mostrar solução analítica</label>
             </div>
             <p class="text-xs text-mm-muted mt-1" data-i18n="note.analytical_only">Disponível apenas para propriedades constantes</p>
           </div>
 
           <div class="flex gap-3 mt-5">
-            <button id="run-btn" class="flex-1 bg-mm-accent hover:bg-mm-accent-strong text-mm-on-accent font-medium py-2 px-4 rounded"><span data-i18n="btn.run">Executar</span></button>
-            <button id="show-code-btn" class="bg-mm-muted hover:bg-mm-text text-mm-on-accent font-medium py-2 px-4 rounded"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
+            <button id="run-btn"><span data-i18n="btn.run">Executar</span></button>
+            <button id="show-code-btn"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
           </div>
         </div>
 
-        <div data-mm-result class="lg:col-span-3 bg-mm-surface rounded-lg shadow p-5">
-          <h3 class="text-lg font-semibold text-mm-accent mb-4" data-i18n="result.title">Resultados da análise de vibração</h3>
+        <div data-mm-result>
+          <h3 data-i18n="result.title">Resultados da análise de vibração</h3>
           <div class="mb-3 text-sm text-mm-muted">
             <p><strong><span data-i18n="result.note.full.label">Análise completa</span>:</strong> <span data-i18n="result.note.full">Frequências naturais, modos de vibração (5 modos) e propriedades materiais</span></p>
             <p><strong><span data-i18n="result.note.rigid.label">Nota</span>:</strong> <span data-i18n="result.note.rigid">O primeiro modo da barra livre-livre representa movimento de corpo rígido (frequência = 0 Hz)</span></p>
             <p><strong><span data-i18n="result.note.modes.label">Modos</span>:</strong> <span data-i18n="result.note.modes">Cada modo mostra uma forma característica de vibração com sua frequência natural</span></p>
             <p><strong><span data-i18n="result.note.penalty.label">Precisão melhorada</span>:</strong> <span data-i18n="result.note.penalty">Condições engastadas são impostas pelo método da penalidade</span></p>
           </div>
-          <div id="plot-output" class="w-full min-h-[900px] bg-mm-surface2 rounded flex items-center justify-center text-mm-muted"></div>
+          <div id="plot-output"></div>
         </div>
       </div>
     </div>

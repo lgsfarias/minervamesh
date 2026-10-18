@@ -487,6 +487,9 @@ function layoutModule(app) {
   }
   const stopBtn = params.querySelector("#stop-btn");
   if (stopBtn) stopBtn.className = "mm-btn-danger" + (stopBtn.classList.contains("hidden") ? " hidden" : "");
+  // "Carregar" dos casos pré-definidos (viga, vibração, NS): botão secundário ao lado do select
+  const loadBtn = params.querySelector("#loadCase");
+  if (loadBtn) loadBtn.className = "mm-btn-ghost shrink-0 min-h-[40px]";
 
   // 4. Coluna larga: card com o seletor Resultado | Problema no cabeçalho. O conteúdo do antigo
   //    <details> vira o painel Problema, com a largura que o texto e os esquemas pedem.

@@ -70,43 +70,42 @@
           </section>
         </div>
       </details>
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+      <div>
         <!-- Painel de Parâmetros. Rótulos com subscrito: texto traduzível no <span>, símbolo fora dele. -->
-        <div data-mm-params class="bg-mm-surface rounded-lg shadow-md p-6 lg:col-span-1">
-          <h3 class="text-xl font-semibold text-mm-accent mb-4 border-b pb-2" data-i18n="section.params">Parâmetros</h3>
+        <div data-mm-params>
+          <h3 data-i18n="section.params">Parâmetros</h3>
 
           <label for="n_steps" class="block text-sm mb-1" data-i18n="input.n_steps">Número de passos de tempo</label>
-          <input type="number" id="n_steps" value="50" min="1" class="w-full mb-3 rounded border-mm-border" />
+          <input type="number" id="n_steps" value="50" min="1" class="mb-3" />
 
           <label for="dt" class="block text-sm mb-1" data-i18n="input.dt">Passo de tempo Δt [s]</label>
-          <input type="number" id="dt" value="0.001" step="0.001" class="w-full mb-3 rounded border-mm-border" />
+          <input type="number" id="dt" value="0.001" step="0.001" class="mb-3" />
 
           <label for="Tbottom" class="block text-sm mb-1"><span data-i18n="input.Tbottom">Temperatura da base</span> T<sub>bottom</sub> [°C]</label>
-          <input type="number" id="Tbottom" value="30" class="w-full mb-3 rounded border-mm-border" />
+          <input type="number" id="Tbottom" value="30" class="mb-3" />
 
           <label for="Ttop" class="block text-sm mb-1"><span data-i18n="input.Ttop">Temperatura do topo</span> T<sub>top</sub> [°C]</label>
-          <input type="number" id="Ttop" value="100" class="w-full mb-3 rounded border-mm-border" />
+          <input type="number" id="Ttop" value="100" class="mb-3" />
 
           <label for="k" class="block text-sm mb-1" data-i18n="input.k">Condutividade térmica k [W/(m·K)]</label>
-          <input type="number" id="k" value="1.0" step="0.1" class="w-full mb-3 rounded border-mm-border" />
+          <input type="number" id="k" value="1.0" step="0.1" class="mb-3" />
 
           <label for="rho" class="block text-sm mb-1" data-i18n="input.rho">Densidade ρ [kg/m³]</label>
-          <input type="number" id="rho" value="1.0" step="0.1" class="w-full mb-3 rounded border-mm-border" />
+          <input type="number" id="rho" value="1.0" step="0.1" class="mb-3" />
 
           <label for="cv" class="block text-sm mb-1"><span data-i18n="input.cv">Calor específico</span> c<sub>v</sub> [J/(kg·K)]</label>
-          <input type="number" id="cv" value="1.0" step="0.1" class="w-full mb-4 rounded border-mm-border" />
+          <input type="number" id="cv" value="1.0" step="0.1" class="mb-4" />
 
           <div class="flex gap-2">
-            <button id="run-btn" class="bg-mm-accent text-mm-on-accent font-semibold py-2 px-4 rounded w-full"><span data-i18n="btn.run">Executar</span></button>
-            <button id="show-code-btn" class="bg-mm-muted text-mm-on-accent font-semibold py-2 px-4 rounded w-full"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
+            <button id="run-btn"><span data-i18n="btn.run">Executar</span></button>
+            <button id="show-code-btn"><span data-i18n="btn.show_code">Ver código-fonte</span></button>
           </div>
         </div>
 
-        <!-- Visualização -->
-        <div class="lg:col-span-3">
-          <div data-mm-result class="bg-mm-surface rounded-lg shadow-md p-6">
-            <h3 class="text-xl font-semibold text-mm-accent mb-4 text-center" data-i18n="result.title">Mapa de calor (GIF)</h3>
-            <div id="plot-output" class="w-full min-h-[400px] text-center"></div>
+        <div>
+          <div data-mm-result>
+            <h3 data-i18n="result.title">Mapa de calor (GIF)</h3>
+            <div id="plot-output"></div>
           </div>
         </div>
       </div>
