@@ -60,7 +60,7 @@ def analytical_steady_state(x, L, k1, k2):
 
 
 # ==============================
-# 2. Matrizes de elemento para MEF 1D
+# 3. Matrizes de elemento para MEF 1D
 # ==============================
 def element_matrices_1d(x1, x2, k_avg, rho_cp):
     """Calcula as matrizes de elemento para condução 1D."""
@@ -76,7 +76,7 @@ def element_matrices_1d(x1, x2, k_avg, rho_cp):
 
 
 # ==============================
-# 3. Montar sistema global
+# 4. Montar sistema global
 # ==============================
 def assemble_system(n_elements, L, rho_cp=1.0, k1=5.0, k2=1.0):
     """Monta as matrizes globais K e M do sistema MEF."""
@@ -103,7 +103,6 @@ def assemble_system(n_elements, L, rho_cp=1.0, k1=5.0, k2=1.0):
         # Calcular condutividade média do elemento
         # Para elementos que cruzam a fronteira x=L/2, usar média ponderada
         if x1 < L/2 and x2 > L/2:
-            # Elemento cruza a fronteira - calcular média ponderada
             frac_left = (L/2 - x1) / (x2 - x1)  # fração à esquerda da fronteira
             frac_right = (x2 - L/2) / (x2 - x1)  # fração à direita da fronteira
             k_avg = frac_left * k1 + frac_right * k2
@@ -122,7 +121,7 @@ def assemble_system(n_elements, L, rho_cp=1.0, k1=5.0, k2=1.0):
 
 
 # ==============================
-# 4. Renderizar frame
+# 5. Renderizar frame
 # ==============================
 def render_frame(T, x_nodes, t, n_elements, k1=1.0, k2=5.0):
     """Desenha um frame e retorna a imagem como array para o GIF."""
@@ -155,7 +154,6 @@ def render_frame(T, x_nodes, t, n_elements, k1=1.0, k2=5.0):
     ax.legend(fontsize=12)
 
     # Adicionar linha vertical no meio para mostrar mudança de k
-    # Linha vertical no meio
     ax.axvline(x=x_nodes[-1]/2, color='red', linestyle=':', alpha=0.5)
 
     # Rótulos em y = k1 e y = k2 no eixo de k(x)
@@ -174,7 +172,7 @@ def render_frame(T, x_nodes, t, n_elements, k1=1.0, k2=5.0):
 
 
 # ==============================
-# 5. Executar simulação
+# 6. Executar simulação
 # ==============================
 async def run_simulation(event=None):
     """Executa a simulação MEF, monta frames e publica um GIF no contêiner HTML."""
@@ -226,9 +224,9 @@ async def run_simulation(event=None):
     frames.append(render_frame(T, x_nodes, 0.0, n_elements, k1, k2))
 
     # ==============================
-    # 6. Loop temporal (Crank-Nicolson com suavização suave)
+    # 7. Loop temporal (método θ; θ = 0,5 é Crank-Nicolson)
     # ==============================
-    T_prev = T.copy()  # Para suavização temporal
+    T_prev = T.copy()
 
     for n in range(1, nt + 1):
         # Resolver sistema: A * T^(n+1) = B * T^n + f
@@ -254,7 +252,7 @@ async def run_simulation(event=None):
             await asyncio.sleep(0)  # cede o controle ao browser para repintar o progresso
 
     # ==============================
-    # 7. Montar GIF e publicar no DOM
+    # 8. Montar GIF e publicar no DOM
     # ==============================
     progress("encoding")
     await asyncio.sleep(0)
