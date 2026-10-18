@@ -106,10 +106,10 @@ Branch de trabalho: `feat/v1.2.0`. Nenhum commit sem autorização do autor.
 - [x] `assets/mmcommon.py` criado; blocos de guarda removidos dos 10 `.py` (15 linhas cada → 1 `from mmcommon import i18n_t, progress`); `[[fetch]]` em cada `config.toml`. Baseline `etapa10-mmcommon` × `etapa4`: texto idêntico nos 10, imagens idênticas em 9; a condução MDF difere em 36 bytes no canvas e é estável em três rodadas: a saída de exemplo (etapa 5) deixou a página mais alta que a janela, a barra de rolagem apareceu e o `clientWidth` de `#plot-output` caiu 15 px, mudando o dpi do `mmplot` (mesmo mecanismo dos 5 módulos na etapa 4; nas outras páginas a barra já existia)
 - [x] `scripts/baseline.mjs --label v1.2.0-final` (+ canal do NS com os parâmetros da referência, Δt = 0,001) e `compare-baseline.mjs` contra `final-sem-gancho`: **texto idêntico nos 10 módulos e nas duas configurações do NS**; imagens iguais em 5 + NS canal, diferentes nos 5 de `mmplot` (dpi), explicado no `aceite.md`
 - [x] Capturas "depois" com `scripts/shots.mjs --label depois --themes light,dark`: 132 capturas em `docs/v1.2.0/shots/depois/`, sem overflow e sem erro (17/10/2026)
-- [ ] Conferência visual pelo autor (abrir cada página, executar, nos dois temas)
+- [x] Conferência visual pelo autor das capturas "depois" (17/10/2026: "tudo certo")
 - [x] `docs/v1.2.0/aceite.md` com a comparação, as rodadas intermediárias e a explicação dos hashes
 - [x] `CHANGELOG.md` com a entrada da v1.2.0
-- [ ] Tag `v1.2.0` e espelho `gh-pages` (com autorização)
+- [x] Tag `v1.2.0` anotada em e7a6b67 e `gh-pages` espelhado (17/10/2026, autorizado pelo autor)
 - [ ] `scripts/sync_minervamesh.sh` no fork do labmfa e atualização do PR #1
 
 ## Lista "caso a caso" (fora desta versão)
