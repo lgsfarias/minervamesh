@@ -29,6 +29,6 @@ Branch de trabalho: `feat/v1.2.1`. Nenhum commit sem autorização do autor.
 - [x] README (miniaturas e `menu.json`), CHANGELOG (entrada da v1.2.1)
 - [x] `node scripts/i18n-check.mjs` limpo (o aviso `result.title` órfã já existia na v1.2.0)
 - [x] Captura final do menu com as 30 miniaturas, 1440 e 390 px, claro e escuro: overflow 0, sem erro de console nem de rede (06/11/2026)
-- [ ] Conferência visual pelo autor no `localhost:8000`
-- [ ] Commit, tag `v1.2.1` e `gh-pages` (com autorização)
-- [ ] Sync no fork do labmfa e atualização do PR #1 (fora desta branch)
+- [x] Conferência visual pelo autor no `localhost:8000` (06/11/2026: "ficou ótimo")
+- [x] Três commits na `feat/v1.2.1`, fast-forward na `main`, tag `v1.2.1` anotada (ba2cc6f) e `gh-pages` espelhado (06/11/2026, autorizado pelo autor)
+- [x] Fork do labmfa: `sync_minervamesh.sh v1.2.1` com a linha do modo embutido, build do Pelican (59 páginas, sem aviso), menu embutido, página e viga conferidos em Chrome headless; commit 8bc6946 na `feat/minervamesh`, descrição do PR #1 atualizada e comentário ao professor (06/11/2026)
