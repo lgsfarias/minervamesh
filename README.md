@@ -43,7 +43,7 @@ minervamesh/
 │   ├── app.js                             # i18n, cabeçalho, layout da página, progresso, menu
 │   ├── theme.js                           # tema claro/escuro antes da primeira pintura
 │   ├── mmcommon.py, mmplot.py             # ponte Python↔página e gráfico interativo (via [[fetch]])
-│   ├── menu.json                          # lista dos módulos (cards do menu, badges, miniaturas)
+│   ├── menu.json                          # lista dos módulos (cards do menu, badges, equações, miniaturas)
 │   ├── thumbs/                            # miniaturas reais dos resultados (scripts/thumbs.mjs)
 │   └── i18n/common.*.json, tailwind.*.css
 ├── scripts/                                # ferramentas de desenvolvimento (Node + Chrome headless)
@@ -118,7 +118,10 @@ npm run build:css
 ```
 
 As miniaturas do menu (`assets/thumbs/`) são geradas a partir das próprias
-simulações, com os parâmetros padrão; regenerar quando uma plotagem mudar:
+simulações: a figura inteira com os parâmetros padrão (`<id>.png`, saída de
+exemplo antes do Run) e as três miniaturas de cada card (`<id>-1..3.png`,
+regiões e parâmetros alternativos definidos em `assets/menu.json`);
+regenerar quando uma plotagem mudar:
 
 ```bash
 node scripts/thumbs.mjs          # requer Google Chrome e python3 com Pillow

@@ -3,6 +3,26 @@
 Registro de versões da plataforma MinervaMesh. Formato livre, em português,
 uma seção por versão, da mais recente para a mais antiga.
 
+## v1.2.1 (06/11/2026)
+
+Cards do menu refeitos a pedido do orientador, único ajuste apontado na
+avaliação da v1.2.0 (19/10/2026; protótipo no Claude Design, especificação
+em `docs/v1.2.1/spec.md`):
+
+- A figura principal de cada card passa a ser o esquema do problema físico
+  (domínio, condições de contorno e carregamento), o mesmo da aba Problema do
+  módulo; nos casos 1D, a equação governante aparece sob o esquema.
+- Abaixo, três miniaturas de resultado em 16:9, só com a área dos eixos:
+  os painéis da figura padrão quando o módulo tem vários (Navier-Stokes,
+  potencial, viga, vibração) ou três execuções com parâmetros diferentes
+  nos demais (`scripts/thumbs.mjs` ganhou `set` por miniatura).
+- Descrição do card limitada a duas linhas; grade com três colunas no
+  desktop.
+- Esquemas da condução permanente MEF e MDF diferenciados: elementos com
+  o tamanho `h` num, nós com o estêncil de três pontos no outro.
+- Nenhuma alteração nos `simulation.py`; figuras de exemplo regeneradas
+  idênticas às anteriores.
+
 ## v1.2.0 (17/10/2026)
 
 Repaginação da interface (protótipo aprovado pelo autor no Claude Design;
