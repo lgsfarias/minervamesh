@@ -3,6 +3,18 @@
 Registro de versões da plataforma MinervaMesh. Formato livre, em português,
 uma seção por versão, da mais recente para a mais antiga.
 
+## v1.2.2 (06/11/2026)
+
+Miniaturas do menu mais leves, sem mudança de aparência:
+
+- As 30 miniaturas dos cards passam de PNG 480 × 270 para WebP 384 × 216
+  (qualidade 80): 566 KB → 151 KB no total. O tile tem cerca de 120 px em
+  CSS, então 384 px continua nítido em telas Retina.
+- `decoding="async"` nas miniaturas e `content-visibility: auto` nos cards,
+  para o navegador pintar só o que está na tela ao rolar.
+- `scripts/thumbs_crop.py` passa a gravar WebP; as figuras de exemplo dos
+  módulos (`<id>.png`) seguem em PNG.
+
 ## v1.2.1 (06/11/2026)
 
 Cards do menu refeitos a pedido do orientador, único ajuste apontado na

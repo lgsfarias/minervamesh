@@ -111,6 +111,10 @@
      faixa com três miniaturas 16:9 e texto; sempre vertical */
   .mm-card {
     @apply flex flex-col overflow-hidden rounded-[10px] border border-mm-border bg-mm-surface text-mm-text transition hover:border-mm-accent hover:shadow-[0_4px_18px_rgba(21,24,29,0.08)];
+    /* v1.2.2: o navegador só pinta os cards fora da tela quando rolam para dentro dela;
+       a altura estimada evita saltos na barra de rolagem */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 460px;
   }
   .mm-card-scheme {
     @apply m-0 flex h-[200px] flex-col gap-1 border-b border-mm-border bg-mm-surface px-4 pb-2 pt-3;

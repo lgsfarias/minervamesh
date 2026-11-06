@@ -119,7 +119,7 @@ npm run build:css
 
 As miniaturas do menu (`assets/thumbs/`) são geradas a partir das próprias
 simulações: a figura inteira com os parâmetros padrão (`<id>.png`, saída de
-exemplo antes do Run) e as três miniaturas de cada card (`<id>-1..3.png`,
+exemplo antes do Run) e as três miniaturas de cada card (`<id>-1..3.webp`,
 regiões e parâmetros alternativos definidos em `assets/menu.json`);
 regenerar quando uma plotagem mudar:
 

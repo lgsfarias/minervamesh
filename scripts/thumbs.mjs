@@ -4,9 +4,9 @@
  * Chrome headless, roda em inglês e salva só a figura, sem toolbar nem título da janela:
  *   assets/thumbs/<id>.png      figura completa da execução com os parâmetros padrão,
  *                               1000 px de largura (saída de exemplo antes do Run)
- *   assets/thumbs/<id>-<n>.png  miniatura n (1..3) do card do menu: região "thumbs[n-1]"
+ *   assets/thumbs/<id>-<n>.webp miniatura n (1..3) do card do menu: região "thumbs[n-1]"
  *                               de assets/menu.json (só a área dos eixos), ajustada a
- *                               16:9 em 480 × 270
+ *                               16:9 em 384 × 216, WebP (v1.2.2)
  *
  * Cada entrada de "thumbs" pode trazer "set" (id do input → valor): o módulo roda de
  * novo com esses parâmetros (número/texto → value, checkbox → checked, select → value)
@@ -127,7 +127,7 @@ async function main() {
             // Só a execução padrão grava a figura completa ("-" pula)
             const full = run.set ? "-" : resolve(OUT_DIR, `${m.id}.png`);
             // Sem -I: o Pillow pode estar no site-packages do usuário, que o modo isolado ignora
-            const r = spawnSync("python3", [resolve(ROOT, "scripts/thumbs_crop.py"), raw, full, resolve(OUT_DIR, `${m.id}-${c.n}.png`), String(c.x), String(c.y), String(c.w), String(c.h)], { encoding: "utf8" });
+            const r = spawnSync("python3", [resolve(ROOT, "scripts/thumbs_crop.py"), raw, full, resolve(OUT_DIR, `${m.id}-${c.n}.webp`), String(c.x), String(c.y), String(c.w), String(c.h)], { encoding: "utf8" });
             if (r.status !== 0) throw new Error(`thumbs_crop.py: ${r.stderr.trim()}`);
             outs.push(`${m.id}-${c.n} ${r.stdout.trim()}`);
           }
