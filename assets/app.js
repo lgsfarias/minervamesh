@@ -841,30 +841,53 @@ async function boot() {
 }
 
 // Menu: sem PyScript, logo sem dialog de carga nem cabeçalho de módulo.
-// Cards do menu (v1.2.0, spec 6): um por módulo de assets/menu.json; título e descrição
-// pelas chaves menu.<id>.title/.desc; miniatura em assets/thumbs/<id>-sm.png (scripts/thumbs.mjs).
+// Esquema do problema físico de um módulo: o primeiro figure.mm-scheme svg da página dele
+// (o da geometria padrão; potencial e Navier-Stokes têm outros, paramétricos, depois).
+// Vem com data-i18n-attr="aria-label:scheme.alt", que applyStrings traduz. null se falhar.
+async function fetchScheme(href) {
+  try {
+    const r = await fetch(href);
+    if (!r.ok) return null;
+    const doc = new DOMParser().parseFromString(await r.text(), "text/html");
+    const svg = doc.querySelector("figure.mm-scheme svg");
+    return svg ? document.importNode(svg, true) : null;
+  } catch {
+    return null;
+  }
+}
+
+// Cards do menu (v1.2.0, spec 6; formato da v1.2.1, pedido do orientador): um por módulo
+// de assets/menu.json. Em cima, o esquema do problema físico (fetchScheme) e, nos 1D, a
+// equação governante (menu.json "eq", tipografada pelo MathJax); no meio, três miniaturas
+// de resultado 16:9 (assets/thumbs/<id>-1..3.png, scripts/thumbs.mjs); embaixo, badges,
+// título e descrição pelas chaves menu.<id>.title/.desc.
 async function buildMenu() {
   const grid = document.getElementById("mm-grid");
   if (!grid) return;
   const data = await fetchJson(new URL("assets/menu.json", ROOT));
-  for (const m of data.modules || []) {
+  const modules = data.modules || [];
+  const schemes = await Promise.all(modules.map((m) => fetchScheme(new URL(m.path, ROOT))));
+  modules.forEach((m, i) => {
     const href = new URL(m.path, ROOT);
-    const img = new URL(`assets/thumbs/${m.id}-sm.png`, ROOT);
-    grid.append(
-      el(`<a href="${href}" class="mm-card" data-method="${m.method}">
-          <div class="mm-card-thumb"><img src="${img}" alt="" width="480" height="360" loading="lazy" /></div>
-          <div class="mm-card-body">
-            <div class="flex flex-wrap gap-1.5">
-              <span class="mm-tag mm-tag-${m.method}" data-i18n="menu.tag.${m.method}"></span>
-              <span class="mm-tag" data-i18n="menu.tag.${m.dim}"></span>
-              <span class="mm-tag" data-i18n="menu.tag.${m.regime}"></span>
-            </div>
-            <h2 class="mm-card-title" data-i18n="menu.${m.id}.title"></h2>
-            <p class="mm-card-desc" data-i18n="menu.${m.id}.desc"></p>
+    const thumbs = (m.thumbs || [])
+      .map((_, n) => `<img src="${new URL(`assets/thumbs/${m.id}-${n + 1}.png`, ROOT)}" alt="" width="480" height="270" loading="lazy" />`)
+      .join("");
+    const card = el(`<a href="${href}" class="mm-card" data-method="${m.method}">
+        <figure class="mm-scheme mm-card-scheme">${m.eq ? `<div class="mm-card-eq">$$${m.eq}$$</div>` : ""}</figure>
+        <div class="mm-card-strip">${thumbs}</div>
+        <div class="mm-card-body">
+          <div class="flex flex-wrap gap-1.5">
+            <span class="mm-tag mm-tag-${m.method}" data-i18n="menu.tag.${m.method}"></span>
+            <span class="mm-tag" data-i18n="menu.tag.${m.dim}"></span>
+            <span class="mm-tag" data-i18n="menu.tag.${m.regime}"></span>
           </div>
-        </a>`)
-    );
-  }
+          <h2 class="mm-card-title" data-i18n="menu.${m.id}.title"></h2>
+          <p class="mm-card-desc" data-i18n="menu.${m.id}.desc"></p>
+        </div>
+      </a>`);
+    if (schemes[i]) card.querySelector(".mm-card-scheme").prepend(schemes[i]);
+    grid.append(card);
+  });
   // Chips: filtram por método; aria-pressed marca o ativo
   const chips = [...document.querySelectorAll("#mm-filters .mm-chip")];
   for (const chip of chips) {
@@ -880,6 +903,7 @@ async function bootMenu() {
   document.body.classList.add("flex", "flex-col");
   injectHeader({ menu: true });
   await buildMenu();
+  injectMathJax(); // depois dos cards: as equações dos 1D já estão no DOM quando o MathJax arranca
   injectFooter();
   await loadStrings(lang);
   applyStrings();

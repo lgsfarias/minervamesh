@@ -11,7 +11,8 @@
   <script type="module" src="assets/app.js"></script>
 </head>
 
-<!-- Menu (v1.2.0, spec 6): cabeçalho e rodapé vêm do app.js; os cards são montados a partir de assets/menu.json. -->
+<!-- Menu (v1.2.0, spec 6; cards v1.2.1): cabeçalho e rodapé vêm do app.js; os cards são montados a partir de assets/menu.json
+     (esquema do problema copiado da página do módulo, equação via MathJax, três miniaturas de assets/thumbs/). -->
 <body class="bg-mm-bg min-h-screen flex flex-col" data-mm-title="menu.title">
   <main id="mm-app" class="mx-auto w-full max-w-[1360px] flex-1 px-4 pb-14 pt-10 md:px-6 md:pt-12">
 
@@ -31,7 +32,7 @@
       <button type="button" class="mm-chip" data-method="fem" aria-pressed="false"><span data-i18n="menu.filter.fem">Elementos finitos</span> <span class="mm-chip-n">8</span></button>
     </div>
 
-    <div id="mm-grid" class="mt-6 grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(min(240px,100%),1fr))]"></div>
+    <div id="mm-grid" class="mt-6 grid gap-5 [grid-template-columns:repeat(auto-fit,minmax(min(340px,100%),1fr))]"></div>
 
     <noscript>
       <ul class="mt-6 list-disc space-y-1 pl-5">

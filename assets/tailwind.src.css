@@ -107,18 +107,28 @@
   .mm-chip-n {
     @apply font-mono text-xs opacity-75;
   }
-  /* Card: miniatura e texto em flex-wrap; vertical no desktop, horizontal no celular, sem media query */
+  /* Card (v1.2.1): esquema do problema em cima (altura fixa, equação dos 1D embaixo dele),
+     faixa com três miniaturas 16:9 e texto; sempre vertical */
   .mm-card {
-    @apply flex flex-wrap overflow-hidden rounded-[10px] border border-mm-border bg-mm-surface text-mm-text transition hover:border-mm-accent hover:shadow-[0_4px_18px_rgba(21,24,29,0.08)];
+    @apply flex flex-col overflow-hidden rounded-[10px] border border-mm-border bg-mm-surface text-mm-text transition hover:border-mm-accent hover:shadow-[0_4px_18px_rgba(21,24,29,0.08)];
   }
-  .mm-card-thumb {
-    @apply aspect-[4/3] flex-[1_1_140px] overflow-hidden border-b border-mm-border bg-mm-plate;
+  .mm-card-scheme {
+    @apply m-0 flex h-[200px] flex-col gap-1 border-b border-mm-border bg-mm-surface px-4 pb-2 pt-3;
   }
-  .mm-card-thumb img {
-    @apply block h-full w-full object-cover object-top;
+  .mm-card-eq {
+    @apply shrink-0 overflow-x-auto text-center text-[15px] leading-none text-mm-text;
+  }
+  .mm-card-strip {
+    @apply grid grid-cols-3 gap-2 border-b border-mm-border bg-mm-surface2 px-3 py-2.5 opacity-90 transition-opacity;
+  }
+  .mm-card:hover .mm-card-strip {
+    @apply opacity-100;
+  }
+  .mm-card-strip img {
+    @apply block aspect-video w-full rounded-md border border-mm-border bg-mm-plate object-cover;
   }
   .mm-card-body {
-    @apply flex min-w-0 flex-[999_1_160px] flex-col gap-2 px-4 pb-4 pt-3.5;
+    @apply flex min-w-0 flex-col gap-2 px-4 pb-4 pt-3.5;
   }
   .mm-card-title {
     @apply text-[15.5px] font-semibold leading-tight tracking-tight;
@@ -127,7 +137,7 @@
     @apply text-mm-accent;
   }
   .mm-card-desc {
-    @apply line-clamp-3 text-[13px] leading-snug text-mm-muted;
+    @apply line-clamp-2 text-[13px] leading-snug text-mm-muted;
   }
   .mm-tag {
     @apply rounded border border-mm-border px-1.5 py-0.5 font-mono text-[11px] tracking-wide text-mm-muted;
@@ -370,3 +380,12 @@ mjx-container[jax="CHTML"][display="true"] {
 .mm-scheme .bcr { font: 12px ui-monospace, SFMono-Regular, Menlo, monospace; fill: var(--mm-hot); }
 .mm-scheme .halo { paint-order: stroke; stroke: var(--mm-accent-soft); stroke-width: 4px; stroke-linejoin: round; }
 .mm-scheme .axl { font: italic 12px serif; fill: var(--mm-muted); }
+/* Malha desenhada sobre o domínio (v1.2.1): elementos (MEF) e nós com o estêncil em destaque (MDF) */
+.mm-scheme .el { stroke: var(--mm-muted); stroke-width: 1; }
+.mm-scheme .elh { fill: var(--mm-accent); fill-opacity: 0.25; stroke: none; }
+.mm-scheme .node { fill: var(--mm-text); }
+.mm-scheme .nodeh { fill: var(--mm-accent); }
+/* Esquema dentro do card do menu (v1.2.1): preenche a altura fixa do painel; a equação do
+   MathJax fica sem a margem padrão de display math */
+.mm-card .mm-scheme svg { height: 100%; flex: 1 1 auto; min-height: 0; }
+.mm-card-eq mjx-container[display="true"] { margin: 0 !important; }
